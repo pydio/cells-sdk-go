@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IdmUser**](idmUser.md)
+[**IdmUser**](IdmUser.md)
 
 ### Authorization
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IdmUser**](idmUser.md)
+[**IdmUser**](IdmUser.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IdmUser**](idmUser.md)
+[**IdmUser**](IdmUser.md)
 
 ### Authorization
 

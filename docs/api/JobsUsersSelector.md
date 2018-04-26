@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **All** | **bool** |  | [optional] [default to null]
-**Users** | [**[]IdmUser**](idmUser.md) |  | [optional] [default to null]
+**Users** | [**[]IdmUser**](IdmUser.md) |  | [optional] [default to null]
 **Query** | [***ServiceQuery**](serviceQuery.md) |  | [optional] [default to null]
 **Collect** | **bool** |  | [optional] [default to null]
 

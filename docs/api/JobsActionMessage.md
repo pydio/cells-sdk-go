@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Event** | [***ProtobufAny**](protobufAny.md) |  | [optional] [default to null]
 **Nodes** | [**[]TreeNode**](treeNode.md) |  | [optional] [default to null]
-**Users** | [**[]IdmUser**](idmUser.md) |  | [optional] [default to null]
+**Users** | [**[]IdmUser**](IdmUser.md) |  | [optional] [default to null]
 **Activities** | [**[]ActivityObject**](activityObject.md) |  | [optional] [default to null]
 **OutputChain** | [**[]JobsActionOutput**](jobsActionOutput.md) |  | [optional] [default to null]
 
