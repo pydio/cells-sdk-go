@@ -23,7 +23,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IdmRole**](idmRole.md)
+[**IdmRole**](IdmRole.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IdmRole**](idmRole.md)
+[**IdmRole**](IdmRole.md)
 
 ### Authorization
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IdmRole**](idmRole.md)
+[**IdmRole**](IdmRole.md)
 
 ### Authorization
 

@@ -1,23 +1,67 @@
 package util
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
+
+	sdkapi "github.com/pydio/cells-sdk-go/api"
 )
 
-const (
-	// TODO make this available via config. This only work on a local workstation for the time being.
-	hostURL     = "http://192.168.122.89:8080"
-	apiUser     = "pydio-frontend"
-	apiKey      = "hj8tZI5Cca2YPrAWL17ZUQJH"
-	contentType = "application/x-www-form-urlencoded"
+var (
+	hostURL         string
+	apiResourcePath string
+	apiUser         string
+	apiKey          string
+	contentType     string
+	adminUser       string
+	adminPwd        string
 
 	grantType = "password"
 	scope     = "email profile pydio"
 )
+
+func init() {
+
+	// TODO make this available via config. This only work on a local workstation for the time being.
+	hostURL = "http://192.168.122.89:8080"
+	apiResourcePath = "/a"
+
+	apiUser = "pydio-frontend"
+	apiKey = "hj8tZI5Cca2YPrAWL17ZUQJH"
+	contentType = "application/x-www-form-urlencoded"
+
+	adminUser = "admin"
+	adminPwd = "an admin password"
+}
+
+func GetPreparedApiClient() (*sdkapi.APIClient, context.Context, error) {
+	config := sdkapi.NewConfiguration()
+	config.BasePath = hostURL + apiResourcePath
+	apiClient := sdkapi.NewAPIClient(config)
+
+	ctx, err := withAuth(context.Background())
+	if err != nil {
+		return apiClient, nil, err
+	}
+
+	return apiClient, ctx, nil
+}
+
+func withAuth(ctx context.Context) (context.Context, error) {
+
+	jwt, err := retrieveToken(adminUser, adminPwd)
+	if err != nil {
+		fmt.Printf("could not retrieve token: %s\n", err.Error())
+		return nil, err
+	}
+
+	return context.WithValue(ctx, sdkapi.ContextAccessToken, jwt), nil
+}
 
 func retrieveToken(login, pwd string) (string, error) {
 

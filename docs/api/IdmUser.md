@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **Uuid** | **string** |  | [optional] [default to null]
 **GroupPath** | **string** |  | [optional] [default to null]
 **Attributes** | **map[string]string** |  | [optional] [default to null]
-**Roles** | [**[]IdmRole**](idmRole.md) |  | [optional] [default to null]
+**Roles** | [**[]IdmRole**](IdmRole.md) |  | [optional] [default to null]
 **Login** | **string** |  | [optional] [default to null]
 **Password** | **string** |  | [optional] [default to null]
 **IsGroup** | **bool** |  | [optional] [default to null]

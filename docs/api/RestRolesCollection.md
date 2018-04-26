@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Roles** | [**[]IdmRole**](idmRole.md) |  | [optional] [default to null]
+**Roles** | [**[]IdmRole**](IdmRole.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
