@@ -1,41 +1,54 @@
 package util
 
 import (
-	"fmt"
 	"sync"
 
+	"github.com/micro/go-config/reader"
 	"github.com/pydio/go-os/config"
 	"github.com/pydio/go-os/config/source/file"
-
-	pydioconfig "github.com/pydio/cells/common/config"
 )
 
 var (
 	// TODO provision json file on test suite startup
-	pydioConfigFilePath = "/home/bsinou/.config/pydio/cells/pydio.json"
+	pydioConfigFilePath = ""
 
-	defaultConfig *pydioconfig.Config
+	defaultConfig *Config
 
 	once sync.Once
 )
 
+// Config wrapper around micro Config
+type Config struct {
+	config.Config
+}
+
+// getServerConfig returns a deserialised config with info about the server we want to test
+func getServerConfig() *Config {
+	once.Do(func() {
+		defaultConfig = &Config{
+			config.NewConfig(
+				config.WithSource(newLocalSource()),
+			)}
+	})
+
+	return defaultConfig
+}
+
 func newLocalSource() config.Source {
-	fmt.Println("config path: " + pydioConfigFilePath)
+	// fmt.Println("config path: " + pydioConfigFilePath)
 	return file.NewSource(
 		config.SourceName(pydioConfigFilePath),
 	)
 }
 
-// getServerConfig returns a deserialised config with info about the server we want to test
-func getServerConfig() *pydioconfig.Config {
-	once.Do(func() {
-		defaultConfig = &pydioconfig.Config{config.NewConfig(
-			// config.WithSource(newEnvSource()),
-			config.WithSource(newLocalSource()),
-		)}
-	})
+func GetConfigValue(path ...string) reader.Value {
+	return getServerConfig().Get(path...)
+}
 
-	fmt.Println("Found default config: " + defaultConfig.Get("os").String("test"))
+func Set(val interface{}, path ...string) {
+	getServerConfig().Set(val, path...)
+}
 
-	return defaultConfig
+func Bytes() []byte {
+	return getServerConfig().Bytes()
 }

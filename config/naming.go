@@ -17,6 +17,10 @@ var (
 	BuildStamp string
 	// BuildRevision stores the current build version.
 	BuildRevision string
+
+	// RunEnvAwareTests flag permits easy switch off of all tests
+	// that will not pass in basic environment, typically in TeamCity, without specific configuration
+	RunEnvAwareTests = false // TODO enhance
 )
 
 // Version retrieves the current build version of the app. Note that this is updated via the linker upon build.

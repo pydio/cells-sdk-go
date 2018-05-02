@@ -1,15 +1,20 @@
 package util
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/pydio/cells-sdk-go/config"
 
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestEmptyDao(t *testing.T) {
+func TestJWT(t *testing.T) {
 
 	Convey("Test JWT retrieval", t, func() {
+
+		if !config.RunEnvAwareTests {
+			return // We skip tests that fail if we are not connected to a running Pydio Cells instance
+		}
 
 		jwt, err := retrieveToken(adminUser, adminPwd)
 		So(err, ShouldBeNil)
@@ -18,10 +23,4 @@ func TestEmptyDao(t *testing.T) {
 		// So(len(tokens), ShouldEqual, 3)
 	})
 
-	Convey("Test Config retrieval", t, func() {
-		conf := getServerConfig()
-		fmt.Printf("value: %v\n", conf.Get("pydio.grpc.activity", "driver").String("Default used"))
-
-		// 		So(conf.Get("cert", "proxy", "ssl").(string), ShouldEqual, false)
-	})
 }
