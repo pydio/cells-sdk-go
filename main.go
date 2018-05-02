@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	// Force import to test everything build correctly
+	// Force import to test that everything builds correctly
 	_ "github.com/pydio/cells-sdk-go/api"
 
-	"github.com/pydio/cells-sdk-go/test/idm"
+	"github.com/pydio/cells-sdk-go/example/idm"
 )
 
 func main() {

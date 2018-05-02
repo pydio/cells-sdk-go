@@ -28,11 +28,11 @@ var (
 func init() {
 
 	// TODO make this available via config. This only work on a local workstation for the time being.
-	hostURL = "http://192.168.122.89:8080"
+	hostURL = "http://192.168.0.140:8080"
 	apiResourcePath = "/a"
 
-	apiUser = "pydio-frontend"
-	apiKey = "hj8tZI5Cca2YPrAWL17ZUQJH"
+	apiUser = "cells-front"
+	apiKey = "bLYmNHYUhiBMu5tBUUDrlSFM"
 	contentType = "application/x-www-form-urlencoded"
 
 	adminUser = "admin"
