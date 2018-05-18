@@ -19,7 +19,7 @@ For more information, please visit [https://pydio.com](https://pydio.com)
 Put the package under your project folder and add the following in import:
 
 ```go
-    "github.com/pydio/cells-sdk-go/swagger"
+    "github.com/pydio/cells-sdk-go"
 ```
 
 ## Documentation for API Endpoints
