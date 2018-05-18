@@ -4,13 +4,13 @@ import (
 	"fmt"
 
 	sdkapi "github.com/pydio/cells-sdk-go/api"
-	"github.com/pydio/cells-sdk-go/util"
+	"github.com/pydio/cells-sdk-go/config"
 )
 
 // CreateUser simply creates a new user
 func CreateUser(groupPath, login, password string) (sdkapi.IdmUser, error) {
 
-	apiClient, ctx, err := util.GetPreparedApiClient()
+	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return sdkapi.IdmUser{}, err
 	}
@@ -39,7 +39,7 @@ func CreateUser(groupPath, login, password string) (sdkapi.IdmUser, error) {
 // ListUsers returns an array containing all known users
 func ListUsers() error {
 
-	apiClient, ctx, err := util.GetPreparedApiClient()
+	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return err
 	}
