@@ -21,7 +21,7 @@ This enables us to generate a file that we use to describe our REST api.
 
 The swagger file retrieves all comments from the proto3 file. It also describes the various models.
 
-As a last step of our process, we also store the resulting swager in a simple string that we store in a go file.
+As a last step of our process, we also store the resulting swagger in a simple string that we store in a go file.
 
 ## A few notes about the use of the resulting API
 
@@ -29,57 +29,44 @@ As a last step of our process, we also store the resulting swager in a simple st
 
 - The blue print of our web services is specified and implemented in cells/common/service.
 - Each service is then configured and declared in the corresponding `.../rest/plugins.go` file. The service are then instantiated and managed by the Pydio Cells core framework.
-- In go, we use a specific Json marshaller: JSonPB, among others to be able to use TEXT value of the various enums than the corresponding number in the JSON serialised messages.
+- In go, we use a specific Json marshaller (JSonPB) to encode and decode messages and provide communication with the REST service.  
+    This, among others, to be able to use the string representation of the values rather than the corresponding number for the various enums that are then serialized in the JSON messages.  
+    See [rest-entity-rw.go](https://github.com/pydio/cells/blob/master/common/service/rest-entity-rw.go) and [service-web.go](https://github.com/pydio/cells/blob/master/common/service/service-web.go) 
+
 - Base path in the swagger is defined by (and must fit with) the suffix of rest service's name. Typically service pydio.rest.idm can be found at `<host>/a/idm`.
 - We also need to configure the rest service by implementing 2 methods in each rest package, typically:
 
-dans les rest.go , on a ajouter un decodre et un encoder pour serialiser avec JSONPB a la lib qui nous permet de manipuler les service rest --> 
-    cf rest-entity-rw.go & service-web.go
-
-
 ```go
-// SwaggerTags desclares the name of the method that are implemented by this struct.
+// SwaggerTags desclares the name of the services that are implemented by this struct.
 func (s *RoleHandler) SwaggerTags() []string {
     return []string{"RoleService"}
 }
 
-// Filter can be use to change defined paths.
+// Filter can be used to change pre-defined paths.
 func (s *RoleHandler) Filter() func(string) string {
     return nil
 }
 ```
 
+#### JWT
 
+JWT mechanisms are provided by Dex (based on openid connect) 
 
+#### Micro API
 
-en plus: micro api 
+We furthermore use micro api to provide the gateway.
 
-on démarre un service micro api -> gateway/micro/rest
-il fait le gateway on attaque micro api et lui dispatch
+This service is declared in gateway/micro/plugins.go
 
-cf github de micro
+It receives the rest request and dispach them.
 
+For more info, see [micro repository on Github](https://github.com/micro/micro)
 
-Pour définir son root path maintenant on édit pydio.json
+- To define the root path one should edit the `pydio.json` file that is in the root folder of Pydio Cells data folder (which is typically located at `~/.config/pydio/cells`). We do this to ease enablement and disablement of TLS communication. 
 
-(on a fait ca a cause des histoire d'enable /disable du SSL)
+### Front end in Pydio Cells v1.0.0
 
+- To check how we generate PHP and javascript clients, see  [cells-front/core/generate-api.sh](https://github.com/pydio/cells-front/blob/master/core/generate-api.sh)
+- As the time of writing, the JWT is entirely managed in the PHP (this will change soon, as we plan to get read of the PHP)
+- About integration, refer to [gui.ajax/res/js/core/http/restClient.es6](https://github.com/pydio/cells-front/blob/master/gui.ajax/res/js/core/http/restClient.es6)
 
-pour generer les clients php et js, cf front/core/generate-api.sh
-
-Le JWT est entièrement géré dans le PHP
--> pour l'integration gui.ajax/res/js/core/http/restClient.es6
-
-
-dex -> openid connect
-
-
-
-penser à bien toujours utiliser le plugin rest error 500  rest-error-writer
-
-
--> generer le client GO
--> faire une premiere PoC de la requete avec récupération du JWT
--> par exemple lister les users
-
- 
