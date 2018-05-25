@@ -10,6 +10,10 @@ import (
 	"strings"
 	"time"
 
+	"log"
+
+	"crypto/tls"
+
 	"github.com/pydio/cells-sdk-go/api"
 )
 
@@ -23,8 +27,22 @@ var (
 	store = NewTokenStore()
 )
 
+func getHttpClient(sdkConfig *SdkConfig) *http.Client {
+
+	if sdkConfig.SkipVerify {
+		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")
+		return &http.Client{Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+		}}
+	} else {
+		return http.DefaultClient
+	}
+
+}
+
 func GetPreparedApiClient(sdkConfig *SdkConfig) (*api.APIClient, context.Context, error) {
 	apiConf := api.NewConfiguration()
+	apiConf.HTTPClient = getHttpClient(sdkConfig)
 	apiConf.BasePath = strings.TrimRight(sdkConfig.Url, "/") + ApiResourcePath
 	apiClient := api.NewAPIClient(apiConf)
 
@@ -74,7 +92,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	req.Header.Add("Cache-Control", "no-cache")
 	req.Header.Add("Authorization", basicAuthToken(sdkConfig.ClientKey, sdkConfig.ClientSecret))
 
-	res, err := http.DefaultClient.Do(req)
+	res, err := getHttpClient(sdkConfig).Do(req)
 	if err != nil {
 		return "", err
 	}

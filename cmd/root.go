@@ -15,11 +15,12 @@ import (
 var (
 	configFile string
 
-	host   string
-	id     string
-	secret string
-	user   string
-	pwd    string
+	host       string
+	id         string
+	secret     string
+	user       string
+	pwd        string
+	skipVerify bool
 )
 
 var RootCmd = &cobra.Command{
@@ -29,13 +30,14 @@ var RootCmd = &cobra.Command{
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 
 		// Parse from parameters
-		if configFile == "" && host != "" && id != "" && secret != "" && user != "" && pwd != "" {
+		if host != "" && id != "" && secret != "" && user != "" && pwd != "" {
 			config.DefaultConfig = &config.SdkConfig{
 				Url:          host,
 				ClientKey:    id,
 				ClientSecret: secret,
 				User:         user,
 				Password:     pwd,
+				SkipVerify:   skipVerify,
 			}
 			return
 		}
@@ -71,4 +73,6 @@ func init() {
 	flags.StringVarP(&secret, "secret", "s", "", "OIDC Client Secret")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
+	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")
+
 }
