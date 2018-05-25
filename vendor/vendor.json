@@ -409,6 +409,12 @@
 			"revisionTime": "2018-03-21T14:39:34Z"
 		},
 		{
+			"checksumSHA1": "tfKmT8uovT9Ch2YyDJtti3egAB4=",
+			"path": "github.com/spf13/pflag",
+			"revision": "ee5fd03fd6acfd43e44aea0b4135958546ed8e73",
+			"revisionTime": "2018-02-20T14:32:36Z"
+		},
+		{
 			"checksumSHA1": "HedK9m8E8iyib4bIBtIX7xprOgo=",
 			"origin": "github.com/pydio/cells/vendor/go.uber.org/atomic",
 			"path": "go.uber.org/atomic",
