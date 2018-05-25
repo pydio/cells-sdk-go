@@ -8,6 +8,13 @@ import (
 
 	"github.com/pydio/cells-sdk-go/api"
 	"github.com/pydio/cells-sdk-go/config"
+	"github.com/pydio/cells/common"
+)
+
+var (
+	createUserLogin string
+	createUserPwd   string
+	createUserAdmin bool
 )
 
 var UserCmd = &cobra.Command{
@@ -65,19 +72,47 @@ var CreateUserCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
+		r := api.SRPA_READ
+		w := api.SRPA_WRITE
+		allow := api.SRPPE_ALLOW
+		policies := []api.ServiceResourcePolicy{
+			{Action: &r, Effect: &allow, Subject: "profile:" + common.PYDIO_PROFILE_STANDARD},
+			{Action: &w, Effect: &allow, Subject: "user:" + createUserLogin},
+			{Action: &w, Effect: &allow, Subject: "profile:" + common.PYDIO_PROFILE_ADMIN},
+		}
+
+		profile := common.PYDIO_PROFILE_STANDARD
+		if createUserAdmin {
+			profile = common.PYDIO_PROFILE_ADMIN
+		}
+		// Create User
 		newUser := api.IdmUser{
-			GroupPath: "/",
-			Login:     "randomUser",
-			Password:  "password",
+			GroupPath:  "/",
+			Login:      createUserLogin,
+			Password:   createUserPwd,
+			Policies:   policies,
+			Attributes: map[string]string{"profile": profile},
 		}
 
 		user, _, err := apiClient.UserServiceApi.PutUser(
 			ctx,
-			"randomUser",
+			createUserLogin,
 			newUser,
 		)
 		if err != nil {
-			log.Fatalf("could not create user %s: %s\n", "randomUser", err.Error())
+			log.Fatalf("could not create user %s: %s\n", createUserLogin, err.Error())
+		}
+
+		// Create User Role with correct policies
+		newRole := api.IdmRole{
+			Uuid:     user.Uuid,
+			Policies: policies,
+			UserRole: true,
+			Label:    "User " + createUserLogin + " role",
+		}
+		_, _, err = apiClient.RoleServiceApi.SetRole(ctx, user.Uuid, newRole)
+		if err != nil {
+			log.Fatalf("could not create role for user %s: %s\n", createUserLogin, err.Error())
 		}
 
 		fmt.Printf("Created user with login: %s and uuid: %s\n", user.Login, user.Uuid)
@@ -88,6 +123,11 @@ var CreateUserCmd = &cobra.Command{
 }
 
 func init() {
+
+	CreateUserCmd.Flags().StringVar(&createUserLogin, "create_login", "randomUser", "New user login")
+	CreateUserCmd.Flags().StringVar(&createUserPwd, "create_password", "password", "New user password")
+	CreateUserCmd.Flags().BoolVar(&createUserAdmin, "create_admin", false, "Set new user with admin capacities")
+
 	UserCmd.AddCommand(ListUserCmd)
 	UserCmd.AddCommand(CreateUserCmd)
 
