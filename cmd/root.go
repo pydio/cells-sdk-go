@@ -1,13 +1,13 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 
 	"github.com/spf13/cobra"
-	"gopkg.in/square/go-jose.v2/json"
 
 	"github.com/pydio/cells-sdk-go/config"
 )
