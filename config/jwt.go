@@ -2,17 +2,15 @@ package config
 
 import (
 	"context"
+	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"log"
-
-	"crypto/tls"
 
 	"github.com/pydio/cells-sdk-go/api"
 )
@@ -27,19 +25,8 @@ var (
 	store = NewTokenStore()
 )
 
-func getHttpClient(sdkConfig *SdkConfig) *http.Client {
-
-	if sdkConfig.SkipVerify {
-		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")
-		return &http.Client{Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
-		}}
-	} else {
-		return http.DefaultClient
-	}
-
-}
-
+// GetPreparedApiClient connects to the Pydio Cells server defined by this config.
+// Also returns a context to be used in subsequent requests.
 func GetPreparedApiClient(sdkConfig *SdkConfig) (*api.APIClient, context.Context, error) {
 	apiConf := api.NewConfiguration()
 	apiConf.HTTPClient = getHttpClient(sdkConfig)
@@ -52,6 +39,19 @@ func GetPreparedApiClient(sdkConfig *SdkConfig) (*api.APIClient, context.Context
 	}
 
 	return apiClient, ctx, nil
+}
+
+func getHttpClient(sdkConfig *SdkConfig) *http.Client {
+
+	if sdkConfig.SkipVerify {
+		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")
+		return &http.Client{Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+		}}
+	} else {
+		return http.DefaultClient
+	}
+
 }
 
 func withAuth(ctx context.Context, sdkConfig *SdkConfig) (context.Context, error) {
