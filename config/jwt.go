@@ -12,7 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pydio/cells-sdk-go/api"
+	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+
+	apiclient "github.com/pydio/cells-sdk-go/client"
 )
 
 var (
@@ -27,42 +30,19 @@ var (
 
 // GetPreparedApiClient connects to the Pydio Cells server defined by this config.
 // Also returns a context to be used in subsequent requests.
-func GetPreparedApiClient(sdkConfig *SdkConfig) (*api.APIClient, context.Context, error) {
-	apiConf := api.NewConfiguration()
-	apiConf.HTTPClient = getHttpClient(sdkConfig)
-	apiConf.BasePath = strings.TrimRight(sdkConfig.Url, "/") + ApiResourcePath
-	apiClient := api.NewAPIClient(apiConf)
+func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, context.Context, error) {
 
-	ctx, err := withAuth(context.Background(), sdkConfig)
-	if err != nil {
-		return apiClient, nil, err
-	}
-
-	return apiClient, ctx, nil
-}
-
-func getHttpClient(sdkConfig *SdkConfig) *http.Client {
-
-	if sdkConfig.SkipVerify {
-		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")
-		return &http.Client{Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
-		}}
-	} else {
-		return http.DefaultClient
-	}
-
-}
-
-func withAuth(ctx context.Context, sdkConfig *SdkConfig) (context.Context, error) {
-
+	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{"http"})
 	jwt, err := retrieveToken(sdkConfig)
 	if err != nil {
-		fmt.Printf("could not retrieve token: %s\n", err.Error())
-		return nil, err
+		return nil, nil, err
 	}
+	bearerTokenAuth := httptransport.BearerToken(jwt)
+	transport.DefaultAuthentication = bearerTokenAuth
 
-	return context.WithValue(ctx, api.ContextAccessToken, jwt), nil
+	client := apiclient.New(transport, strfmt.Default)
+
+	return client, context.Background(), nil
 }
 
 func retrieveToken(sdkConfig *SdkConfig) (string, error) {
@@ -74,7 +54,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	}
 	fmt.Println("[Auth: Loading Auth Token]")
 
-	fullURL := sdkConfig.Url + OidcResourcePath + "/token"
+	fullURL := sdkConfig.Protocol + "://" + sdkConfig.Url + OidcResourcePath + "/token"
 
 	data := url.Values{}
 	data.Set("grant_type", grantType)
@@ -103,11 +83,30 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	if errMsg, exists := respMap["error"]; exists {
+		return "", fmt.Errorf("could not retrieve token, %s: %s", errMsg, respMap["error_description"])
+	}
+
+	for k, v := range respMap {
+		fmt.Printf("%s - %v\n", k, v)
+	}
 
 	token := respMap["id_token"].(string)
+
 	expiry := respMap["expires_in"].(float64) - 60 // Secure by shortening expiration time
 	store.Store(sdkConfig, token, time.Duration(expiry)*time.Second)
 	return token, nil
+}
+
+func getHttpClient(sdkConfig *SdkConfig) *http.Client {
+
+	if sdkConfig.SkipVerify {
+		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")
+		return &http.Client{Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+		}}
+	}
+	return http.DefaultClient
 }
 
 func basicAuthToken(username, password string) string {

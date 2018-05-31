@@ -26,11 +26,12 @@ func (t *TokenStore) Store(c *SdkConfig, token string, expiry time.Duration) {
 }
 
 func (t *TokenStore) TokenFor(c *SdkConfig) string {
+
 	if token, ok := t.internalCache.Get(t.computeKey(c)); ok {
 		return token.(string)
-	} else {
-		return ""
 	}
+	return ""
+
 }
 
 func (t *TokenStore) computeKey(c *SdkConfig) string {

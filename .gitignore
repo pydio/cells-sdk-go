@@ -1,3 +1,5 @@
 .project
 config.json
 cells-sdk-go
+main
+swagger

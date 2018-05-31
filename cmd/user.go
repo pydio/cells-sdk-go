@@ -6,8 +6,10 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pydio/cells-sdk-go/api"
+	"github.com/pydio/cells-sdk-go/client/role_service"
+	"github.com/pydio/cells-sdk-go/client/user_service"
 	"github.com/pydio/cells-sdk-go/config"
+	"github.com/pydio/cells-sdk-go/models"
 	"github.com/pydio/cells/common"
 )
 
@@ -29,36 +31,38 @@ var ListUserCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "List users",
 	Run: func(cmd *cobra.Command, args []string) {
-		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
-		if err != nil {
-			log.Fatal(err)
-		}
 
-		query := api.RestSearchUserRequest{}
+		log.Fatal("not implemented")
+		// apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+		// if err != nil {
+		// 	log.Fatal(err)
+		// }
 
-		users, _, err := apiClient.UserServiceApi.SearchUsers(
-			ctx,
-			query,
-		)
-		if err != nil {
-			fmt.Printf("could not list users: %s\n", err.Error())
-			log.Fatal(err)
-		}
+		// query := api.RestSearchUserRequest{}
 
-		fmt.Printf("Found %d results\n", users.Total)
-		if len(users.Groups) > 0 {
-			fmt.Printf("* %d groups\n", len(users.Groups))
-			for _, u := range users.Groups {
-				fmt.Println("  - " + u.GroupLabel)
-			}
-		}
+		// users, _, err := apiClient.UserServiceApi.SearchUsers(
+		// 	ctx,
+		// 	query,
+		// )
+		// if err != nil {
+		// 	fmt.Printf("could not list users: %s\n", err.Error())
+		// 	log.Fatal(err)
+		// }
 
-		if len(users.Users) > 0 {
-			fmt.Printf("* %d users\n", len(users.Users))
-			for _, u := range users.Users {
-				fmt.Println("  - " + u.Login)
-			}
-		}
+		// fmt.Printf("Found %d results\n", users.Total)
+		// if len(users.Groups) > 0 {
+		// 	fmt.Printf("* %d groups\n", len(users.Groups))
+		// 	for _, u := range users.Groups {
+		// 		fmt.Println("  - " + u.GroupLabel)
+		// 	}
+		// }
+
+		// if len(users.Users) > 0 {
+		// 	fmt.Printf("* %d users\n", len(users.Users))
+		// 	for _, u := range users.Users {
+		// 		fmt.Println("  - " + u.Login)
+		// 	}
+		// }
 
 	},
 }
@@ -72,13 +76,13 @@ var CreateUserCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		r := api.SRPA_READ
-		w := api.SRPA_WRITE
-		allow := api.SRPPE_ALLOW
-		policies := []api.ServiceResourcePolicy{
-			{Action: &r, Effect: &allow, Subject: "profile:" + common.PYDIO_PROFILE_STANDARD},
-			{Action: &w, Effect: &allow, Subject: "user:" + createUserLogin},
-			{Action: &w, Effect: &allow, Subject: "profile:" + common.PYDIO_PROFILE_ADMIN},
+		r := models.ServiceResourcePolicyActionREAD
+		w := models.ServiceResourcePolicyActionWRITE
+		allow := models.ServiceResourcePolicyPolicyEffectAllow
+		policies := []*models.ServiceResourcePolicy{
+			&models.ServiceResourcePolicy{Action: r, Effect: allow, Subject: "profile:" + common.PYDIO_PROFILE_STANDARD},
+			&models.ServiceResourcePolicy{Action: w, Effect: allow, Subject: "user:" + createUserLogin},
+			&models.ServiceResourcePolicy{Action: w, Effect: allow, Subject: "profile:" + common.PYDIO_PROFILE_ADMIN},
 		}
 
 		profile := common.PYDIO_PROFILE_STANDARD
@@ -86,7 +90,7 @@ var CreateUserCmd = &cobra.Command{
 			profile = common.PYDIO_PROFILE_ADMIN
 		}
 		// Create User
-		newUser := api.IdmUser{
+		newUser := models.IdmUser{
 			GroupPath:  "/",
 			Login:      createUserLogin,
 			Password:   createUserPwd,
@@ -94,31 +98,35 @@ var CreateUserCmd = &cobra.Command{
 			Attributes: map[string]string{"profile": profile},
 		}
 
-		user, _, err := apiClient.UserServiceApi.PutUser(
-			ctx,
-			createUserLogin,
-			newUser,
-		)
+		result, err := apiClient.UserService.PutUser(&user_service.PutUserParams{
+			Login:   createUserLogin,
+			Body:    &newUser,
+			Context: ctx,
+		})
 		if err != nil {
-			log.Fatalf("could not create user %s: %s\n", createUserLogin, err.Error())
+			fmt.Printf("could not create user %s: %s\n", createUserLogin, err.Error())
+			log.Fatal(err)
 		}
 
 		// Create User Role with correct policies
-		newRole := api.IdmRole{
-			Uuid:     user.Uuid,
+		newRole := models.IdmRole{
+			UUID:     result.Payload.UUID,
 			Policies: policies,
 			UserRole: true,
 			Label:    "User " + createUserLogin + " role",
 		}
-		_, _, err = apiClient.RoleServiceApi.SetRole(ctx, user.Uuid, newRole)
+		_, err = apiClient.RoleService.SetRole(&role_service.SetRoleParams{
+			UUID:    result.Payload.UUID,
+			Body:    &newRole,
+			Context: ctx,
+		})
 		if err != nil {
 			log.Fatalf("could not create role for user %s: %s\n", createUserLogin, err.Error())
 		}
 
-		fmt.Printf("Created user with login: %s and uuid: %s\n", user.Login, user.Uuid)
+		fmt.Printf("Created user with login: %s and uuid: %s\n", result.Payload.Login, result.Payload.UUID)
 
 		ListUserCmd.Run(cmd, args)
-
 	},
 }
 
