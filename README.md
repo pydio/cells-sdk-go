@@ -29,8 +29,17 @@ To update the Cells go sdk, you must folloy the steps below:
 ```sh
 # go to the roots of this directory, typically:
 cd $GOPATH/src/github.com/pydio/cells-sdk-go
+# Retrieve swagger binary if necessary
+## for linux
+wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_linux_amd64 
+## for Mac OS
+wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_darwin_amd64
+# retrieve latest spec file
 wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest.swagger.json
+# simply generate updated code
 ./swagger generate client --skip-validation -f rest.swagger.json
 ```
 
 You should also update version information at the top of this page.
+
+_**NOTE**: we use the --skip-validation flag to avoid circular issues with object that make reference to same type of objects, typically activities and jobs. See [issue #957 in go-swagger repository](https://github.com/go-swagger/go-swagger/issues/957) for more details._

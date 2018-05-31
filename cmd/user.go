@@ -32,38 +32,33 @@ var ListUserCmd = &cobra.Command{
 	Short: "List users",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		log.Fatal("not implemented")
-		// apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
+		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		// query := api.RestSearchUserRequest{}
 
-		// users, _, err := apiClient.UserServiceApi.SearchUsers(
-		// 	ctx,
-		// 	query,
-		// )
-		// if err != nil {
-		// 	fmt.Printf("could not list users: %s\n", err.Error())
-		// 	log.Fatal(err)
-		// }
+		result, err := apiClient.UserService.SearchUsers(user_service.NewSearchUsersParamsWithContext(ctx))
+		if err != nil {
+			fmt.Printf("could not list users: %s\n", err.Error())
+			log.Fatal(err)
+		}
 
-		// fmt.Printf("Found %d results\n", users.Total)
-		// if len(users.Groups) > 0 {
-		// 	fmt.Printf("* %d groups\n", len(users.Groups))
-		// 	for _, u := range users.Groups {
-		// 		fmt.Println("  - " + u.GroupLabel)
-		// 	}
-		// }
+		fmt.Printf("Found %d results\n", result.Payload.Total)
+		if len(result.Payload.Groups) > 0 {
+			fmt.Printf("* %d groups\n", len(result.Payload.Groups))
+			for _, u := range result.Payload.Groups {
+				fmt.Println("  - " + u.GroupLabel)
+			}
+		}
 
-		// if len(users.Users) > 0 {
-		// 	fmt.Printf("* %d users\n", len(users.Users))
-		// 	for _, u := range users.Users {
-		// 		fmt.Println("  - " + u.Login)
-		// 	}
-		// }
-
+		if len(result.Payload.Users) > 0 {
+			fmt.Printf("* %d users\n", len(result.Payload.Users))
+			for _, u := range result.Payload.Users {
+				fmt.Println("  - " + u.Login)
+			}
+		}
 	},
 }
 
