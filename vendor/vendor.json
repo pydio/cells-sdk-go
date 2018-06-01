@@ -2,7 +2,72 @@
 	"comment": "",
 	"ignore": "test",
 	"package": [
-		
+		{
+			"checksumSHA1": "Tteyuf70NfN/5vbqizmI5/gMEqk=",
+			"path": "github.com/go-openapi/errors",
+			"revision": "b2b2befaf267d082d779bcef52d682a47c779517",
+			"revisionTime": "2018-05-15T15:55:15Z"
+		},
+		{
+			"checksumSHA1": "HX0b5/zDhQcaJDY2rQJS6seQ+qA=",
+			"path": "github.com/go-openapi/runtime",
+			"revision": "c0cae94704c76c8643896d8054080f91e920105b",
+			"revisionTime": "2018-05-09T18:45:47Z"
+		},
+		{
+			"checksumSHA1": "tkk4l6n8EHXUFbHxwMQwRIxM1OU=",
+			"path": "github.com/go-openapi/runtime/client",
+			"revision": "c0cae94704c76c8643896d8054080f91e920105b",
+			"revisionTime": "2018-05-09T18:45:47Z"
+		},
+		{
+			"checksumSHA1": "GjwvDMFSgC4iMnc+gljAAnzsGnw=",
+			"path": "github.com/go-openapi/strfmt",
+			"revision": "481808443b00a14745fada967cb5eeff0f9b1df2",
+			"revisionTime": "2018-04-07T01:11:02Z"
+		},
+		{
+			"checksumSHA1": "iQsVFprFPb5iQJ8lM2Fd1F0XTAw=",
+			"path": "github.com/go-openapi/swag",
+			"revision": "811b1089cde9dad18d4d0c2d09fbdbf28dbd27a5",
+			"revisionTime": "2018-04-05T20:17:59Z"
+		},
+		{
+			"checksumSHA1": "Mswjmkj+kH218q6GkfELbcR+wm4=",
+			"path": "github.com/go-openapi/validate",
+			"revision": "9286f6d0e5c1ffc7cf2bda1d59291dc3c4f2f828",
+			"revisionTime": "2018-05-02T21:31:33Z"
+		},
+		{
+			"checksumSHA1": "4+PK0yd1prnC11PETgrXPzHyct4=",
+			"path": "github.com/hashicorp/go-version",
+			"revision": "23480c0665776210b5fbbac6eaaee40e3e6a96b7",
+			"revisionTime": "2018-03-22T23:02:33Z"
+		},
+		{
+			"checksumSHA1": "JVGDxPn66bpe6xEiexs1r+y6jF0=",
+			"path": "github.com/patrickmn/go-cache",
+			"revision": "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0",
+			"revisionTime": "2017-07-22T04:01:10Z"
+		},
+		{
+			"checksumSHA1": "NKFrAAW+nq/Qm72cpxpiUVYPHrM=",
+			"path": "github.com/pydio/cells/common",
+			"revision": "825a728a9269b04ad16a72f8c15adf15627fd49d",
+			"revisionTime": "2018-05-31T17:35:04Z"
+		},
+		{
+			"checksumSHA1": "imvfVf7lRxu0Fz7V2G43CUC6Ff0=",
+			"path": "github.com/spf13/cobra",
+			"revision": "4dab30cb33e6633c33c787106bafbfbfdde7842d",
+			"revisionTime": "2018-03-31T12:36:20Z"
+		},
+		{
+			"checksumSHA1": "GtamqiJoL7PGHsN454AoffBFMa8=",
+			"path": "golang.org/x/net/context",
+			"revision": "57065200b4b034a1c8ad54ff77069408c2218ae6",
+			"revisionTime": "2018-05-18T17:41:52Z"
+		}
 	],
 	"rootPath": "github.com/pydio/cells-sdk-go"
 }
