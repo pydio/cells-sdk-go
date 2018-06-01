@@ -14,9 +14,9 @@ import (
 
 func TestMain(m *testing.M) {
 
-	// if !RunEnvAwareTests {
-	// 	os.Exit(0)
-	// }
+	if !config.RunEnvAwareTests {
+		return
+	}
 
 	// Enhance this
 	if data, e := ioutil.ReadFile("../../config.json"); e == nil {
@@ -41,10 +41,9 @@ func TestUserService(t *testing.T) {
 			return // We skip tests that fail if we are not connected to a running Pydio Cells instance
 		}
 
-		idmUser, err := CreateUser2("/testers", "user1", "Password123$", false)
+		idmUser, err := CreateUser("/testers", "user1", "Password123$", false)
 		So(err, ShouldBeNil)
 		So(idmUser.Login, ShouldEqual, "user1")
 		So(idmUser.Password, ShouldBeEmpty)
-
 	})
 }

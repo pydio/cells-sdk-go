@@ -69,4 +69,3 @@ For more info, see [micro repository on Github](https://github.com/micro/micro)
 - To check how we generate PHP and javascript clients, see  [cells-front/core/generate-api.sh](https://github.com/pydio/cells-front/blob/master/core/generate-api.sh)
 - As the time of writing, the JWT is entirely managed in the PHP (this will change soon, as we plan to get rid of the PHP)
 - About integration, refer to [gui.ajax/res/js/core/http/restClient.es6](https://github.com/pydio/cells-front/blob/master/gui.ajax/res/js/core/http/restClient.es6)
-

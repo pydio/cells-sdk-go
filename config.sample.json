@@ -1,7 +1,9 @@
 {
-  "url":"http://192.168.0.144:8080",
+  "protocol":"http",
+  "url":"192.168.0.1:8080",
   "clientKey":"cells-front",
-  "clientSecret":"rGkUgtjpin1pza8tQBs8NKw5",
+  "clientSecret":"rGkUgpinte1pza8tQ1WiNN3rKw",
   "user":"admin",
-  "password":""
+  "password":"",
+  "skipVerify": false
 }

@@ -20,7 +20,7 @@ var (
 
 	// RunEnvAwareTests flag permits easy switch off of all tests
 	// that will not pass in basic environment, typically in TeamCity, without specific configuration
-	RunEnvAwareTests = true // TODO enhance
+	RunEnvAwareTests = false // TODO enhance
 )
 
 // Version retrieves the current build version of the app. Note that this is updated via the linker upon build.
