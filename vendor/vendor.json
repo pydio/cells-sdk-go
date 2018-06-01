@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "nJrp/CKnvpO+vzTfOeR8qmzRZ4c=",
+			"path": "github.com/PuerkitoBio/purell",
+			"revision": "1c4bec281e4bbc75b4f4a1bd923bdf1bd989a969",
+			"revisionTime": "2017-11-17T21:41:51Z"
+		},
+		{
 			"checksumSHA1": "4pqVzk2qBe3ms8VSlDHA+81LlSE=",
 			"path": "github.com/asaskevich/govalidator",
 			"revision": "852d82c746b23d9b357b210ea470d99f4e023b72",
