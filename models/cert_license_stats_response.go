@@ -17,10 +17,10 @@ import (
 type CertLicenseStatsResponse struct {
 
 	// active peers
-	ActivePeers int64 `json:"ActivePeers,omitempty"`
+	ActivePeers int64 `json:"ActivePeers,string,omitempty"`
 
 	// active users
-	ActiveUsers int64 `json:"ActiveUsers,omitempty"`
+	ActiveUsers int64 `json:"ActiveUsers,string,omitempty"`
 
 	// license
 	License *CertLicenseInfo `json:"License,omitempty"`

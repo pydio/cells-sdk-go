@@ -31,10 +31,10 @@ type CertLicenseInfo struct {
 	IssueTime int32 `json:"IssueTime,omitempty"`
 
 	// max peers
-	MaxPeers int64 `json:"MaxPeers,omitempty"`
+	MaxPeers int64 `json:"MaxPeers,string,omitempty"`
 
 	// max users
-	MaxUsers int64 `json:"MaxUsers,omitempty"`
+	MaxUsers int64 `json:"MaxUsers,string,omitempty"`
 
 	// server domain
 	ServerDomain string `json:"ServerDomain,omitempty"`
