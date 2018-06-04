@@ -84,7 +84,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	var respMap map[string]interface{}
 	err = json.NewDecoder(res.Body).Decode(&respMap)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("could not unmarshall response with status %d: %s\nerror cause: %s", res.StatusCode, res.Status, err.Error())
 	}
 	if errMsg, exists := respMap["error"]; exists {
 		return "", fmt.Errorf("could not retrieve token, %s: %s", errMsg, respMap["error_description"])
