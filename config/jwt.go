@@ -32,7 +32,7 @@ var (
 // Also returns a context to be used in subsequent requests.
 func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, context.Context, error) {
 
-	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{"http"})
+	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{sdkConfig.Protocol})
 	jwt, err := retrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, err
@@ -87,9 +87,9 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 		return "", fmt.Errorf("could not retrieve token, %s: %s", errMsg, respMap["error_description"])
 	}
 
-	for k, v := range respMap {
-		fmt.Printf("%s - %v\n", k, v)
-	}
+	// for k, v := range respMap {
+	// 	fmt.Printf("%s - %v\n", k, v)
+	// }
 
 	token := respMap["id_token"].(string)
 
