@@ -37,7 +37,7 @@ func TestJWT(t *testing.T) {
 	Convey("Test JWT retrieval", t, func() {
 
 		Convey("Is config correctly set", func() {
-			fmt.Printf("## DEFAULT CONF \n%s - %s - %s - %s - %s - %v\n", DefaultConfig.Url, DefaultConfig.ClientKey, DefaultConfig.ClientSecret, DefaultConfig.User, DefaultConfig.Password, DefaultConfig.SkipVerify)
+			fmt.Printf("## DEFAULT CONF \n%s - %s - %s - %s - %s - %s - %v\n", DefaultConfig.Protocol, DefaultConfig.Url, DefaultConfig.ClientKey, DefaultConfig.ClientSecret, DefaultConfig.User, DefaultConfig.Password, DefaultConfig.SkipVerify)
 			So(DefaultConfig.Url, ShouldNotBeEmpty)
 			So(DefaultConfig.ClientKey, ShouldNotBeEmpty)
 			So(DefaultConfig.ClientSecret, ShouldNotBeEmpty)

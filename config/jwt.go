@@ -35,7 +35,10 @@ func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, cont
 	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{sdkConfig.Protocol})
 	jwt, err := retrieveToken(sdkConfig)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf(
+			"cannot retrieve token with config:\n%s - %s - %s - %s - %s - %s - %v\nerror cause: %s",
+			DefaultConfig.Protocol, DefaultConfig.Url, DefaultConfig.ClientKey, DefaultConfig.ClientSecret,
+			DefaultConfig.User, DefaultConfig.Password, DefaultConfig.SkipVerify, err.Error())
 	}
 	bearerTokenAuth := httptransport.BearerToken(jwt)
 	transport.DefaultAuthentication = bearerTokenAuth
