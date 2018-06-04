@@ -26,6 +26,8 @@ _This is for the maintainers of cells-sdk-go project only._
 
 To update the Cells go sdk, you must folloy the steps below:
 
+_First time only_:
+
 ```sh
 # go to the roots of this directory, typically:
 cd $GOPATH/src/github.com/pydio/cells-sdk-go
@@ -34,10 +36,20 @@ cd $GOPATH/src/github.com/pydio/cells-sdk-go
 wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_linux_amd64 
 ## for Mac OS
 wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_darwin_amd64
+```
+
+_After each API Spec modification_:
+
+```sh
 # retrieve latest spec file
 wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest.swagger.json
+# You might also delete folder models and client 
+
 # simply generate updated code
 ./swagger generate client --skip-validation -f rest.swagger.json
+
+# Apply the twick to workaround int64 serialisation issue between protobuf and swagger
+go run main.go twick-model
 ```
 
 You should also update version information at the top of this page.
