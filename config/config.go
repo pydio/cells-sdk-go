@@ -15,6 +15,18 @@ type SdkConfig struct {
 	Password string `json:"password"`
 }
 
+// S3Config contains necessary data to connect to S3 gateway
+type S3Config struct {
+	Bucket string `json:"bucket"`
+	// Endpoint override default URL generated from S3 SDK from the bucket name
+	Endpoint  string `json:"enpoint"`
+	Region    string `json:"region"`
+	ApiKey    string `json:"apiKey"`
+	ApiSecret string `json:"apiSecret"`
+	IsDebug   bool   `json:"isDebug"`
+}
+
 var (
-	DefaultConfig *SdkConfig
+	DefaultConfig   *SdkConfig
+	DefaultS3Config *S3Config
 )

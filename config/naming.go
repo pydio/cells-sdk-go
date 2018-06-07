@@ -4,6 +4,10 @@ import (
 	hashiversion "github.com/hashicorp/go-version"
 )
 
+const (
+	KeyS3BearerHeader = "X-Pydio-Bearer"
+)
+
 var (
 	// PackageType stores and exposes current package type.
 	PackageType string
