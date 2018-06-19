@@ -8,57 +8,78 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-var (
-	DefaultS3Session *session.Session
-)
+// GetPreparedS3CLient creates and configure a new S3 client at each request.
+// Should be optimized
+func GetPreparedS3CLient(sdkConfig *SdkConfig, s3Config *S3Config) (*s3.S3, error) {
 
-func InitDefaultSession(s3config S3Config) {
-	conf := &aws.Config{
-		Credentials: credentials.NewStaticCredentials(s3config.ApiKey, s3config.ApiSecret, ""),
+	var apiKey string
+	var err error
+
+	if s3Config.UsePydioSpecificHeader { // Legacy
+		apiKey = s3Config.ApiKey
+	} else {
+		apiKey, err = retrieveToken(sdkConfig)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	tr := NewAuthTransport(http.DefaultTransport, s3config.IsDebug)
-	client := &http.Client{Transport: tr}
-	conf.WithHTTPClient(client).WithEndpoint(s3config.Endpoint).WithRegion(s3config.Region)
+	conf := &aws.Config{
+		// Static credentials are the best we've found to do the job until now. Might be enhanced, together with a better session pool management
+		Credentials: credentials.NewStaticCredentials(apiKey, s3Config.ApiSecret, ""),
+	}
 
-	var err error
-	DefaultS3Session, err = session.NewSession(conf)
+	tr := http.DefaultTransport
+	if s3Config.UsePydioSpecificHeader { // Legacy:
+		tr = NewAuthTransport(tr, sdkConfig, s3Config)
+	}
+
+	client := &http.Client{Transport: tr}
+	conf.WithHTTPClient(client).WithEndpoint(s3Config.Endpoint).WithRegion(s3Config.Region)
+
+	s3Session, err := session.NewSession(conf)
 	if err != nil {
 		log.Fatal("cannot initialise default S3 session: " + err.Error())
 	}
+
+	return s3.New(s3Session), nil
+}
+
+// NewAuthTransport takes an http.RoundTripper and returns a new one that adds the JWT Auth
+// header on each request (and optionally logs the additional cost of getting the JWT token)
+func NewAuthTransport(rt http.RoundTripper, sdkConfig *SdkConfig, s3Config *S3Config) http.RoundTripper {
+	return &authRoundTripper{rt: rt, sc: sdkConfig, s3c: s3Config, log: DefaultLogger{}}
 }
 
 type authRoundTripper struct {
-	rt      http.RoundTripper
-	log     HTTPLogger
-	isDebug bool
+	rt  http.RoundTripper
+	log HTTPLogger
+	sc  *SdkConfig
+	s3c *S3Config
 }
 
 func (c *authRoundTripper) RoundTrip(request *http.Request) (*http.Response, error) {
 	var start time.Time
-	if c.isDebug {
+	if c.s3c.IsDebug {
 		c.log.LogRequest(request)
 		start = time.Now()
 	}
-	jwt, err := retrieveToken(DefaultConfig)
+
+	jwt, err := retrieveToken(c.sc)
 	if err != nil {
 		return nil, err
 	}
 	request.Header.Set(KeyS3BearerHeader, jwt)
 	response, err := c.rt.RoundTrip(request)
 
-	if c.isDebug {
+	if c.s3c.IsDebug {
 		duration := time.Since(start)
 		c.log.LogResponse(request, response, err, duration)
 	}
 	return response, err
-}
-
-// NewAuthTransport takes an http.RoundTripper and returns a new one that adds authorisation header and optionally logs requests and responses
-func NewAuthTransport(rt http.RoundTripper, isDebug bool) http.RoundTripper {
-	return &authRoundTripper{rt: rt, isDebug: isDebug, log: DefaultLogger{}}
 }
 
 // HTTPLogger defines the interface to log http request and responses

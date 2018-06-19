@@ -40,7 +40,7 @@ func TestMain(m *testing.M) {
 		}
 		c.IsDebug = true
 		config.DefaultS3Config = &c
-		config.InitDefaultSession(c)
+		// config.InitDefaultSession(c)
 	} else {
 		log.Fatal("Cannot read s3 config file ", e)
 	}
