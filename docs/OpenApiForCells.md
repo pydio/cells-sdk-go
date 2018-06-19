@@ -31,7 +31,7 @@ As a last step of our process, we also store the resulting swagger in a simple s
 - Each service is then configured and declared in the corresponding `.../rest/plugins.go` file. The service are then instantiated and managed by the Pydio Cells core framework.
 - In go, we use a specific Json marshaller (JSonPB) to encode and decode messages and provide communication with the REST service.  
     This, among others, to be able to use the string representation of the values rather than the corresponding number for the various enums that are then serialized in the JSON messages.  
-    See [rest-entity-rw.go](https://github.com/pydio/cells/blob/master/common/service/rest-entity-rw.go) and [service-web.go](https://github.com/pydio/cells/blob/master/common/service/service-web.go) 
+    See [rest-entity-rw.go](https://github.com/pydio/cells/blob/master/common/service/rest-entity-rw.go) and [service-web.go](https://github.com/pydio/cells/blob/master/common/service/service-web.go)
 
 - Base path in the swagger is defined by (and must fit with) the suffix of rest service's name. Typically service pydio.rest.idm can be found at `<host>/a/idm`.
 - We also need to configure the rest service by implementing 2 methods in each rest package, typically:
@@ -50,7 +50,7 @@ func (s *RoleHandler) Filter() func(string) string {
 
 #### JWT
 
-JWT mechanisms are provided by Dex (based on openid connect) 
+JWT mechanisms are provided by Dex (based on openid connect)
 
 #### Micro API
 
@@ -62,9 +62,9 @@ It receives the rest request and dispach them.
 
 For more info, see [micro repository on Github](https://github.com/micro/micro)
 
-- To define the root path one should edit the `pydio.json` file that is in the root folder of Pydio Cells data folder (which is typically located at `~/.config/pydio/cells`). We do this to ease enablement and disablement of TLS communication. 
+- To define the root path one should edit the `pydio.json` file that is in the root folder of Pydio Cells data folder (which is typically located at `~/.config/pydio/cells`). We do this to ease enablement and disablement of TLS communication.
 
-### Front end in Pydio Cells v1.0.0
+### Front end in Pydio Cells v1.0.1
 
 - To check how we generate PHP and javascript clients, see  [cells-front/core/generate-api.sh](https://github.com/pydio/cells-front/blob/master/core/generate-api.sh)
 - As the time of writing, the JWT is entirely managed in the PHP (this will change soon, as we plan to get rid of the PHP)
