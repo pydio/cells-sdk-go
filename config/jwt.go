@@ -32,6 +32,10 @@ var (
 // Also returns a context to be used in subsequent requests.
 func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, context.Context, error) {
 
+	fmt.Println("config url", sdkConfig)
+	fmt.Println("config url", sdkConfig.Url)
+	fmt.Println("config url", sdkConfig.Url)
+	fmt.Println("config url", sdkConfig.Url)
 	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{sdkConfig.Protocol})
 	jwt, err := retrieveToken(sdkConfig)
 	if err != nil {

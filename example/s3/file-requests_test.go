@@ -2,11 +2,9 @@ package s3
 
 import (
 	"bytes"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
@@ -16,35 +14,15 @@ import (
 )
 
 func TestMain(m *testing.M) {
-
 	if !config.RunEnvAwareTests {
 		return
 	}
-
-	// Enhance this
-	if data, e := ioutil.ReadFile("../../config.json"); e == nil {
-		var c config.SdkConfig
-		if e := json.Unmarshal(data, &c); e != nil {
-			log.Fatal("Cannot decode config content", e)
-		}
-		config.DefaultConfig = &c
-		fmt.Println("Connecting to " + config.DefaultConfig.Url)
-	} else {
-		log.Fatal("Cannot read file ", e)
+	crp, err := filepath.Abs(".")
+	if err != nil {
+		log.Fatal("cannot set up environment", err.Error())
 	}
-
-	if data, e := ioutil.ReadFile("../../config-s3.json"); e == nil {
-		var c config.S3Config
-		if e := json.Unmarshal(data, &c); e != nil {
-			log.Fatal("Cannot decode s3 config content", e)
-		}
-		c.IsDebug = true
-		config.DefaultS3Config = &c
-		// config.InitDefaultSession(c)
-	} else {
-		log.Fatal("Cannot read s3 config file ", e)
-	}
-
+	crp = filepath.Dir(filepath.Dir(crp))
+	config.SetUpEnvironment(config.GetDefaultConfigFiles(crp))
 	os.Exit(m.Run())
 }
 
@@ -52,7 +30,7 @@ func TestS3Service(t *testing.T) {
 
 	Convey("CRUD via s3 works", t, func() {
 
-		wkspSlug := "basic"
+		wkspSlug := "personal-files"
 		testFileName := "test.txt"
 		testStr := "Simple test content"
 		testStr2 := testStr + " updated"

@@ -1,14 +1,18 @@
 package config
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
+)
+
+var (
+	// Sample configuration files
+	configFileName = "config.sample.json"
 )
 
 func TestMain(m *testing.M) {
@@ -16,19 +20,12 @@ func TestMain(m *testing.M) {
 	if !RunEnvAwareTests {
 		os.Exit(0)
 	}
-
-	// Enhance this
-	if data, e := ioutil.ReadFile("../config.json"); e == nil {
-		var c SdkConfig
-		if e := json.Unmarshal(data, &c); e != nil {
-			log.Fatal("Cannot decode config content", e)
-		}
-		DefaultConfig = &c
-		fmt.Println("Connecting to " + DefaultConfig.Url)
-	} else {
-		log.Fatal("Cannot read file ", e)
+	crp, err := filepath.Abs(".")
+	if err != nil {
+		log.Fatal("cannot set up environment", err.Error())
 	}
-
+	crp = filepath.Dir(crp)
+	SetUpEnvironment(GetDefaultConfigFiles(crp))
 	os.Exit(m.Run())
 }
 
@@ -37,7 +34,7 @@ func TestJWT(t *testing.T) {
 	Convey("Test JWT retrieval", t, func() {
 
 		Convey("Is config correctly set", func() {
-			fmt.Printf("## DEFAULT CONF \n%s - %s - %s - %s - %s - %s - %v\n", DefaultConfig.Protocol, DefaultConfig.Url, DefaultConfig.ClientKey, DefaultConfig.ClientSecret, DefaultConfig.User, DefaultConfig.Password, DefaultConfig.SkipVerify)
+			// fmt.Printf("## DEFAULT CONF \n%s - %s - %s - %s - %s - %s - %v\n", DefaultConfig.Protocol, DefaultConfig.Url, DefaultConfig.ClientKey, DefaultConfig.ClientSecret, DefaultConfig.User, DefaultConfig.Password, DefaultConfig.SkipVerify)
 			So(DefaultConfig.Url, ShouldNotBeEmpty)
 			So(DefaultConfig.ClientKey, ShouldNotBeEmpty)
 			So(DefaultConfig.ClientSecret, ShouldNotBeEmpty)

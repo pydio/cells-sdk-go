@@ -1,11 +1,9 @@
 package idm
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/pydio/cells-sdk-go/config"
@@ -13,23 +11,15 @@ import (
 )
 
 func TestMain(m *testing.M) {
-
 	if !config.RunEnvAwareTests {
 		return
 	}
-
-	// Enhance this
-	if data, e := ioutil.ReadFile("../../config.json"); e == nil {
-		var c config.SdkConfig
-		if e := json.Unmarshal(data, &c); e != nil {
-			log.Fatal("Cannot decode config content", e)
-		}
-		config.DefaultConfig = &c
-		fmt.Println("Connecting to " + config.DefaultConfig.Url)
-	} else {
-		log.Fatal("Cannot read file ", e)
+	crp, err := filepath.Abs(".")
+	if err != nil {
+		log.Fatal("cannot set up environment", err.Error())
 	}
-
+	crp = filepath.Dir(filepath.Dir(crp))
+	config.SetUpEnvironment(config.GetDefaultConfigFiles(crp))
 	os.Exit(m.Run())
 }
 

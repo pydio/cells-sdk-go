@@ -1,5 +1,9 @@
 package config
 
+import (
+	"path/filepath"
+)
+
 // SdkConfig contains necessary data to connect to Pydio Cells API.
 type SdkConfig struct {
 	//  http, https or wss
@@ -36,3 +40,12 @@ var (
 	DefaultConfig   *SdkConfig
 	DefaultS3Config *S3Config
 )
+
+// GetDefaultConfigFiles simply retrieves absolute path for cells and s3 SDK config
+// files give the absolute path to the root of the cells-sdk-go source code folder.
+func GetDefaultConfigFiles(codeRootPath string) (string, string) {
+	rpath := filepath.Join(codeRootPath, "config")
+	cpath := filepath.Join(rpath, "config.json")
+	s3path := filepath.Join(rpath, "config-s3.json")
+	return cpath, s3path
+}

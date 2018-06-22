@@ -4,6 +4,6 @@
   "clientKey":"cells-front",
   "clientSecret":"rGkUgpinte1pza8tQ1WiNN3rKw",
   "user":"admin",
-  "password":"",
+  "password":"the pwd of the admin user",
   "skipVerify": false
 }
