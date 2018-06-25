@@ -26,6 +26,12 @@ func TestSetUpProcess(t *testing.T) {
 		So(e, ShouldBeNil)
 	})
 
+	// We run subsequent tests only in basic builds:
+	// It breaks other tests when in EnvAware mode because initialisation of the env is kept by convey
+	if RunEnvAwareTests {
+		return
+	}
+
 	Convey("Environment Config must be loaded", t, func() {
 		s, _ := ioutil.ReadFile(sampleFilePath)
 		var c SdkConfig
@@ -65,7 +71,7 @@ func TestEnvConfiguration(t *testing.T) {
 
 	Convey("Environment must be configured", t, func() {
 
-		Convey("Pydio Cells SDK must be configured", func() {
+		SkipConvey("Pydio Cells SDK must be configured", func() {
 			var c SdkConfig
 			// check presence of Env variable
 			protocol := os.Getenv(KeyProtocol)
@@ -97,30 +103,19 @@ func TestEnvConfiguration(t *testing.T) {
 				So(e, ShouldBeNil)
 			}
 
-			DefaultConfig = &c
-			So(DefaultConfig.User, ShouldEqual, "admin")
+			if RunEnvAwareTests {
+				So(c.User, ShouldEqual, "admin")
+			} else {
 
-			// Convey("Target Server must be reachable", func() {
-			// 	_, _, err := GetPreparedApiClient(DefaultConfig)
-			// 	So(err, ShouldBeNil)
-			// })
+				DefaultConfig = &c
+				So(DefaultConfig.User, ShouldEqual, "admin")
+				// err := SetUpEnvironment()
+				// Convey("Setup must be complete", t, func() {
+				// 	So(err, ShouldBeNil)
+				// 	So(DefaultConfig.User, ShouldEqual, "admin")
+				// 	So(DefaultS3Config.Bucket, ShouldEqual, "io")
+				// })
+			}
 		})
 	})
-
-	// Convey("Setup must be complete", t, func() {
-	// 	err := SetUpEnvironment()
-	// 	So(err, ShouldBeNil)
-	// 	So(DefaultConfig.User, ShouldEqual, "admin")
-	// 	So(DefaultS3Config.Bucket, ShouldEqual, "io")
-	// })
 }
-
-// func TestSetUp(t *testing.T) {
-
-// 	Convey("Target Server must be reachable", t, func() {
-// 		SetUpEnvironment()
-// 		_, _, err := GetPreparedApiClient(DefaultConfig)
-// 		So(err, ShouldBeNil)
-// 	})
-
-// }

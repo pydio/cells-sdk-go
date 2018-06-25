@@ -11,8 +11,9 @@ import (
 )
 
 var (
-	// Sample configuration files
-	configFileName = "config.sample.json"
+	// // Sample configuration files
+	// configFileName = "config.json"
+	rootPath string
 )
 
 func TestMain(m *testing.M) {
@@ -24,8 +25,8 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatal("cannot set up environment", err.Error())
 	}
-	crp = filepath.Dir(crp)
-	SetUpEnvironment(GetDefaultConfigFiles(crp))
+	rootPath = filepath.Dir(crp)
+	SetUpEnvironment(GetDefaultConfigFiles(rootPath))
 	os.Exit(m.Run())
 }
 
@@ -41,8 +42,11 @@ func TestJWT(t *testing.T) {
 			So(DefaultConfig.User, ShouldNotBeEmpty)
 			So(DefaultConfig.Password, ShouldNotBeEmpty)
 			So(DefaultConfig.SkipVerify, ShouldNotBeEmpty)
-		})
+			sdkc, s3c := GetDefaultConfigFiles(rootPath)
+			fmt.Println("Config corretly set from: ", sdkc, s3c)
+			fmt.Println("Config Client Secret: ", DefaultConfig.ClientSecret)
 
+		})
 		jwt, err := retrieveToken(DefaultConfig)
 		So(err, ShouldBeNil)
 		fmt.Println("Retrieved JWT: " + jwt)
