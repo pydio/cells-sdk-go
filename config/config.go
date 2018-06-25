@@ -6,17 +6,18 @@ import (
 
 // SdkConfig contains necessary data to connect to Pydio Cells API.
 type SdkConfig struct {
-	//  http, https or wss
+	// Protocol used: http, https or wss.
 	Protocol string `json:"protocol"`
-	// server name or IP & port   to the server
-	Url        string `json:"url"`
-	SkipVerify bool   `json:"skipVerify"`
+	// Url stores domain name or IP & port to the server.
+	Url string `json:"url"`
 	// OIDC ClientKey / ClientSecret
 	ClientKey    string `json:"clientKey"`
 	ClientSecret string `json:"clientSecret"`
 	// Pydio User Authentication
 	User     string `json:"user"`
 	Password string `json:"password"`
+
+	SkipVerify bool `json:"skipVerify"`
 }
 
 // S3Config contains the necessary data to connect to the Pydio Cells S3 gateway.
