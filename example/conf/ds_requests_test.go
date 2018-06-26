@@ -46,6 +46,30 @@ func TestDSService(t *testing.T) {
 		dss, err := ListDatasources()
 		So(err, ShouldBeNil)
 
+		initialNb := dss.Total
+
 		So(dss.Total, ShouldNotEqual, 0)
+
+		for i, ds := range dss.DataSources {
+			fmt.Printf("#%d - %s\n", i, ds.Name)
+		}
+
+		nds, err := AddLocalDatasource("pydiodstest1", "192.168.0.165", 9009, "/home/bsinou/Tmp/pydio/")
+		So(err, ShouldBeNil)
+		fmt.Printf("Created data source: %s\n", nds.Name)
+
+		dss, err = ListDatasources()
+		So(dss.Total, ShouldEqual, initialNb+1)
+		for i, ds := range dss.DataSources {
+			fmt.Printf("#%d - %s\n", i, ds.Name)
+		}
+
+		ok, err := DeleteLocalDatasource("pydiodstest1")
+		So(err, ShouldBeNil)
+		So(ok, ShouldBeTrue)
+
+		dss, err = ListDatasources()
+		So(dss.Total, ShouldEqual, initialNb)
+
 	})
 }

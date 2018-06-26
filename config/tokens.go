@@ -40,7 +40,7 @@ func (t *TokenStore) TokenFor(c *SdkConfig) string {
 }
 
 func (t *TokenStore) computeKey(c *SdkConfig) string {
-	s := fmt.Sprintf("%s-%s-%s-%s-%s", c.Url, c.ClientKey, c.ClientSecret, c.User, c.Password)
+	s := fmt.Sprintf("%s-%s-%s-%s-%s", c.Url, c.ClientKey, c.ClientSecret, c.User, "OBFUSCATED PWD XXXX")
 	hasher := md5.New()
 	hasher.Write([]byte(s))
 	return hex.EncodeToString(hasher.Sum(nil))
@@ -87,10 +87,6 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	if errMsg, exists := respMap["error"]; exists {
 		return "", fmt.Errorf("could not retrieve token, %s: %s", errMsg, respMap["error_description"])
 	}
-
-	// for k, v := range respMap {
-	// 	fmt.Printf("%s - %v\n", k, v)
-	// }
 
 	token := respMap["id_token"].(string)
 
