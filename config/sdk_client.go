@@ -43,7 +43,7 @@ func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, cont
 	return client, context.Background(), nil
 }
 
-func getHttpClient(sdkConfig *SdkConfig) *http.Client {
+func GetHttpClient(sdkConfig *SdkConfig) *http.Client {
 
 	if sdkConfig.SkipVerify {
 		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")

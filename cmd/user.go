@@ -32,14 +32,19 @@ var ListUserCmd = &cobra.Command{
 	Short: "List users",
 	Run: func(cmd *cobra.Command, args []string) {
 
+		httpClient := config.GetHttpClient(config.DefaultConfig)
 		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		// query := api.RestSearchUserRequest{}
+		params := &user_service.SearchUsersParams{
+			Context:    ctx,
+			HTTPClient: httpClient,
+		}
 
-		result, err := apiClient.UserService.SearchUsers(user_service.NewSearchUsersParamsWithContext(ctx))
+		result, err := apiClient.UserService.SearchUsers(params)
 		if err != nil {
 			fmt.Printf("could not list users: %s\n", err.Error())
 			log.Fatal(err)
@@ -66,6 +71,7 @@ var CreateUserCmd = &cobra.Command{
 	Use:   "create",
 	Short: "Create a user",
 	Run: func(cmd *cobra.Command, args []string) {
+		httpClient := config.GetHttpClient(config.DefaultConfig)
 		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
@@ -94,9 +100,10 @@ var CreateUserCmd = &cobra.Command{
 		}
 
 		result, err := apiClient.UserService.PutUser(&user_service.PutUserParams{
-			Login:   createUserLogin,
-			Body:    &newUser,
-			Context: ctx,
+			Login:      createUserLogin,
+			Body:       &newUser,
+			Context:    ctx,
+			HTTPClient: httpClient,
 		})
 		if err != nil {
 			fmt.Printf("could not create user %s: %s\n", createUserLogin, err.Error())
@@ -111,9 +118,10 @@ var CreateUserCmd = &cobra.Command{
 			Label:    "User " + createUserLogin + " role",
 		}
 		_, err = apiClient.RoleService.SetRole(&role_service.SetRoleParams{
-			UUID:    result.Payload.UUID,
-			Body:    &newRole,
-			Context: ctx,
+			UUID:       result.Payload.UUID,
+			Body:       &newRole,
+			Context:    ctx,
+			HTTPClient: httpClient,
 		})
 		if err != nil {
 			log.Fatalf("could not create role for user %s: %s\n", createUserLogin, err.Error())

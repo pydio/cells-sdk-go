@@ -73,7 +73,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	req.Header.Add("Cache-Control", "no-cache")
 	req.Header.Add("Authorization", basicAuthToken(sdkConfig.ClientKey, sdkConfig.ClientSecret))
 
-	res, err := getHttpClient(sdkConfig).Do(req)
+	res, err := GetHttpClient(sdkConfig).Do(req)
 	if err != nil {
 		return "", err
 	}
