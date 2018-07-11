@@ -15,6 +15,7 @@ import (
 var (
 	configFile string
 
+	protocol   string
 	host       string
 	id         string
 	secret     string
@@ -32,6 +33,7 @@ var RootCmd = &cobra.Command{
 		// Parse from parameters
 		if host != "" && id != "" && secret != "" && user != "" && pwd != "" {
 			config.DefaultConfig = &config.SdkConfig{
+				Protocol:     protocol,
 				Url:          host,
 				ClientKey:    id,
 				ClientSecret: secret,
@@ -68,6 +70,7 @@ func init() {
 	flags := RootCmd.PersistentFlags()
 	flags.StringVarP(&configFile, "config", "c", "config.json", "Path to the configuration file")
 
+	flags.StringVarP(&protocol, "protocol", "h", "http", "Http scheme to server")
 	flags.StringVarP(&host, "url", "u", "", "Http URL to server")
 	flags.StringVarP(&id, "id", "i", "", "OIDC Client ID")
 	flags.StringVarP(&secret, "secret", "s", "", "OIDC Client Secret")
