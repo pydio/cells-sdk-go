@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -23,7 +24,7 @@ func GetPreparedS3CLient(sdkConfig *SdkConfig, s3Config *S3Config) (*s3.S3, erro
 	} else {
 		apiKey, err = retrieveToken(sdkConfig)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("cannot retrieve token from config, cause: %s", err.Error())
 		}
 	}
 

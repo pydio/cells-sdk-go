@@ -24,7 +24,7 @@ Put the package under your project folder and add the following in import:
 
 _This is for the maintainers of cells-sdk-go project only._
 
-To update the Cells go sdk, you must folloy the steps below:
+To update the Cells go sdk, you must follow the steps below:
 
 _First time only_:
 
