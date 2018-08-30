@@ -57,7 +57,7 @@ var RootCmd = &cobra.Command{
 			fmt.Println("Connecting to " + config.DefaultConfig.Url)
 			fmt.Println("")
 		} else {
-			log.Fatal("Cannot read file ", e)
+			log.Fatal("Cannot read file, root cause:", e)
 		}
 
 	},

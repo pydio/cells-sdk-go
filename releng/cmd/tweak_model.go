@@ -11,8 +11,9 @@ var (
 	pathToModels string
 )
 
-var TwickCmd = &cobra.Command{
-	Use:   "twick-model",
+// TweakCmd launch automated manipulation of the generated model to workaround some known issues.
+var TweakCmd = &cobra.Command{
+	Use:   "tweak-model",
 	Short: "Modify go-swagger generated models to enable communication with the protobuf generated RESTful API",
 	Run: func(cmd *cobra.Command, args []string) {
 
@@ -28,7 +29,7 @@ var TwickCmd = &cobra.Command{
 
 func init() {
 
-	TwickCmd.Flags().StringVar(&pathToModels, "path", "../models", "Path to the models package")
+	TweakCmd.Flags().StringVar(&pathToModels, "path", "../models", "Path to the models package")
 
-	RootCmd.AddCommand(TwickCmd)
+	RelengCmd.AddCommand(TweakCmd)
 }
