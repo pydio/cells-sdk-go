@@ -4,3 +4,4 @@ config-s3.json
 cells-sdk-go
 main
 swagger
+.idea
