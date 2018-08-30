@@ -10,7 +10,6 @@ import (
 	"github.com/pydio/cells-sdk-go/client/user_service"
 	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/models"
-	"github.com/pydio/cells/common"
 )
 
 var (
@@ -19,7 +18,7 @@ var (
 	createUserAdmin bool
 )
 
-var UserCmd = &cobra.Command{
+var userCmd = &cobra.Command{
 	Use:   "user",
 	Short: "User-related commands",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -27,7 +26,7 @@ var UserCmd = &cobra.Command{
 	},
 }
 
-var ListUserCmd = &cobra.Command{
+var listUserCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "List users",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -67,7 +66,7 @@ var ListUserCmd = &cobra.Command{
 	},
 }
 
-var CreateUserCmd = &cobra.Command{
+var createUserCmd = &cobra.Command{
 	Use:   "create",
 	Short: "Create a user",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -81,14 +80,14 @@ var CreateUserCmd = &cobra.Command{
 		w := models.ServiceResourcePolicyActionWRITE
 		allow := models.ServiceResourcePolicyPolicyEffectAllow
 		policies := []*models.ServiceResourcePolicy{
-			&models.ServiceResourcePolicy{Action: r, Effect: allow, Subject: "profile:" + common.PYDIO_PROFILE_STANDARD},
+			&models.ServiceResourcePolicy{Action: r, Effect: allow, Subject: "profile:standard"},
 			&models.ServiceResourcePolicy{Action: w, Effect: allow, Subject: "user:" + createUserLogin},
-			&models.ServiceResourcePolicy{Action: w, Effect: allow, Subject: "profile:" + common.PYDIO_PROFILE_ADMIN},
+			&models.ServiceResourcePolicy{Action: w, Effect: allow, Subject: "profile:admin"},
 		}
 
-		profile := common.PYDIO_PROFILE_STANDARD
+		profile := "standard"
 		if createUserAdmin {
-			profile = common.PYDIO_PROFILE_ADMIN
+			profile = "admin"
 		}
 		// Create User
 		newUser := models.IdmUser{
@@ -129,18 +128,18 @@ var CreateUserCmd = &cobra.Command{
 
 		fmt.Printf("Created user with login: %s and uuid: %s\n", result.Payload.Login, result.Payload.UUID)
 
-		ListUserCmd.Run(cmd, args)
+		listUserCmd.Run(cmd, args)
 	},
 }
 
 func init() {
 
-	CreateUserCmd.Flags().StringVar(&createUserLogin, "create_login", "randomUser", "New user login")
-	CreateUserCmd.Flags().StringVar(&createUserPwd, "create_password", "password", "New user password")
-	CreateUserCmd.Flags().BoolVar(&createUserAdmin, "create_admin", false, "Set new user with admin capacities")
+	createUserCmd.Flags().StringVar(&createUserLogin, "create_login", "randomUser", "New user login")
+	createUserCmd.Flags().StringVar(&createUserPwd, "create_password", "password", "New user password")
+	createUserCmd.Flags().BoolVar(&createUserAdmin, "create_admin", false, "Set new user with admin capacities")
 
-	UserCmd.AddCommand(ListUserCmd)
-	UserCmd.AddCommand(CreateUserCmd)
+	userCmd.AddCommand(listUserCmd)
+	userCmd.AddCommand(createUserCmd)
 
-	RootCmd.AddCommand(UserCmd)
+	RootCmd.AddCommand(userCmd)
 }
