@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+DeleteUserMetaTags lists tags for a given namespace
+*/
+func (a *Client) DeleteUserMetaTags(params *DeleteUserMetaTagsParams) (*DeleteUserMetaTagsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteUserMetaTagsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteUserMetaTags",
+		Method:             "DELETE",
+		PathPattern:        "/user-meta/tags/{Namespace}/{Tags}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &DeleteUserMetaTagsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteUserMetaTagsOK), nil
+
+}
+
+/*
 ListUserMetaNamespace lists defined meta namespaces
 */
 func (a *Client) ListUserMetaNamespace(params *ListUserMetaNamespaceParams) (*ListUserMetaNamespaceOK, error) {
@@ -49,6 +77,62 @@ func (a *Client) ListUserMetaNamespace(params *ListUserMetaNamespaceParams) (*Li
 		return nil, err
 	}
 	return result.(*ListUserMetaNamespaceOK), nil
+
+}
+
+/*
+ListUserMetaTags lists tags for a given namespace
+*/
+func (a *Client) ListUserMetaTags(params *ListUserMetaTagsParams) (*ListUserMetaTagsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListUserMetaTagsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListUserMetaTags",
+		Method:             "GET",
+		PathPattern:        "/user-meta/tags/{Namespace}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListUserMetaTagsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListUserMetaTagsOK), nil
+
+}
+
+/*
+PutUserMetaTag lists tags for a given namespace
+*/
+func (a *Client) PutUserMetaTag(params *PutUserMetaTagParams) (*PutUserMetaTagOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutUserMetaTagParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutUserMetaTag",
+		Method:             "POST",
+		PathPattern:        "/user-meta/tags/{Namespace}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &PutUserMetaTagReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PutUserMetaTagOK), nil
 
 }
 

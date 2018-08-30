@@ -74,6 +74,8 @@ type GetUserParams struct {
 	IsGroup *bool
 	/*Login*/
 	Login string
+	/*OldPassword*/
+	OldPassword *string
 	/*Password*/
 	Password *string
 	/*PoliciesContextEditable*/
@@ -161,6 +163,17 @@ func (o *GetUserParams) WithLogin(login string) *GetUserParams {
 // SetLogin adds the login to the get user params
 func (o *GetUserParams) SetLogin(login string) {
 	o.Login = login
+}
+
+// WithOldPassword adds the oldPassword to the get user params
+func (o *GetUserParams) WithOldPassword(oldPassword *string) *GetUserParams {
+	o.SetOldPassword(oldPassword)
+	return o
+}
+
+// SetOldPassword adds the oldPassword to the get user params
+func (o *GetUserParams) SetOldPassword(oldPassword *string) {
+	o.OldPassword = oldPassword
 }
 
 // WithPassword adds the password to the get user params
@@ -255,6 +268,22 @@ func (o *GetUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	// path param Login
 	if err := r.SetPathParam("Login", o.Login); err != nil {
 		return err
+	}
+
+	if o.OldPassword != nil {
+
+		// query param OldPassword
+		var qrOldPassword string
+		if o.OldPassword != nil {
+			qrOldPassword = *o.OldPassword
+		}
+		qOldPassword := qrOldPassword
+		if qOldPassword != "" {
+			if err := r.SetQueryParam("OldPassword", qOldPassword); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.Password != nil {

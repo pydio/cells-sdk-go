@@ -37,7 +37,10 @@ type IdmWorkspace struct {
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
 	// root nodes
-	RootNodes []string `json:"RootNodes"`
+	RootNodes IdmWorkspaceRootNodes `json:"RootNodes,omitempty"`
+
+	// root uuids
+	RootUuids []string `json:"RootUUIDs"`
 
 	// scope
 	Scope IdmWorkspaceScope `json:"Scope,omitempty"`
@@ -54,6 +57,10 @@ func (m *IdmWorkspace) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePolicies(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRootNodes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -87,6 +94,22 @@ func (m *IdmWorkspace) validatePolicies(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *IdmWorkspace) validateRootNodes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RootNodes) { // not required
+		return nil
+	}
+
+	if err := m.RootNodes.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("RootNodes")
+		}
+		return err
 	}
 
 	return nil

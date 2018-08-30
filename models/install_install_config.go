@@ -51,8 +51,8 @@ type InstallInstallConfig struct {
 	// db TCP port
 	DbTCPPort string `json:"dbTCPPort,omitempty"`
 
-	// db TCP user
-	DbTCPUser string `json:"dbTCPUser,omitempty"`
+	// db t cpuser
+	DbTCpuser string `json:"dbTCPUser,omitempty"`
 
 	// ds folder
 	DsFolder string `json:"dsFolder,omitempty"`
@@ -90,8 +90,11 @@ type InstallInstallConfig struct {
 	// external websocket
 	ExternalWebsocket string `json:"externalWebsocket,omitempty"`
 
-	// fpm address
-	FpmAddress string `json:"fpmAddress,omitempty"`
+	// frontend application title
+	FrontendApplicationTitle string `json:"frontendApplicationTitle,omitempty"`
+
+	// frontend default language
+	FrontendDefaultLanguage string `json:"frontendDefaultLanguage,omitempty"`
 
 	// frontend hosts
 	FrontendHosts string `json:"frontendHosts,omitempty"`

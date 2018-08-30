@@ -33,6 +33,9 @@ type IdmUser struct {
 	// User specific data
 	Login string `json:"Login,omitempty"`
 
+	// old password
+	OldPassword string `json:"OldPassword,omitempty"`
+
 	// password
 	Password string `json:"Password,omitempty"`
 

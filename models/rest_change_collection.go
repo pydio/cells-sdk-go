@@ -22,7 +22,7 @@ type RestChangeCollection struct {
 	Changes []*TreeSyncChange `json:"Changes"`
 
 	// last seq Id
-	LastSeqID int64 `json:"LastSeqId,string,omitempty"`
+	LastSeqID int64 `json:"LastSeqId,omitempty"`
 }
 
 // Validate validates this rest change collection

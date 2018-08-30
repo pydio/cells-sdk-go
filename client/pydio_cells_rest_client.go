@@ -30,9 +30,11 @@ import (
 	"github.com/pydio/cells-sdk-go/client/meta_service"
 	"github.com/pydio/cells-sdk-go/client/policy_service"
 	"github.com/pydio/cells-sdk-go/client/role_service"
+	"github.com/pydio/cells-sdk-go/client/scheduler_service"
 	"github.com/pydio/cells-sdk-go/client/search_service"
 	"github.com/pydio/cells-sdk-go/client/share_service"
 	"github.com/pydio/cells-sdk-go/client/token_service"
+	"github.com/pydio/cells-sdk-go/client/tree_service"
 	"github.com/pydio/cells-sdk-go/client/update_service"
 	"github.com/pydio/cells-sdk-go/client/user_meta_service"
 	"github.com/pydio/cells-sdk-go/client/user_service"
@@ -120,11 +122,15 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 
 	cli.RoleService = role_service.New(transport, formats)
 
+	cli.SchedulerService = scheduler_service.New(transport, formats)
+
 	cli.SearchService = search_service.New(transport, formats)
 
 	cli.ShareService = share_service.New(transport, formats)
 
 	cli.TokenService = token_service.New(transport, formats)
+
+	cli.TreeService = tree_service.New(transport, formats)
 
 	cli.UpdateService = update_service.New(transport, formats)
 
@@ -216,11 +222,15 @@ type PydioCellsRest struct {
 
 	RoleService *role_service.Client
 
+	SchedulerService *scheduler_service.Client
+
 	SearchService *search_service.Client
 
 	ShareService *share_service.Client
 
 	TokenService *token_service.Client
+
+	TreeService *tree_service.Client
 
 	UpdateService *update_service.Client
 
@@ -275,11 +285,15 @@ func (c *PydioCellsRest) SetTransport(transport runtime.ClientTransport) {
 
 	c.RoleService.SetTransport(transport)
 
+	c.SchedulerService.SetTransport(transport)
+
 	c.SearchService.SetTransport(transport)
 
 	c.ShareService.SetTransport(transport)
 
 	c.TokenService.SetTransport(transport)
+
+	c.TreeService.SetTransport(transport)
 
 	c.UpdateService.SetTransport(transport)
 

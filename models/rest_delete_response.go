@@ -16,7 +16,7 @@ import (
 type RestDeleteResponse struct {
 
 	// num rows
-	NumRows int64 `json:"NumRows,string,omitempty"`
+	NumRows int64 `json:"NumRows,omitempty"`
 
 	// success
 	Success bool `json:"Success,omitempty"`

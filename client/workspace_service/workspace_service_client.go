@@ -6,9 +6,6 @@ package workspace_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
@@ -92,7 +89,7 @@ func (a *Client) SearchWorkspaces(params *SearchWorkspacesParams) (*SearchWorksp
 		params = NewSearchWorkspacesParams()
 	}
 
-	op := runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "SearchWorkspaces",
 		Method:             "POST",
 		PathPattern:        "/workspace",
@@ -103,15 +100,7 @@ func (a *Client) SearchWorkspaces(params *SearchWorkspacesParams) (*SearchWorksp
 		Reader:             &SearchWorkspacesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-
-	restr, err := json.Marshal(op)
-	if err != nil {
-		fmt.Println("Cannot marshall request", err.Error())
-	}
-	fmt.Println("###### Marshalled request", string(restr))
-
-	result, err := a.transport.Submit(&op)
+	})
 	if err != nil {
 		return nil, err
 	}

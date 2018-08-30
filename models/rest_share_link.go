@@ -19,13 +19,13 @@ import (
 type RestShareLink struct {
 
 	// access end
-	AccessEnd int64 `json:"AccessEnd,string,omitempty"`
+	AccessEnd int64 `json:"AccessEnd,omitempty"`
 
 	// access start
-	AccessStart int64 `json:"AccessStart,string,omitempty"`
+	AccessStart int64 `json:"AccessStart,omitempty"`
 
 	// current downloads
-	CurrentDownloads int64 `json:"CurrentDownloads,string,omitempty"`
+	CurrentDownloads int64 `json:"CurrentDownloads,omitempty"`
 
 	// description
 	Description string `json:"Description,omitempty"`
@@ -40,7 +40,7 @@ type RestShareLink struct {
 	LinkURL string `json:"LinkUrl,omitempty"`
 
 	// max downloads
-	MaxDownloads int64 `json:"MaxDownloads,string,omitempty"`
+	MaxDownloads int64 `json:"MaxDownloads,omitempty"`
 
 	// password required
 	PasswordRequired bool `json:"PasswordRequired,omitempty"`

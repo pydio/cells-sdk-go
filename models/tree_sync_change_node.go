@@ -16,13 +16,13 @@ import (
 type TreeSyncChangeNode struct {
 
 	// bytesize
-	Bytesize int64 `json:"bytesize,string,omitempty"`
+	Bytesize int64 `json:"bytesize,omitempty"`
 
 	// md5
 	Md5 string `json:"md5,omitempty"`
 
 	// mtime
-	Mtime int64 `json:"mtime,string,omitempty"`
+	Mtime int64 `json:"mtime,omitempty"`
 
 	// node path
 	NodePath string `json:"nodePath,omitempty"`

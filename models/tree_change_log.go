@@ -28,13 +28,13 @@ type TreeChangeLog struct {
 	Event *TreeNodeChangeEvent `json:"Event,omitempty"`
 
 	// Unix Timestamp
-	MTime int64 `json:"MTime,string,omitempty"`
+	MTime int64 `json:"MTime,omitempty"`
 
 	// Who performed this action
 	OwnerUUID string `json:"OwnerUuid,omitempty"`
 
 	// Content Size at that moment
-	Size int64 `json:"Size,string,omitempty"`
+	Size int64 `json:"Size,omitempty"`
 
 	// Unique commit ID
 	UUID string `json:"Uuid,omitempty"`

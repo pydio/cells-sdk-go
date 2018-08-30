@@ -28,7 +28,7 @@ type TreeNode struct {
 	Etag string `json:"Etag,omitempty"`
 
 	// Last modification Timestamp
-	MTime int64 `json:"MTime,string,omitempty"`
+	MTime int64 `json:"MTime,omitempty"`
 
 	// ------------------------------------
 	// Then a free K => V representation of any kind of metadata
@@ -42,7 +42,7 @@ type TreeNode struct {
 	Path string `json:"Path,omitempty"`
 
 	// Size of the file, or cumulated size of folder
-	Size int64 `json:"Size,string,omitempty"`
+	Size int64 `json:"Size,omitempty"`
 
 	// type
 	Type TreeNodeType `json:"Type,omitempty"`
