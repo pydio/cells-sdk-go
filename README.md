@@ -64,8 +64,8 @@ rm -r models
 > _WARNING_: we currently have some glitches during import process and must do some extra twick for the go code to compile. See below.
 
 ```sh
-# Apply the twick to workaround int64 serialisation issue between protobuf and swagger
-go run main.go twick-model
+# Apply the tweak to workaround int64 serialisation issue between protobuf and swagger
+go run releng/main.go tweak-model
 ```
 
 You should also update version information at the top of this page.
