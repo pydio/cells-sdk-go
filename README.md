@@ -48,8 +48,8 @@ wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest
 # simply generate updated code
 ./swagger generate client --skip-validation -f rest.swagger.json
 
-# Apply the twick to workaround int64 serialisation issue between protobuf and swagger
-go run main.go twick-model
+# Apply the tweak to workaround int64 serialisation issue between protobuf and swagger
+go run releng/main.go tweak-model
 ```
 
 You should also update version information at the top of this page.
