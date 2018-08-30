@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	models "github.com/pydio/cells-sdk-go/models"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -63,7 +64,7 @@ for the front serve binary operation typically these are written to a http.Reque
 type FrontServeBinaryParams struct {
 
 	/*BinaryType*/
-	BinaryType restFrontBinaryType
+	BinaryType models.RestFrontBinaryType
 	/*UUID*/
 	UUID string
 
@@ -106,13 +107,13 @@ func (o *FrontServeBinaryParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBinaryType adds the binaryType to the front serve binary params
-func (o *FrontServeBinaryParams) WithBinaryType(binaryType restFrontBinaryType) *FrontServeBinaryParams {
+func (o *FrontServeBinaryParams) WithBinaryType(binaryType models.RestFrontBinaryType) *FrontServeBinaryParams {
 	o.SetBinaryType(binaryType)
 	return o
 }
 
 // SetBinaryType adds the binaryType to the front serve binary params
-func (o *FrontServeBinaryParams) SetBinaryType(binaryType restFrontBinaryType) {
+func (o *FrontServeBinaryParams) SetBinaryType(binaryType models.RestFrontBinaryType) {
 	o.BinaryType = binaryType
 }
 
@@ -136,7 +137,7 @@ func (o *FrontServeBinaryParams) WriteToRequest(r runtime.ClientRequest, reg str
 	var res []error
 
 	// path param BinaryType
-	if err := r.SetPathParam("BinaryType", o.BinaryType); err != nil {
+	if err := r.SetPathParam("BinaryType", string(o.BinaryType)); err != nil {
 		return err
 	}
 

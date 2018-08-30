@@ -65,7 +65,7 @@ for the front put binary operation typically these are written to a http.Request
 type FrontPutBinaryParams struct {
 
 	/*BinaryType*/
-	BinaryType restFrontBinaryType
+	BinaryType models.RestFrontBinaryType
 	/*UUID*/
 	UUID string
 	/*Body*/
@@ -110,13 +110,13 @@ func (o *FrontPutBinaryParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBinaryType adds the binaryType to the front put binary params
-func (o *FrontPutBinaryParams) WithBinaryType(binaryType restFrontBinaryType) *FrontPutBinaryParams {
+func (o *FrontPutBinaryParams) WithBinaryType(binaryType models.RestFrontBinaryType) *FrontPutBinaryParams {
 	o.SetBinaryType(binaryType)
 	return o
 }
 
 // SetBinaryType adds the binaryType to the front put binary params
-func (o *FrontPutBinaryParams) SetBinaryType(binaryType restFrontBinaryType) {
+func (o *FrontPutBinaryParams) SetBinaryType(binaryType models.RestFrontBinaryType) {
 	o.BinaryType = binaryType
 }
 
@@ -151,7 +151,7 @@ func (o *FrontPutBinaryParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	var res []error
 
 	// path param BinaryType
-	if err := r.SetPathParam("BinaryType", o.BinaryType); err != nil {
+	if err := r.SetPathParam("BinaryType", string(o.BinaryType)); err != nil {
 		return err
 	}
 
