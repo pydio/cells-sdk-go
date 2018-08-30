@@ -1238,6 +1238,74 @@
         ]
       }
     },
+    "/frontend/binaries/{BinaryType}/{Uuid}": {
+      "get": {
+        "summary": "Serve frontend binaries directly (avatars / logos / bg images)",
+        "operationId": "FrontServeBinary",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontBinaryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "BinaryType",
+            "in": "path",
+            "required": true,
+            "type": "restFrontBinaryType"
+          },
+          {
+            "name": "Uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FrontendService"
+        ]
+      },
+      "post": {
+        "summary": "Upload frontend binaries (avatars / logos / bg images)",
+        "operationId": "FrontPutBinary",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontBinaryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "BinaryType",
+            "in": "path",
+            "required": true,
+            "type": "restFrontBinaryType"
+          },
+          {
+            "name": "Uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restFrontBinaryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "FrontendService"
+        ]
+      }
+    },
     "/frontend/bootconf": {
       "get": {
         "summary": "Add some data to the initial set of parameters loaded by the frontend",
@@ -1282,6 +1350,83 @@
         ]
       }
     },
+    "/frontend/messages/{Lang}": {
+      "get": {
+        "summary": "Serve list of I18n messages",
+        "operationId": "FrontMessages",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontMessagesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Lang",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FrontendService"
+        ]
+      }
+    },
+    "/frontend/plugins/{Lang}": {
+      "get": {
+        "summary": "Serve list of I18n messages",
+        "operationId": "FrontPlugins",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontPluginsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Lang",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FrontendService"
+        ]
+      }
+    },
+    "/frontend/session": {
+      "post": {
+        "summary": "Handle JWT",
+        "operationId": "FrontSession",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontSessionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restFrontSessionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "FrontendService"
+        ]
+      }
+    },
     "/frontend/settings-menu": {
       "get": {
         "summary": "Sends a tree of nodes to be used a menu in the Settings panel",
@@ -1291,6 +1436,23 @@
             "description": "",
             "schema": {
               "$ref": "#/definitions/restSettingsMenuResponse"
+            }
+          }
+        },
+        "tags": [
+          "FrontendService"
+        ]
+      }
+    },
+    "/frontend/state": {
+      "get": {
+        "summary": "Send XML state registry",
+        "operationId": "FrontState",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontStateResponse"
             }
           }
         },
@@ -2094,6 +2256,32 @@
         ]
       }
     },
+    "/scheduler/jobs": {
+      "put": {
+        "operationId": "PutJob",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/jobsPutJobResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/jobsPutJobRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SchedulerService"
+        ]
+      }
+    },
     "/search/nodes": {
       "post": {
         "summary": "Search indexed nodes (files/folders) on various aspects",
@@ -2352,6 +2540,60 @@
         ]
       }
     },
+    "/tree/create": {
+      "post": {
+        "summary": "Create dirs or empty files inside the tree",
+        "operationId": "CreateNodes",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restNodesCollection"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restCreateNodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TreeService"
+        ]
+      }
+    },
+    "/tree/stats": {
+      "post": {
+        "summary": "List meta for a list of nodes, or a full directory using /path/* syntax",
+        "operationId": "BulkStatNodes",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restBulkMetaResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restGetBulkMetaRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TreeService"
+        ]
+      }
+    },
     "/update": {
       "get": {
         "summary": "Check the remote server to see if there are available binaries",
@@ -2561,6 +2803,93 @@
         ]
       }
     },
+    "/user-meta/tags/{Namespace}": {
+      "get": {
+        "summary": "List Tags for a given namespace",
+        "operationId": "ListUserMetaTags",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restListUserMetaTagsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Namespace",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserMetaService"
+        ]
+      },
+      "post": {
+        "summary": "List Tags for a given namespace",
+        "operationId": "PutUserMetaTag",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restPutUserMetaTagResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Namespace",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restPutUserMetaTagRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserMetaService"
+        ]
+      }
+    },
+    "/user-meta/tags/{Namespace}/{Tags}": {
+      "delete": {
+        "summary": "List Tags for a given namespace",
+        "operationId": "DeleteUserMetaTags",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restDeleteUserMetaTagsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Namespace",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Tags",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserMetaService"
+        ]
+      }
+    },
     "/user-meta/update": {
       "put": {
         "summary": "Update/delete user meta",
@@ -2654,6 +2983,12 @@
           },
           {
             "name": "Password",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "OldPassword",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4212,6 +4547,9 @@
         "Password": {
           "type": "string"
         },
+        "OldPassword": {
+          "type": "string"
+        },
         "IsGroup": {
           "type": "boolean",
           "format": "boolean",
@@ -4368,10 +4706,16 @@
         "Attributes": {
           "type": "string"
         },
-        "RootNodes": {
+        "RootUUIDs": {
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "RootNodes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/treeNode"
           }
         },
         "PoliciesContextEditable": {
@@ -4532,7 +4876,10 @@
         "frontendRepeatPassword": {
           "type": "string"
         },
-        "fpmAddress": {
+        "frontendApplicationTitle": {
+          "type": "string"
+        },
+        "frontendDefaultLanguage": {
           "type": "string"
         },
         "licenseRequired": {
@@ -4903,6 +5250,22 @@
         }
       },
       "title": "/////////////////\nJOB  SERVICE  //\n/////////////////"
+    },
+    "jobsPutJobRequest": {
+      "type": "object",
+      "properties": {
+        "Job": {
+          "$ref": "#/definitions/jobsJob"
+        }
+      }
+    },
+    "jobsPutJobResponse": {
+      "type": "object",
+      "properties": {
+        "Job": {
+          "$ref": "#/definitions/jobsJob"
+        }
+      }
     },
     "jobsSchedule": {
       "type": "object",
@@ -5565,6 +5928,21 @@
         }
       }
     },
+    "restCreateNodesRequest": {
+      "type": "object",
+      "properties": {
+        "Nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/treeNode"
+          }
+        },
+        "Recursive": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
     "restDataSourceCollection": {
       "type": "object",
       "properties": {
@@ -5614,6 +5992,15 @@
       "title": "Generic Message"
     },
     "restDeleteShareLinkResponse": {
+      "type": "object",
+      "properties": {
+        "Success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "restDeleteUserMetaTagsResponse": {
       "type": "object",
       "properties": {
         "Success": {
@@ -5704,6 +6091,29 @@
         }
       }
     },
+    "restFrontBinaryRequest": {
+      "type": "object",
+      "properties": {
+        "BinaryType": {
+          "$ref": "#/definitions/restFrontBinaryType"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "restFrontBinaryResponse": {
+      "type": "object",
+      "title": "Not used, endpoint returns octet-stream"
+    },
+    "restFrontBinaryType": {
+      "type": "string",
+      "enum": [
+        "USER",
+        "GLOBAL"
+      ],
+      "default": "USER"
+    },
     "restFrontBootConfResponse": {
       "type": "object",
       "properties": {
@@ -5757,6 +6167,54 @@
         }
       },
       "title": "Basic response for confirmation"
+    },
+    "restFrontMessagesResponse": {
+      "type": "object",
+      "properties": {
+        "Messages": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "restFrontPluginsResponse": {
+      "type": "object"
+    },
+    "restFrontSessionRequest": {
+      "type": "object",
+      "properties": {
+        "ClientTime": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Login": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "Logout": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "restFrontSessionResponse": {
+      "type": "object",
+      "properties": {
+        "JWT": {
+          "type": "string"
+        },
+        "ExpireTime": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "restFrontStateResponse": {
+      "type": "object"
     },
     "restGetBulkMetaRequest": {
       "type": "object",
@@ -5871,6 +6329,17 @@
         }
       }
     },
+    "restListUserMetaTagsResponse": {
+      "type": "object",
+      "properties": {
+        "Tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "restLogLevel": {
       "type": "string",
       "enum": [
@@ -5981,6 +6450,26 @@
         },
         "UpdateCustomHash": {
           "type": "string"
+        }
+      }
+    },
+    "restPutUserMetaTagRequest": {
+      "type": "object",
+      "properties": {
+        "Namespace": {
+          "type": "string"
+        },
+        "Tag": {
+          "type": "string"
+        }
+      }
+    },
+    "restPutUserMetaTagResponse": {
+      "type": "object",
+      "properties": {
+        "Success": {
+          "type": "boolean",
+          "format": "boolean"
         }
       }
     },

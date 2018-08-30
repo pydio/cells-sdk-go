@@ -4,7 +4,7 @@
 
 Rest API Client for Pydio Cells.
 
-Current SDK has been update on **May, the 31st 2018** with git commit **da477ac1bd957f4d945242dcab0647fd567a4faa**.
+Current SDK has been update on **Aug, the 30th 2018** with git commit **[406a82d](https://github.com/pydio/cells/commit/406a82dbe316cbb8c55f740b2b109c5c6a902fb6)**.
 
 ## Overview
 
@@ -31,11 +31,17 @@ _First time only_:
 ```sh
 # go to the roots of this directory, typically:
 cd $GOPATH/src/github.com/pydio/cells-sdk-go
-# Retrieve swagger binary if necessary
+
+# If necessary, retrieve swagger binary, rename it and give execution permission
+
 ## for linux
-wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_linux_amd64 
+wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_linux_amd64
+
 ## for Mac OS
 wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_darwin_amd64
+
+mv swagger_linux_amd64 swagger
+chmod u+x swagger
 ```
 
 _After each API Spec modification_:
@@ -43,11 +49,21 @@ _After each API Spec modification_:
 ```sh
 # retrieve latest spec file
 wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest.swagger.json
-# You might also delete folder models and client 
+# as the time of writing, we rather use the corresponding branch in Cells
+wget https://raw.githubusercontent.com/pydio/cells/gokilledphpstars/common/proto/rest/rest.swagger.json
+
+
+# You might also delete folder models and client
+rm -r client
+rm -r models
 
 # simply generate updated code
 ./swagger generate client --skip-validation -f rest.swagger.json
+```
 
+> _WARNING_: we currently have some glitches during import process and must do some extra twick for the go code to compile. See below.
+
+```sh
 # Apply the twick to workaround int64 serialisation issue between protobuf and swagger
 go run main.go twick-model
 ```
