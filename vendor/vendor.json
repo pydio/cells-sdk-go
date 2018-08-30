@@ -171,12 +171,6 @@
 			"revisionTime": "2017-07-22T04:01:10Z"
 		},
 		{
-			"checksumSHA1": "NKFrAAW+nq/Qm72cpxpiUVYPHrM=",
-			"path": "github.com/pydio/cells/common",
-			"revision": "3665188f7a73a5c63b2bb9bbcba449cc5c91c5c5",
-			"revisionTime": "2018-06-22T13:35:18Z"
-		},
-		{
 			"checksumSHA1": "imvfVf7lRxu0Fz7V2G43CUC6Ff0=",
 			"path": "github.com/spf13/cobra",
 			"revision": "4dab30cb33e6633c33c787106bafbfbfdde7842d",
