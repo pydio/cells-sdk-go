@@ -1,51 +1,50 @@
 package cmd
 
 import (
-	"log"
 	"fmt"
+	"log"
+
+	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/meta_service"
 	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/models"
-	"github.com/spf13/cobra"
 )
-
-
 
 var listFiles = &cobra.Command{
 	Use:   "list-files",
-	Short: "List files",
-	Long:  `List files on pydio cells https://demo.pydio.com, only requires the secret key`,
+	Short: "lf",
+	Long:  `List files on pydio cells`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		if secret == "" {
-			log.Fatal("Please provide the secret key")
-		}
-
-
-
+		//connects to the pydio api via the sdkConfig
 		httpClient := config.GetHttpClient(config.DefaultConfig)
 		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
 
+		/*GetBulkMetaParams contains all the parameters to send to the API endpoint
+		for the get bulk meta operation typically these are written to a http.Request
+		*/
 		params := &meta_service.GetBulkMetaParams{
 			Body: &models.RestGetBulkMetaRequest{NodePaths: []string{
+				//the workspaces from whom the files are listed
 				"/*",
-				//"ds1/*",
 				"personal-files/*",
 			}},
 			Context:    ctx,
 			HTTPClient: httpClient,
 		}
 
+		//retrieves the files according to the parameters above
 		result, err := apiClient.MetaService.GetBulkMeta(params)
 		if err != nil {
 			fmt.Printf("could not list meta: %s\n", err.Error())
 			log.Fatal(err)
 		}
 
+		//prints the path therefore the names of the files listed
 		if len(result.Payload.Nodes) > 0 {
 			fmt.Printf("* %d meta\n", len(result.Payload.Nodes))
 			for _, u := range result.Payload.Nodes {
