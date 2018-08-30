@@ -44,7 +44,7 @@ var listFiles = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		//prints the path therefore the names of the files listed
+		//prints the path therefore the name of the files listed
 		if len(result.Payload.Nodes) > 0 {
 			fmt.Printf("* %d meta\n", len(result.Payload.Nodes))
 			for _, u := range result.Payload.Nodes {
