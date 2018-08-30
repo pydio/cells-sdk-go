@@ -44,6 +44,26 @@ var ExampleCmd = &cobra.Command{
 			return
 		}
 
+		//checks if the parameters are set when using the command without a config.json file
+		if protocol == "" {
+			log.Fatal("Provide the protocol type")
+		}
+		if host == "" {
+			log.Fatal("Provide the host")
+		}
+		if id == "" {
+			log.Fatal("Provide the id")
+		}
+		if user == "" {
+			log.Fatal("Provide the user")
+		}
+		if pwd == "" {
+			log.Fatal("Provide the password")
+		}
+		if secret == "" {
+			log.Fatal("Provide a secert key")
+		}
+
 		// Parse from config
 		if configFile == "" {
 			log.Fatal("Please provide a path to the configuration file")
