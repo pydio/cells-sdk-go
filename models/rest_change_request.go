@@ -16,7 +16,7 @@ import (
 type RestChangeRequest struct {
 
 	// seq ID
-	SeqID int64 `json:"SeqID,omitempty"`
+	SeqID int64 `json:"SeqID,string,omitempty"`
 
 	// filter
 	Filter string `json:"filter,omitempty"`

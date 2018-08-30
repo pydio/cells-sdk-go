@@ -22,16 +22,16 @@ type TreeVersioningPolicy struct {
 	Description string `json:"Description,omitempty"`
 
 	// ignore files greater than
-	IgnoreFilesGreaterThan int64 `json:"IgnoreFilesGreaterThan,omitempty"`
+	IgnoreFilesGreaterThan int64 `json:"IgnoreFilesGreaterThan,string,omitempty"`
 
 	// keep periods
 	KeepPeriods []*TreeVersioningKeepPeriod `json:"KeepPeriods"`
 
 	// max size per file
-	MaxSizePerFile int64 `json:"MaxSizePerFile,omitempty"`
+	MaxSizePerFile int64 `json:"MaxSizePerFile,string,omitempty"`
 
 	// max total size
-	MaxTotalSize int64 `json:"MaxTotalSize,omitempty"`
+	MaxTotalSize int64 `json:"MaxTotalSize,string,omitempty"`
 
 	// name
 	Name string `json:"Name,omitempty"`
