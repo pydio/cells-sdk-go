@@ -11,6 +11,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	if !config.RunEnvAwareTests {
 		return
 	}
