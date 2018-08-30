@@ -23,18 +23,21 @@ var listWorkspaces = &cobra.Command{
 			log.Fatal(err)
 		}
 
+		//retrieves the users using the searchWorkspacesParams function
 		params := &workspace_service.SearchWorkspacesParams{
 			Body:       &models.RestSearchWorkspaceRequest{CountOnly: true},
 			Context:    ctx,
 			HTTPClient: httpClient,
 		}
 
+		//assigns the workspaces data retrieved above in the results variable
 		result, err := apiClient.WorkspaceService.SearchWorkspaces(params)
 		if err != nil {
 			fmt.Printf("could not list workspaces: %s\n", err.Error())
 			log.Fatal(err)
 		}
 
+		//prints the workspace label
 		if len(result.Payload.Workspaces) > 0 {
 			fmt.Printf("* %d workspace found\n", len(result.Payload.Workspaces))
 			for _, u := range result.Payload.Workspaces {

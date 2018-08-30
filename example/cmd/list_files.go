@@ -37,7 +37,7 @@ var listFiles = &cobra.Command{
 			HTTPClient: httpClient,
 		}
 
-		//retrieves the files according to the parameters above
+		//assigns the files data retrieved above in the results variable
 		result, err := apiClient.MetaService.GetBulkMeta(params)
 		if err != nil {
 			fmt.Printf("could not list meta: %s\n", err.Error())

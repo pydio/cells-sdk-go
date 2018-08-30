@@ -28,12 +28,14 @@ var listUsers = &cobra.Command{
 			HTTPClient: httpClient,
 		}
 
+		//assigns the users data retrieved above in the results variable
 		result, err := apiClient.UserService.SearchUsers(params)
 		if err != nil {
 			fmt.Printf("could not list users: %s\n", err.Error())
 			log.Fatal(err)
 		}
 
+		//prints the login of the users retrieved previously
 		if len(result.Payload.Users) > 0 {
 			fmt.Printf("Found %d users\n", len(result.Payload.Users))
 			for _, u := range result.Payload.Users {

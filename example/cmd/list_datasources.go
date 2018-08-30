@@ -31,7 +31,7 @@ var listDatasources = &cobra.Command{
 			HTTPClient: httpClient,
 		}
 
-		//retrieves all the datasources by passing the parameters(that were defined above) to the service and if there is an error it will stop
+		//assigns the datasources data retrieved above in the results variable
 		result, err := apiClient.ConfigService.ListDataSources(params)
 		if err != nil {
 			fmt.Printf("could not list workspaces: %s\n", err.Error())
