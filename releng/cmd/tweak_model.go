@@ -3,7 +3,7 @@ package cmd
 import (
 	"path/filepath"
 
-	"github.com/pydio/cells-sdk-go/utils"
+	"github.com/pydio/cells-sdk-go/releng/utils"
 	"github.com/spf13/cobra"
 )
 

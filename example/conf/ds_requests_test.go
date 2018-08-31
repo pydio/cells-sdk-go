@@ -54,7 +54,7 @@ func TestDSService(t *testing.T) {
 			fmt.Printf("#%d - %s\n", i, ds.Name)
 		}
 
-		nds, err := AddLocalDatasource("pydiodstest1", "192.168.0.165", 9009, "/home/bsinou/Tmp/pydio/")
+		nds, err := AddLocalDatasource("pydiodstest1", "192.168.0.140", 9009, "/home/bsinou/tmp/pydio/dss/")
 		So(err, ShouldBeNil)
 		fmt.Printf("Created data source: %s\n", nds.Name)
 
