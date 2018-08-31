@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/client/user_service"
+	"github.com/pydio/cells-sdk-go/config"
 )
 
 var listGroups = &cobra.Command{
@@ -15,8 +15,6 @@ var listGroups = &cobra.Command{
 	Short: "lg",
 	Long:  `List groups on pydio cells`,
 	Run: func(cmd *cobra.Command, args []string) {
-
-
 
 		httpClient := config.GetHttpClient(config.DefaultConfig)
 		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)

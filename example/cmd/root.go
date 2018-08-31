@@ -1,8 +1,10 @@
+// Package cmd implements some basic examples of what can be achieved when combining
+// the use of the Go SDK for Cells with the powerful Cobra framework to implement CLI
+// client applications for Cells.
 package cmd
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -24,14 +26,54 @@ var (
 	skipVerify bool
 )
 
+// ExampleCmd is the parent of all example commands defined in this package.
+// It takes care of the pre-configuration of the defaut connection to the SDK
+// in its PersistentPreRun phase.
 var ExampleCmd = &cobra.Command{
 	Use:   os.Args[0],
-	Short: "Rest Client of Pydio Cells",
-	Long:  `Pydio Cells client for managing API`,
+	Short: "Sample commands to show how to use the Go SDK for Pydio Cells",
+	Long: `
+# Sample commands to show how to use the Go SDK for Pydio Cells
+
+Pydio Cells comes with a powerful REST API that exposes various endpoints and enable management of a running Cells instance.
+As a convenience, the Pydio team also provide a ready to use SDK for the Go language that encapsulates the boiling code to wire things 
+and provides a few chosen utilitary methods to ease implemantation when using the SDK in various Go programs.
+
+The children commands defined here show some basic examples of what can be achieved when combining the use of this SDK with 
+the powerful Cobra framework to easily implement small CLI client applications.
+`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 
-		// Parse from parameters
-		if host != "" && id != "" && secret != "" && user != "" && pwd != "" {
+		if configFile == "" {
+			// Parse from parameters
+
+			// insure all necessary parameters are defined
+			var msg string
+			if protocol == "" {
+				msg += " - Protocol type\n"
+			}
+			if host == "" {
+				msg += " - Host URL\n"
+			}
+			if id == "" {
+				msg += " - API key (usually cells-front)\n"
+			}
+			if secret == "" {
+				msg += " - API secret\n"
+			}
+			if user == "" {
+				msg += " - the login of an existing user\n"
+			}
+			if pwd == "" {
+				msg += " - the password of an existing user\n"
+			}
+
+			if len(msg) > 0 {
+				cmd.Println("Could not set up default configuration, missing arguments:\n", msg,
+					"\n\nYou might also directly provide the relative path to a config.json file. See in-line help for more details.")
+				os.Exit(1)
+			}
+
 			config.DefaultConfig = &config.SdkConfig{
 				Protocol:     protocol,
 				Url:          host,
@@ -41,45 +83,19 @@ var ExampleCmd = &cobra.Command{
 				Password:     pwd,
 				SkipVerify:   skipVerify,
 			}
+
 			return
 		}
 
-		//checks if the parameters are set when using the command without a config.json file
-		if protocol == "" {
-			log.Fatal("Provide the protocol type")
-		}
-		if host == "" {
-			log.Fatal("Provide the host")
-		}
-		if id == "" {
-			log.Fatal("Provide the id")
-		}
-		if user == "" {
-			log.Fatal("Provide the user")
-		}
-		if pwd == "" {
-			log.Fatal("Provide the password")
-		}
-		if secret == "" {
-			log.Fatal("Provide a secert key")
+		data, e := ioutil.ReadFile(configFile)
+		if e != nil {
+			log.Fatal("cannot read config file:", e)
 		}
 
-		// Parse from config
-		if configFile == "" {
-			log.Fatal("Please provide a path to the configuration file")
+		var c config.SdkConfig
+		if e = json.Unmarshal(data, &c); e != nil {
+			log.Fatal("Cannot decode config content for file at", configFile, "- route cause:", e)
 		}
-		if data, e := ioutil.ReadFile(configFile); e == nil {
-			var c config.SdkConfig
-			if e := json.Unmarshal(data, &c); e != nil {
-				log.Fatal("Cannot decode config content", e)
-			}
-			config.DefaultConfig = &c
-			fmt.Println("Connecting to " + config.DefaultConfig.Url)
-			fmt.Println("")
-		} else {
-			log.Fatal("Cannot read file, root cause:", e)
-		}
-
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
@@ -88,12 +104,12 @@ var ExampleCmd = &cobra.Command{
 
 func init() {
 	flags := ExampleCmd.PersistentFlags()
-	flags.StringVarP(&configFile, "config", "c", "config.json", "Path to the configuration file")
+	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
 
-	flags.StringVar(&protocol, "protocol", "http", "Http scheme to server")
-	flags.StringVarP(&host, "url", "u", "", "Http URL to server")
-	flags.StringVarP(&id, "id", "i", "", "OIDC Client ID")
-	flags.StringVarP(&secret, "secret", "s", "", "OIDC Client Secret")
+	flags.StringVar(&protocol, "protocol", "http", "HTTP scheme to server")
+	flags.StringVarP(&host, "url", "u", "", "HTTP URL to server")
+	flags.StringVarP(&id, "api-key", "k", "", "OIDC Client ID")
+	flags.StringVarP(&secret, "api-secret", "s", "", "OIDC Client Secret")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
 	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")
