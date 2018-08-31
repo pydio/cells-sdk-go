@@ -15,8 +15,8 @@ var (
 	KeyS3Endpoint, KeyS3Region, KeyS3Bucket, KeyS3ApiKey, KeyS3ApiSecret, KeyS3UsePydioSpecificHeader, KeyS3IsDebug = "TARGET_S3_ENDPOINT", "TARGET_S3_REGION", "TARGET_S3_BUCKET", "TARGET_S3_API_KEY", "TARGET_S3_API_SECRET", "TARGET_S3_USE_PYDIO_SPECIFIC_HEADER", "TARGET_S3_IS_DEBUG"
 )
 
-// SetUpEnvironment retrieves parameter to configure the environment (either by env variable or json file)
-// and stores them in the DefaultCOnfig of the SDK.
+// SetUpEnvironment retrieves parameters and stores them in the DefaultConfig of the SDK.
+// configFilePath and s3ConfigFilePath can be <nil> if the parameters are defined via env variables.
 func SetUpEnvironment(configFilePath, s3ConfigFilePath string) error {
 
 	c, err := getSdkConfigFromEnv()
@@ -35,6 +35,7 @@ func SetUpEnvironment(configFilePath, s3ConfigFilePath string) error {
 		}
 	}
 
+	// Stores the retrieved parameters in a public static singleton
 	DefaultConfig = &c
 
 	cs3, err := getS3ConfigFromEnv()
@@ -53,6 +54,7 @@ func SetUpEnvironment(configFilePath, s3ConfigFilePath string) error {
 		}
 	}
 
+	// Stores the retrieved parameters in a public static singleton
 	DefaultS3Config = &cs3
 
 	return nil

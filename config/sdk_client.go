@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	ApiResourcePath  = "/a"
-	OidcResourcePath = "/auth/dex"
+	apiResourcePath  = "/a"
+	oidcResourcePath = "/auth/dex"
 
 	grantType = "password"
 	scope     = "email profile pydio"
@@ -27,7 +27,7 @@ var (
 // Also returns a context to be used in subsequent requests.
 func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, context.Context, error) {
 
-	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{sdkConfig.Protocol})
+	transport := httptransport.New(sdkConfig.Url, apiResourcePath, []string{sdkConfig.Protocol})
 	jwt, err := retrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, fmt.Errorf(
@@ -43,10 +43,11 @@ func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, cont
 	return client, context.Background(), nil
 }
 
+// GetHttpClient adds an option to rather use an http client that ignore SSL certificate issues.
 func GetHttpClient(sdkConfig *SdkConfig) *http.Client {
 
 	if sdkConfig.SkipVerify {
-		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!!")
+		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!")
 		return &http.Client{Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
 		}}

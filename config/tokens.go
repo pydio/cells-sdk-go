@@ -50,12 +50,11 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 
 	cached := store.TokenFor(sdkConfig)
 	if cached != "" {
-		fmt.Println("[Auth: Retrieved token from cache]")
+		// fmt.Println("[Auth: Retrieved token from cache]")
 		return cached, nil
 	}
-	fmt.Println("[Auth: Loading Auth Token]")
 
-	fullURL := sdkConfig.Protocol + "://" + sdkConfig.Url + OidcResourcePath + "/token"
+	fullURL := sdkConfig.Protocol + "://" + sdkConfig.Url + oidcResourcePath + "/token"
 
 	data := url.Values{}
 	data.Set("grant_type", grantType)
