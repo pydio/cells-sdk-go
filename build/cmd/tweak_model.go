@@ -3,7 +3,7 @@ package cmd
 import (
 	"path/filepath"
 
-	"github.com/pydio/cells-sdk-go/releng/utils"
+	"github.com/pydio/cells-sdk-go/build/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -31,5 +31,5 @@ func init() {
 
 	TweakCmd.Flags().StringVar(&pathToModels, "path", "../models", "Path to the models package")
 
-	RelengCmd.AddCommand(TweakCmd)
+	BuildCmd.AddCommand(TweakCmd)
 }

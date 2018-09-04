@@ -65,7 +65,7 @@ rm -r models
 
 ```sh
 # Apply the tweak to workaround int64 serialisation issue between protobuf and swagger
-go run releng/main.go tweak-model
+go run build/main.go tweak-model
 ```
 
 You should also update version information at the top of this page.
