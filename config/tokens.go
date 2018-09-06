@@ -40,7 +40,10 @@ func (t *TokenStore) TokenFor(c *SdkConfig) string {
 }
 
 func (t *TokenStore) computeKey(c *SdkConfig) string {
-	s := fmt.Sprintf("%s-%s-%s-%s-%s", c.Url, c.ClientKey, c.ClientSecret, c.User, "OBFUSCATED PWD XXXX")
+	// Is this relly necessary or rather security theater?
+	// using a generic password causes issues when testing wrong password access.
+	//s := fmt.Sprintf("%s-%s-%s-%s-%s", c.Url, c.ClientKey, c.ClientSecret, c.User, "OBFUSCATED PWD XXXX")
+	s := fmt.Sprintf("%s-%s-%s-%s-%s", c.Url, c.ClientKey, c.ClientSecret, c.User, c.Password)
 	hasher := md5.New()
 	hasher.Write([]byte(s))
 	return hex.EncodeToString(hasher.Sum(nil))

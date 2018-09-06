@@ -1,4 +1,4 @@
-package conf
+package tree
 
 import (
 	"github.com/pydio/cells-sdk-go/client/config_service"
@@ -6,7 +6,7 @@ import (
 	"github.com/pydio/cells-sdk-go/models"
 )
 
-// ListDatasources returns an object with known datasources and their number.
+// ListDatasources returns a collection of known datasources using the current default connection.
 func ListDatasources() (*models.RestDataSourceCollection, error) {
 
 	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
@@ -14,7 +14,8 @@ func ListDatasources() (*models.RestDataSourceCollection, error) {
 		return nil, err
 	}
 
-	result, err := apiClient.ConfigService.ListDataSources(config_service.NewListDataSourcesParamsWithContext(ctx))
+	params := config_service.NewListDataSourcesParamsWithContext(ctx)
+	result, err := apiClient.ConfigService.ListDataSources(params)
 	if err != nil {
 		return nil, err
 	}

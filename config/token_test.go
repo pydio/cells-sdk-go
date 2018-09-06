@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -30,8 +29,7 @@ func TestJWT(t *testing.T) {
 				rootPath = filepath.Dir(crp)
 				SetUpEnvironment(GetDefaultConfigFiles(rootPath))
 
-				Convey("Configuration must have been correctly set", func() {
-
+				Convey("Parameters have been set", func() {
 					// fmt.Printf("## DEFAULT CONF \n%s - %s - %s - %s - %s - %s - %v\n", DefaultConfig.Protocol, DefaultConfig.Url, DefaultConfig.ClientKey, DefaultConfig.ClientSecret, DefaultConfig.User, DefaultConfig.Password, DefaultConfig.SkipVerify)
 					So(DefaultConfig.Url, ShouldNotBeEmpty)
 					So(DefaultConfig.ClientKey, ShouldNotBeEmpty)
@@ -40,9 +38,8 @@ func TestJWT(t *testing.T) {
 					So(DefaultConfig.Password, ShouldNotBeEmpty)
 					So(DefaultConfig.SkipVerify, ShouldNotBeEmpty)
 					sdkc, s3c := GetDefaultConfigFiles(rootPath)
-					fmt.Println("Config corretly set from: ", sdkc, s3c)
-					fmt.Println("Config Client Secret: ", DefaultConfig.ClientSecret)
-
+					So(sdkc, ShouldNotBeNil)
+					So(s3c, ShouldNotBeNil)
 				})
 
 				Convey("JWT token must be retrievable and longer than 256 chars.", func() {
@@ -52,7 +49,5 @@ func TestJWT(t *testing.T) {
 				})
 			})
 		})
-
 	}
-
 }
