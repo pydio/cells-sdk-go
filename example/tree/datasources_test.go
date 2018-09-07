@@ -49,8 +49,8 @@ func TestDatasourceService(t *testing.T) {
 		})
 
 		// Following tests are not run unless below parameters are defined and valid. We yet leave the code here as a sample for your convenience.
-		name, peerAddress, dsPort, rootFolder := "localtestds1", "192.168.0.140", 9009, "/tmp/pydio/dss/unittest/localtestds1"
-		// name, peerAddress, dsPort, rootFolder := "", "", 9009, ""
+		// name, peerAddress, dsPort, rootFolder := "localtestds1", "192.168.0.140", 9009, "/tmp/pydio/dss/unittest/localtestds1"
+		name, peerAddress, dsPort, rootFolder := "", "", 9009, ""
 
 		if len(rootFolder) == 0 {
 			return

@@ -31,28 +31,41 @@ func TestWorkspaceService(t *testing.T) {
 		})
 
 		// Following tests are not run unless below parameters are defined and valid. We yet leave the code here as a sample for your convenience.
-		// datasource, label, slug  := "localtestds1", "Test Workspace", "test-wksp"
+		// datasource, label, slug := "localtestds1", "Test Workspace", "test-wksp"
 		datasource, label, slug := "", "", ""
 
 		if len(datasource) == 0 {
 			return
 		}
+		Convey("Can create workspace", func() {
 
-		ws, err := CreateWorkspace(datasource, label, slug)
-		So(err, ShouldBeNil)
-		fmt.Printf("Created workspace: %s\n", ws.Label)
+			wss, err := ListWorkspaces()
+			So(err, ShouldBeNil)
+			initialNb := wss.Total
 
-		// dss, err = ListDatasources()
-		// So(dss.Total, ShouldEqual, initialNb+1)
-		// for i, ds := range dss.DataSources {
-		// 	fmt.Printf("#%d - %s\n", i, ds.Name)
-		// }
+			ws, err := CreateWorkspace(datasource, label, slug)
+			So(err, ShouldBeNil)
+			So(ws.Label, ShouldEqual, label)
+			So(ws.Slug, ShouldEqual, slug)
 
-		// ok, err := DeleteLocalDatasource("pydiodstest1")
-		// So(err, ShouldBeNil)
-		// So(ok, ShouldBeTrue)
+			wss, err = ListWorkspaces()
+			So(wss.Total, ShouldEqual, initialNb+1)
 
-		// dss, err = ListDatasources()
-		// So(dss.Total, ShouldEqual, initialNb)
+			Convey("Cannot create a second workspace with same slug", func() {
+				// FIXME: calling put on a CreateWorkspace with same slug creates a new workspace with suffixed slug (typically test-wksp-1)
+				ws, err = CreateWorkspace(datasource, label, slug)
+				So(err, ShouldBeNil)
+				So(ws.Label, ShouldEqual, label)
+				So(ws.Slug, ShouldNotEqual, slug)
+			})
+
+			Convey("Can delete newly created workspace", func() {
+				ok, err := DeleteWorkspace(slug)
+				So(err, ShouldBeNil)
+				So(ok, ShouldBeTrue)
+
+			})
+		})
+
 	})
 }
