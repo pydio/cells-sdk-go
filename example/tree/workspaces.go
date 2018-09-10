@@ -7,7 +7,7 @@ import (
 )
 
 // CreateWorkspace creates a new simple workspace using the current default connection.
-func CreateWorkspace(datasource, label, slug string) (*models.IdmWorkspace, error) {
+func CreateWorkspace(datasource, slug, label, description string) (*models.IdmWorkspace, error) {
 
 	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
@@ -17,6 +17,20 @@ func CreateWorkspace(datasource, label, slug string) (*models.IdmWorkspace, erro
 	iw := &models.IdmWorkspace{}
 	iw.Label = label
 	iw.Slug = slug
+	iw.Description = description
+	// TODO this should also be configurable
+	iw.Scope = "ADMIN"
+	iw.Attributes = "{\"DEFAULT_RIGHTS\":\"rw\"}"
+
+	root := models.TreeNode{
+		UUID:      "DATASOURCE:" + datasource,
+		Path:      datasource,
+		MetaStore: map[string]string{"name": "\"" + datasource + "\""},
+	}
+
+	iw.RootNodes = models.IdmWorkspaceRootNodes{
+		"DATASOURCE:" + datasource: root,
+	}
 
 	params := workspace_service.NewPutWorkspaceParamsWithContext(ctx)
 	params.Slug = slug
