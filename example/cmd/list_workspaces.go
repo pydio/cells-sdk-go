@@ -41,7 +41,7 @@ var listWorkspaces = &cobra.Command{
 		if len(result.Payload.Workspaces) > 0 {
 			fmt.Printf("* %d workspace found\n", len(result.Payload.Workspaces))
 			for _, u := range result.Payload.Workspaces {
-				fmt.Println("  - " + u.Label)
+				fmt.Println("  - " + u.Slug)
 			}
 		}
 

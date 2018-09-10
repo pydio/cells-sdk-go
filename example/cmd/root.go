@@ -30,7 +30,7 @@ var (
 // It takes care of the pre-configuration of the defaut connection to the SDK
 // in its PersistentPreRun phase.
 var ExampleCmd = &cobra.Command{
-	Use:   os.Args[0],
+	Use:   "./main.go",
 	Short: "Sample commands to show how to use the Go SDK for Pydio Cells",
 	Long: `
 # Sample commands to show how to use the Go SDK for Pydio Cells

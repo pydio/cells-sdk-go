@@ -11,10 +11,10 @@ import (
 	"github.com/pydio/cells-sdk-go/models"
 )
 
-var listRoles = &cobra.Command{
-	Use:   "list-roles",
-	Short: "Lise roles",
-	Long:  "List roles on pydio cells and also technical roles such as user/group",
+var deleteRoles = &cobra.Command{
+	Use:   "delete-roles",
+	Short: "dr",
+	Long:  "delete roles on cells",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		httpClient := config.GetHttpClient(config.DefaultConfig)
@@ -30,27 +30,35 @@ var listRoles = &cobra.Command{
 		}
 
 		result, err := apiClient.RoleService.SearchRoles(params)
-		if err != nil {
-			fmt.Printf("could not list roles: %s\n", err.Error())
-			log.Fatal(err)
-		}
+
+		roleToDelete := "User nonAdminUser"
 
 		if len(result.Payload.Roles) > 0 {
 			fmt.Printf("Found %d roles\n", len(result.Payload.Roles))
+
+			fmt.Println("Deletes role set in roleToDelete")
 			for _, u := range result.Payload.Roles {
-				//fmt.Println("  -- " + u.Label)
-				if u.GroupRole == true {
-					fmt.Printf(" -- %s __ GROUP ROLE \n", u.Label)
-				} else if u.UserRole == true {
-					fmt.Printf(" -- %s __ USER ROLE \n", u.Label)
-				} else {
-					fmt.Println(" -- " + u.Label)
+
+				if u.Label == roleToDelete {
+
+					para := &role_service.DeleteRoleParams{
+						UUID:       u.UUID,
+						Context:    ctx,
+						HTTPClient: httpClient,
+					}
+
+					_, err := apiClient.RoleService.DeleteRole(para)
+					if err != nil {
+						log.Fatal("Could not delete role ", err)
+					}
+
 				}
 			}
+			log.Println("ROLE DELETED")
 		}
 	},
 }
 
 func init() {
-	ExampleCmd.AddCommand(listRoles)
+	ExampleCmd.AddCommand(deleteRoles)
 }

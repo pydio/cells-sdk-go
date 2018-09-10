@@ -3,12 +3,14 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/spf13/cobra"
 
-	"github.com/pydio/cells-sdk-go/client/meta_service"
-	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/models"
+	"github.com/pydio/cells-sdk-go/config"
+	"github.com/pydio/cells-sdk-go/client/meta_service"
+
 )
 
 var listFiles = &cobra.Command{
@@ -21,7 +23,9 @@ var listFiles = &cobra.Command{
 		httpClient := config.GetHttpClient(config.DefaultConfig)
 		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
-			log.Fatal(err)
+			log.Println("USER : ",config.DefaultConfig.User)
+			time.Sleep(100 * time.Millisecond)
+			log.Fatalln("CANNOT CONNECT WITH THIS USER : ", err)
 		}
 
 		/*GetBulkMetaParams contains all the parameters to send to the API endpoint

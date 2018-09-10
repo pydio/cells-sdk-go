@@ -50,7 +50,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 
 	cached := store.TokenFor(sdkConfig)
 	if cached != "" {
-		// fmt.Println("[Auth: Retrieved token from cache]")
+		//fmt.Println("[Auth: Retrieved token from cache]")
 		return cached, nil
 	}
 
@@ -60,6 +60,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	data.Set("grant_type", grantType)
 	data.Add("username", sdkConfig.User)
 	data.Add("password", sdkConfig.Password)
+
 	data.Add("scope", scope)
 	data.Add("nonce", "aVerySpecialNonce")
 
