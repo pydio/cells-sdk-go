@@ -1255,7 +1255,7 @@
             "name": "BinaryType",
             "in": "path",
             "required": true,
-            "type": "restFrontBinaryType"
+            "type": "string"
           },
           {
             "name": "Uuid",
@@ -1284,7 +1284,7 @@
             "name": "BinaryType",
             "in": "path",
             "required": true,
-            "type": "restFrontBinaryType"
+            "type": "string"
           },
           {
             "name": "Uuid",
@@ -1318,6 +1318,33 @@
             }
           }
         },
+        "tags": [
+          "FrontendService"
+        ]
+      }
+    },
+    "/frontend/enroll": {
+      "post": {
+        "summary": "Generic endpoint that can be implemented by 2FA systems for enrollment",
+        "operationId": "FrontEnrollAuth",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restFrontEnrollAuthResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restFrontEnrollAuthRequest"
+            }
+          }
+        ],
         "tags": [
           "FrontendService"
         ]
@@ -2560,6 +2587,58 @@
             "schema": {
               "$ref": "#/definitions/restCreateNodesRequest"
             }
+          }
+        ],
+        "tags": [
+          "TreeService"
+        ]
+      }
+    },
+    "/tree/delete": {
+      "post": {
+        "summary": "Handle nodes deletion",
+        "operationId": "DeleteNodes",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restDeleteNodesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restDeleteNodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TreeService"
+        ]
+      }
+    },
+    "/tree/stat/{Node}": {
+      "get": {
+        "summary": "Return node meta without the node content itself",
+        "operationId": "HeadNode",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restHeadNodeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Node",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -5799,6 +5878,9 @@
           "items": {
             "$ref": "#/definitions/treeNode"
           }
+        },
+        "Pagination": {
+          "$ref": "#/definitions/restPagination"
         }
       }
     },
@@ -5977,6 +6059,43 @@
         }
       }
     },
+    "restDeleteJobResult": {
+      "type": "object",
+      "properties": {
+        "Uuid": {
+          "type": "string"
+        },
+        "Label": {
+          "type": "string"
+        }
+      }
+    },
+    "restDeleteNodesRequest": {
+      "type": "object",
+      "properties": {
+        "Nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/treeNode"
+          }
+        },
+        "Recursive": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "restDeleteNodesResponse": {
+      "type": "object",
+      "properties": {
+        "DeleteJobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/restDeleteJobResult"
+          }
+        }
+      }
+    },
     "restDeleteResponse": {
       "type": "object",
       "properties": {
@@ -6095,24 +6214,19 @@
       "type": "object",
       "properties": {
         "BinaryType": {
-          "$ref": "#/definitions/restFrontBinaryType"
+          "type": "string",
+          "title": "Currently supported values are USER and GLOBAL"
         },
         "Uuid": {
-          "type": "string"
+          "type": "string",
+          "title": "Id of the binary"
         }
-      }
+      },
+      "title": "Donwload binary"
     },
     "restFrontBinaryResponse": {
       "type": "object",
       "title": "Not used, endpoint returns octet-stream"
-    },
-    "restFrontBinaryType": {
-      "type": "string",
-      "enum": [
-        "USER",
-        "GLOBAL"
-      ],
-      "default": "USER"
     },
     "restFrontBootConfResponse": {
       "type": "object",
@@ -6122,6 +6236,32 @@
           "additionalProperties": {
             "type": "string"
           }
+        }
+      }
+    },
+    "restFrontEnrollAuthRequest": {
+      "type": "object",
+      "properties": {
+        "EnrollType": {
+          "type": "string"
+        },
+        "EnrollInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "restFrontEnrollAuthResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Any parameters can be returned"
         }
       }
     },
@@ -6187,17 +6327,20 @@
       "properties": {
         "ClientTime": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "Time reference for computing jwt expiry"
         },
-        "Login": {
-          "type": "string"
-        },
-        "Password": {
-          "type": "string"
+        "AuthInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Data sent back by specific auth steps"
         },
         "Logout": {
           "type": "boolean",
-          "format": "boolean"
+          "format": "boolean",
+          "title": "Kill session now"
         }
       }
     },
@@ -6210,6 +6353,17 @@
         "ExpireTime": {
           "type": "integer",
           "format": "int32"
+        },
+        "Trigger": {
+          "type": "string",
+          "title": "Trigger a specific Auth step"
+        },
+        "TriggerInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Additional data for the trigger"
         }
       }
     },
@@ -6238,6 +6392,22 @@
         "Versions": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "restHeadNodeResponse": {
+      "type": "object",
+      "properties": {
+        "Node": {
+          "$ref": "#/definitions/treeNode"
         }
       }
     },
@@ -6419,6 +6589,47 @@
     },
     "restOpenApiResponse": {
       "type": "object"
+    },
+    "restPagination": {
+      "type": "object",
+      "properties": {
+        "Limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Current Limit parameter, either passed by request or default value"
+        },
+        "CurrentOffset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Current Offset value"
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of records"
+        },
+        "CurrentPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Current number of Page"
+        },
+        "TotalPages": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Number of detected pages"
+        },
+        "NextOffset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Offset value for next page if there is one"
+        },
+        "PrevOffset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Offset value for previous page, if there is one"
+        }
+      },
+      "title": "Generic container for responses sending pagination information"
     },
     "restPutCellRequest": {
       "type": "object",
@@ -7409,6 +7620,10 @@
           "$ref": "#/definitions/treeNode"
         },
         "WithCommits": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "WithExtendedStats": {
           "type": "boolean",
           "format": "boolean"
         }

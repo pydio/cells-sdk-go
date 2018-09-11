@@ -4,7 +4,7 @@
 
 Rest API Client for Pydio Cells.
 
-Current SDK has been update on **Aug, the 30th 2018** with git commit **[406a82d](https://github.com/pydio/cells/commit/406a82dbe316cbb8c55f740b2b109c5c6a902fb6)**.
+Current SDK has been update on **Sept. 11th 2018** with git commit **[1f06d19](https://github.com/pydio/cells/commit/1f06d19ce21dcc91f9724d8acfee28eb3bf41596)**.
 
 ## Overview
 
@@ -47,21 +47,19 @@ chmod u+x swagger
 _After each API Spec modification_:
 
 ```sh
-# retrieve latest spec file
+
+# Clean existing generated code and previous swagger
+## Vorsicht :)
+rm -r client models rest.swagger.json
+
+# Retrieve latest spec file
 wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest.swagger.json
-# as the time of writing, we rather use the corresponding branch in Cells
+# At time of writing, we rather use the corresponding branch in Cells
 wget https://raw.githubusercontent.com/pydio/cells/gokilledphpstars/common/proto/rest/rest.swagger.json
 
-
-# You might also delete folder models and client
-rm -r client
-rm -r models
-
-# simply generate updated code
+# Simply generate updated code
 ./swagger generate client --skip-validation -f rest.swagger.json
 ```
-
-> _WARNING_: we currently have some glitches during import process and must do some extra twick for the go code to compile. See below.
 
 ```sh
 # Apply the tweak to workaround int64 serialisation issue between protobuf and swagger
@@ -71,3 +69,14 @@ go run build/main.go tweak-model
 You should also update version information at the top of this page.
 
 _**NOTE**: we use the --skip-validation flag to avoid circular issues with object that make reference to same type of objects, typically activities and jobs. See [issue #957 in go-swagger repository](https://github.com/go-swagger/go-swagger/issues/957) for more details._
+
+### Run SDK Unit Tests
+
+- Insure you have a running instance of Cells with correct version
+- Check that `config.json` and `config-s3.json` files are in `config` folder and contain valid info. (See samples files in same folder).
+- Change RunEnvAwareTests flag to `true` (line 29 from `config/naming.go`). **WARNING: Do not commit this**.
+- execute:
+
+```sh
+go test -v ./...
+```
