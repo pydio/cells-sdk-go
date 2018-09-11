@@ -35,10 +35,10 @@ cd $GOPATH/src/github.com/pydio/cells-sdk-go
 # If necessary, retrieve swagger binary, rename it and give execution permission
 
 ## for linux
-wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_linux_amd64
+wget https://github.com/go-swagger/go-swagger/releases/download/0.16.0/swagger_linux_amd64
 
 ## for Mac OS
-wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_darwin_amd64
+wget https://github.com/go-swagger/go-swagger/releases/download/0.16.0/swagger_darwin_amd64
 
 mv swagger_linux_amd64 swagger
 chmod u+x swagger
