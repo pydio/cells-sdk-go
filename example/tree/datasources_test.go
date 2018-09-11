@@ -48,8 +48,26 @@ func TestDatasourceService(t *testing.T) {
 
 		})
 
+		dsName := "cellsdata"
+		Convey("Can retrieve default "+dsName+" datasource", func() {
+
+			ds, err := GetDatasource(dsName)
+			So(err, ShouldBeNil)
+			So(ds, ShouldNotBeNil)
+
+		})
+
+		Convey("Gracefully handle inexisting datasource", func() {
+
+			ds, err := GetDatasource("xxxxx" + dsName)
+			So(err, ShouldNotBeNil)
+			So(ds, ShouldBeNil)
+
+		})
+
 		// Following tests are not run unless below parameters are defined and valid. We yet leave the code here as a sample for your convenience.
-		// name, peerAddress, dsPort, rootFolder := "localtestds1", "192.168.0.140", 9009, "/tmp/pydio/dss/unittest/localtestds1"
+		// Also note that os.Getenv("HOME") will fail on Windows
+		// name, peerAddress, dsPort, rootFolder := "localtestds1", "192.168.0.140", 9009, os.Getenv("HOME")+"/tmp/pydio/dss/unittest/localtestds1"
 		name, peerAddress, dsPort, rootFolder := "", "", 9009, ""
 		if len(rootFolder) == 0 {
 			return
@@ -66,6 +84,7 @@ func TestDatasourceService(t *testing.T) {
 				nds, err := AddLocalDatasource(name, peerAddress, int32(dsPort), rootFolder)
 				So(err, ShouldBeNil)
 				So(nds, ShouldNotBeNil)
+				So(nds.Name, ShouldEqual, name)
 
 				Convey("Datasource is correctly created", func() {
 					So(nds.Name, ShouldEqual, name)
@@ -74,7 +93,7 @@ func TestDatasourceService(t *testing.T) {
 				})
 
 				Convey("Datasource can be deleted", func() {
-					ok, err := DeleteLocalDatasource("pydiodstest1")
+					ok, err := DeleteLocalDatasource(name)
 					So(err, ShouldBeNil)
 					So(ok, ShouldBeTrue)
 

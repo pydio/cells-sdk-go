@@ -28,7 +28,7 @@ func CreateWorkspace(datasource, slug, label, description string) (*models.IdmWo
 		MetaStore: map[string]string{"name": "\"" + datasource + "\""},
 	}
 
-	iw.RootNodes = models.IdmWorkspaceRootNodes{
+	iw.RootNodes = map[string]models.TreeNode{
 		"DATASOURCE:" + datasource: root,
 	}
 

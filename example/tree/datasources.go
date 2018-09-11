@@ -53,6 +53,24 @@ func AddLocalDatasource(name, peerAddress string, port int32, rootFolderAbsPath 
 	return result.Payload, nil
 }
 
+// GetDatasource returns a datasource using the current default connection.
+func GetDatasource(dsName string) (*models.ObjectDataSource, error) {
+
+	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	params := config_service.NewGetDataSourceParamsWithContext(ctx)
+	params.Name = dsName
+	result, err := apiClient.ConfigService.GetDataSource(params)
+	if err != nil {
+		return nil, err
+	}
+
+	return result.Payload, nil
+}
+
 // DeleteLocalDatasource removes a local file based datasource, without removing underlying files.
 func DeleteLocalDatasource(name string) (bool, error) {
 
