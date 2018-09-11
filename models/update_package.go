@@ -32,7 +32,7 @@ type UpdatePackage struct {
 	BinarySignature string `json:"BinarySignature,omitempty"`
 
 	// Size of the binary to download
-	BinarySize int64 `json:"BinarySize,string,omitempty"`
+	BinarySize string `json:"BinarySize,omitempty"`
 
 	// Https URL where to download the binary
 	BinaryURL string `json:"BinaryURL,omitempty"`

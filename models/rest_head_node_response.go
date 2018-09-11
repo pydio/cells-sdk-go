@@ -12,22 +12,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TreeReadNodeRequest Request / Responses Messages
-// swagger:model treeReadNodeRequest
-type TreeReadNodeRequest struct {
+// RestHeadNodeResponse rest head node response
+// swagger:model restHeadNodeResponse
+type RestHeadNodeResponse struct {
 
 	// node
 	Node *TreeNode `json:"Node,omitempty"`
-
-	// with commits
-	WithCommits bool `json:"WithCommits,omitempty"`
-
-	// with extended stats
-	WithExtendedStats bool `json:"WithExtendedStats,omitempty"`
 }
 
-// Validate validates this tree read node request
-func (m *TreeReadNodeRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this rest head node response
+func (m *RestHeadNodeResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateNode(formats); err != nil {
@@ -40,7 +34,7 @@ func (m *TreeReadNodeRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *TreeReadNodeRequest) validateNode(formats strfmt.Registry) error {
+func (m *RestHeadNodeResponse) validateNode(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Node) { // not required
 		return nil
@@ -59,7 +53,7 @@ func (m *TreeReadNodeRequest) validateNode(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *TreeReadNodeRequest) MarshalBinary() ([]byte, error) {
+func (m *RestHeadNodeResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -67,8 +61,8 @@ func (m *TreeReadNodeRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TreeReadNodeRequest) UnmarshalBinary(b []byte) error {
-	var res TreeReadNodeRequest
+func (m *RestHeadNodeResponse) UnmarshalBinary(b []byte) error {
+	var res RestHeadNodeResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RestShareLink Model for representing a public link
@@ -19,13 +20,13 @@ import (
 type RestShareLink struct {
 
 	// access end
-	AccessEnd int64 `json:"AccessEnd,string,omitempty"`
+	AccessEnd string `json:"AccessEnd,omitempty"`
 
 	// access start
-	AccessStart int64 `json:"AccessStart,string,omitempty"`
+	AccessStart string `json:"AccessStart,omitempty"`
 
 	// current downloads
-	CurrentDownloads int64 `json:"CurrentDownloads,string,omitempty"`
+	CurrentDownloads string `json:"CurrentDownloads,omitempty"`
 
 	// description
 	Description string `json:"Description,omitempty"`
@@ -40,7 +41,7 @@ type RestShareLink struct {
 	LinkURL string `json:"LinkUrl,omitempty"`
 
 	// max downloads
-	MaxDownloads int64 `json:"MaxDownloads,string,omitempty"`
+	MaxDownloads string `json:"MaxDownloads,omitempty"`
 
 	// password required
 	PasswordRequired bool `json:"PasswordRequired,omitempty"`
@@ -61,7 +62,7 @@ type RestShareLink struct {
 	RootNodes []*TreeNode `json:"RootNodes"`
 
 	// target users
-	TargetUsers RestShareLinkTargetUsers `json:"TargetUsers,omitempty"`
+	TargetUsers map[string]RestShareLinkTargetUser `json:"TargetUsers,omitempty"`
 
 	// user login
 	UserLogin string `json:"UserLogin,omitempty"`
@@ -178,11 +179,17 @@ func (m *RestShareLink) validateTargetUsers(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.TargetUsers.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("TargetUsers")
+	for k := range m.TargetUsers {
+
+		if err := validate.Required("TargetUsers"+"."+k, "body", m.TargetUsers[k]); err != nil {
+			return err
 		}
-		return err
+		if val, ok := m.TargetUsers[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

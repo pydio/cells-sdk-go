@@ -11,24 +11,24 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestDeleteResponse Generic Message
-// swagger:model restDeleteResponse
-type RestDeleteResponse struct {
+// RestDeleteJobResult rest delete job result
+// swagger:model restDeleteJobResult
+type RestDeleteJobResult struct {
 
-	// num rows
-	NumRows string `json:"NumRows,omitempty"`
+	// label
+	Label string `json:"Label,omitempty"`
 
-	// success
-	Success bool `json:"Success,omitempty"`
+	// Uuid
+	UUID string `json:"Uuid,omitempty"`
 }
 
-// Validate validates this rest delete response
-func (m *RestDeleteResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this rest delete job result
+func (m *RestDeleteJobResult) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *RestDeleteResponse) MarshalBinary() ([]byte, error) {
+func (m *RestDeleteJobResult) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -36,8 +36,8 @@ func (m *RestDeleteResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RestDeleteResponse) UnmarshalBinary(b []byte) error {
-	var res RestDeleteResponse
+func (m *RestDeleteJobResult) UnmarshalBinary(b []byte) error {
+	var res RestDeleteJobResult
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

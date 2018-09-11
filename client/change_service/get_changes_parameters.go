@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -66,7 +65,7 @@ for the get changes operation typically these are written to a http.Request
 type GetChangesParams struct {
 
 	/*SeqID*/
-	SeqID int64
+	SeqID string
 	/*Body*/
 	Body *models.RestChangeRequest
 
@@ -109,13 +108,13 @@ func (o *GetChangesParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithSeqID adds the seqID to the get changes params
-func (o *GetChangesParams) WithSeqID(seqID int64) *GetChangesParams {
+func (o *GetChangesParams) WithSeqID(seqID string) *GetChangesParams {
 	o.SetSeqID(seqID)
 	return o
 }
 
 // SetSeqID adds the seqId to the get changes params
-func (o *GetChangesParams) SetSeqID(seqID int64) {
+func (o *GetChangesParams) SetSeqID(seqID string) {
 	o.SeqID = seqID
 }
 
@@ -139,7 +138,7 @@ func (o *GetChangesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	var res []error
 
 	// path param SeqID
-	if err := r.SetPathParam("SeqID", swag.FormatInt64(o.SeqID)); err != nil {
+	if err := r.SetPathParam("SeqID", o.SeqID); err != nil {
 		return err
 	}
 

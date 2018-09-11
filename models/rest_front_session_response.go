@@ -20,6 +20,12 @@ type RestFrontSessionResponse struct {
 
 	// j w t
 	JWT string `json:"JWT,omitempty"`
+
+	// Trigger a specific Auth step
+	Trigger string `json:"Trigger,omitempty"`
+
+	// Additional data for the trigger
+	TriggerInfo map[string]string `json:"TriggerInfo,omitempty"`
 }
 
 // Validate validates this rest front session response

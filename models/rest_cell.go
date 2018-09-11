@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RestCell Model for representing a shared room
@@ -19,7 +20,7 @@ import (
 type RestCell struct {
 
 	// acls
-	Acls RestCellAcls `json:"ACLs,omitempty"`
+	Acls map[string]RestCellACL `json:"ACLs,omitempty"`
 
 	// description
 	Description string `json:"Description,omitempty"`
@@ -68,11 +69,17 @@ func (m *RestCell) validateAcls(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.Acls.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("ACLs")
+	for k := range m.Acls {
+
+		if err := validate.Required("ACLs"+"."+k, "body", m.Acls[k]); err != nil {
+			return err
 		}
-		return err
+		if val, ok := m.Acls[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -66,11 +65,11 @@ type GetVersioningPolicyParams struct {
 	/*Description*/
 	Description *string
 	/*IgnoreFilesGreaterThan*/
-	IgnoreFilesGreaterThan *int64
+	IgnoreFilesGreaterThan *string
 	/*MaxSizePerFile*/
-	MaxSizePerFile *int64
+	MaxSizePerFile *string
 	/*MaxTotalSize*/
-	MaxTotalSize *int64
+	MaxTotalSize *string
 	/*Name*/
 	Name *string
 	/*UUID*/
@@ -130,35 +129,35 @@ func (o *GetVersioningPolicyParams) SetDescription(description *string) {
 }
 
 // WithIgnoreFilesGreaterThan adds the ignoreFilesGreaterThan to the get versioning policy params
-func (o *GetVersioningPolicyParams) WithIgnoreFilesGreaterThan(ignoreFilesGreaterThan *int64) *GetVersioningPolicyParams {
+func (o *GetVersioningPolicyParams) WithIgnoreFilesGreaterThan(ignoreFilesGreaterThan *string) *GetVersioningPolicyParams {
 	o.SetIgnoreFilesGreaterThan(ignoreFilesGreaterThan)
 	return o
 }
 
 // SetIgnoreFilesGreaterThan adds the ignoreFilesGreaterThan to the get versioning policy params
-func (o *GetVersioningPolicyParams) SetIgnoreFilesGreaterThan(ignoreFilesGreaterThan *int64) {
+func (o *GetVersioningPolicyParams) SetIgnoreFilesGreaterThan(ignoreFilesGreaterThan *string) {
 	o.IgnoreFilesGreaterThan = ignoreFilesGreaterThan
 }
 
 // WithMaxSizePerFile adds the maxSizePerFile to the get versioning policy params
-func (o *GetVersioningPolicyParams) WithMaxSizePerFile(maxSizePerFile *int64) *GetVersioningPolicyParams {
+func (o *GetVersioningPolicyParams) WithMaxSizePerFile(maxSizePerFile *string) *GetVersioningPolicyParams {
 	o.SetMaxSizePerFile(maxSizePerFile)
 	return o
 }
 
 // SetMaxSizePerFile adds the maxSizePerFile to the get versioning policy params
-func (o *GetVersioningPolicyParams) SetMaxSizePerFile(maxSizePerFile *int64) {
+func (o *GetVersioningPolicyParams) SetMaxSizePerFile(maxSizePerFile *string) {
 	o.MaxSizePerFile = maxSizePerFile
 }
 
 // WithMaxTotalSize adds the maxTotalSize to the get versioning policy params
-func (o *GetVersioningPolicyParams) WithMaxTotalSize(maxTotalSize *int64) *GetVersioningPolicyParams {
+func (o *GetVersioningPolicyParams) WithMaxTotalSize(maxTotalSize *string) *GetVersioningPolicyParams {
 	o.SetMaxTotalSize(maxTotalSize)
 	return o
 }
 
 // SetMaxTotalSize adds the maxTotalSize to the get versioning policy params
-func (o *GetVersioningPolicyParams) SetMaxTotalSize(maxTotalSize *int64) {
+func (o *GetVersioningPolicyParams) SetMaxTotalSize(maxTotalSize *string) {
 	o.MaxTotalSize = maxTotalSize
 }
 
@@ -233,11 +232,11 @@ func (o *GetVersioningPolicyParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if o.IgnoreFilesGreaterThan != nil {
 
 		// query param IgnoreFilesGreaterThan
-		var qrIgnoreFilesGreaterThan int64
+		var qrIgnoreFilesGreaterThan string
 		if o.IgnoreFilesGreaterThan != nil {
 			qrIgnoreFilesGreaterThan = *o.IgnoreFilesGreaterThan
 		}
-		qIgnoreFilesGreaterThan := swag.FormatInt64(qrIgnoreFilesGreaterThan)
+		qIgnoreFilesGreaterThan := qrIgnoreFilesGreaterThan
 		if qIgnoreFilesGreaterThan != "" {
 			if err := r.SetQueryParam("IgnoreFilesGreaterThan", qIgnoreFilesGreaterThan); err != nil {
 				return err
@@ -249,11 +248,11 @@ func (o *GetVersioningPolicyParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if o.MaxSizePerFile != nil {
 
 		// query param MaxSizePerFile
-		var qrMaxSizePerFile int64
+		var qrMaxSizePerFile string
 		if o.MaxSizePerFile != nil {
 			qrMaxSizePerFile = *o.MaxSizePerFile
 		}
-		qMaxSizePerFile := swag.FormatInt64(qrMaxSizePerFile)
+		qMaxSizePerFile := qrMaxSizePerFile
 		if qMaxSizePerFile != "" {
 			if err := r.SetQueryParam("MaxSizePerFile", qMaxSizePerFile); err != nil {
 				return err
@@ -265,11 +264,11 @@ func (o *GetVersioningPolicyParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if o.MaxTotalSize != nil {
 
 		// query param MaxTotalSize
-		var qrMaxTotalSize int64
+		var qrMaxTotalSize string
 		if o.MaxTotalSize != nil {
 			qrMaxTotalSize = *o.MaxTotalSize
 		}
-		qMaxTotalSize := swag.FormatInt64(qrMaxTotalSize)
+		qMaxTotalSize := qrMaxTotalSize
 		if qMaxTotalSize != "" {
 			if err := r.SetQueryParam("MaxTotalSize", qMaxTotalSize); err != nil {
 				return err

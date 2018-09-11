@@ -14,26 +14,22 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestBulkMetaResponse rest bulk meta response
-// swagger:model restBulkMetaResponse
-type RestBulkMetaResponse struct {
+// RestDeleteNodesRequest rest delete nodes request
+// swagger:model restDeleteNodesRequest
+type RestDeleteNodesRequest struct {
 
 	// nodes
 	Nodes []*TreeNode `json:"Nodes"`
 
-	// pagination
-	Pagination *RestPagination `json:"Pagination,omitempty"`
+	// recursive
+	Recursive bool `json:"Recursive,omitempty"`
 }
 
-// Validate validates this rest bulk meta response
-func (m *RestBulkMetaResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this rest delete nodes request
+func (m *RestDeleteNodesRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateNodes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePagination(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -43,7 +39,7 @@ func (m *RestBulkMetaResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RestBulkMetaResponse) validateNodes(formats strfmt.Registry) error {
+func (m *RestDeleteNodesRequest) validateNodes(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Nodes) { // not required
 		return nil
@@ -68,26 +64,8 @@ func (m *RestBulkMetaResponse) validateNodes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RestBulkMetaResponse) validatePagination(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Pagination) { // not required
-		return nil
-	}
-
-	if m.Pagination != nil {
-		if err := m.Pagination.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("Pagination")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 // MarshalBinary interface implementation
-func (m *RestBulkMetaResponse) MarshalBinary() ([]byte, error) {
+func (m *RestDeleteNodesRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -95,8 +73,8 @@ func (m *RestBulkMetaResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RestBulkMetaResponse) UnmarshalBinary(b []byte) error {
-	var res RestBulkMetaResponse
+func (m *RestDeleteNodesRequest) UnmarshalBinary(b []byte) error {
+	var res RestDeleteNodesRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

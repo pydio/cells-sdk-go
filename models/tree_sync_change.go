@@ -23,7 +23,7 @@ type TreeSyncChange struct {
 	NodeID string `json:"nodeId,omitempty"`
 
 	// seq
-	Seq uint64 `json:"seq,string,omitempty"`
+	Seq string `json:"seq,omitempty"`
 
 	// source
 	Source string `json:"source,omitempty"`

@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // TreeChangeLog tree change log
@@ -28,13 +27,13 @@ type TreeChangeLog struct {
 	Event *TreeNodeChangeEvent `json:"Event,omitempty"`
 
 	// Unix Timestamp
-	MTime int64 `json:"MTime,string,omitempty"`
+	MTime string `json:"MTime,omitempty"`
 
 	// Who performed this action
 	OwnerUUID string `json:"OwnerUuid,omitempty"`
 
 	// Content Size at that moment
-	Size int64 `json:"Size,string,omitempty"`
+	Size string `json:"Size,omitempty"`
 
 	// Unique commit ID
 	UUID string `json:"Uuid,omitempty"`
@@ -64,9 +63,7 @@ func (m *TreeChangeLog) validateData(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.FormatOf("Data", "body", "byte", m.Data.String(), formats); err != nil {
-		return err
-	}
+	// Format "byte" (base64 string) is already validated when unmarshalled
 
 	return nil
 }

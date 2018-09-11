@@ -19,10 +19,10 @@ import (
 type ServiceQuery struct {
 
 	// limit
-	Limit int64 `json:"Limit,string,omitempty"`
+	Limit string `json:"Limit,omitempty"`
 
 	// offset
-	Offset int64 `json:"Offset,string,omitempty"`
+	Offset string `json:"Offset,omitempty"`
 
 	// operation
 	Operation ServiceOperationType `json:"Operation,omitempty"`

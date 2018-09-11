@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // IdmWorkspace idm workspace
@@ -37,7 +38,7 @@ type IdmWorkspace struct {
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
 	// root nodes
-	RootNodes IdmWorkspaceRootNodes `json:"RootNodes,omitempty"`
+	RootNodes map[string]TreeNode `json:"RootNodes,omitempty"`
 
 	// root uuids
 	RootUuids []string `json:"RootUUIDs"`
@@ -105,11 +106,17 @@ func (m *IdmWorkspace) validateRootNodes(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.RootNodes.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("RootNodes")
+	for k := range m.RootNodes {
+
+		if err := validate.Required("RootNodes"+"."+k, "body", m.RootNodes[k]); err != nil {
+			return err
 		}
-		return err
+		if val, ok := m.RootNodes[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

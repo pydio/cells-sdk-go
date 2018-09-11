@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // JobsActionOutput Standard output of an action. Success value is required
@@ -63,9 +62,7 @@ func (m *JobsActionOutput) validateJSONBody(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.FormatOf("JsonBody", "body", "byte", m.JSONBody.String(), formats); err != nil {
-		return err
-	}
+	// Format "byte" (base64 string) is already validated when unmarshalled
 
 	return nil
 }
@@ -76,9 +73,7 @@ func (m *JobsActionOutput) validateRawBody(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.FormatOf("RawBody", "body", "byte", m.RawBody.String(), formats); err != nil {
-		return err
-	}
+	// Format "byte" (base64 string) is already validated when unmarshalled
 
 	return nil
 }

@@ -32,16 +32,16 @@ type TreeQuery struct {
 	GeoQuery *TreeGeoQuery `json:"GeoQuery,omitempty"`
 
 	// max date
-	MaxDate int64 `json:"MaxDate,string,omitempty"`
+	MaxDate string `json:"MaxDate,omitempty"`
 
 	// max size
-	MaxSize int64 `json:"MaxSize,string,omitempty"`
+	MaxSize string `json:"MaxSize,omitempty"`
 
 	// Range for date
-	MinDate int64 `json:"MinDate,string,omitempty"`
+	MinDate string `json:"MinDate,omitempty"`
 
 	// Range for size
-	MinSize int64 `json:"MinSize,string,omitempty"`
+	MinSize string `json:"MinSize,omitempty"`
 
 	// Limit to a given subtree
 	PathPrefix []string `json:"PathPrefix"`

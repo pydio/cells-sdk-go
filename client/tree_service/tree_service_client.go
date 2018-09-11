@@ -80,6 +80,62 @@ func (a *Client) CreateNodes(params *CreateNodesParams) (*CreateNodesOK, error) 
 
 }
 
+/*
+DeleteNodes handles nodes deletion
+*/
+func (a *Client) DeleteNodes(params *DeleteNodesParams) (*DeleteNodesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteNodesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteNodes",
+		Method:             "POST",
+		PathPattern:        "/tree/delete",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &DeleteNodesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteNodesOK), nil
+
+}
+
+/*
+HeadNode returns node meta without the node content itself
+*/
+func (a *Client) HeadNode(params *HeadNodeParams) (*HeadNodeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewHeadNodeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "HeadNode",
+		Method:             "GET",
+		PathPattern:        "/tree/stat/{Node}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &HeadNodeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*HeadNodeOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

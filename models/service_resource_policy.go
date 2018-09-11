@@ -32,7 +32,7 @@ type ServiceResourcePolicy struct {
 	Subject string `json:"Subject,omitempty"`
 
 	// id
-	ID int64 `json:"id,string,omitempty"`
+	ID string `json:"id,omitempty"`
 }
 
 // Validate validates this service resource policy

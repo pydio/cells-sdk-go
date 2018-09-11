@@ -18,11 +18,17 @@ type RestGetBulkMetaRequest struct {
 	// all meta providers
 	AllMetaProviders bool `json:"AllMetaProviders,omitempty"`
 
+	// limit
+	Limit int32 `json:"Limit,omitempty"`
+
 	// node paths
 	NodePaths []string `json:"NodePaths"`
 
 	// node uuids
 	NodeUuids []string `json:"NodeUuids"`
+
+	// offset
+	Offset int32 `json:"Offset,omitempty"`
 
 	// versions
 	Versions bool `json:"Versions,omitempty"`

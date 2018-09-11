@@ -22,7 +22,7 @@ type RestDocstoreCollection struct {
 	Docs []*DocstoreDocument `json:"Docs"`
 
 	// total
-	Total int64 `json:"Total,string,omitempty"`
+	Total string `json:"Total,omitempty"`
 }
 
 // Validate validates this rest docstore collection

@@ -23,13 +23,13 @@ type TreeListNodesRequest struct {
 	FilterType TreeNodeType `json:"FilterType,omitempty"`
 
 	// limit
-	Limit int64 `json:"Limit,string,omitempty"`
+	Limit string `json:"Limit,omitempty"`
 
 	// node
 	Node *TreeNode `json:"Node,omitempty"`
 
 	// offset
-	Offset int64 `json:"Offset,string,omitempty"`
+	Offset string `json:"Offset,omitempty"`
 
 	// recursive
 	Recursive bool `json:"Recursive,omitempty"`

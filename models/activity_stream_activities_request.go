@@ -32,10 +32,10 @@ type ActivityStreamActivitiesRequest struct {
 	Language string `json:"Language,omitempty"`
 
 	// limit
-	Limit int64 `json:"Limit,string,omitempty"`
+	Limit string `json:"Limit,omitempty"`
 
 	// offset
-	Offset int64 `json:"Offset,string,omitempty"`
+	Offset string `json:"Offset,omitempty"`
 
 	// point of view
 	PointOfView ActivitySummaryPointOfView `json:"PointOfView,omitempty"`
