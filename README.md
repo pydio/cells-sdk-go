@@ -4,7 +4,7 @@
 
 Rest API Client for Pydio Cells.
 
-Current SDK has been update on **Sept. 11th 2018** with git commit **[1f06d19](https://github.com/pydio/cells/commit/1f06d19ce21dcc91f9724d8acfee28eb3bf41596)**.
+Current SDK has been update on **Sept. 12th 2018** with git commit **[da01e73](https://github.com/pydio/cells/commit/da01e73fb123177d0748513b272d0d9d0053a31e)**.
 
 ## Overview
 
@@ -54,8 +54,6 @@ rm -r client models rest.swagger.json
 
 # Retrieve latest spec file
 wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest.swagger.json
-# At time of writing, we rather use the corresponding branch in Cells
-wget https://raw.githubusercontent.com/pydio/cells/gokilledphpstars/common/proto/rest/rest.swagger.json
 
 # Simply generate updated code
 ./swagger generate client --skip-validation -f rest.swagger.json

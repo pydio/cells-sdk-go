@@ -136,6 +136,34 @@ func (a *Client) HeadNode(params *HeadNodeParams) (*HeadNodeOK, error) {
 
 }
 
+/*
+RestoreNodes handles nodes restoration from recycle bin
+*/
+func (a *Client) RestoreNodes(params *RestoreNodesParams) (*RestoreNodesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestoreNodesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "RestoreNodes",
+		Method:             "POST",
+		PathPattern:        "/tree/restore",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &RestoreNodesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestoreNodesOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

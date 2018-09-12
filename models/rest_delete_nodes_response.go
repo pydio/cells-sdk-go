@@ -19,7 +19,7 @@ import (
 type RestDeleteNodesResponse struct {
 
 	// delete jobs
-	DeleteJobs []*RestDeleteJobResult `json:"DeleteJobs"`
+	DeleteJobs []*RestBackgroundJobResult `json:"DeleteJobs"`
 }
 
 // Validate validates this rest delete nodes response
