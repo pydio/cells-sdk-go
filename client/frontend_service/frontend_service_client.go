@@ -81,34 +81,6 @@ func (a *Client) FrontEnrollAuth(params *FrontEnrollAuthParams) (*FrontEnrollAut
 }
 
 /*
-FrontLog sends a log from front php to back
-*/
-func (a *Client) FrontLog(params *FrontLogParams) (*FrontLogOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFrontLogParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "FrontLog",
-		Method:             "PUT",
-		PathPattern:        "/frontend/frontlogs",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https", "wss"},
-		Params:             params,
-		Reader:             &FrontLogReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*FrontLogOK), nil
-
-}
-
-/*
 FrontMessages serves list of i18n messages
 */
 func (a *Client) FrontMessages(params *FrontMessagesParams) (*FrontMessagesOK, error) {

@@ -65,7 +65,7 @@ func TestDatasourceService(t *testing.T) {
 
 		})
 
-		// Following tests are not run unless below parameters are defined and valid. We yet leave the code here as a sample for your convenience.
+		// Following tests are *NOT* run unless below parameters are defined and valid. We yet leave the code here as a sample for your convenience.
 		// Also note that os.Getenv("HOME") will fail on Windows
 		// name, peerAddress, dsPort, rootFolder := "localtestds1", "192.168.0.140", 9009, os.Getenv("HOME")+"/tmp/pydio/dss/unittest/localtestds1"
 		name, peerAddress, dsPort, rootFolder := "", "", 9009, ""

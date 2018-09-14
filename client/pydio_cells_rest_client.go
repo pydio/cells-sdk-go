@@ -16,21 +16,15 @@ import (
 	"github.com/pydio/cells-sdk-go/client/admin_tree_service"
 	"github.com/pydio/cells-sdk-go/client/change_service"
 	"github.com/pydio/cells-sdk-go/client/config_service"
-	"github.com/pydio/cells-sdk-go/client/doc_store_service"
-	"github.com/pydio/cells-sdk-go/client/enterprise_config_service"
-	"github.com/pydio/cells-sdk-go/client/enterprise_log_service"
-	"github.com/pydio/cells-sdk-go/client/enterprise_policy_service"
 	"github.com/pydio/cells-sdk-go/client/frontend_service"
 	"github.com/pydio/cells-sdk-go/client/graph_service"
 	"github.com/pydio/cells-sdk-go/client/install_service"
 	"github.com/pydio/cells-sdk-go/client/jobs_service"
-	"github.com/pydio/cells-sdk-go/client/license_service"
 	"github.com/pydio/cells-sdk-go/client/log_service"
 	"github.com/pydio/cells-sdk-go/client/mailer_service"
 	"github.com/pydio/cells-sdk-go/client/meta_service"
 	"github.com/pydio/cells-sdk-go/client/policy_service"
 	"github.com/pydio/cells-sdk-go/client/role_service"
-	"github.com/pydio/cells-sdk-go/client/scheduler_service"
 	"github.com/pydio/cells-sdk-go/client/search_service"
 	"github.com/pydio/cells-sdk-go/client/share_service"
 	"github.com/pydio/cells-sdk-go/client/token_service"
@@ -94,14 +88,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 
 	cli.ConfigService = config_service.New(transport, formats)
 
-	cli.DocStoreService = doc_store_service.New(transport, formats)
-
-	cli.EnterpriseConfigService = enterprise_config_service.New(transport, formats)
-
-	cli.EnterpriseLogService = enterprise_log_service.New(transport, formats)
-
-	cli.EnterprisePolicyService = enterprise_policy_service.New(transport, formats)
-
 	cli.FrontendService = frontend_service.New(transport, formats)
 
 	cli.GraphService = graph_service.New(transport, formats)
@@ -109,8 +95,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.InstallService = install_service.New(transport, formats)
 
 	cli.JobsService = jobs_service.New(transport, formats)
-
-	cli.LicenseService = license_service.New(transport, formats)
 
 	cli.LogService = log_service.New(transport, formats)
 
@@ -121,8 +105,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.PolicyService = policy_service.New(transport, formats)
 
 	cli.RoleService = role_service.New(transport, formats)
-
-	cli.SchedulerService = scheduler_service.New(transport, formats)
 
 	cli.SearchService = search_service.New(transport, formats)
 
@@ -194,14 +176,6 @@ type PydioCellsRest struct {
 
 	ConfigService *config_service.Client
 
-	DocStoreService *doc_store_service.Client
-
-	EnterpriseConfigService *enterprise_config_service.Client
-
-	EnterpriseLogService *enterprise_log_service.Client
-
-	EnterprisePolicyService *enterprise_policy_service.Client
-
 	FrontendService *frontend_service.Client
 
 	GraphService *graph_service.Client
@@ -209,8 +183,6 @@ type PydioCellsRest struct {
 	InstallService *install_service.Client
 
 	JobsService *jobs_service.Client
-
-	LicenseService *license_service.Client
 
 	LogService *log_service.Client
 
@@ -221,8 +193,6 @@ type PydioCellsRest struct {
 	PolicyService *policy_service.Client
 
 	RoleService *role_service.Client
-
-	SchedulerService *scheduler_service.Client
 
 	SearchService *search_service.Client
 
@@ -257,14 +227,6 @@ func (c *PydioCellsRest) SetTransport(transport runtime.ClientTransport) {
 
 	c.ConfigService.SetTransport(transport)
 
-	c.DocStoreService.SetTransport(transport)
-
-	c.EnterpriseConfigService.SetTransport(transport)
-
-	c.EnterpriseLogService.SetTransport(transport)
-
-	c.EnterprisePolicyService.SetTransport(transport)
-
 	c.FrontendService.SetTransport(transport)
 
 	c.GraphService.SetTransport(transport)
@@ -272,8 +234,6 @@ func (c *PydioCellsRest) SetTransport(transport runtime.ClientTransport) {
 	c.InstallService.SetTransport(transport)
 
 	c.JobsService.SetTransport(transport)
-
-	c.LicenseService.SetTransport(transport)
 
 	c.LogService.SetTransport(transport)
 
@@ -284,8 +244,6 @@ func (c *PydioCellsRest) SetTransport(transport runtime.ClientTransport) {
 	c.PolicyService.SetTransport(transport)
 
 	c.RoleService.SetTransport(transport)
-
-	c.SchedulerService.SetTransport(transport)
 
 	c.SearchService.SetTransport(transport)
 
