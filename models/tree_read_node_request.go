@@ -21,6 +21,9 @@ type TreeReadNodeRequest struct {
 
 	// with commits
 	WithCommits bool `json:"WithCommits,omitempty"`
+
+	// with extended stats
+	WithExtendedStats bool `json:"WithExtendedStats,omitempty"`
 }
 
 // Validate validates this tree read node request

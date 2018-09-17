@@ -20,6 +20,9 @@ type RestBulkMetaResponse struct {
 
 	// nodes
 	Nodes []*TreeNode `json:"Nodes"`
+
+	// pagination
+	Pagination *RestPagination `json:"Pagination,omitempty"`
 }
 
 // Validate validates this rest bulk meta response
@@ -27,6 +30,10 @@ func (m *RestBulkMetaResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateNodes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePagination(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -56,6 +63,24 @@ func (m *RestBulkMetaResponse) validateNodes(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RestBulkMetaResponse) validatePagination(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Pagination) { // not required
+		return nil
+	}
+
+	if m.Pagination != nil {
+		if err := m.Pagination.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Pagination")
+			}
+			return err
+		}
 	}
 
 	return nil

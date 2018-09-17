@@ -15,17 +15,14 @@ import (
 // swagger:model restFrontSessionRequest
 type RestFrontSessionRequest struct {
 
-	// client time
+	// Data sent back by specific auth steps
+	AuthInfo map[string]string `json:"AuthInfo,omitempty"`
+
+	// Time reference for computing jwt expiry
 	ClientTime int32 `json:"ClientTime,omitempty"`
 
-	// login
-	Login string `json:"Login,omitempty"`
-
-	// logout
+	// Kill session now
 	Logout bool `json:"Logout,omitempty"`
-
-	// password
-	Password string `json:"Password,omitempty"`
 }
 
 // Validate validates this rest front session request

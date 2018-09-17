@@ -501,6 +501,34 @@ func (a *Client) ListVersioningPolicies(params *ListVersioningPoliciesParams) (*
 }
 
 /*
+ListVirtualNodes lists all defined virtual nodes
+*/
+func (a *Client) ListVirtualNodes(params *ListVirtualNodesParams) (*ListVirtualNodesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListVirtualNodesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListVirtualNodes",
+		Method:             "GET",
+		PathPattern:        "/config/virtualnodes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListVirtualNodesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListVirtualNodesOK), nil
+
+}
+
+/*
 OpenAPIDiscovery publishes available r e s t apis
 */
 func (a *Client) OpenAPIDiscovery(params *OpenAPIDiscoveryParams) (*OpenAPIDiscoveryOK, error) {

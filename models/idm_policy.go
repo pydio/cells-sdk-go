@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // IdmPolicy idm policy
@@ -20,7 +21,7 @@ type IdmPolicy struct {
 	Actions []string `json:"actions"`
 
 	// conditions
-	Conditions IdmPolicyConditions `json:"conditions,omitempty"`
+	Conditions map[string]IdmPolicyCondition `json:"conditions,omitempty"`
 
 	// description
 	Description string `json:"description,omitempty"`
@@ -62,11 +63,17 @@ func (m *IdmPolicy) validateConditions(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.Conditions.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("conditions")
+	for k := range m.Conditions {
+
+		if err := validate.Required("conditions"+"."+k, "body", m.Conditions[k]); err != nil {
+			return err
 		}
-		return err
+		if val, ok := m.Conditions[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

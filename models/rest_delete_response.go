@@ -15,10 +15,10 @@ import (
 // swagger:model restDeleteResponse
 type RestDeleteResponse struct {
 
-	// num rows
-	NumRows int64 `json:"NumRows,string,omitempty"`
+	// Number of records deleted during operation
+	NumRows string `json:"NumRows,omitempty"`
 
-	// success
+	// If delete was successfull
 	Success bool `json:"Success,omitempty"`
 }
 

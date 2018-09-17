@@ -53,30 +53,30 @@ func (a *Client) FrontBootConf(params *FrontBootConfParams) (*FrontBootConfOK, e
 }
 
 /*
-FrontLog sends a log from front php to back
+FrontEnrollAuth generics endpoint that can be implemented by 2 f a systems for enrollment
 */
-func (a *Client) FrontLog(params *FrontLogParams) (*FrontLogOK, error) {
+func (a *Client) FrontEnrollAuth(params *FrontEnrollAuthParams) (*FrontEnrollAuthOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewFrontLogParams()
+		params = NewFrontEnrollAuthParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "FrontLog",
-		Method:             "PUT",
-		PathPattern:        "/frontend/frontlogs",
+		ID:                 "FrontEnrollAuth",
+		Method:             "POST",
+		PathPattern:        "/frontend/enroll",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
-		Reader:             &FrontLogReader{formats: a.formats},
+		Reader:             &FrontEnrollAuthReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FrontLogOK), nil
+	return result.(*FrontEnrollAuthOK), nil
 
 }
 

@@ -34,7 +34,7 @@ type MailerMail struct {
 	ContentPlain string `json:"ContentPlain,omitempty"`
 
 	// date sent
-	DateSent int64 `json:"DateSent,string,omitempty"`
+	DateSent string `json:"DateSent,omitempty"`
 
 	// from
 	From *MailerUser `json:"From,omitempty"`

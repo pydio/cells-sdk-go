@@ -8,48 +8,22 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
-// RestFrontBinaryRequest rest front binary request
+// RestFrontBinaryRequest Donwload binary
 // swagger:model restFrontBinaryRequest
 type RestFrontBinaryRequest struct {
 
-	// binary type
-	BinaryType RestFrontBinaryType `json:"BinaryType,omitempty"`
+	// Currently supported values are USER and GLOBAL
+	BinaryType string `json:"BinaryType,omitempty"`
 
-	// Uuid
+	// Id of the binary
 	UUID string `json:"Uuid,omitempty"`
 }
 
 // Validate validates this rest front binary request
 func (m *RestFrontBinaryRequest) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateBinaryType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *RestFrontBinaryRequest) validateBinaryType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.BinaryType) { // not required
-		return nil
-	}
-
-	if err := m.BinaryType.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("BinaryType")
-		}
-		return err
-	}
-
 	return nil
 }
 
