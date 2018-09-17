@@ -71,7 +71,7 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 		return "", err
 	}
 
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded") // Important our dex API does not yet support json payload.
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded") // Important: our dex API does not yet support json payload.
 	req.Header.Add("Cache-Control", "no-cache")
 	req.Header.Add("Authorization", basicAuthToken(sdkConfig.ClientKey, sdkConfig.ClientSecret))
 
