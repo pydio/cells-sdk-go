@@ -14,15 +14,15 @@ import (
 
 // GetPreparedS3CLient creates and configure a new S3 client at each request.
 // Should be optimized
-func GetPreparedS3CLient(sdkConfig *SdkConfig, s3Config *S3Config) (*s3.S3, error) {
+func GetPreparedS3CLient(sdc *SdkConfig, s3c *S3Config) (*s3.S3, error) {
 
 	var apiKey string
 	var err error
 
-	if s3Config.UsePydioSpecificHeader { // Legacy
-		apiKey = s3Config.ApiKey
+	if s3c.UsePydioSpecificHeader { // Legacy
+		apiKey = s3c.ApiKey
 	} else {
-		apiKey, err = retrieveToken(sdkConfig)
+		apiKey, err = retrieveToken(sdc)
 		if err != nil {
 			return nil, fmt.Errorf("cannot retrieve token from config, cause: %s", err.Error())
 		}
@@ -30,21 +30,23 @@ func GetPreparedS3CLient(sdkConfig *SdkConfig, s3Config *S3Config) (*s3.S3, erro
 
 	conf := &aws.Config{
 		// Static credentials are the best we've found to do the job until now. Might be enhanced, together with a better session pool management
-		Credentials: credentials.NewStaticCredentials(apiKey, s3Config.ApiSecret, ""),
+		Credentials: credentials.NewStaticCredentials(apiKey, s3c.ApiSecret, ""),
 	}
 
 	tr := http.DefaultTransport
-	if s3Config.UsePydioSpecificHeader { // Legacy:
-		tr = NewAuthTransport(tr, sdkConfig, s3Config)
+	if s3c.UsePydioSpecificHeader { // Legacy:
+		tr = NewAuthTransport(tr, sdc, s3c)
 	}
 
 	client := &http.Client{Transport: tr}
-	conf.WithHTTPClient(client).WithEndpoint(s3Config.Endpoint).WithRegion(s3Config.Region)
+	conf.WithHTTPClient(client).WithEndpoint(s3c.Endpoint).WithRegion(s3c.Region)
 
 	s3Session, err := session.NewSession(conf)
 	if err != nil {
 		log.Fatal("cannot initialise default S3 session: " + err.Error())
 	}
+
+	// s3.New(s3Session).ListBuckets(nil)
 
 	return s3.New(s3Session), nil
 }
