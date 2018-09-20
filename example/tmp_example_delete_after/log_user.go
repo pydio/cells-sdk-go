@@ -43,7 +43,7 @@ func main() {
 			time.Sleep(500 * time.Millisecond)
 		}
 	}
-	//11TH try to connect with right credentials and list files should not be able, will throw "User elsa is not authorized to log in"
+	//11TH try to connect with right credentials should not be able to list files, will throw "User elsa is not authorized to log in"
 
 	fmt.Println("11TH TRY HERE W/ RIGHT CRED")
 
