@@ -30,44 +30,20 @@ func main() {
 		Password:     pwd,
 		SkipVerify:   skipVerify,
 	}
-	//Loopa:
+	// will try to connect 1 times with the wrong password on user defined above
+
 	for i := 1; i <= 10; i++ {
 
-		sdkConfig.Password = "idontknow"
+		sdkConfig.Password = "thisisawrongpassword"
 
-		//httpClient := config.GetHttpClient(sdkConfig)
 		_, _, err := config.GetPreparedApiClient(sdkConfig)
 
 		if err != nil {
 			log.Printf("\n apiClient ERROR -> %v \n %v", i, err)
-
 			time.Sleep(500 * time.Millisecond)
-
-			//continue Loopa
-
 		}
-
-		//	bodyy := models.IdmUser{
-		//		Login:    userTest,
-		//		Password: passTest,
-		//	}
-		//
-		//	params := &user_service.BindUserParams{
-		//		Body:       &bodyy,
-		//		Login:      userTest,
-		//		Context:    ctx,
-		//		HTTPClient: httpClient,
-		//	}
-		//Loop:
-		//	for i := 0; i <= 15; i++ {
-		//		result, err := apiClient.UserService.BindUser(params)
-		//		if err != nil {
-		//			log.Println("rest ERROR -> ", err)
-		//			continue Loop
-		//		}
-		//		fmt.Println("SUCCESS ---> ", result.Payload.Success)
-		//	}
 	}
+	//11TH try to connect with right credentials and list files should not be able, will throw "User elsa is not authorized to log in"
 
 	fmt.Println("11TH TRY HERE W/ RIGHT CRED")
 
