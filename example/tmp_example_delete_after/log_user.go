@@ -30,7 +30,7 @@ func main() {
 		Password:     pwd,
 		SkipVerify:   skipVerify,
 	}
-	// will try to connect 1 times with the wrong password on user defined above
+	// will try to connect 10 times with the wrong password on user defined above
 
 	for i := 1; i <= 10; i++ {
 
