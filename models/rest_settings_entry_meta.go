@@ -15,11 +15,17 @@ import (
 // swagger:model restSettingsEntryMeta
 type RestSettingsEntryMeta struct {
 
+	// advanced
+	Advanced bool `json:"Advanced,omitempty"`
+
 	// component
 	Component string `json:"Component,omitempty"`
 
 	// icon class
 	IconClass string `json:"IconClass,omitempty"`
+
+	// indexed
+	Indexed []string `json:"Indexed"`
 
 	// props
 	Props string `json:"Props,omitempty"`
