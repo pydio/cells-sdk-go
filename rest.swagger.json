@@ -23,25 +23,25 @@
     "401":{
       "description":"User is not authenticated",
       "schema":{
-        "$ref": "#/definitions/Error"
+        "$ref": "#/definitions/restError"
       }
     },
     "403":{
-      "description":"User has no permissions to access this particular resource",
+      "description":"User has no permission to access this particular resource",
       "schema":{
-        "$ref": "#/definitions/Error"
+        "$ref": "#/definitions/restError"
       }
     },
     "404":{
-      "description":"Resource does not exists in the system",
+      "description":"Resource does not exist in the system",
       "schema":{
-        "$ref": "#/definitions/Error"
+        "$ref": "#/definitions/restError"
       }
     },
     "500":{
       "description":"An internal error occurred in the backend",
       "schema":{
-        "$ref": "#/definitions/Error"
+        "$ref": "#/definitions/restError"
       }
     }
   },
@@ -2185,6 +2185,33 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/restRestoreNodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TreeService"
+        ]
+      }
+    },
+    "/tree/selection": {
+      "post": {
+        "summary": "Create a temporary selection for further action (namely download)",
+        "operationId": "CreateSelection",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/restCreateSelectionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/restCreateSelectionRequest"
             }
           }
         ],
@@ -4556,6 +4583,11 @@
           "format": "int32",
           "title": "Task properties"
         },
+        "TasksSilentUpdate": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Do not send notification on task update"
+        },
         "Tasks": {
           "type": "array",
           "items": {
@@ -5227,6 +5259,38 @@
         "Recursive": {
           "type": "boolean",
           "format": "boolean"
+        }
+      }
+    },
+    "restCreateSelectionRequest": {
+      "type": "object",
+      "properties": {
+        "Nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/treeNode"
+          }
+        },
+        "TargetAction": {
+          "type": "string"
+        },
+        "Persist": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "restCreateSelectionResponse": {
+      "type": "object",
+      "properties": {
+        "SelectionUUID": {
+          "type": "string"
+        },
+        "Nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/treeNode"
+          }
         }
       }
     },
@@ -6104,6 +6168,16 @@
         },
         "Props": {
           "type": "string"
+        },
+        "Advanced": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Indexed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

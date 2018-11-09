@@ -55,6 +55,9 @@ type JobsJob struct {
 
 	// Filled with currently running tasks
 	Tasks []*JobsTask `json:"Tasks"`
+
+	// Do not send notification on task update
+	TasksSilentUpdate bool `json:"TasksSilentUpdate,omitempty"`
 }
 
 // Validate validates this jobs job

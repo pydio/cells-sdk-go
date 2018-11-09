@@ -81,6 +81,34 @@ func (a *Client) CreateNodes(params *CreateNodesParams) (*CreateNodesOK, error) 
 }
 
 /*
+CreateSelection creates a temporary selection for further action namely download
+*/
+func (a *Client) CreateSelection(params *CreateSelectionParams) (*CreateSelectionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateSelectionParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "CreateSelection",
+		Method:             "POST",
+		PathPattern:        "/tree/selection",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &CreateSelectionReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateSelectionOK), nil
+
+}
+
+/*
 DeleteNodes handles nodes deletion
 */
 func (a *Client) DeleteNodes(params *DeleteNodesParams) (*DeleteNodesOK, error) {
