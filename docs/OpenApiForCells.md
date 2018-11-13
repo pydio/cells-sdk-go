@@ -50,22 +50,16 @@ func (s *RoleHandler) Filter() func(string) string {
 
 #### JWT
 
-JWT mechanisms are provided by Dex (based on openid connect)
+JWT mechanisms are provided by Dex (based on OpenID connect)
 
 #### Micro API
 
-We furthermore use micro api to provide the gateway.
+We furthermore use micro API to provide the gateway.
 
 This service is declared in gateway/micro/plugins.go
 
-It receives the rest request and dispach them.
+It receives the REST request and dispach them.
 
 For more info, see [micro repository on Github](https://github.com/micro/micro)
 
 - To define the root path one should edit the `pydio.json` file that is in the root folder of Pydio Cells data folder (which is typically located at `~/.config/pydio/cells`). We do this to ease enablement and disablement of TLS communication.
-
-### Front end in Pydio Cells v1.0.1
-
-- To check how we generate PHP and javascript clients, see  [cells-front/core/generate-api.sh](https://github.com/pydio/cells-front/blob/master/core/generate-api.sh)
-- As the time of writing, the JWT is entirely managed in the PHP (this will change soon, as we plan to get rid of the PHP)
-- About integration, refer to [gui.ajax/res/js/core/http/restClient.es6](https://github.com/pydio/cells-front/blob/master/gui.ajax/res/js/core/http/restClient.es6)
