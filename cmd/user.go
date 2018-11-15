@@ -32,7 +32,7 @@ var listUserCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		httpClient := config.GetHttpClient(config.DefaultConfig)
-		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -71,7 +71,7 @@ var createUserCmd = &cobra.Command{
 	Short: "Create a user",
 	Run: func(cmd *cobra.Command, args []string) {
 		httpClient := config.GetHttpClient(config.DefaultConfig)
-		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}

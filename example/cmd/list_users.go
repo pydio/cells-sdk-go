@@ -17,7 +17,7 @@ var listUsers = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		httpClient := config.GetHttpClient(config.DefaultConfig)
-		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}

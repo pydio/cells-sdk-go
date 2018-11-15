@@ -92,6 +92,9 @@ func getSdkConfigFromEnv() (SdkConfig, error) {
 	c.Password = password
 	c.SkipVerify = skipVerify
 
+	// Note: this cannot be set via env variable. Enhance?
+	c.UseTokenCache = true
+
 	return c, nil
 }
 

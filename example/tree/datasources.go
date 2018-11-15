@@ -9,7 +9,7 @@ import (
 // ListDatasources returns a collection of known datasources using the current default connection.
 func ListDatasources() (*models.RestDataSourceCollection, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -26,7 +26,7 @@ func ListDatasources() (*models.RestDataSourceCollection, error) {
 // AddLocalDatasource creates a new local file based datasource.
 func AddLocalDatasource(name, peerAddress string, port int32, rootFolderAbsPath string) (*models.ObjectDataSource, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func AddLocalDatasource(name, peerAddress string, port int32, rootFolderAbsPath 
 // GetDatasource returns a datasource using the current default connection.
 func GetDatasource(dsName string) (*models.ObjectDataSource, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func GetDatasource(dsName string) (*models.ObjectDataSource, error) {
 // DeleteLocalDatasource removes a local file based datasource, without removing underlying files.
 func DeleteLocalDatasource(name string) (bool, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return false, err
 	}

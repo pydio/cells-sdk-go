@@ -51,10 +51,13 @@ func (t *TokenStore) computeKey(c *SdkConfig) string {
 
 func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 
-	cached := store.TokenFor(sdkConfig)
-	if cached != "" {
-		// fmt.Println("[Auth: Retrieved token from cache]")
-		return cached, nil
+	if sdkConfig.UseTokenCache {
+		cached := store.TokenFor(sdkConfig)
+		if cached != "" {
+			// fmt.Println("[Auth: Retrieved token from cache]")
+			return cached, nil
+		}
+		// fmt.Println("No token found in cache, querying the server")
 	}
 
 	fullURL := sdkConfig.Protocol + "://" + sdkConfig.Url + oidcResourcePath + "/token"

@@ -19,6 +19,8 @@ type SdkConfig struct {
 	Password string `json:"password"`
 
 	SkipVerify bool `json:"skipVerify"`
+
+	UseTokenCache bool `json:"useTokenCache"`
 }
 
 // S3Config stores connection parameters to a running Cells instance S3 gateway via the AWS SDK for Go.

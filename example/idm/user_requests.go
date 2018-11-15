@@ -32,7 +32,7 @@ func CreateUser(groupPath, createUserLogin, createUserPwd string, createUserAdmi
 		Attributes: map[string]string{"profile": profile},
 	}
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return models.IdmUser{}, err
 	}
@@ -52,7 +52,7 @@ func CreateUser(groupPath, createUserLogin, createUserPwd string, createUserAdmi
 // ListUsers returns an array containing all known users
 func ListUsers() (*models.RestUsersCollection, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return nil, err
 	}

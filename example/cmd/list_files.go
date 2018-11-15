@@ -19,7 +19,7 @@ var listFiles = &cobra.Command{
 
 		//connects to the pydio api via the sdkConfig
 		httpClient := config.GetHttpClient(config.DefaultConfig)
-		apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -9,7 +9,7 @@ import (
 // CreateWorkspace creates a new simple workspace using the current default connection.
 func CreateWorkspace(datasource, slug, label, description string) (*models.IdmWorkspace, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func CreateWorkspace(datasource, slug, label, description string) (*models.IdmWo
 // ListWorkspaces returns an object with known workspaces and their number.
 func ListWorkspaces() (*models.RestWorkspaceCollection, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func ListWorkspaces() (*models.RestWorkspaceCollection, error) {
 // DeleteWorkspace deregister a workspace.
 func DeleteWorkspace(slug string) (bool, error) {
 
-	apiClient, ctx, err := config.GetPreparedApiClient(config.DefaultConfig)
+	ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
 	if err != nil {
 		return false, err
 	}

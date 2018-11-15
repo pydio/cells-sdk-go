@@ -25,7 +25,7 @@ var (
 
 // GetPreparedApiClient connects to the Pydio Cells server defined by this config.
 // Also returns a context to be used in subsequent requests.
-func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, context.Context, error) {
+func GetPreparedApiClient(sdkConfig *SdkConfig) (context.Context, *apiclient.PydioCellsRest, error) {
 
 	transport := httptransport.New(sdkConfig.Url, apiResourcePath, []string{sdkConfig.Protocol})
 	jwt, err := retrieveToken(sdkConfig)
@@ -40,7 +40,7 @@ func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioCellsRest, cont
 
 	client := apiclient.New(transport, strfmt.Default)
 
-	return client, context.Background(), nil
+	return context.Background(), client, nil
 }
 
 // GetHttpClient adds an option to rather use an http client that ignore SSL certificate issues.
