@@ -66,7 +66,9 @@ func retrieveToken(sdkConfig *SdkConfig) (string, error) {
 	data.Set("grant_type", grantType)
 	data.Add("username", sdkConfig.User)
 	data.Add("password", sdkConfig.Password)
+	// TODO: Scope should ask for "offline_access" as well for more realism
 	data.Add("scope", scope)
+	// TODO: This should be a uuid.New() for more realism
 	data.Add("nonce", "aVerySpecialNonce")
 
 	req, err := http.NewRequest("POST", fullURL, strings.NewReader(data.Encode()))
