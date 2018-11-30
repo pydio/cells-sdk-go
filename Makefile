@@ -8,7 +8,6 @@ build: main
 vendor:
 	govendor update github.com/pydio/cells-sdk-go
 
-
 main:
 	go build -ldflags "-X github.com/pydio/cells-sdk-go/config.version=${CELLS_VERSION} -X github.com/pydio/cells-sdk-go/config.BuildStamp=`date -u +%Y-%m-%dT%H:%M:%S` -X github.com/pydio/cells-sdk-go/config.BuildRevision=`git rev-parse HEAD`" -o cells-sdk-go main.go
 
