@@ -23,7 +23,15 @@ var (
 	store = NewTokenStore()
 )
 
-// GetPreparedApiClient connects to the Pydio Cells server defined by this config.
+// GetAnonymousApiClient prepares a client WITHOUT sending a first request to the OIDC service
+func GetAnonymousApiClient(sdkConfig *SdkConfig) (context.Context, *apiclient.PydioCellsRest, error) {
+	transport := httptransport.New(sdkConfig.Url, apiResourcePath, []string{sdkConfig.Protocol})
+	client := apiclient.New(transport, strfmt.Default)
+	return context.Background(), client, nil
+}
+
+// GetPreparedApiClient connects to the Pydio Cells server defined by this config, by sending an authentication
+// request to the OIDC service to get a valid JWT (or taking the JWT from cache).
 // Also returns a context to be used in subsequent requests.
 func GetPreparedApiClient(sdkConfig *SdkConfig) (context.Context, *apiclient.PydioCellsRest, error) {
 
