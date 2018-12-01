@@ -28,6 +28,24 @@ const (
 
 	// ObjectStorageTypeSMB captures enum value "SMB"
 	ObjectStorageTypeSMB ObjectStorageType = "SMB"
+
+	// ObjectStorageTypeCELLS captures enum value "CELLS"
+	ObjectStorageTypeCELLS ObjectStorageType = "CELLS"
+
+	// ObjectStorageTypeAZURE captures enum value "AZURE"
+	ObjectStorageTypeAZURE ObjectStorageType = "AZURE"
+
+	// ObjectStorageTypeGCS captures enum value "GCS"
+	ObjectStorageTypeGCS ObjectStorageType = "GCS"
+
+	// ObjectStorageTypeB2 captures enum value "B2"
+	ObjectStorageTypeB2 ObjectStorageType = "B2"
+
+	// ObjectStorageTypeMANTA captures enum value "MANTA"
+	ObjectStorageTypeMANTA ObjectStorageType = "MANTA"
+
+	// ObjectStorageTypeSIA captures enum value "SIA"
+	ObjectStorageTypeSIA ObjectStorageType = "SIA"
 )
 
 // for schema
@@ -35,7 +53,7 @@ var objectStorageTypeEnum []interface{}
 
 func init() {
 	var res []ObjectStorageType
-	if err := json.Unmarshal([]byte(`["LOCAL","S3","SMB"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["LOCAL","S3","SMB","CELLS","AZURE","GCS","B2","MANTA","SIA"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

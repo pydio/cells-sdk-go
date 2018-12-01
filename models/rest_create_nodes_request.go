@@ -23,6 +23,9 @@ type RestCreateNodesRequest struct {
 
 	// recursive
 	Recursive bool `json:"Recursive,omitempty"`
+
+	// template UUID
+	TemplateUUID string `json:"TemplateUUID,omitempty"`
 }
 
 // Validate validates this rest create nodes request

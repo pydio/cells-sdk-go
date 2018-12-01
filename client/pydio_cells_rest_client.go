@@ -27,6 +27,7 @@ import (
 	"github.com/pydio/cells-sdk-go/client/role_service"
 	"github.com/pydio/cells-sdk-go/client/search_service"
 	"github.com/pydio/cells-sdk-go/client/share_service"
+	"github.com/pydio/cells-sdk-go/client/templates_service"
 	"github.com/pydio/cells-sdk-go/client/token_service"
 	"github.com/pydio/cells-sdk-go/client/tree_service"
 	"github.com/pydio/cells-sdk-go/client/update_service"
@@ -109,6 +110,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.SearchService = search_service.New(transport, formats)
 
 	cli.ShareService = share_service.New(transport, formats)
+
+	cli.TemplatesService = templates_service.New(transport, formats)
 
 	cli.TokenService = token_service.New(transport, formats)
 
@@ -198,6 +201,8 @@ type PydioCellsRest struct {
 
 	ShareService *share_service.Client
 
+	TemplatesService *templates_service.Client
+
 	TokenService *token_service.Client
 
 	TreeService *tree_service.Client
@@ -248,6 +253,8 @@ func (c *PydioCellsRest) SetTransport(transport runtime.ClientTransport) {
 	c.SearchService.SetTransport(transport)
 
 	c.ShareService.SetTransport(transport)
+
+	c.TemplatesService.SetTransport(transport)
 
 	c.TokenService.SetTransport(transport)
 

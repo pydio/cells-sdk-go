@@ -25,34 +25,6 @@ type Client struct {
 }
 
 /*
-BindUser binds a user with her login and password
-*/
-func (a *Client) BindUser(params *BindUserParams) (*BindUserOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewBindUserParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "BindUser",
-		Method:             "POST",
-		PathPattern:        "/user/{Login}/bind",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https", "wss"},
-		Params:             params,
-		Reader:             &BindUserReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*BindUserOK), nil
-
-}
-
-/*
 DeleteUser deletes a user
 */
 func (a *Client) DeleteUser(params *DeleteUserParams) (*DeleteUserOK, error) {
