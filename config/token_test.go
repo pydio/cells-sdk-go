@@ -37,9 +37,10 @@ func TestJWT(t *testing.T) {
 					So(DefaultConfig.User, ShouldNotBeEmpty)
 					So(DefaultConfig.Password, ShouldNotBeEmpty)
 					So(DefaultConfig.SkipVerify, ShouldNotBeEmpty)
-					sdkc, s3c := GetDefaultConfigFiles(rootPath)
+					sdkc, s3c, ldapc := GetDefaultConfigFiles(rootPath)
 					So(sdkc, ShouldNotBeNil)
 					So(s3c, ShouldNotBeNil)
+					So(ldapc, ShouldNotBeNil)
 				})
 
 				Convey("JWT token must be retrievable and longer than 256 chars.", func() {

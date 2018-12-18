@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+
+	"github.com/pydio/dex/connector/ldap"
 )
 
 var (
@@ -17,7 +19,7 @@ var (
 
 // SetUpEnvironment retrieves parameters and stores them in the DefaultConfig of the SDK.
 // configFilePath and s3ConfigFilePath can be <nil> if the parameters are defined via env variables.
-func SetUpEnvironment(configFilePath, s3ConfigFilePath string) error {
+func SetUpEnvironment(configFilePath, s3ConfigFilePath, ldapConfigFilePath string) error {
 
 	c, err := getSdkConfigFromEnv()
 	if err != nil {
@@ -56,6 +58,25 @@ func SetUpEnvironment(configFilePath, s3ConfigFilePath string) error {
 
 	// Stores the retrieved parameters in a public static singleton
 	DefaultS3Config = &cs3
+
+	cldap, err := getLDAPConfigFromEnv()
+	if err != nil {
+		return err
+	}
+
+	if cldap.Host == "" {
+		s, err := ioutil.ReadFile(ldapConfigFilePath)
+		if err != nil {
+			return err
+		}
+		err = json.Unmarshal(s, &cldap)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Stores the retrieved parameters in a public static singleton
+	DefaultLDAPConfig = &cldap
 
 	return nil
 }
@@ -137,6 +158,12 @@ func getS3ConfigFromEnv() (S3Config, error) {
 	c.ApiSecret = apiSecret
 	c.UsePydioSpecificHeader = usePSH
 	c.IsDebug = isDebug
+
+	return c, nil
+}
+
+func getLDAPConfigFromEnv() (ldap.Config, error) {
+	var c ldap.Config
 
 	return c, nil
 }

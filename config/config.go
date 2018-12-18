@@ -3,6 +3,8 @@ package config
 
 import (
 	"path/filepath"
+
+	"github.com/pydio/dex/connector/ldap"
 )
 
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
@@ -49,13 +51,18 @@ var (
 	// DefaultS3Config stores a convenience static object that must be configured only once
 	// and is globally accessible to easily retrieve an up-and-running connected client.
 	DefaultS3Config *S3Config
+
+	// DefaultLDAPConfig stores a convenience static object that must be configured only once
+	// and is globally accessible to easily retrieve an up-and-running connected client.
+	DefaultLDAPConfig *ldap.Config
 )
 
 // GetDefaultConfigFiles simply retrieves absolute path for cells and s3 SDK config
 // files given the absolute path to the root of the cells-sdk-go source code folder.
-func GetDefaultConfigFiles(codeRootPath string) (string, string) {
+func GetDefaultConfigFiles(codeRootPath string) (string, string, string) {
 	rpath := filepath.Join(codeRootPath, "config")
 	cpath := filepath.Join(rpath, "config.json")
 	s3path := filepath.Join(rpath, "config-s3.json")
-	return cpath, s3path
+	ldappath := filepath.Join(rpath, "config-ldap.json")
+	return cpath, s3path, ldappath
 }
