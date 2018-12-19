@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/role_service"
-	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/models"
 )
 
@@ -17,16 +16,14 @@ var listRoles = &cobra.Command{
 	Long:  "List roles on pydio cells and also technical roles such as user/group",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		httpClient := config.GetHttpClient(config.DefaultConfig)
-		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := GetApiClient(DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		params := &role_service.SearchRolesParams{
-			Body:       &models.RestSearchRoleRequest{},
-			Context:    ctx,
-			HTTPClient: httpClient,
+			Body:    &models.RestSearchRoleRequest{},
+			Context: ctx,
 		}
 
 		result, err := apiClient.RoleService.SearchRoles(params)

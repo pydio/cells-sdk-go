@@ -9,15 +9,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/pydio/cells-sdk-go"
 	"github.com/spf13/cobra"
-
-	"github.com/pydio/cells-sdk-go/config"
 )
 
 var (
 	configFile string
 
-	protocol   string
 	host       string
 	id         string
 	secret     string
@@ -49,9 +47,6 @@ the powerful Cobra framework to easily implement small CLI client applications.
 
 			// insure all necessary parameters are defined
 			var msg string
-			if protocol == "" {
-				msg += " - Protocol type\n"
-			}
 			if host == "" {
 				msg += " - Host URL\n"
 			}
@@ -74,8 +69,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 				os.Exit(1)
 			}
 
-			config.DefaultConfig = &config.SdkConfig{
-				Protocol:     protocol,
+			DefaultConfig = &cells_sdk.SdkConfig{
 				Url:          host,
 				ClientKey:    id,
 				ClientSecret: secret,
@@ -92,7 +86,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			log.Fatal("cannot read config file:", e)
 		}
 
-		var c config.SdkConfig
+		var c cells_sdk.SdkConfig
 		if e = json.Unmarshal(data, &c); e != nil {
 			log.Fatal("Cannot decode config content for file at", configFile, "- route cause:", e)
 		}
@@ -106,7 +100,6 @@ func init() {
 	flags := ExampleCmd.PersistentFlags()
 	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
 
-	flags.StringVar(&protocol, "protocol", "http", "HTTP scheme to server")
 	flags.StringVarP(&host, "url", "u", "", "HTTP URL to server")
 	flags.StringVarP(&id, "api-key", "k", "", "OIDC Client ID")
 	flags.StringVarP(&secret, "api-secret", "s", "", "OIDC Client Secret")

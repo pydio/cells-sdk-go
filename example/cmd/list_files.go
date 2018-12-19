@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/meta_service"
-	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/models"
 )
 
@@ -18,8 +17,7 @@ var listFiles = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		//connects to the pydio api via the sdkConfig
-		httpClient := config.GetHttpClient(config.DefaultConfig)
-		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := GetApiClient(DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -33,8 +31,7 @@ var listFiles = &cobra.Command{
 				"/*",
 				"personal-files/*",
 			}},
-			Context:    ctx,
-			HTTPClient: httpClient,
+			Context: ctx,
 		}
 
 		//assigns the files data retrieved above in the results variable

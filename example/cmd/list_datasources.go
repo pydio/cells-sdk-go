@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/config_service"
-	"github.com/pydio/cells-sdk-go/config"
 )
 
 var listDatasources = &cobra.Command{
@@ -17,18 +16,14 @@ var listDatasources = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		//connects to the pydio api via the sdkConfig
-		httpClient := config.GetHttpClient(config.DefaultConfig)
-		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := GetApiClient(DefaultConfig)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
 
 		/*ListDataSourcesParams contains all the parameters to send to the API endpoint
 		for the list data sources operation typically these are written to a http.Request */
-		params := &config_service.ListDataSourcesParams{
-			Context:    ctx,
-			HTTPClient: httpClient,
-		}
+		params := &config_service.ListDataSourcesParams{Context: ctx}
 
 		//assigns the datasources data retrieved above in the results variable
 		result, err := apiClient.ConfigService.ListDataSources(params)

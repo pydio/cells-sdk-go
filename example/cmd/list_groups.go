@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/user_service"
-	"github.com/pydio/cells-sdk-go/config"
 )
 
 var listGroups = &cobra.Command{
@@ -16,16 +15,14 @@ var listGroups = &cobra.Command{
 	Long:  `List groups on pydio cells`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		httpClient := config.GetHttpClient(config.DefaultConfig)
-		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := GetApiClient(DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		params := &user_service.SearchUsersParams{
 			//Body:       &models.RestSearchUserRequest{},
-			Context:    ctx,
-			HTTPClient: httpClient,
+			Context: ctx,
 		}
 
 		result, err := apiClient.UserService.SearchUsers(params)

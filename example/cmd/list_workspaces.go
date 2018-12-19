@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/workspace_service"
-	"github.com/pydio/cells-sdk-go/config"
 	"github.com/pydio/cells-sdk-go/models"
 )
 
@@ -17,17 +16,15 @@ var listWorkspaces = &cobra.Command{
 	Long:  `List all the workspaces`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		httpClient := config.GetHttpClient(config.DefaultConfig)
-		ctx, apiClient, err := config.GetPreparedApiClient(config.DefaultConfig)
+		ctx, apiClient, err := GetApiClient(DefaultConfig)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		//retrieves the users using the searchWorkspacesParams function
 		params := &workspace_service.SearchWorkspacesParams{
-			Body:       &models.RestSearchWorkspaceRequest{CountOnly: true},
-			Context:    ctx,
-			HTTPClient: httpClient,
+			Body:    &models.RestSearchWorkspaceRequest{CountOnly: true},
+			Context: ctx,
 		}
 
 		//assigns the workspaces data retrieved above in the results variable
