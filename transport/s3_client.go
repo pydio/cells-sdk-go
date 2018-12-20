@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"crypto/tls"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -35,6 +37,11 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 	}
 
 	tr := http.DefaultTransport
+	if sdc.SkipVerify {
+		tr = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+		}
+	}
 	if s3c.UsePydioSpecificHeader { // Legacy:
 		tr = NewAuthTransport(tr, sdc, s3c)
 	}

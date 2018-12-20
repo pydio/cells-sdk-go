@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 
@@ -32,6 +31,12 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 
 	ctx := context.Background()
 	transport := httptransport.New(u.Host, apiResourcePath, []string{u.Scheme})
+	if sdkConfig.SkipVerify {
+		transport.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+		}
+	}
+	transport.Context = ctx
 
 	if anonymous {
 		return ctx, transport, nil
@@ -54,7 +59,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 func GetHttpClient(sdkConfig *cells_sdk.SdkConfig) *http.Client {
 
 	if sdkConfig.SkipVerify {
-		log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!")
+		//log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!")
 		return &http.Client{Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
 		}}
