@@ -61,3 +61,17 @@ func GetHttpClient(sdkConfig *cells_sdk.SdkConfig) *http.Client {
 	}
 	return http.DefaultClient
 }
+
+// PrepareSimpleRequest returns a valid http client and pre-set request with headers
+func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.Request, error) {
+	h := make(http.Header)
+	jwt, err := retrieveToken(sdkConfig)
+	if err != nil {
+		return nil, nil, err
+	}
+	h.Set("Authorization", "Bearer "+jwt)
+	request := &http.Request{
+		Header: h,
+	}
+	return GetHttpClient(sdkConfig), request, nil
+}
