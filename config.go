@@ -1,4 +1,5 @@
-// Package config defines some utilitary objects that ease implementation of Go programm that use the SDK.
+// Package cells_sdk provides a ready to use SDK to use the Cells REST API in Go language.
+// It also provides some patterns that ease implementation of Go programs that use the SDK.
 package cells_sdk
 
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
@@ -12,8 +13,11 @@ type SdkConfig struct {
 	User     string `json:"user"`
 	Password string `json:"password"`
 
+	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
 	SkipVerify bool `json:"skipVerify"`
 
+	// UseTokenCache flags wether we should rely on a local cache to avoid retrieving a new JWT token at each request.
+	// It is useful to *not* use the cache when running connection tests for instance.
 	UseTokenCache bool `json:"useTokenCache"`
 }
 

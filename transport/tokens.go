@@ -11,8 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/patrickmn/go-cache"
-	"github.com/pydio/cells-sdk-go"
+	cache "github.com/patrickmn/go-cache"
+
+	cells_sdk "github.com/pydio/cells-sdk-go"
 )
 
 type TokenStore struct {

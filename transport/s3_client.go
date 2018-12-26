@@ -1,22 +1,22 @@
 package transport
 
 import (
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
-	"crypto/tls"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/pydio/cells-sdk-go"
+
+	cells_sdk "github.com/pydio/cells-sdk-go"
 )
 
-// GetPreparedS3CLient creates and configure a new S3 client at each request.
-// Should be optimized
+// GetS3CLient creates and configure a new S3 client at each request.
+// TODO optimize
 func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, error) {
 
 	var apiKey string
@@ -32,14 +32,15 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 	}
 
 	conf := &aws.Config{
-		// Static credentials are the best we've found to do the job until now. Might be enhanced, together with a better session pool management
+		// Static credentials are the best we have found to do the job until now.
+		// Might be enhanced, together with a better session pool management
 		Credentials: credentials.NewStaticCredentials(apiKey, s3c.ApiSecret, ""),
 	}
 
 	tr := http.DefaultTransport
 	if sdc.SkipVerify {
 		tr = &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired and self-signed SSL certificates
 		}
 	}
 	if s3c.UsePydioSpecificHeader { // Legacy:
@@ -93,7 +94,7 @@ func (c *authRoundTripper) RoundTrip(request *http.Request) (*http.Response, err
 	return response, err
 }
 
-// HTTPLogger defines the interface to log http request and responses
+// HTTPLogger defines the interface to log http request and responses.
 type HTTPLogger interface {
 	LogRequest(*http.Request)
 	LogResponse(*http.Request, *http.Response, error, time.Duration)

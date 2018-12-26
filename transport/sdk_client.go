@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
-	"github.com/go-openapi/runtime"
-	"github.com/pydio/cells-sdk-go"
+	cells_sdk "github.com/pydio/cells-sdk-go"
 )
 
 var (
@@ -33,7 +33,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 	transport := httptransport.New(u.Host, apiResourcePath, []string{u.Scheme})
 	if sdkConfig.SkipVerify {
 		transport.Transport = &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired and self-signed SSL certificates
 		}
 	}
 	transport.Context = ctx
@@ -55,19 +55,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 	return ctx, transport, nil
 }
 
-// GetHttpClient adds an option to rather use an http client that ignore SSL certificate issues.
-func GetHttpClient(sdkConfig *cells_sdk.SdkConfig) *http.Client {
-
-	if sdkConfig.SkipVerify {
-		//log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!")
-		return &http.Client{Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
-		}}
-	}
-	return http.DefaultClient
-}
-
-// PrepareSimpleRequest returns a valid http client and pre-set request with headers
+// PrepareSimpleRequest returns a valid http client and pre-set request with headers.
 func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.Request, error) {
 	h := make(http.Header)
 	jwt, err := retrieveToken(sdkConfig)
@@ -79,4 +67,16 @@ func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.R
 		Header: h,
 	}
 	return GetHttpClient(sdkConfig), request, nil
+}
+
+// GetHttpClient provides an option to rather use an http client that ignore SSL certificate issues.
+func GetHttpClient(sdkConfig *cells_sdk.SdkConfig) *http.Client {
+
+	if sdkConfig.SkipVerify {
+		//log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!")
+		return &http.Client{Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+		}}
+	}
+	return http.DefaultClient
 }
