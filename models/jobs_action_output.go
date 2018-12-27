@@ -36,6 +36,9 @@ type JobsActionOutput struct {
 
 	// success
 	Success bool `json:"Success,omitempty"`
+
+	// time
+	Time int32 `json:"Time,omitempty"`
 }
 
 // Validate validates this jobs action output
