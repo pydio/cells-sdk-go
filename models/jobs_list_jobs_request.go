@@ -19,11 +19,20 @@ type JobsListJobsRequest struct {
 	// events only
 	EventsOnly bool `json:"EventsOnly,omitempty"`
 
+	// job ids
+	JobIds []string `json:"JobIDs"`
+
 	// load tasks
 	LoadTasks JobsTaskStatus `json:"LoadTasks,omitempty"`
 
 	// owner
 	Owner string `json:"Owner,omitempty"`
+
+	// tasks limit
+	TasksLimit int32 `json:"TasksLimit,omitempty"`
+
+	// tasks offset
+	TasksOffset int32 `json:"TasksOffset,omitempty"`
 
 	// timers only
 	TimersOnly bool `json:"TimersOnly,omitempty"`

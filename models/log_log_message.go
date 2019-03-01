@@ -39,6 +39,12 @@ type LogLogMessage struct {
 	// Tree Info
 	NodeUUID string `json:"NodeUuid,omitempty"`
 
+	// operation label
+	OperationLabel string `json:"OperationLabel,omitempty"`
+
+	// High Level Operation Info
+	OperationUUID string `json:"OperationUuid,omitempty"`
+
 	// profile
 	Profile string `json:"Profile,omitempty"`
 

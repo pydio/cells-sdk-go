@@ -65,6 +65,8 @@ type GetRoleParams struct {
 
 	/*AutoApplies*/
 	AutoApplies []string
+	/*ForceOverride*/
+	ForceOverride *bool
 	/*GroupRole*/
 	GroupRole *bool
 	/*IsTeam*/
@@ -127,6 +129,17 @@ func (o *GetRoleParams) WithAutoApplies(autoApplies []string) *GetRoleParams {
 // SetAutoApplies adds the autoApplies to the get role params
 func (o *GetRoleParams) SetAutoApplies(autoApplies []string) {
 	o.AutoApplies = autoApplies
+}
+
+// WithForceOverride adds the forceOverride to the get role params
+func (o *GetRoleParams) WithForceOverride(forceOverride *bool) *GetRoleParams {
+	o.SetForceOverride(forceOverride)
+	return o
+}
+
+// SetForceOverride adds the forceOverride to the get role params
+func (o *GetRoleParams) SetForceOverride(forceOverride *bool) {
+	o.ForceOverride = forceOverride
 }
 
 // WithGroupRole adds the groupRole to the get role params
@@ -220,6 +233,22 @@ func (o *GetRoleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	// query array param AutoApplies
 	if err := r.SetQueryParam("AutoApplies", joinedAutoApplies...); err != nil {
 		return err
+	}
+
+	if o.ForceOverride != nil {
+
+		// query param ForceOverride
+		var qrForceOverride bool
+		if o.ForceOverride != nil {
+			qrForceOverride = *o.ForceOverride
+		}
+		qForceOverride := swag.FormatBool(qrForceOverride)
+		if qForceOverride != "" {
+			if err := r.SetQueryParam("ForceOverride", qForceOverride); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.GroupRole != nil {

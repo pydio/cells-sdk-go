@@ -21,6 +21,9 @@ type IdmRole struct {
 	// auto applies
 	AutoApplies []string `json:"AutoApplies"`
 
+	// force override
+	ForceOverride bool `json:"ForceOverride,omitempty"`
+
 	// group role
 	GroupRole bool `json:"GroupRole,omitempty"`
 

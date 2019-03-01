@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+ListTasksLogs technicals logs in Json or c s v format
+*/
+func (a *Client) ListTasksLogs(params *ListTasksLogsParams) (*ListTasksLogsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListTasksLogsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListTasksLogs",
+		Method:             "POST",
+		PathPattern:        "/jobs/tasks/logs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListTasksLogsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListTasksLogsOK), nil
+
+}
+
+/*
 UserControlJob sends control commands to one or many jobs tasks
 */
 func (a *Client) UserControlJob(params *UserControlJobParams) (*UserControlJobOK, error) {

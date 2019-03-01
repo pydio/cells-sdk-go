@@ -445,6 +445,34 @@ func (a *Client) ListPeersAddresses(params *ListPeersAddressesParams) (*ListPeer
 }
 
 /*
+ListProcesses lists running processes with option peer Id or service name filter
+*/
+func (a *Client) ListProcesses(params *ListProcessesParams) (*ListProcessesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListProcessesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListProcesses",
+		Method:             "POST",
+		PathPattern:        "/config/processes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListProcessesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListProcessesOK), nil
+
+}
+
+/*
 ListServices lists all services and their status
 */
 func (a *Client) ListServices(params *ListServicesParams) (*ListServicesOK, error) {
