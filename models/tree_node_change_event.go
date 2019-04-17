@@ -16,6 +16,12 @@ import (
 // swagger:model treeNodeChangeEvent
 type TreeNodeChangeEvent struct {
 
+	// optimistic
+	Optimistic bool `json:"Optimistic,omitempty"`
+
+	// silent
+	Silent bool `json:"Silent,omitempty"`
+
 	// source
 	Source *TreeNode `json:"Source,omitempty"`
 

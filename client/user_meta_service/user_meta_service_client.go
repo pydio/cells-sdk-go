@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-DeleteUserMetaTags lists tags for a given namespace
+DeleteUserMetaTags deletes one or all tags for a given namespace use for all tags
 */
 func (a *Client) DeleteUserMetaTags(params *DeleteUserMetaTagsParams) (*DeleteUserMetaTagsOK, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +109,7 @@ func (a *Client) ListUserMetaTags(params *ListUserMetaTagsParams) (*ListUserMeta
 }
 
 /*
-PutUserMetaTag lists tags for a given namespace
+PutUserMetaTag adds a new value to tags for a given namespace
 */
 func (a *Client) PutUserMetaTag(params *PutUserMetaTagParams) (*PutUserMetaTagOK, error) {
 	// TODO: Validate the params before sending
