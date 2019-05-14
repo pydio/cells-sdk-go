@@ -1,10 +1,13 @@
 package transport
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -12,12 +15,83 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 
-	cells_sdk "github.com/pydio/cells-sdk-go"
+	sdk "github.com/pydio/cells-sdk-go"
+	"github.com/pydio/cells/common/proto/tree"
+	"github.com/pydio/cells/common/views"
+	"github.com/pydio/minio-go"
 )
+
+type S3Client struct {
+	config   *sdk.SdkConfig
+	s3config *sdk.S3Config
+	s3client *s3.S3
+}
+
+func NewS3Client(config *sdk.SdkConfig) *S3Client {
+	return &S3Client{
+		config: config,
+		s3config: &sdk.S3Config{
+			Bucket:                 "data",
+			ApiKey:                 "gateway",
+			ApiSecret:              "gatewaysecret",
+			UsePydioSpecificHeader: false,
+			IsDebug:                false,
+			Region:                 "us-east-1",
+			Endpoint:               config.Url,
+		},
+	}
+}
+
+func (g *S3Client) GetObject(ctx context.Context, node *tree.Node, requestData *views.GetRequestData) (io.ReadCloser, error) {
+	jwt, err := retrieveToken(g.config)
+	if err != nil {
+		return nil, err
+	}
+	u, _ := url.Parse(g.s3config.Endpoint)
+	mc, e := minio.NewCore(u.Host, jwt, g.s3config.ApiSecret, u.Scheme == "https")
+	if e != nil {
+		return nil, e
+	}
+	r, _, e := mc.GetObject(g.s3config.Bucket, node.Path, minio.GetObjectOptions{})
+	return r, e
+}
+
+func (g *S3Client) PutObject(ctx context.Context, node *tree.Node, reader io.Reader, requestData *views.PutRequestData) (int64, error) {
+
+	jwt, err := retrieveToken(g.config)
+	if err != nil {
+		return 0, err
+	}
+	u, _ := url.Parse(g.s3config.Endpoint)
+	mc, e := minio.NewCore(u.Host, jwt, g.s3config.ApiSecret, u.Scheme == "https")
+	if e != nil {
+		return 0, e
+	}
+	return mc.PutObjectWithContext(ctx, g.s3config.Bucket, node.Path, reader, requestData.Size, minio.PutObjectOptions{
+		UserMetadata: requestData.Metadata,
+	})
+}
+
+func (g *S3Client) CopyObject(ctx context.Context, from *tree.Node, to *tree.Node, requestData *views.CopyRequestData) (int64, error) {
+	jwt, err := retrieveToken(g.config)
+	if err != nil {
+		return 0, err
+	}
+	mc, e := minio.New(g.s3config.Endpoint, g.s3config.ApiKey, jwt, false)
+	if e != nil {
+		return 0, e
+	}
+	dst, e := minio.NewDestinationInfo(g.s3config.Bucket, to.Path, nil, requestData.Metadata)
+	if e != nil {
+		return 0, e
+	}
+	src := minio.NewSourceInfo(g.s3config.Bucket, from.Path, nil)
+	return 0, mc.CopyObject(dst, src)
+}
 
 // GetS3CLient creates and configure a new S3 client at each request.
 // TODO optimize
-func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, error) {
+func GetS3CLient(sdc *sdk.SdkConfig, s3c *sdk.S3Config) (*s3.S3, error) {
 
 	var apiKey string
 	var err error
@@ -62,15 +136,15 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 
 // NewAuthTransport takes an http.RoundTripper and returns a new one that adds the JWT Auth
 // header on each request (and optionally logs the additional cost of getting the JWT token)
-func NewAuthTransport(rt http.RoundTripper, sdkConfig *cells_sdk.SdkConfig, s3Config *cells_sdk.S3Config) http.RoundTripper {
+func NewAuthTransport(rt http.RoundTripper, sdkConfig *sdk.SdkConfig, s3Config *sdk.S3Config) http.RoundTripper {
 	return &authRoundTripper{rt: rt, sc: sdkConfig, s3c: s3Config, log: DefaultLogger{}}
 }
 
 type authRoundTripper struct {
 	rt  http.RoundTripper
 	log HTTPLogger
-	sc  *cells_sdk.SdkConfig
-	s3c *cells_sdk.S3Config
+	sc  *sdk.SdkConfig
+	s3c *sdk.S3Config
 }
 
 func (c *authRoundTripper) RoundTrip(request *http.Request) (*http.Response, error) {
