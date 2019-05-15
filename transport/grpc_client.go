@@ -27,7 +27,11 @@ var (
 // GetMicroClient initialize a Micro GRPC client.
 func GetMicroClient(ctx context.Context, config *cells_sdk.SdkConfig) (context.Context, client.Client, error) {
 
-	jwt, host, port, err := DetectGrpcPort(config)
+	host, port, err := DetectGrpcPort(config, false)
+	if err != nil {
+		return ctx, nil, err
+	}
+	jwt, err := retrieveToken(config)
 	if err != nil {
 		return ctx, nil, err
 	}
@@ -61,7 +65,7 @@ func GetMicroClient(ctx context.Context, config *cells_sdk.SdkConfig) (context.C
 }
 
 // DetectGrpcPort contacts the discovery service to find the grpc port and loads a valid JWT.
-func DetectGrpcPort(config *cells_sdk.SdkConfig) (jwt string, host string, port string, err error) {
+func DetectGrpcPort(config *cells_sdk.SdkConfig, reload bool) (host string, port string, err error) {
 
 	u, e := url.Parse(config.Url)
 	if e != nil {
@@ -74,7 +78,7 @@ func DetectGrpcPort(config *cells_sdk.SdkConfig) (jwt string, host string, port 
 	if detectedGrpcPorts == nil {
 		detectedGrpcPorts = make(map[string]string)
 	}
-	if port, ok = detectedGrpcPorts[h]; !ok {
+	if port, ok = detectedGrpcPorts[h]; !ok || reload {
 		_, t, e := GetRestClientTransport(config, true)
 		if e != nil {
 			err = e
@@ -94,7 +98,10 @@ func DetectGrpcPort(config *cells_sdk.SdkConfig) (jwt string, host string, port 
 			return
 		}
 	}
-	jwt, err = retrieveToken(config)
 	return
 
+}
+
+func RetrieveToken(config *cells_sdk.SdkConfig) (string, error) {
+	return retrieveToken(config)
 }
