@@ -94,7 +94,6 @@ func DetectGrpcPort(config *cells_sdk.SdkConfig) (jwt string, host string, port 
 			return
 		}
 	}
-	fmt.Println("Found GRPC Port " + port)
 	jwt, err = retrieveToken(config)
 	return
 
