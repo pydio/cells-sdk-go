@@ -51,7 +51,7 @@ func (t *TokenStore) computeKey(c *cells_sdk.SdkConfig) string {
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
-func retrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
+func RetrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
 
 	if sdkConfig.UseTokenCache {
 		cached := store.TokenFor(sdkConfig)

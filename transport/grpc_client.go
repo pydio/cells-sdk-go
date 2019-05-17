@@ -1,71 +1,22 @@
 package transport
 
 import (
-	"context"
 	"fmt"
 	"net"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/micro/go-micro/client"
-	"github.com/micro/go-micro/metadata"
-	"github.com/micro/go-micro/registry"
-	microgrpc "github.com/micro/go-plugins/client/grpc"
-	"github.com/micro/go-plugins/registry/memory"
-
-	cells_sdk "github.com/pydio/cells-sdk-go"
+	sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/client/config_service"
 )
 
 var (
 	detectedGrpcPorts map[string]string
-	TargetServiceName = "pydio.gateway.grpc"
 )
 
-// GetMicroClient initialize a Micro GRPC client.
-func GetMicroClient(ctx context.Context, config *cells_sdk.SdkConfig) (context.Context, client.Client, error) {
-
-	host, port, err := DetectGrpcPort(config, false)
-	if err != nil {
-		return ctx, nil, err
-	}
-	jwt, err := retrieveToken(config)
-	if err != nil {
-		return ctx, nil, err
-	}
-	p, _ := strconv.ParseInt(port, 10, 32)
-	services := map[string][]*registry.Service{
-		TargetServiceName: {
-			&registry.Service{
-				Name:    TargetServiceName,
-				Version: "latest",
-				Nodes: []*registry.Node{
-					{
-						Id:      "cells.server",
-						Address: host,
-						Port:    int(p),
-					},
-				},
-			},
-		},
-	}
-	// create registry
-	r := memory.NewRegistry(
-		memory.Services(services),
-	)
-	microClient := microgrpc.NewClient(
-		client.Registry(r),
-	)
-	md := metadata.Metadata{"x-pydio-bearer": jwt}
-	ctx = metadata.NewContext(ctx, md)
-	return ctx, microClient, nil
-
-}
-
 // DetectGrpcPort contacts the discovery service to find the grpc port and loads a valid JWT.
-func DetectGrpcPort(config *cells_sdk.SdkConfig, reload bool) (host string, port string, err error) {
+func DetectGrpcPort(config *sdk.SdkConfig, reload bool) (host string, port string, err error) {
 
 	u, e := url.Parse(config.Url)
 	if e != nil {
@@ -107,8 +58,4 @@ func DetectGrpcPort(config *cells_sdk.SdkConfig, reload bool) (host string, port
 	}
 	return
 
-}
-
-func RetrieveToken(config *cells_sdk.SdkConfig) (string, error) {
-	return retrieveToken(config)
 }

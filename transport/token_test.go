@@ -1,3 +1,5 @@
+// +build ignore
+
 package transport
 
 import (
@@ -43,7 +45,7 @@ func TestJWT(t *testing.T) {
 				})
 
 				Convey("JWT token must be retrievable and longer than 256 chars.", func() {
-					jwt, err := retrieveToken(DefaultConfig)
+					jwt, err := RetrieveToken(DefaultConfig)
 					So(err, ShouldBeNil)
 					So(len(jwt), ShouldBeGreaterThan, 256)
 				})

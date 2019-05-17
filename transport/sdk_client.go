@@ -42,7 +42,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 		return ctx, transport, nil
 	}
 
-	jwt, err := retrieveToken(sdkConfig)
+	jwt, err := RetrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, fmt.Errorf(
 			"cannot retrieve token with config:\n%s - %s - %s - %s - %s - %v\nerror cause: %s",
@@ -58,7 +58,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 // PrepareSimpleRequest returns a valid http client and pre-set request with headers.
 func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.Request, error) {
 	h := make(http.Header)
-	jwt, err := retrieveToken(sdkConfig)
+	jwt, err := RetrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, err
 	}
