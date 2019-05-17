@@ -73,12 +73,19 @@ func DetectGrpcPort(config *cells_sdk.SdkConfig, reload bool) (host string, port
 		return
 	}
 
-	h, _, _ := net.SplitHostPort(u.Host)
+	if strings.Contains(u.Host, ":") {
+		host, _, err = net.SplitHostPort(u.Host)
+		if err != nil {
+			return "", "", err
+		}
+	} else {
+		host = u.Host
+	}
 	var ok bool
 	if detectedGrpcPorts == nil {
 		detectedGrpcPorts = make(map[string]string)
 	}
-	if port, ok = detectedGrpcPorts[h]; !ok || reload {
+	if port, ok = detectedGrpcPorts[host]; !ok || reload {
 		_, t, e := GetRestClientTransport(config, true)
 		if e != nil {
 			err = e
@@ -92,7 +99,7 @@ func DetectGrpcPort(config *cells_sdk.SdkConfig, reload bool) (host string, port
 		}
 		if pp, ok := res.Payload.Endpoints["grpc"]; ok && len(pp) > 0 {
 			port = strings.Split(pp, ",")[0]
-			detectedGrpcPorts[h] = port
+			detectedGrpcPorts[host] = port
 		} else {
 			err = fmt.Errorf("no port declared for GRPC endpoint")
 			return
