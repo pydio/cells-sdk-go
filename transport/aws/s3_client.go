@@ -27,6 +27,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/pydio/cells-sdk-go/transport/oidc"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -45,7 +47,7 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 	if s3c.UsePydioSpecificHeader { // Legacy
 		apiKey = s3c.ApiKey
 	} else {
-		apiKey, err = transport.RetrieveToken(sdc)
+		apiKey, err = oidc.RetrieveToken(sdc)
 		if err != nil {
 			return nil, fmt.Errorf("cannot retrieve token from config, cause: %s", err.Error())
 		}
@@ -100,7 +102,7 @@ func (c *authRoundTripper) RoundTrip(request *http.Request) (*http.Response, err
 		start = time.Now()
 	}
 
-	jwt, err := transport.RetrieveToken(c.sc)
+	jwt, err := oidc.RetrieveToken(c.sc)
 	if err != nil {
 		return nil, err
 	}

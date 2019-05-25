@@ -1,4 +1,24 @@
-package transport
+/*
+ * Copyright (c) 2019. Abstrium SAS <team (at) pydio.com>
+ * This file is part of Pydio Cells.
+ *
+ * Pydio Cells is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Pydio Cells is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Pydio Cells.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The latest code can be found at <https://pydio.com>.
+ */
+
+package oidc
 
 import (
 	"crypto/md5"
@@ -11,9 +31,17 @@ import (
 	"strings"
 	"time"
 
-	cache "github.com/patrickmn/go-cache"
+	"github.com/patrickmn/go-cache"
 
-	cells_sdk "github.com/pydio/cells-sdk-go"
+	"github.com/pydio/cells-sdk-go"
+	http2 "github.com/pydio/cells-sdk-go/transport/http"
+)
+
+var (
+	oidcResourcePath = "/auth/dex"
+	grantType        = "password"
+	scope            = "email profile pydio"
+	store            = NewTokenStore()
 )
 
 type TokenStore struct {
@@ -82,7 +110,7 @@ func RetrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
 	req.Header.Add("Cache-Control", "no-cache")
 	req.Header.Add("Authorization", basicAuthToken(sdkConfig.ClientKey, sdkConfig.ClientSecret))
 
-	res, err := GetHttpClient(sdkConfig).Do(req)
+	res, err := http2.GetHttpClient(sdkConfig).Do(req)
 	if err != nil {
 		return "", err
 	}
