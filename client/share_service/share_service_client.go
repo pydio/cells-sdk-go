@@ -220,6 +220,34 @@ func (a *Client) PutShareLink(params *PutShareLinkParams) (*PutShareLinkOK, erro
 
 }
 
+/*
+UpdateSharePolicies updates policies associated to the underlying workspace for a cell or a share link
+*/
+func (a *Client) UpdateSharePolicies(params *UpdateSharePoliciesParams) (*UpdateSharePoliciesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSharePoliciesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "UpdateSharePolicies",
+		Method:             "PUT",
+		PathPattern:        "/share/policies",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &UpdateSharePoliciesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateSharePoliciesOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
