@@ -7,6 +7,10 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/pydio/cells-sdk-go/transport/oidc"
+
+	http2 "github.com/pydio/cells-sdk-go/transport/http"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
@@ -14,13 +18,7 @@ import (
 )
 
 var (
-	apiResourcePath  = "/a"
-	oidcResourcePath = "/auth/dex"
-
-	grantType = "password"
-	scope     = "email profile pydio"
-
-	store = NewTokenStore()
+	apiResourcePath = "/a"
 )
 
 func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (context.Context, runtime.ClientTransport, error) {
@@ -42,7 +40,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 		return ctx, transport, nil
 	}
 
-	jwt, err := retrieveToken(sdkConfig)
+	jwt, err := oidc.RetrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, fmt.Errorf(
 			"cannot retrieve token with config:\n%s - %s - %s - %s - %s - %v\nerror cause: %s",
@@ -58,7 +56,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 // PrepareSimpleRequest returns a valid http client and pre-set request with headers.
 func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.Request, error) {
 	h := make(http.Header)
-	jwt, err := retrieveToken(sdkConfig)
+	jwt, err := oidc.RetrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -66,17 +64,5 @@ func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.R
 	request := &http.Request{
 		Header: h,
 	}
-	return GetHttpClient(sdkConfig), request, nil
-}
-
-// GetHttpClient provides an option to rather use an http client that ignore SSL certificate issues.
-func GetHttpClient(sdkConfig *cells_sdk.SdkConfig) *http.Client {
-
-	if sdkConfig.SkipVerify {
-		//log.Println("[WARNING] Using SkipVerify for ignoring SSL certificate issues!")
-		return &http.Client{Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
-		}}
-	}
-	return http.DefaultClient
+	return http2.GetHttpClient(sdkConfig), request, nil
 }
