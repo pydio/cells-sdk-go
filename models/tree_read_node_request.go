@@ -16,13 +16,16 @@ import (
 // swagger:model treeReadNodeRequest
 type TreeReadNodeRequest struct {
 
-	// node
+	// Input node
 	Node *TreeNode `json:"Node,omitempty"`
 
-	// with commits
+	// Used internally for the router ReadNode request, stat the datasource instead of index
+	ObjectStats bool `json:"ObjectStats,omitempty"`
+
+	// Gather commit information
 	WithCommits bool `json:"WithCommits,omitempty"`
 
-	// with extended stats
+	// Get extended stats - For folders, computes ChildrenCount
 	WithExtendedStats bool `json:"WithExtendedStats,omitempty"`
 }
 

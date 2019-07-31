@@ -35,6 +35,9 @@ const (
 	// NodeChangeEventEventTypeUPDATEMETA captures enum value "UPDATE_META"
 	NodeChangeEventEventTypeUPDATEMETA NodeChangeEventEventType = "UPDATE_META"
 
+	// NodeChangeEventEventTypeUPDATEUSERMETA captures enum value "UPDATE_USER_META"
+	NodeChangeEventEventTypeUPDATEUSERMETA NodeChangeEventEventType = "UPDATE_USER_META"
+
 	// NodeChangeEventEventTypeDELETE captures enum value "DELETE"
 	NodeChangeEventEventTypeDELETE NodeChangeEventEventType = "DELETE"
 )
@@ -44,7 +47,7 @@ var nodeChangeEventEventTypeEnum []interface{}
 
 func init() {
 	var res []NodeChangeEventEventType
-	if err := json.Unmarshal([]byte(`["CREATE","READ","UPDATE_PATH","UPDATE_CONTENT","UPDATE_META","DELETE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CREATE","READ","UPDATE_PATH","UPDATE_CONTENT","UPDATE_META","UPDATE_USER_META","DELETE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

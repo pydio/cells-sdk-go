@@ -47,6 +47,9 @@ type JobsJob struct {
 	// Task properties
 	MaxConcurrency int32 `json:"MaxConcurrency,omitempty"`
 
+	// node event filter
+	NodeEventFilter *JobsNodesSelector `json:"NodeEventFilter,omitempty"`
+
 	// Who created this Job
 	Owner string `json:"Owner,omitempty"`
 
@@ -58,6 +61,9 @@ type JobsJob struct {
 
 	// Do not send notification on task update
 	TasksSilentUpdate bool `json:"TasksSilentUpdate,omitempty"`
+
+	// user event filter
+	UserEventFilter *JobsUsersSelector `json:"UserEventFilter,omitempty"`
 }
 
 // Validate validates this jobs job
@@ -68,11 +74,19 @@ func (m *JobsJob) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateNodeEventFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSchedule(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateTasks(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserEventFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -102,6 +116,24 @@ func (m *JobsJob) validateActions(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *JobsJob) validateNodeEventFilter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NodeEventFilter) { // not required
+		return nil
+	}
+
+	if m.NodeEventFilter != nil {
+		if err := m.NodeEventFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("NodeEventFilter")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -145,6 +177,24 @@ func (m *JobsJob) validateTasks(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *JobsJob) validateUserEventFilter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UserEventFilter) { // not required
+		return nil
+	}
+
+	if m.UserEventFilter != nil {
+		if err := m.UserEventFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("UserEventFilter")
+			}
+			return err
+		}
 	}
 
 	return nil

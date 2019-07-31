@@ -42,6 +42,9 @@ type MailerMail struct {
 	// retries
 	Retries int32 `json:"Retries,omitempty"`
 
+	// sender
+	Sender *MailerUser `json:"Sender,omitempty"`
+
 	// subject
 	Subject string `json:"Subject,omitempty"`
 
@@ -73,6 +76,10 @@ func (m *MailerMail) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFrom(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSender(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -121,6 +128,24 @@ func (m *MailerMail) validateFrom(formats strfmt.Registry) error {
 		if err := m.From.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("From")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *MailerMail) validateSender(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Sender) { // not required
+		return nil
+	}
+
+	if m.Sender != nil {
+		if err := m.Sender.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Sender")
 			}
 			return err
 		}

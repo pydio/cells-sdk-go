@@ -10,7 +10,7 @@ import (
 	"context"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/pydio/cells-sdk-go"
+	cells_sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/client"
 	"github.com/pydio/cells-sdk-go/transport"
 )
@@ -26,7 +26,7 @@ var (
 	KeyS3Endpoint, KeyS3Region, KeyS3Bucket, KeyS3ApiKey, KeyS3ApiSecret, KeyS3UsePydioSpecificHeader, KeyS3IsDebug = "TARGET_S3_ENDPOINT", "TARGET_S3_REGION", "TARGET_S3_BUCKET", "TARGET_S3_API_KEY", "TARGET_S3_API_SECRET", "TARGET_S3_USE_PYDIO_SPECIFIC_HEADER", "TARGET_S3_IS_DEBUG"
 )
 
-// GetPreparedApiClient connects to the Pydio Cells server defined by this config, by sending an authentication
+// GetApiClient connects to the Pydio Cells server defined by this config, by sending an authentication
 // request to the OIDC service to get a valid JWT (or taking the JWT from cache).
 // Also returns a context to be used in subsequent requests.
 func GetApiClient(sdkConfig *cells_sdk.SdkConfig, anonymous ...bool) (context.Context, *client.PydioCellsRest, error) {
