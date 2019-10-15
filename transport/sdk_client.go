@@ -9,8 +9,6 @@ import (
 
 	"github.com/pydio/cells-sdk-go/transport/oidc"
 
-	http2 "github.com/pydio/cells-sdk-go/transport/http"
-
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
@@ -34,6 +32,12 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired and self-signed SSL certificates
 		}
 	}
+	if sdkConfig.CustomHeaders != nil && len(sdkConfig.CustomHeaders) > 0 {
+		transport.Transport = &customHeaderRoundTripper{
+			rt:      transport.Transport,
+			Headers: sdkConfig.CustomHeaders,
+		}
+	}
 	transport.Context = ctx
 
 	if anonymous {
@@ -53,16 +57,14 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 	return ctx, transport, nil
 }
 
-// PrepareSimpleRequest returns a valid http client and pre-set request with headers.
-func PrepareSimpleRequest(sdkConfig *cells_sdk.SdkConfig) (*http.Client, *http.Request, error) {
-	h := make(http.Header)
-	jwt, err := oidc.RetrieveToken(sdkConfig)
-	if err != nil {
-		return nil, nil, err
+type customHeaderRoundTripper struct {
+	rt      http.RoundTripper
+	Headers map[string]string
+}
+
+func (c customHeaderRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	for k, v := range c.Headers {
+		req.Header.Set(k, v)
 	}
-	h.Set("Authorization", "Bearer "+jwt)
-	request := &http.Request{
-		Header: h,
-	}
-	return http2.GetHttpClient(sdkConfig), request, nil
+	return c.rt.RoundTrip(req)
 }
