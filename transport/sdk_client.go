@@ -7,14 +7,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/pydio/cells-sdk-go/transport/oidc"
-
-	http2 "github.com/pydio/cells-sdk-go/transport/http"
-
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
 	cells_sdk "github.com/pydio/cells-sdk-go"
+	http2 "github.com/pydio/cells-sdk-go/transport/http"
+	"github.com/pydio/cells-sdk-go/transport/oidc"
 )
 
 var (

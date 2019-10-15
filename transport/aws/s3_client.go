@@ -27,14 +27,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/pydio/cells-sdk-go/transport/oidc"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/pydio/cells-sdk-go"
+
+	cells_sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/transport"
+	"github.com/pydio/cells-sdk-go/transport/oidc"
 )
 
 // GetS3CLient creates and configure a new S3 client at each request.
@@ -76,8 +76,6 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 	if err != nil {
 		log.Fatal("cannot initialise default S3 session: " + err.Error())
 	}
-
-	// s3.New(s3Session).ListBuckets(nil)
 
 	return s3.New(s3Session), nil
 }

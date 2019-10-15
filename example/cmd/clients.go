@@ -1,15 +1,15 @@
 package cmd
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
 
-	"context"
-
 	"github.com/go-openapi/strfmt"
+
 	cells_sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/client"
 	"github.com/pydio/cells-sdk-go/transport"

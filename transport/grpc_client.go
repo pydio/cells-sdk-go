@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/go-openapi/strfmt"
+
 	sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/client/config_service"
 )
