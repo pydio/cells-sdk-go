@@ -8,11 +8,11 @@ import (
 	"net/url"
 
 	"github.com/pydio/cells-sdk-go/transport/oidc"
-
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
 	cells_sdk "github.com/pydio/cells-sdk-go"
+	http2 "github.com/pydio/cells-sdk-go/transport/http"
 )
 
 var (
