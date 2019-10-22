@@ -16,6 +16,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/pydio/cells-sdk-go/models"
 )
 
 // NewUpdateRequiredParams creates a new UpdateRequiredParams object
@@ -62,36 +64,8 @@ for the update required operation typically these are written to a http.Request
 */
 type UpdateRequiredParams struct {
 
-	/*Channel
-	  Channel name.
-
-	*/
-	Channel *string
-	/*CurrentVersion
-	  Current version of the application.
-
-	*/
-	CurrentVersion *string
-	/*GOARCH
-	  Current GOARCH.
-
-	*/
-	GOARCH *string
-	/*GOOS
-	  Current GOOS.
-
-	*/
-	GOOS *string
-	/*PackageName
-	  Name of the currently running application.
-
-	*/
-	PackageName *string
-	/*ServiceName
-	  Not Used : specific service to get updates for.
-
-	*/
-	ServiceName *string
+	/*Body*/
+	Body *models.UpdateUpdateRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -131,70 +105,15 @@ func (o *UpdateRequiredParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithChannel adds the channel to the update required params
-func (o *UpdateRequiredParams) WithChannel(channel *string) *UpdateRequiredParams {
-	o.SetChannel(channel)
+// WithBody adds the body to the update required params
+func (o *UpdateRequiredParams) WithBody(body *models.UpdateUpdateRequest) *UpdateRequiredParams {
+	o.SetBody(body)
 	return o
 }
 
-// SetChannel adds the channel to the update required params
-func (o *UpdateRequiredParams) SetChannel(channel *string) {
-	o.Channel = channel
-}
-
-// WithCurrentVersion adds the currentVersion to the update required params
-func (o *UpdateRequiredParams) WithCurrentVersion(currentVersion *string) *UpdateRequiredParams {
-	o.SetCurrentVersion(currentVersion)
-	return o
-}
-
-// SetCurrentVersion adds the currentVersion to the update required params
-func (o *UpdateRequiredParams) SetCurrentVersion(currentVersion *string) {
-	o.CurrentVersion = currentVersion
-}
-
-// WithGOARCH adds the gOARCH to the update required params
-func (o *UpdateRequiredParams) WithGOARCH(gOARCH *string) *UpdateRequiredParams {
-	o.SetGOARCH(gOARCH)
-	return o
-}
-
-// SetGOARCH adds the gOARCH to the update required params
-func (o *UpdateRequiredParams) SetGOARCH(gOARCH *string) {
-	o.GOARCH = gOARCH
-}
-
-// WithGOOS adds the gOOS to the update required params
-func (o *UpdateRequiredParams) WithGOOS(gOOS *string) *UpdateRequiredParams {
-	o.SetGOOS(gOOS)
-	return o
-}
-
-// SetGOOS adds the gOOS to the update required params
-func (o *UpdateRequiredParams) SetGOOS(gOOS *string) {
-	o.GOOS = gOOS
-}
-
-// WithPackageName adds the packageName to the update required params
-func (o *UpdateRequiredParams) WithPackageName(packageName *string) *UpdateRequiredParams {
-	o.SetPackageName(packageName)
-	return o
-}
-
-// SetPackageName adds the packageName to the update required params
-func (o *UpdateRequiredParams) SetPackageName(packageName *string) {
-	o.PackageName = packageName
-}
-
-// WithServiceName adds the serviceName to the update required params
-func (o *UpdateRequiredParams) WithServiceName(serviceName *string) *UpdateRequiredParams {
-	o.SetServiceName(serviceName)
-	return o
-}
-
-// SetServiceName adds the serviceName to the update required params
-func (o *UpdateRequiredParams) SetServiceName(serviceName *string) {
-	o.ServiceName = serviceName
+// SetBody adds the body to the update required params
+func (o *UpdateRequiredParams) SetBody(body *models.UpdateUpdateRequest) {
+	o.Body = body
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -205,100 +124,10 @@ func (o *UpdateRequiredParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	}
 	var res []error
 
-	if o.Channel != nil {
-
-		// query param Channel
-		var qrChannel string
-		if o.Channel != nil {
-			qrChannel = *o.Channel
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
 		}
-		qChannel := qrChannel
-		if qChannel != "" {
-			if err := r.SetQueryParam("Channel", qChannel); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.CurrentVersion != nil {
-
-		// query param CurrentVersion
-		var qrCurrentVersion string
-		if o.CurrentVersion != nil {
-			qrCurrentVersion = *o.CurrentVersion
-		}
-		qCurrentVersion := qrCurrentVersion
-		if qCurrentVersion != "" {
-			if err := r.SetQueryParam("CurrentVersion", qCurrentVersion); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.GOARCH != nil {
-
-		// query param GOARCH
-		var qrGOARCH string
-		if o.GOARCH != nil {
-			qrGOARCH = *o.GOARCH
-		}
-		qGOARCH := qrGOARCH
-		if qGOARCH != "" {
-			if err := r.SetQueryParam("GOARCH", qGOARCH); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.GOOS != nil {
-
-		// query param GOOS
-		var qrGOOS string
-		if o.GOOS != nil {
-			qrGOOS = *o.GOOS
-		}
-		qGOOS := qrGOOS
-		if qGOOS != "" {
-			if err := r.SetQueryParam("GOOS", qGOOS); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.PackageName != nil {
-
-		// query param PackageName
-		var qrPackageName string
-		if o.PackageName != nil {
-			qrPackageName = *o.PackageName
-		}
-		qPackageName := qrPackageName
-		if qPackageName != "" {
-			if err := r.SetQueryParam("PackageName", qPackageName); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.ServiceName != nil {
-
-		// query param ServiceName
-		var qrServiceName string
-		if o.ServiceName != nil {
-			qrServiceName = *o.ServiceName
-		}
-		qServiceName := qrServiceName
-		if qServiceName != "" {
-			if err := r.SetQueryParam("ServiceName", qServiceName); err != nil {
-				return err
-			}
-		}
-
 	}
 
 	if len(res) > 0 {

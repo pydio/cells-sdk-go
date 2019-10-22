@@ -18,6 +18,9 @@ type RestBackgroundJobResult struct {
 	// label
 	Label string `json:"Label,omitempty"`
 
+	// node Uuid
+	NodeUUID string `json:"NodeUuid,omitempty"`
+
 	// Uuid
 	UUID string `json:"Uuid,omitempty"`
 }

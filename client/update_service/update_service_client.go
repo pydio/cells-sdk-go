@@ -35,7 +35,7 @@ func (a *Client) ApplyUpdate(params *ApplyUpdateParams) (*ApplyUpdateOK, error) 
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "ApplyUpdate",
-		Method:             "GET",
+		Method:             "PATCH",
 		PathPattern:        "/update/{TargetVersion}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
@@ -63,7 +63,7 @@ func (a *Client) UpdateRequired(params *UpdateRequiredParams) (*UpdateRequiredOK
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "UpdateRequired",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/update",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

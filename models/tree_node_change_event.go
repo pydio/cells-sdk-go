@@ -16,6 +16,9 @@ import (
 // swagger:model treeNodeChangeEvent
 type TreeNodeChangeEvent struct {
 
+	// metadata
+	Metadata map[string]string `json:"Metadata,omitempty"`
+
 	// optimistic
 	Optimistic bool `json:"Optimistic,omitempty"`
 

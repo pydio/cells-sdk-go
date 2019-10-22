@@ -1370,7 +1370,7 @@
     },
     "/install/agreement": {
       "get": {
-        "summary": "Perform a check during install (like DB connection, php-fpm detection, etc)",
+        "summary": "Load a textual agreement for using the software",
         "operationId": "GetAgreement",
         "responses": {
           "200": {
@@ -1387,7 +1387,7 @@
     },
     "/install/check": {
       "post": {
-        "summary": "Perform a check during install (like DB connection, php-fpm detection, etc)",
+        "summary": "Perform a check during install (like a valid DB connection)",
         "operationId": "PerformInstallCheck",
         "responses": {
           "200": {
@@ -2384,7 +2384,7 @@
       }
     },
     "/update": {
-      "get": {
+      "post": {
         "summary": "Check the remote server to see if there are available binaries",
         "operationId": "UpdateRequired",
         "responses": {
@@ -2397,46 +2397,12 @@
         },
         "parameters": [
           {
-            "name": "Channel",
-            "description": "Channel name.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "PackageName",
-            "description": "Name of the currently running application.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "CurrentVersion",
-            "description": "Current version of the application.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "GOOS",
-            "description": "Current GOOS.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "GOARCH",
-            "description": "Current GOARCH.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "ServiceName",
-            "description": "Not Used : specific service to get updates for.",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateUpdateRequest"
+            }
           }
         ],
         "tags": [
@@ -2445,7 +2411,7 @@
       }
     },
     "/update/{TargetVersion}": {
-      "get": {
+      "patch": {
         "summary": "Apply an update to a given version",
         "operationId": "ApplyUpdate",
         "responses": {
@@ -2462,6 +2428,14 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateApplyUpdateRequest"
+            }
           }
         ],
         "tags": [
@@ -5185,7 +5159,7 @@
       "properties": {
         "type_url": {
           "type": "string",
-          "description": "A URL/resource name whose content describes the type of the\nserialized protocol buffer message.\n\nFor URLs which use the scheme `http`, `https`, or no scheme, the\nfollowing restrictions and interpretations apply:\n\n* If no scheme is provided, `https` is assumed.\n* The last segment of the URL's path must represent the fully\n  qualified name of the type (as in `path/google.protobuf.Duration`).\n  The name should be in a canonical form (e.g., leading \".\" is\n  not accepted).\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
         },
         "value": {
           "type": "string",
@@ -5218,6 +5192,9 @@
           "type": "string"
         },
         "Label": {
+          "type": "string"
+        },
+        "NodeUuid": {
           "type": "string"
         }
       }
@@ -6989,6 +6966,12 @@
         "Target": {
           "$ref": "#/definitions/treeNode"
         },
+        "Metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "Silent": {
           "type": "boolean",
           "format": "boolean"
@@ -7254,6 +7237,19 @@
       },
       "title": "Used in AppearsIn to signal a node is\nappearing in multiple workspaces in the current context"
     },
+    "updateApplyUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "TargetVersion": {
+          "type": "string",
+          "title": "Version of the target binary"
+        },
+        "PackageName": {
+          "type": "string",
+          "title": "Name of the package if it's not the same as the current binary"
+        }
+      }
+    },
     "updateApplyUpdateResponse": {
       "type": "object",
       "properties": {
@@ -7342,6 +7338,42 @@
         },
         "Status": {
           "$ref": "#/definitions/PackagePackageStatus"
+        }
+      }
+    },
+    "updateUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "Channel": {
+          "type": "string",
+          "title": "Channel name"
+        },
+        "PackageName": {
+          "type": "string",
+          "title": "Name of the currently running application"
+        },
+        "CurrentVersion": {
+          "type": "string",
+          "title": "Current version of the application"
+        },
+        "GOOS": {
+          "type": "string",
+          "title": "Current GOOS"
+        },
+        "GOARCH": {
+          "type": "string",
+          "title": "Current GOARCH"
+        },
+        "ServiceName": {
+          "type": "string",
+          "title": "Not Used : specific service to get updates for"
+        },
+        "LicenseInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "For enterprise version, info about the current license"
         }
       }
     },
