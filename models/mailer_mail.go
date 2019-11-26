@@ -18,52 +18,52 @@ import (
 // swagger:model mailerMail
 type MailerMail struct {
 
-	// attachments
+	// List of attachments
 	Attachments []string `json:"Attachments"`
 
-	// cc
+	// List of target users to put in CC
 	Cc []*MailerUser `json:"Cc"`
 
-	// content Html
+	// HTML content used for the body
 	ContentHTML string `json:"ContentHtml,omitempty"`
 
-	// content markdown
+	// Markdown content used for the body
 	ContentMarkdown string `json:"ContentMarkdown,omitempty"`
 
-	// content plain
+	// Plain-text content used for the body, if not set will be generated from the ContentHtml
 	ContentPlain string `json:"ContentPlain,omitempty"`
 
-	// date sent
+	// Date of sending
 	DateSent string `json:"DateSent,omitempty"`
 
-	// from
+	// User object used to compute the From header
 	From *MailerUser `json:"From,omitempty"`
 
-	// retries
+	// Number of retries after failed attempts (used internally)
 	Retries int32 `json:"Retries,omitempty"`
 
-	// sender
+	// User object used to compute the Sender header
 	Sender *MailerUser `json:"Sender,omitempty"`
 
-	// subject
+	// String used as subject for the email
 	Subject string `json:"Subject,omitempty"`
 
-	// template data
+	// Key/values to pass to the template
 	TemplateData map[string]string `json:"TemplateData,omitempty"`
 
-	// template Id
+	// Mail Template Id refers to predefined templates
 	TemplateID string `json:"TemplateId,omitempty"`
 
-	// thread index
+	// Not used, could be used to create conversations
 	ThreadIndex string `json:"ThreadIndex,omitempty"`
 
-	// Could be used for Re: ... conversations
+	// Not used, could be used to create conversations
 	ThreadUUID string `json:"ThreadUuid,omitempty"`
 
-	// to
+	// List of target users to send the mail to
 	To []*MailerUser `json:"To"`
 
-	// send errors
+	// Errors stacked on failed attempts
 	SendErrors []string `json:"sendErrors"`
 }
 

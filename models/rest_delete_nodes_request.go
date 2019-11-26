@@ -18,10 +18,10 @@ import (
 // swagger:model restDeleteNodesRequest
 type RestDeleteNodesRequest struct {
 
-	// nodes
+	// List of nodes to delete
 	Nodes []*TreeNode `json:"Nodes"`
 
-	// recursive
+	// Whether to delete all the children if node is a folder
 	Recursive bool `json:"Recursive,omitempty"`
 }
 

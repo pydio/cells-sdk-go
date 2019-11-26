@@ -16,16 +16,16 @@ import (
 // swagger:model activitySubscription
 type ActivitySubscription struct {
 
-	// events
+	// List of events to listen to
 	Events []string `json:"Events"`
 
-	// object Id
+	// If of the owner
 	ObjectID string `json:"ObjectId,omitempty"`
 
-	// object type
+	// Type of owner
 	ObjectType ActivityOwnerType `json:"ObjectType,omitempty"`
 
-	// user Id
+	// Id of the user for this subscription
 	UserID string `json:"UserId,omitempty"`
 }
 

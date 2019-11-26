@@ -15,10 +15,10 @@ import (
 // swagger:model restMetaNamespaceRequest
 type RestMetaNamespaceRequest struct {
 
-	// namespace
+	// List of namespaces to load
 	Namespace []string `json:"Namespace"`
 
-	// node path
+	// Path to the requested node
 	NodePath string `json:"NodePath,omitempty"`
 }
 

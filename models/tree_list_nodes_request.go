@@ -16,28 +16,28 @@ import (
 // swagger:model treeListNodesRequest
 type TreeListNodesRequest struct {
 
-	// ancestors
+	// Send back a list of parent nodes, until the root, including the original node
 	Ancestors bool `json:"Ancestors,omitempty"`
 
-	// filter type
+	// Filter by node type (LEAF / COLLECTION)
 	FilterType TreeNodeType `json:"FilterType,omitempty"`
 
-	// limit
+	// Limit the number of results
 	Limit string `json:"Limit,omitempty"`
 
-	// node
+	// Main node used as a parent
 	Node *TreeNode `json:"Node,omitempty"`
 
-	// offset
+	// Start listing at a given position
 	Offset string `json:"Offset,omitempty"`
 
-	// recursive
+	// Send back all children of the node
 	Recursive bool `json:"Recursive,omitempty"`
 
-	// with commits
+	// Sends the list of commits for a given node (not used)
 	WithCommits bool `json:"WithCommits,omitempty"`
 
-	// with versions
+	// Sends the list of versions for a given node
 	WithVersions bool `json:"WithVersions,omitempty"`
 }
 

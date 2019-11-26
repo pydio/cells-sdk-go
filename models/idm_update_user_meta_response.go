@@ -18,7 +18,7 @@ import (
 // swagger:model idmUpdateUserMetaResponse
 type IdmUpdateUserMetaResponse struct {
 
-	// meta datas
+	// List of metadatas
 	MetaDatas []*IdmUserMeta `json:"MetaDatas"`
 }
 

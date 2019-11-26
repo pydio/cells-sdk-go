@@ -18,25 +18,25 @@ import (
 // swagger:model restSearchRoleRequest
 type RestSearchRoleRequest struct {
 
-	// count only
+	// Return counts only, no actual results
 	CountOnly bool `json:"CountOnly,omitempty"`
 
-	// group by
+	// Group results by
 	GroupBy int32 `json:"GroupBy,omitempty"`
 
-	// limit
+	// Limit number of results
 	Limit string `json:"Limit,omitempty"`
 
-	// offset
+	// Start listing at a given position
 	Offset string `json:"Offset,omitempty"`
 
-	// operation
+	// Combine Single Queries with AND or OR
 	Operation ServiceOperationType `json:"Operation,omitempty"`
 
-	// queries
+	// List of atomic queries that will be combined using the Operation type (AND / OR)
 	Queries []*IdmRoleSingleQuery `json:"Queries"`
 
-	// resource policy query
+	// Policies query for specifying the search context
 	ResourcePolicyQuery *RestResourcePolicyQuery `json:"ResourcePolicyQuery,omitempty"`
 }
 

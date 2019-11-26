@@ -16,10 +16,10 @@ import (
 // swagger:model restListSharedResourcesRequest
 type RestListSharedResourcesRequest struct {
 
-	// limit
+	// Limit number of results
 	Limit int32 `json:"Limit,omitempty"`
 
-	// offset
+	// Start listing at a given offset
 	Offset int32 `json:"Offset,omitempty"`
 
 	// If true, will also check filter the output to shares actually owned by subject

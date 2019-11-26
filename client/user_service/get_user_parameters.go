@@ -63,24 +63,42 @@ for the get user operation typically these are written to a http.Request
 */
 type GetUserParams struct {
 
-	/*GroupLabel*/
+	/*GroupLabel
+	  Label of the group, field is empty for users.
+
+	*/
 	GroupLabel *string
-	/*GroupPath*/
+	/*GroupPath
+	  Path to the parent group.
+
+	*/
 	GroupPath *string
 	/*IsGroup
-	  Group specific data.
+	  Whether this object is a group or a user.
 
 	*/
 	IsGroup *bool
 	/*Login*/
 	Login string
-	/*OldPassword*/
+	/*OldPassword
+	  OldPassword must be set when a user updates her own password.
+
+	*/
 	OldPassword *string
-	/*Password*/
+	/*Password
+	  Password can be passed to be updated (but never read back), field is empty for groups.
+
+	*/
 	Password *string
-	/*PoliciesContextEditable*/
+	/*PoliciesContextEditable
+	  Context-resolved to quickly check if user is editable or not.
+
+	*/
 	PoliciesContextEditable *bool
-	/*UUID*/
+	/*UUID
+	  User unique identifier.
+
+	*/
 	UUID *string
 
 	timeout    time.Duration

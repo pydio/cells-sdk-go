@@ -16,13 +16,13 @@ import (
 // swagger:model restControlServiceRequest
 type RestControlServiceRequest struct {
 
-	// command
+	// Command to apply (START or STOP)
 	Command CtlServiceCommand `json:"Command,omitempty"`
 
-	// node name
+	// Name of the node
 	NodeName string `json:"NodeName,omitempty"`
 
-	// service name
+	// Name of the service to stop
 	ServiceName string `json:"ServiceName,omitempty"`
 }
 

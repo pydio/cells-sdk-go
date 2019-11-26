@@ -15,10 +15,10 @@ import (
 // swagger:model restPutUserMetaTagRequest
 type RestPutUserMetaTagRequest struct {
 
-	// namespace
+	// Add a tag value for this namespace
 	Namespace string `json:"Namespace,omitempty"`
 
-	// tag
+	// New tag value
 	Tag string `json:"Tag,omitempty"`
 }
 

@@ -18,13 +18,13 @@ import (
 // swagger:model restCreateNodesRequest
 type RestCreateNodesRequest struct {
 
-	// nodes
+	// A list of nodes that must be created
 	Nodes []*TreeNode `json:"Nodes"`
 
-	// recursive
+	// If nodes are created inside non-existing folders, whether the parents should be created automatically or not
 	Recursive bool `json:"Recursive,omitempty"`
 
-	// template UUID
+	// Use a template to create this node
 	TemplateUUID string `json:"TemplateUUID,omitempty"`
 }
 

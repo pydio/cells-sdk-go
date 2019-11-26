@@ -15,41 +15,41 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// IdmWorkspace idm workspace
+// IdmWorkspace A Workspace is composed of a set of nodes UUIDs and is used to provide accesses to the tree via ACLs.
 // swagger:model idmWorkspace
 type IdmWorkspace struct {
 
-	// attributes
+	// JSON-encoded list of attributes
 	Attributes string `json:"Attributes,omitempty"`
 
-	// description
+	// Description of the workspace (max length 1000)
 	Description string `json:"Description,omitempty"`
 
-	// label
+	// Label of the workspace (max length 500)
 	Label string `json:"Label,omitempty"`
 
-	// last updated
+	// Last modification time
 	LastUpdated int32 `json:"LastUpdated,omitempty"`
 
-	// policies
+	// Policies for securing access
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// policies context editable
+	// Context-resolved to quickly check if workspace is editable or not
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// root nodes
+	// List of the Root Nodes in the tree that compose this workspace
 	RootNodes map[string]TreeNode `json:"RootNodes,omitempty"`
 
-	// root uuids
+	// Quick list of the RootNodes uuids
 	RootUuids []string `json:"RootUUIDs"`
 
-	// scope
+	// Scope can be ADMIN, ROOM (=CELL) or LINK
 	Scope IdmWorkspaceScope `json:"Scope,omitempty"`
 
-	// slug
+	// Slug is an url-compatible form of the workspace label, or can be freely modified (max length 500)
 	Slug string `json:"Slug,omitempty"`
 
-	// UUID
+	// Unique identifier of the workspace
 	UUID string `json:"UUID,omitempty"`
 }
 

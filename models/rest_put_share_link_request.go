@@ -12,23 +12,23 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestPutShareLinkRequest rest put share link request
+// RestPutShareLinkRequest Request for create/update a link
 // swagger:model restPutShareLinkRequest
 type RestPutShareLinkRequest struct {
 
-	// create password
+	// Set if switching from no password to password
 	CreatePassword string `json:"CreatePassword,omitempty"`
 
-	// password enabled
+	// Whether it has Password enabled
 	PasswordEnabled bool `json:"PasswordEnabled,omitempty"`
 
-	// share link
+	// Content of the link to create
 	ShareLink *RestShareLink `json:"ShareLink,omitempty"`
 
-	// update custom hash
+	// Change the ShareLink Hash with a custom value
 	UpdateCustomHash string `json:"UpdateCustomHash,omitempty"`
 
-	// update password
+	// Set if updating an existing password
 	UpdatePassword string `json:"UpdatePassword,omitempty"`
 }
 

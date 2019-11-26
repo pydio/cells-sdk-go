@@ -16,25 +16,25 @@ import (
 // swagger:model jobsListJobsRequest
 type JobsListJobsRequest struct {
 
-	// events only
+	// Filter with only event-based jobs
 	EventsOnly bool `json:"EventsOnly,omitempty"`
 
-	// job ids
+	// Load jobs by their ID
 	JobIds []string `json:"JobIDs"`
 
-	// load tasks
+	// Load tasks that correspond to the given TaskStatus
 	LoadTasks JobsTaskStatus `json:"LoadTasks,omitempty"`
 
-	// owner
+	// Restrict to a specific owner (current user by default)
 	Owner string `json:"Owner,omitempty"`
 
-	// tasks limit
+	// Lmit the number of results
 	TasksLimit int32 `json:"TasksLimit,omitempty"`
 
-	// tasks offset
+	// Start listing at a given position
 	TasksOffset int32 `json:"TasksOffset,omitempty"`
 
-	// timers only
+	// Filter with only timer-based jobs
 	TimersOnly bool `json:"TimersOnly,omitempty"`
 }
 

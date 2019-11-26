@@ -15,10 +15,10 @@ import (
 // swagger:model encryptionAdminCreateKeyRequest
 type EncryptionAdminCreateKeyRequest struct {
 
-	// key ID
+	// Create a key with this ID
 	KeyID string `json:"KeyID,omitempty"`
 
-	// label
+	// Provide label for the newly created key
 	Label string `json:"Label,omitempty"`
 }
 

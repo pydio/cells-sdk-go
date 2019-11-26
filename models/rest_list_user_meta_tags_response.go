@@ -15,7 +15,7 @@ import (
 // swagger:model restListUserMetaTagsResponse
 type RestListUserMetaTagsResponse struct {
 
-	// tags
+	// List of existing tags values
 	Tags []string `json:"Tags"`
 }
 

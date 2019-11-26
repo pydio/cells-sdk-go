@@ -15,7 +15,7 @@ import (
 // swagger:model restListPeersAddressesResponse
 type RestListPeersAddressesResponse struct {
 
-	// peer addresses
+	// List of peer addresses
 	PeerAddresses []string `json:"PeerAddresses"`
 }
 

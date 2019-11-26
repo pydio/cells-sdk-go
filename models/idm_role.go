@@ -14,38 +14,38 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// IdmRole idm role
+// IdmRole Role represents a generic set of permissions that can be applied to any users or groups.
 // swagger:model idmRole
 type IdmRole struct {
 
-	// auto applies
+	// List of profiles (standard, shared, admin) on which the role will be automatically applied
 	AutoApplies []string `json:"AutoApplies"`
 
-	// force override
+	// Is used in a stack of roles, this one will always be applied last.
 	ForceOverride bool `json:"ForceOverride,omitempty"`
 
-	// group role
+	// Whether this role is attached to a Group object
 	GroupRole bool `json:"GroupRole,omitempty"`
 
-	// is team
+	// Whether this role represents a user team or not
 	IsTeam bool `json:"IsTeam,omitempty"`
 
-	// label
+	// Label of this role
 	Label string `json:"Label,omitempty"`
 
-	// last updated
+	// Last modification date of the role
 	LastUpdated int32 `json:"LastUpdated,omitempty"`
 
-	// policies
+	// List of policies for securing this role access
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// policies context editable
+	// Whether the policies resolve into an editable state
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// user role
+	// Whether this role is attached to a User object
 	UserRole bool `json:"UserRole,omitempty"`
 
-	// Uuid
+	// Unique identifier of this role
 	UUID string `json:"Uuid,omitempty"`
 }
 

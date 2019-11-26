@@ -14,7 +14,6 @@ import (
 	"github.com/pydio/cells-sdk-go/client/acl_service"
 	"github.com/pydio/cells-sdk-go/client/activity_service"
 	"github.com/pydio/cells-sdk-go/client/admin_tree_service"
-	"github.com/pydio/cells-sdk-go/client/change_service"
 	"github.com/pydio/cells-sdk-go/client/config_service"
 	"github.com/pydio/cells-sdk-go/client/frontend_service"
 	"github.com/pydio/cells-sdk-go/client/graph_service"
@@ -84,8 +83,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.ActivityService = activity_service.New(transport, formats)
 
 	cli.AdminTreeService = admin_tree_service.New(transport, formats)
-
-	cli.ChangeService = change_service.New(transport, formats)
 
 	cli.ConfigService = config_service.New(transport, formats)
 
@@ -175,8 +172,6 @@ type PydioCellsRest struct {
 
 	AdminTreeService *admin_tree_service.Client
 
-	ChangeService *change_service.Client
-
 	ConfigService *config_service.Client
 
 	FrontendService *frontend_service.Client
@@ -227,8 +222,6 @@ func (c *PydioCellsRest) SetTransport(transport runtime.ClientTransport) {
 	c.ActivityService.SetTransport(transport)
 
 	c.AdminTreeService.SetTransport(transport)
-
-	c.ChangeService.SetTransport(transport)
 
 	c.ConfigService.SetTransport(transport)
 

@@ -18,10 +18,10 @@ import (
 // swagger:model restUpdateSharePoliciesRequest
 type RestUpdateSharePoliciesRequest struct {
 
-	// policies
+	// List of policies to update
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// Uuid
+	// Cell or Link UUID
 	UUID string `json:"Uuid,omitempty"`
 }
 

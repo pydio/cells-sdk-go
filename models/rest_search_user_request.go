@@ -18,25 +18,25 @@ import (
 // swagger:model restSearchUserRequest
 type RestSearchUserRequest struct {
 
-	// count only
+	// Return counts only, no actual results
 	CountOnly bool `json:"CountOnly,omitempty"`
 
-	// group by
+	// Group by ...
 	GroupBy int32 `json:"GroupBy,omitempty"`
 
-	// limit
+	// Limit number of results
 	Limit string `json:"Limit,omitempty"`
 
-	// offset
+	// Start listing at a given position
 	Offset string `json:"Offset,omitempty"`
 
-	// operation
+	// Combine single queries with AND or OR logic
 	Operation ServiceOperationType `json:"Operation,omitempty"`
 
-	// queries
+	// Atomic queries that will be combined using the Operation Type (AND or OR)
 	Queries []*IdmUserSingleQuery `json:"Queries"`
 
-	// resource policy query
+	// Policies queries to filter the search context
 	ResourcePolicyQuery *RestResourcePolicyQuery `json:"ResourcePolicyQuery,omitempty"`
 }
 

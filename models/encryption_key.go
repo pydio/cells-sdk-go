@@ -16,22 +16,22 @@ import (
 // swagger:model encryptionKey
 type EncryptionKey struct {
 
-	// content
+	// Key content
 	Content string `json:"Content,omitempty"`
 
-	// creation date
+	// Key creation date
 	CreationDate int32 `json:"CreationDate,omitempty"`
 
-	// ID
+	// Key ID
 	ID string `json:"ID,omitempty"`
 
-	// info
+	// Additional key info
 	Info *EncryptionKeyInfo `json:"Info,omitempty"`
 
-	// label
+	// Key label
 	Label string `json:"Label,omitempty"`
 
-	// owner
+	// Key owner
 	Owner string `json:"Owner,omitempty"`
 }
 

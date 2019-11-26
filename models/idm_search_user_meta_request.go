@@ -16,19 +16,19 @@ import (
 // swagger:model idmSearchUserMetaRequest
 type IdmSearchUserMetaRequest struct {
 
-	// meta uuids
+	// Look for meta by their unique identifier
 	MetaUuids []string `json:"MetaUuids"`
 
-	// namespace
+	// Filter meta by their namespace
 	Namespace string `json:"Namespace,omitempty"`
 
-	// node uuids
+	// Look for all meta for a list of nodes
 	NodeUuids []string `json:"NodeUuids"`
 
-	// resource query
+	// Filter meta by policies query
 	ResourceQuery *ServiceResourcePolicyQuery `json:"ResourceQuery,omitempty"`
 
-	// resource subject owner
+	// Filter meta by owner (in the sense of the policies)
 	ResourceSubjectOwner string `json:"ResourceSubjectOwner,omitempty"`
 }
 

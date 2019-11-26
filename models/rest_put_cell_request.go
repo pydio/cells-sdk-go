@@ -12,14 +12,14 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestPutCellRequest rest put cell request
+// RestPutCellRequest Request for creating a Cell
 // swagger:model restPutCellRequest
 type RestPutCellRequest struct {
 
-	// create empty root
+	// Whether to create a dedicated folder for this cell at creation
 	CreateEmptyRoot bool `json:"CreateEmptyRoot,omitempty"`
 
-	// room
+	// Content of the Cell (Room is legacy name)
 	Room *RestCell `json:"Room,omitempty"`
 }
 

@@ -11,11 +11,11 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestDeleteShareLinkResponse rest delete share link response
+// RestDeleteShareLinkResponse Response for deleting a share link
 // swagger:model restDeleteShareLinkResponse
 type RestDeleteShareLinkResponse struct {
 
-	// success
+	// If delete sucess or failed
 	Success bool `json:"Success,omitempty"`
 }
 

@@ -15,10 +15,10 @@ import (
 // swagger:model restListProcessesRequest
 type RestListProcessesRequest struct {
 
-	// peer Id
+	// Id of the peer node
 	PeerID string `json:"PeerId,omitempty"`
 
-	// service name
+	// Look for a service name
 	ServiceName string `json:"ServiceName,omitempty"`
 }
 

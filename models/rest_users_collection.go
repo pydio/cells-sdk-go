@@ -18,13 +18,13 @@ import (
 // swagger:model restUsersCollection
 type RestUsersCollection struct {
 
-	// groups
+	// List of Groups
 	Groups []*IdmUser `json:"Groups"`
 
-	// total
+	// Total number of results
 	Total int32 `json:"Total,omitempty"`
 
-	// users
+	// List of Users
 	Users []*IdmUser `json:"Users"`
 }
 

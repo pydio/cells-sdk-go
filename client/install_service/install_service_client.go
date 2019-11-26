@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetAgreement performs a check during install like d b connection php fpm detection etc
+GetAgreement loads a textual agreement for using the software
 */
 func (a *Client) GetAgreement(params *GetAgreementParams) (*GetAgreementOK, error) {
 	// TODO: Validate the params before sending
@@ -81,7 +81,7 @@ func (a *Client) GetInstall(params *GetInstallParams) (*GetInstallOK, error) {
 }
 
 /*
-PerformInstallCheck performs a check during install like d b connection php fpm detection etc
+PerformInstallCheck performs a check during install like a valid d b connection
 */
 func (a *Client) PerformInstallCheck(params *PerformInstallCheckParams) (*PerformInstallCheckOK, error) {
 	// TODO: Validate the params before sending

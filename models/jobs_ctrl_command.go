@@ -16,16 +16,16 @@ import (
 // swagger:model jobsCtrlCommand
 type JobsCtrlCommand struct {
 
-	// cmd
+	// Type of command to send (None, Pause, Resume, Stop, Delete, RunOnce, Inactive, Active)
 	Cmd JobsCommand `json:"Cmd,omitempty"`
 
-	// job Id
+	// Id of the job
 	JobID string `json:"JobId,omitempty"`
 
-	// owner Id
+	// Owner of the job
 	OwnerID string `json:"OwnerId,omitempty"`
 
-	// task Id
+	// Id of the associated task
 	TaskID string `json:"TaskId,omitempty"`
 }
 

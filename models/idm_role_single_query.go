@@ -11,29 +11,29 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// IdmRoleSingleQuery idm role single query
+// IdmRoleSingleQuery RoleSingleQuery is the basic unit for building queries to Roles.
 // swagger:model idmRoleSingleQuery
 type IdmRoleSingleQuery struct {
 
-	// has auto apply
+	// Look for roles that have any value in the autoApplies field
 	HasAutoApply bool `json:"HasAutoApply,omitempty"`
 
-	// is group role
+	// Look for group roles only
 	IsGroupRole bool `json:"IsGroupRole,omitempty"`
 
-	// is team
+	// Look for team roles only
 	IsTeam bool `json:"IsTeam,omitempty"`
 
-	// is user role
+	// Look for user roles only
 	IsUserRole bool `json:"IsUserRole,omitempty"`
 
-	// label
+	// Look for roles by label, eventually using wildchar
 	Label string `json:"Label,omitempty"`
 
-	// Uuid
+	// Look for roles by Uuid
 	UUID []string `json:"Uuid"`
 
-	// not
+	// Negate the query
 	Not bool `json:"not,omitempty"`
 }
 

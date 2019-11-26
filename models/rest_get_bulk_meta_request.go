@@ -15,22 +15,22 @@ import (
 // swagger:model restGetBulkMetaRequest
 type RestGetBulkMetaRequest struct {
 
-	// all meta providers
+	// Whether to query all services for the metadata they can contribute to enrich the node
 	AllMetaProviders bool `json:"AllMetaProviders,omitempty"`
 
-	// limit
+	// Limit number of results
 	Limit int32 `json:"Limit,omitempty"`
 
-	// node paths
+	// List of node paths to query (use paths ending with /* to load the children)
 	NodePaths []string `json:"NodePaths"`
 
-	// node uuids
+	// List of nodes based on their Uuids
 	NodeUuids []string `json:"NodeUuids"`
 
-	// offset
+	// Start listing at a given position
 	Offset int32 `json:"Offset,omitempty"`
 
-	// versions
+	// Load Versions of the given node
 	Versions bool `json:"Versions,omitempty"`
 }
 

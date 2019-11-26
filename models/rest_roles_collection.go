@@ -18,7 +18,7 @@ import (
 // swagger:model restRolesCollection
 type RestRolesCollection struct {
 
-	// roles
+	// List of Roles
 	Roles []*IdmRole `json:"Roles"`
 }
 

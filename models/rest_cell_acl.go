@@ -18,22 +18,22 @@ import (
 // swagger:model restCellAcl
 type RestCellACL struct {
 
-	// actions
+	// List of Acl Actions and their effect
 	Actions []*IdmACLAction `json:"Actions"`
 
-	// group
+	// Associated Group
 	Group *IdmUser `json:"Group,omitempty"`
 
-	// is user role
+	// Flag for detecting if it's a user role or not
 	IsUserRole bool `json:"IsUserRole,omitempty"`
 
-	// role
+	// Associated Role
 	Role *IdmRole `json:"Role,omitempty"`
 
-	// role Id
+	// Associated Role ID
 	RoleID string `json:"RoleId,omitempty"`
 
-	// user
+	// Associated User
 	User *IdmUser `json:"User,omitempty"`
 }
 

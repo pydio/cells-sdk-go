@@ -18,10 +18,10 @@ import (
 // swagger:model idmUpdateUserMetaRequest
 type IdmUpdateUserMetaRequest struct {
 
-	// meta datas
+	// List of metadatas to update or delete
 	MetaDatas []*IdmUserMeta `json:"MetaDatas"`
 
-	// operation
+	// Type of operation to apply (PUT / DELETE)
 	Operation UpdateUserMetaRequestUserMetaOp `json:"Operation,omitempty"`
 }
 

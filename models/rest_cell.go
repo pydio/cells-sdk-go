@@ -15,29 +15,29 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RestCell Model for representing a shared room
+// RestCell Model for representing a Cell
 // swagger:model restCell
 type RestCell struct {
 
-	// acls
+	// Access control for this Cell
 	Acls map[string]RestCellACL `json:"ACLs,omitempty"`
 
-	// description
+	// Long description of the Cell (max 1000 chars)
 	Description string `json:"Description,omitempty"`
 
-	// label
+	// Label of the Cell (max 500 chars)
 	Label string `json:"Label,omitempty"`
 
-	// policies
+	// Associated access policies
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// policies context editable
+	// Whether these policies are currently editable
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// root nodes
+	// Nodes attached as roots to this Cell
 	RootNodes []*TreeNode `json:"RootNodes"`
 
-	// Uuid
+	// Unique Id of the Cell
 	UUID string `json:"Uuid,omitempty"`
 }
 

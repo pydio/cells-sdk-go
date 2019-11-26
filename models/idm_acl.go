@@ -12,23 +12,24 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// IdmACL idm ACL
+// IdmACL ACL are the basic flags that can be put anywhere in the tree to provide some specific rights to a given role.
+// The context of how they apply can be fine-tuned by workspace.
 // swagger:model idmACL
 type IdmACL struct {
 
-	// action
+	// Action on which this ACL provides control
 	Action *IdmACLAction `json:"Action,omitempty"`
 
-	// ID
+	// Unique ID of this ACL
 	ID string `json:"ID,omitempty"`
 
-	// node ID
+	// Associated Node
 	NodeID string `json:"NodeID,omitempty"`
 
-	// role ID
+	// Associated Role
 	RoleID string `json:"RoleID,omitempty"`
 
-	// workspace ID
+	// Associated Workspace
 	WorkspaceID string `json:"WorkspaceID,omitempty"`
 }
 

@@ -62,7 +62,10 @@ for the endpoints discovery operation typically these are written to a http.Requ
 */
 type EndpointsDiscoveryParams struct {
 
-	/*EndpointType*/
+	/*EndpointType
+	  Filter result to a specific endpoint type.
+
+	*/
 	EndpointType *string
 
 	timeout    time.Duration

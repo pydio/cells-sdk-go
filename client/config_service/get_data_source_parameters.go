@@ -83,41 +83,92 @@ for the get data source operation typically these are written to a http.Request
 */
 type GetDataSourceParams struct {
 
-	/*APIKey*/
+	/*APIKey
+	  Corresponding objects service api key.
+
+	*/
 	APIKey *string
-	/*APISecret*/
+	/*APISecret
+	  Corresponding objects service api secret.
+
+	*/
 	APISecret *string
-	/*CreationDate*/
+	/*CreationDate
+	  Data Source creation date.
+
+	*/
 	CreationDate *int32
-	/*Disabled*/
+	/*Disabled
+	  Whether this data source is disabled or running.
+
+	*/
 	Disabled *bool
-	/*EncryptionKey*/
+	/*EncryptionKey
+	  Encryption key used for encrypting data.
+
+	*/
 	EncryptionKey *string
-	/*EncryptionMode*/
+	/*EncryptionMode
+	  Type of encryption applied before sending data to storage.
+
+	*/
 	EncryptionMode *string
-	/*LastSynchronizationDate*/
+	/*LastSynchronizationDate
+	  Data Source last synchronization date.
+
+	*/
 	LastSynchronizationDate *int32
 	/*Name*/
 	Name string
-	/*ObjectsBaseFolder*/
+	/*ObjectsBaseFolder
+	  Corresponding objects service base folder inside the bucket.
+
+	*/
 	ObjectsBaseFolder *string
-	/*ObjectsBucket*/
+	/*ObjectsBucket
+	  Corresponding objects service bucket.
+
+	*/
 	ObjectsBucket *string
-	/*ObjectsHost*/
+	/*ObjectsHost
+	  Corresponding objects service host.
+
+	*/
 	ObjectsHost *string
-	/*ObjectsPort*/
+	/*ObjectsPort
+	  Corresponding objects service port.
+
+	*/
 	ObjectsPort *int32
-	/*ObjectsSecure*/
+	/*ObjectsSecure
+	  Corresponding objects service connection type.
+
+	*/
 	ObjectsSecure *bool
-	/*ObjectsServiceName*/
+	/*ObjectsServiceName
+	  Corresponding objects service name (underlying s3 service).
+
+	*/
 	ObjectsServiceName *string
-	/*PeerAddress*/
+	/*PeerAddress
+	  Peer address of the data source.
+
+	*/
 	PeerAddress *string
-	/*StorageType*/
+	/*StorageType
+	  Type of underlying storage (LOCAL, S3, AZURE, GCS).
+
+	*/
 	StorageType *string
-	/*VersioningPolicyName*/
+	/*VersioningPolicyName
+	  Versioning policy describes how files are kept in the versioning queue.
+
+	*/
 	VersioningPolicyName *string
-	/*Watch*/
+	/*Watch
+	  Not implemented, whether to watch for underlying changes on the FS.
+
+	*/
 	Watch *bool
 
 	timeout    time.Duration

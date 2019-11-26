@@ -15,7 +15,7 @@ import (
 // swagger:model restDeleteCellResponse
 type RestDeleteCellResponse struct {
 
-	// success
+	// Delete result
 	Success bool `json:"Success,omitempty"`
 }
 

@@ -19,61 +19,61 @@ import (
 // swagger:model restShareLink
 type RestShareLink struct {
 
-	// access end
+	// Timestamp after which the share is disabled
 	AccessEnd string `json:"AccessEnd,omitempty"`
 
-	// access start
+	// Timestamp of start date for enabling the share (not implemented yet)
 	AccessStart string `json:"AccessStart,omitempty"`
 
-	// current downloads
+	// Current number of downloads
 	CurrentDownloads string `json:"CurrentDownloads,omitempty"`
 
-	// description
+	// Description of the Link (max 1000 chars)
 	Description string `json:"Description,omitempty"`
 
-	// label
+	// Label of the Link (max 500 chars)
 	Label string `json:"Label,omitempty"`
 
-	// link hash
+	// Unique Hash for accessing the link
 	LinkHash string `json:"LinkHash,omitempty"`
 
-	// link Url
+	// Full URL for accessing the link
 	LinkURL string `json:"LinkUrl,omitempty"`
 
-	// max downloads
+	// Maximum number of downloads until expiration
 	MaxDownloads string `json:"MaxDownloads,omitempty"`
 
-	// password required
+	// Whether a password is required or not to access the link
 	PasswordRequired bool `json:"PasswordRequired,omitempty"`
 
-	// permissions
+	// Specific permissions for public links
 	Permissions []RestShareLinkAccessType `json:"Permissions"`
 
-	// policies
+	// Security policies
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// policies context editable
+	// Whether policies are currently editable or not
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// restrict to target users
+	// RestrictToTargetUsers enable users restriction
 	RestrictToTargetUsers bool `json:"RestrictToTargetUsers,omitempty"`
 
-	// root nodes
+	// Nodes in the tree that serve as root to this link
 	RootNodes []*TreeNode `json:"RootNodes"`
 
-	// target users
+	// TargetUsers can be used to restrict access
 	TargetUsers map[string]RestShareLinkTargetUser `json:"TargetUsers,omitempty"`
 
-	// user login
+	// Temporary user Login used to login automatically when accessing this link
 	UserLogin string `json:"UserLogin,omitempty"`
 
-	// user Uuid
+	// Temporary user Uuid used to login automatically when accessing this link
 	UserUUID string `json:"UserUuid,omitempty"`
 
-	// Uuid
+	// Internal identifier of the link
 	UUID string `json:"Uuid,omitempty"`
 
-	// view template name
+	// Display Template for loading the public link
 	ViewTemplateName string `json:"ViewTemplateName,omitempty"`
 }
 

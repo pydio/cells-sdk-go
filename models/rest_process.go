@@ -15,25 +15,25 @@ import (
 // swagger:model restProcess
 type RestProcess struct {
 
-	// ID
+	// Process ID
 	ID string `json:"ID,omitempty"`
 
-	// metrics port
+	// Port to access the metrics api
 	MetricsPort int32 `json:"MetricsPort,omitempty"`
 
-	// parent ID
+	// Parent Process ID
 	ParentID string `json:"ParentID,omitempty"`
 
-	// peer address
+	// Address of peer node
 	PeerAddress string `json:"PeerAddress,omitempty"`
 
-	// peer Id
+	// Id of peer node
 	PeerID string `json:"PeerId,omitempty"`
 
-	// services
+	// List of services running inside this process
 	Services []string `json:"Services"`
 
-	// start tag
+	// Parameters used to start this process
 	StartTag string `json:"StartTag,omitempty"`
 }
 

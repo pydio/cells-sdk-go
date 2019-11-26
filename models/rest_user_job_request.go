@@ -15,10 +15,10 @@ import (
 // swagger:model restUserJobRequest
 type RestUserJobRequest struct {
 
-	// job name
+	// Name of the job to create in the user space
 	JobName string `json:"JobName,omitempty"`
 
-	// Json parameters
+	// Json-encoded parameters for this job
 	JSONParameters string `json:"JsonParameters,omitempty"`
 }
 

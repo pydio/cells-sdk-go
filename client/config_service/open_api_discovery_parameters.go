@@ -62,7 +62,10 @@ for the open Api discovery operation typically these are written to a http.Reque
 */
 type OpenAPIDiscoveryParams struct {
 
-	/*EndpointType*/
+	/*EndpointType
+	  Filter result to a specific endpoint type.
+
+	*/
 	EndpointType *string
 
 	timeout    time.Duration

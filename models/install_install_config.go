@@ -21,6 +21,9 @@ type InstallInstallConfig struct {
 	// check results
 	CheckResults []*InstallCheckResult `json:"CheckResults"`
 
+	// Additional proxy config (optional)
+	ProxyConfig *InstallProxyConfig `json:"ProxyConfig,omitempty"`
+
 	// db connection type
 	DbConnectionType string `json:"dbConnectionType,omitempty"`
 
@@ -51,8 +54,8 @@ type InstallInstallConfig struct {
 	// db TCP port
 	DbTCPPort string `json:"dbTCPPort,omitempty"`
 
-	// db TCP user
-	DbTCPUser string `json:"dbTCPUser,omitempty"`
+	// db t cpuser
+	DbTCpuser string `json:"dbTCPUser,omitempty"`
 
 	// ds folder
 	DsFolder string `json:"dsFolder,omitempty"`
@@ -126,6 +129,10 @@ func (m *InstallInstallConfig) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateProxyConfig(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -152,6 +159,24 @@ func (m *InstallInstallConfig) validateCheckResults(formats strfmt.Registry) err
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *InstallInstallConfig) validateProxyConfig(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ProxyConfig) { // not required
+		return nil
+	}
+
+	if m.ProxyConfig != nil {
+		if err := m.ProxyConfig.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ProxyConfig")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -11,24 +11,21 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// EncryptionExport encryption export
-// swagger:model encryptionExport
-type EncryptionExport struct {
+// InstallTLSSelfSigned TLSSelfSigned generates a selfsigned certificate
+// swagger:model installTLSSelfSigned
+type InstallTLSSelfSigned struct {
 
-	// Name of exporter
-	By string `json:"By,omitempty"`
-
-	// Date of export
-	Date int32 `json:"Date,omitempty"`
+	// hostnames
+	Hostnames []string `json:"Hostnames"`
 }
 
-// Validate validates this encryption export
-func (m *EncryptionExport) Validate(formats strfmt.Registry) error {
+// Validate validates this install TLS self signed
+func (m *InstallTLSSelfSigned) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *EncryptionExport) MarshalBinary() ([]byte, error) {
+func (m *InstallTLSSelfSigned) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -36,8 +33,8 @@ func (m *EncryptionExport) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *EncryptionExport) UnmarshalBinary(b []byte) error {
-	var res EncryptionExport
+func (m *InstallTLSSelfSigned) UnmarshalBinary(b []byte) error {
+	var res InstallTLSSelfSigned
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

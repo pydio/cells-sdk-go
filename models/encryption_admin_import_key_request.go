@@ -16,13 +16,13 @@ import (
 // swagger:model encryptionAdminImportKeyRequest
 type EncryptionAdminImportKeyRequest struct {
 
-	// key
+	// Imported key data
 	Key *EncryptionKey `json:"Key,omitempty"`
 
-	// override
+	// Whether to override if a key with same ID already exists
 	Override bool `json:"Override,omitempty"`
 
-	// str password
+	// Key password
 	StrPassword string `json:"StrPassword,omitempty"`
 }
 

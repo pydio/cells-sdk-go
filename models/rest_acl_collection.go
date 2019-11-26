@@ -18,10 +18,10 @@ import (
 // swagger:model restACLCollection
 type RestACLCollection struct {
 
-	// acls
+	// List of ACLs
 	Acls []*IdmACL `json:"ACLs"`
 
-	// total
+	// Total number of results
 	Total int32 `json:"Total,omitempty"`
 }
 

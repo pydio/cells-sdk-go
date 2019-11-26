@@ -18,22 +18,22 @@ import (
 // swagger:model idmUserMetaNamespace
 type IdmUserMetaNamespace struct {
 
-	// indexable
+	// Whether a modification of a metadata value for this namespace should trigger an indexation by the search engine
 	Indexable bool `json:"Indexable,omitempty"`
 
-	// Json definition
+	// Json-encoded type to provide accurate interface for edition
 	JSONDefinition string `json:"JsonDefinition,omitempty"`
 
-	// label
+	// Human-readable Label
 	Label string `json:"Label,omitempty"`
 
-	// namespace
+	// Namespace identifier, must be unique
 	Namespace string `json:"Namespace,omitempty"`
 
-	// order
+	// Order is used for sorting lists of namesapces
 	Order int32 `json:"Order,omitempty"`
 
-	// policies
+	// Policies securing this namespace
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 }
 

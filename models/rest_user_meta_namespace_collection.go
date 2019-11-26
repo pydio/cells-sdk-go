@@ -18,7 +18,7 @@ import (
 // swagger:model restUserMetaNamespaceCollection
 type RestUserMetaNamespaceCollection struct {
 
-	// namespaces
+	// List of user meta Namespaces
 	Namespaces []*IdmUserMetaNamespace `json:"Namespaces"`
 }
 

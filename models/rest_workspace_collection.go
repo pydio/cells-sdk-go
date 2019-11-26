@@ -18,10 +18,10 @@ import (
 // swagger:model restWorkspaceCollection
 type RestWorkspaceCollection struct {
 
-	// total
+	// Total number of results
 	Total int32 `json:"Total,omitempty"`
 
-	// workspaces
+	// List of workspaces
 	Workspaces []*IdmWorkspace `json:"Workspaces"`
 }
 

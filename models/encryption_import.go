@@ -15,10 +15,10 @@ import (
 // swagger:model encryptionImport
 type EncryptionImport struct {
 
-	// by
+	// Name of importer
 	By string `json:"By,omitempty"`
 
-	// date
+	// Date of import
 	Date int32 `json:"Date,omitempty"`
 }
 

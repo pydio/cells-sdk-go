@@ -16,7 +16,7 @@ import (
 // swagger:model restRevokeRequest
 type RestRevokeRequest struct {
 
-	// token Id
+	// Pass a specific Token ID to be revoked. If empty, request will use current JWT
 	TokenID string `json:"TokenId,omitempty"`
 }
 

@@ -16,61 +16,61 @@ import (
 // swagger:model objectDataSource
 type ObjectDataSource struct {
 
-	// Api key
+	// Corresponding objects service api key
 	APIKey string `json:"ApiKey,omitempty"`
 
-	// Api secret
+	// Corresponding objects service api secret
 	APISecret string `json:"ApiSecret,omitempty"`
 
-	// creation date
+	// Data Source creation date
 	CreationDate int32 `json:"CreationDate,omitempty"`
 
-	// disabled
+	// Whether this data source is disabled or running
 	Disabled bool `json:"Disabled,omitempty"`
 
-	// encryption key
+	// Encryption key used for encrypting data
 	EncryptionKey string `json:"EncryptionKey,omitempty"`
 
-	// encryption mode
+	// Type of encryption applied before sending data to storage
 	EncryptionMode ObjectEncryptionMode `json:"EncryptionMode,omitempty"`
 
-	// last synchronization date
+	// Data Source last synchronization date
 	LastSynchronizationDate int32 `json:"LastSynchronizationDate,omitempty"`
 
-	// name
+	// Name of the data source (max length 34)
 	Name string `json:"Name,omitempty"`
 
-	// objects base folder
+	// Corresponding objects service base folder inside the bucket
 	ObjectsBaseFolder string `json:"ObjectsBaseFolder,omitempty"`
 
-	// objects bucket
+	// Corresponding objects service bucket
 	ObjectsBucket string `json:"ObjectsBucket,omitempty"`
 
-	// objects host
+	// Corresponding objects service host
 	ObjectsHost string `json:"ObjectsHost,omitempty"`
 
-	// objects port
+	// Corresponding objects service port
 	ObjectsPort int32 `json:"ObjectsPort,omitempty"`
 
-	// objects secure
+	// Corresponding objects service connection type
 	ObjectsSecure bool `json:"ObjectsSecure,omitempty"`
 
-	// objects service name
+	// Corresponding objects service name (underlying s3 service)
 	ObjectsServiceName string `json:"ObjectsServiceName,omitempty"`
 
-	// peer address
+	// Peer address of the data source
 	PeerAddress string `json:"PeerAddress,omitempty"`
 
-	// storage configuration
+	// List of key values describing storage configuration
 	StorageConfiguration map[string]string `json:"StorageConfiguration,omitempty"`
 
-	// storage type
+	// Type of underlying storage (LOCAL, S3, AZURE, GCS)
 	StorageType ObjectStorageType `json:"StorageType,omitempty"`
 
-	// versioning policy name
+	// Versioning policy describes how files are kept in the versioning queue
 	VersioningPolicyName string `json:"VersioningPolicyName,omitempty"`
 
-	// watch
+	// Not implemented, whether to watch for underlying changes on the FS
 	Watch bool `json:"Watch,omitempty"`
 }
 

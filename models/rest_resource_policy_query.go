@@ -16,10 +16,10 @@ import (
 // swagger:model restResourcePolicyQuery
 type RestResourcePolicyQuery struct {
 
-	// type
+	// The type can be CONTEXT, ANY, NODE or USER. This restricts the may filter out the result set based on their policies
 	Type ResourcePolicyQueryQueryType `json:"Type,omitempty"`
 
-	// user Id
+	// Limit to one given user ID
 	UserID string `json:"UserId,omitempty"`
 }
 

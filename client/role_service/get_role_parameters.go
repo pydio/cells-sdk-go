@@ -63,21 +63,45 @@ for the get role operation typically these are written to a http.Request
 */
 type GetRoleParams struct {
 
-	/*AutoApplies*/
+	/*AutoApplies
+	  List of profiles (standard, shared, admin) on which the role will be automatically applied.
+
+	*/
 	AutoApplies []string
-	/*ForceOverride*/
+	/*ForceOverride
+	  Is used in a stack of roles, this one will always be applied last.
+
+	*/
 	ForceOverride *bool
-	/*GroupRole*/
+	/*GroupRole
+	  Whether this role is attached to a Group object.
+
+	*/
 	GroupRole *bool
-	/*IsTeam*/
+	/*IsTeam
+	  Whether this role represents a user team or not.
+
+	*/
 	IsTeam *bool
-	/*Label*/
+	/*Label
+	  Label of this role.
+
+	*/
 	Label *string
-	/*LastUpdated*/
+	/*LastUpdated
+	  Last modification date of the role.
+
+	*/
 	LastUpdated *int32
-	/*PoliciesContextEditable*/
+	/*PoliciesContextEditable
+	  Whether the policies resolve into an editable state.
+
+	*/
 	PoliciesContextEditable *bool
-	/*UserRole*/
+	/*UserRole
+	  Whether this role is attached to a User object.
+
+	*/
 	UserRole *bool
 	/*UUID*/
 	UUID string

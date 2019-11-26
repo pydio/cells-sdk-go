@@ -16,34 +16,34 @@ import (
 // swagger:model activityStreamActivitiesRequest
 type ActivityStreamActivitiesRequest struct {
 
-	// as digest
+	// Compute a digest of all unread activities
 	AsDigest bool `json:"AsDigest,omitempty"`
 
-	// box name
+	// Target inbox or outbox for the given object
 	BoxName string `json:"BoxName,omitempty"`
 
-	// context
+	// Define the context of the stream
 	Context ActivityStreamContext `json:"Context,omitempty"`
 
-	// context data
+	// Value for the context (e.g. User Id, Node Id)
 	ContextData string `json:"ContextData,omitempty"`
 
-	// language
+	// Provide language information for building the human-readable strings.
 	Language string `json:"Language,omitempty"`
 
-	// limit
+	// Limit the number of results
 	Limit string `json:"Limit,omitempty"`
 
-	// offset
+	// Start listing at a given position
 	Offset string `json:"Offset,omitempty"`
 
-	// point of view
+	// Provide context for building the human-readable strings of each activity
 	PointOfView ActivitySummaryPointOfView `json:"PointOfView,omitempty"`
 
-	// stream filter
+	// Json-encoded filter
 	StreamFilter string `json:"StreamFilter,omitempty"`
 
-	// unread count only
+	// Count last activities that were not loaded yet
 	UnreadCountOnly bool `json:"UnreadCountOnly,omitempty"`
 }
 

@@ -15,7 +15,7 @@ import (
 // swagger:model restPutUserMetaTagResponse
 type RestPutUserMetaTagResponse struct {
 
-	// success
+	// Operation success
 	Success bool `json:"Success,omitempty"`
 }
 

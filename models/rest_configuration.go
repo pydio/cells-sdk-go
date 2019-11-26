@@ -15,10 +15,10 @@ import (
 // swagger:model restConfiguration
 type RestConfiguration struct {
 
-	// data
+	// JSON-encoded data to store
 	Data string `json:"Data,omitempty"`
 
-	// full path
+	// Full slash-separated path to the config key
 	FullPath string `json:"FullPath,omitempty"`
 }
 

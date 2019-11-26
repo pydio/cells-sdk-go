@@ -62,7 +62,10 @@ for the get config operation typically these are written to a http.Request
 */
 type GetConfigParams struct {
 
-	/*Data*/
+	/*Data
+	  JSON-encoded data to store.
+
+	*/
 	Data *string
 	/*FullPath*/
 	FullPath string

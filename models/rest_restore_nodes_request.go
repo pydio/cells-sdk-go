@@ -18,7 +18,7 @@ import (
 // swagger:model restRestoreNodesRequest
 type RestRestoreNodesRequest struct {
 
-	// nodes
+	// Restore this node from the recycle bin to its original location
 	Nodes []*TreeNode `json:"Nodes"`
 }
 

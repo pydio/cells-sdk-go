@@ -18,22 +18,22 @@ import (
 // swagger:model idmUserMeta
 type IdmUserMeta struct {
 
-	// Json value
+	// Json encoded value used to pass any type of values
 	JSONValue string `json:"JsonValue,omitempty"`
 
-	// namespace
+	// Namespace for the metadata
 	Namespace string `json:"Namespace,omitempty"`
 
-	// node Uuid
+	// Unique identifier of the node to which meta is attached
 	NodeUUID string `json:"NodeUuid,omitempty"`
 
-	// policies
+	// Policies for securing access
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// policies context editable
+	// Context-resolved to quickly check if this meta is editable or not
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// Uuid
+	// Unique identifier of the metadata
 	UUID string `json:"Uuid,omitempty"`
 }
 

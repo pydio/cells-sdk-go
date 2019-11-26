@@ -18,13 +18,13 @@ import (
 // swagger:model activitySearchSubscriptionsRequest
 type ActivitySearchSubscriptionsRequest struct {
 
-	// object ids
+	// Filter by object Ids
 	ObjectIds []string `json:"ObjectIds"`
 
-	// object types
+	// Filter by type of objects
 	ObjectTypes []ActivityOwnerType `json:"ObjectTypes"`
 
-	// user ids
+	// List of UserIds for which we want to list
 	UserIds []string `json:"UserIds"`
 }
 

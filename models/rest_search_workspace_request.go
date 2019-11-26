@@ -18,25 +18,25 @@ import (
 // swagger:model restSearchWorkspaceRequest
 type RestSearchWorkspaceRequest struct {
 
-	// count only
+	// Return counts only, no actual results
 	CountOnly bool `json:"CountOnly,omitempty"`
 
-	// group by
+	// Group results
 	GroupBy int32 `json:"GroupBy,omitempty"`
 
-	// limit
+	// Limit the number of results
 	Limit string `json:"Limit,omitempty"`
 
-	// offset
+	// Start listing at a given position
 	Offset string `json:"Offset,omitempty"`
 
-	// operation
+	// Single queries will be combined using this operation AND or OR logic
 	Operation ServiceOperationType `json:"Operation,omitempty"`
 
-	// queries
+	// Atomic queries that will be combined using the OperationType (AND or OR)
 	Queries []*IdmWorkspaceSingleQuery `json:"Queries"`
 
-	// resource policy query
+	// Policies queries to filter the search context
 	ResourcePolicyQuery *RestResourcePolicyQuery `json:"ResourcePolicyQuery,omitempty"`
 }
 

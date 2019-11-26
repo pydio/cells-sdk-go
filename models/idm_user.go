@@ -14,41 +14,41 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// IdmUser idm user
+// IdmUser User can represent either a User or a Group
 // swagger:model idmUser
 type IdmUser struct {
 
-	// attributes
+	// A free list of attributes
 	Attributes map[string]string `json:"Attributes,omitempty"`
 
-	// group label
+	// Label of the group, field is empty for users
 	GroupLabel string `json:"GroupLabel,omitempty"`
 
-	// group path
+	// Path to the parent group
 	GroupPath string `json:"GroupPath,omitempty"`
 
-	// Group specific data
+	// Whether this object is a group or a user
 	IsGroup bool `json:"IsGroup,omitempty"`
 
-	// User specific data
+	// User login is used to connect, field is empty for groups
 	Login string `json:"Login,omitempty"`
 
-	// old password
+	// OldPassword must be set when a user updates her own password
 	OldPassword string `json:"OldPassword,omitempty"`
 
-	// password
+	// Password can be passed to be updated (but never read back), field is empty for groups
 	Password string `json:"Password,omitempty"`
 
-	// policies
+	// Policies securing access to this user
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// policies context editable
+	// Context-resolved to quickly check if user is editable or not.
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// roles
+	// List of roles applied to this user or group
 	Roles []*IdmRole `json:"Roles"`
 
-	// Uuid
+	// User unique identifier
 	UUID string `json:"Uuid,omitempty"`
 }
 

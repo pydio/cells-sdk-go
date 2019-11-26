@@ -15,10 +15,10 @@ import (
 // swagger:model restListPeerFoldersRequest
 type RestListPeerFoldersRequest struct {
 
-	// path
+	// Path to the parent folder for listing
 	Path string `json:"Path,omitempty"`
 
-	// peer address
+	// Restrict listing to a given peer
 	PeerAddress string `json:"PeerAddress,omitempty"`
 }
 

@@ -15,7 +15,7 @@ import (
 // swagger:model encryptionAdminDeleteKeyRequest
 type EncryptionAdminDeleteKeyRequest struct {
 
-	// key ID
+	// Id of the key to delete
 	KeyID string `json:"KeyID,omitempty"`
 }
 

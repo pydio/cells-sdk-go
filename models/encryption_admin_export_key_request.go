@@ -15,10 +15,10 @@ import (
 // swagger:model encryptionAdminExportKeyRequest
 type EncryptionAdminExportKeyRequest struct {
 
-	// key ID
+	// Id of the key to export
 	KeyID string `json:"KeyID,omitempty"`
 
-	// str password
+	// Associated password as string
 	StrPassword string `json:"StrPassword,omitempty"`
 }
 

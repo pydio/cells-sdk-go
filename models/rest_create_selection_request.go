@@ -18,13 +18,13 @@ import (
 // swagger:model restCreateSelectionRequest
 type RestCreateSelectionRequest struct {
 
-	// nodes
+	// Create a temporary selection out of this list of nodes
 	Nodes []*TreeNode `json:"Nodes"`
 
-	// persist
+	// Whether to save the selection or just get a temporary Uuid in return
 	Persist bool `json:"Persist,omitempty"`
 
-	// target action
+	// Associated target action for this selection
 	TargetAction string `json:"TargetAction,omitempty"`
 }
 

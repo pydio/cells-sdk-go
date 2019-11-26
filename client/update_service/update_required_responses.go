@@ -51,7 +51,7 @@ type UpdateRequiredOK struct {
 }
 
 func (o *UpdateRequiredOK) Error() string {
-	return fmt.Sprintf("[GET /update][%d] updateRequiredOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateRequiredOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

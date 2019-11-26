@@ -51,7 +51,7 @@ type ApplyUpdateOK struct {
 }
 
 func (o *ApplyUpdateOK) Error() string {
-	return fmt.Sprintf("[GET /update/{TargetVersion}][%d] applyUpdateOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateOK  %+v", 200, o.Payload)
 }
 
 func (o *ApplyUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -74,7 +74,10 @@ for the list services operation typically these are written to a http.Request
 */
 type ListServicesParams struct {
 
-	/*StatusFilter*/
+	/*StatusFilter
+	  Filter services by a given status (ANY, STOPPED, STOPPING, RUNNING).
+
+	*/
 	StatusFilter *string
 
 	timeout    time.Duration

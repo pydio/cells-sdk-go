@@ -15,22 +15,22 @@ import (
 // swagger:model restDiscoveryResponse
 type RestDiscoveryResponse struct {
 
-	// build revision
+	// Revision of the current binary build, empty if user is not authenticated
 	BuildRevision string `json:"BuildRevision,omitempty"`
 
-	// build stamp
+	// Build stamp of the binary build, empty if user is not authenticated
 	BuildStamp int32 `json:"BuildStamp,omitempty"`
 
-	// endpoints
+	// List of endpoints and their corresponding URL access. Special case for grpc that just send back its port
 	Endpoints map[string]string `json:"Endpoints,omitempty"`
 
-	// package label
+	// Current Package Label, empty if user is not authenticated
 	PackageLabel string `json:"PackageLabel,omitempty"`
 
-	// package type
+	// Current Package Type, empty if user is not authenticated
 	PackageType string `json:"PackageType,omitempty"`
 
-	// version
+	// Current Package Version, empty if user is not authenticated
 	Version string `json:"Version,omitempty"`
 }
 
