@@ -13,12 +13,20 @@ type SdkConfig struct {
 	User     string `json:"user"`
 	Password string `json:"password"`
 
+	// OIDC Code Flow
+	IdToken        string `json:"idToken"`
+	RefreshToken   string `json:"refreshToken"`
+	TokenExpiresAt int    `json:"tokenExpiresAt"`
+
 	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
 	SkipVerify bool `json:"skipVerify"`
 
 	// UseTokenCache flags wether we should rely on a local cache to avoid retrieving a new JWT token at each request.
 	// It is useful to *not* use the cache when running connection tests for instance.
 	UseTokenCache bool `json:"useTokenCache"`
+
+	// Optional list of headers to override in requests, typically User-Agent
+	CustomHeaders map[string]string
 }
 
 // S3Config stores connection parameters to a running Cells instance S3 gateway via the AWS SDK for Go.

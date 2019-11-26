@@ -22,10 +22,12 @@ package mc
 
 import (
 	"context"
+	"crypto/tls"
 	"io"
+	"net/http"
 	"net/url"
 
-	minio "github.com/pydio/minio-go"
+	"github.com/pydio/minio-go"
 
 	sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/transport/oidc"
@@ -63,6 +65,14 @@ func (g *S3Client) GetObject(ctx context.Context, node *tree.Node, requestData *
 	if e != nil {
 		return nil, e
 	}
+	t := http.DefaultTransport
+	if g.config.SkipVerify {
+		t = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
+	}
+	if g.config.CustomHeaders != nil && len(g.config.CustomHeaders) > 0 {
+		t = &customHeaderRoundTripper{rt: t, Headers: g.config.CustomHeaders}
+	}
+	mc.SetCustomTransport(t)
 	r, _, e := mc.GetObject(g.s3config.Bucket, node.Path, minio.GetObjectOptions{})
 	return r, e
 }
@@ -78,6 +88,14 @@ func (g *S3Client) PutObject(ctx context.Context, node *tree.Node, reader io.Rea
 	if e != nil {
 		return 0, e
 	}
+	t := http.DefaultTransport
+	if g.config.SkipVerify {
+		t = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
+	}
+	if g.config.CustomHeaders != nil && len(g.config.CustomHeaders) > 0 {
+		t = &customHeaderRoundTripper{rt: t, Headers: g.config.CustomHeaders}
+	}
+	mc.SetCustomTransport(t)
 	return mc.PutObjectWithContext(ctx, g.s3config.Bucket, node.Path, reader, requestData.Size, minio.PutObjectOptions{
 		UserMetadata: requestData.Metadata,
 	})
@@ -92,10 +110,30 @@ func (g *S3Client) CopyObject(ctx context.Context, from *tree.Node, to *tree.Nod
 	if e != nil {
 		return 0, e
 	}
+	t := http.DefaultTransport
+	if g.config.SkipVerify {
+		t = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
+	}
+	if g.config.CustomHeaders != nil && len(g.config.CustomHeaders) > 0 {
+		t = &customHeaderRoundTripper{rt: t, Headers: g.config.CustomHeaders}
+	}
+	mc.SetCustomTransport(t)
 	dst, e := minio.NewDestinationInfo(g.s3config.Bucket, to.Path, nil, requestData.Metadata)
 	if e != nil {
 		return 0, e
 	}
 	src := minio.NewSourceInfo(g.s3config.Bucket, from.Path, nil)
 	return 0, mc.CopyObject(dst, src)
+}
+
+type customHeaderRoundTripper struct {
+	rt      http.RoundTripper
+	Headers map[string]string
+}
+
+func (c customHeaderRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	for k, v := range c.Headers {
+		req.Header.Set(k, v)
+	}
+	return c.rt.RoundTrip(req)
 }

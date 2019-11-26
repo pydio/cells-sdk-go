@@ -9,8 +9,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/pydio/cells-sdk-go"
 	"github.com/spf13/cobra"
+
+	cells_sdk "github.com/pydio/cells-sdk-go"
 )
 
 var (

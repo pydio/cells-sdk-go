@@ -27,14 +27,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/pydio/cells-sdk-go/transport/oidc"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/pydio/cells-sdk-go"
+
+	cells_sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/transport"
+	"github.com/pydio/cells-sdk-go/transport/oidc"
 )
 
 // GetS3CLient creates and configure a new S3 client at each request.
@@ -65,6 +65,12 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired and self-signed SSL certificates
 		}
 	}
+	if sdc.CustomHeaders != nil && len(sdc.CustomHeaders) > 0 {
+		tr = &customHeaderRoundTripper{
+			rt:      tr,
+			Headers: sdc.CustomHeaders,
+		}
+	}
 	if s3c.UsePydioSpecificHeader { // Legacy:
 		tr = NewAuthTransport(tr, sdc, s3c)
 	}
@@ -76,8 +82,6 @@ func GetS3CLient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, err
 	if err != nil {
 		log.Fatal("cannot initialise default S3 session: " + err.Error())
 	}
-
-	// s3.New(s3Session).ListBuckets(nil)
 
 	return s3.New(s3Session), nil
 }
@@ -138,4 +142,16 @@ func (dl DefaultLogger) LogResponse(req *http.Request, res *http.Response, err e
 	} else {
 		log.Printf("HTTP Request method=%s host=%s path=%s status=%d durationMs=%d", req.Method, req.Host, req.URL.Path, res.StatusCode, duration)
 	}
+}
+
+type customHeaderRoundTripper struct {
+	rt      http.RoundTripper
+	Headers map[string]string
+}
+
+func (c customHeaderRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	for k, v := range c.Headers {
+		req.Header.Set(k, v)
+	}
+	return c.rt.RoundTrip(req)
 }
