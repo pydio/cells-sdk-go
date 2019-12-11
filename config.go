@@ -6,17 +6,21 @@ package cells_sdk
 type SdkConfig struct {
 	// Url stores domain name or IP & port to the server.
 	Url string `json:"url"`
+
+	// // Use OIDC code flow or client credential
+	// AuthType string `json:"authType"`
+
+	// OIDC Code Flow
+	IdToken        string `json:"idToken"`
+	RefreshToken   string `json:"refreshToken"`
+	TokenExpiresAt int    `json:"tokenExpiresAt"`
+
 	// OIDC ClientKey / ClientSecret
 	ClientKey    string `json:"clientKey"`
 	ClientSecret string `json:"clientSecret"`
 	// Pydio User Authentication
 	User     string `json:"user"`
 	Password string `json:"password"`
-
-	// OIDC Code Flow
-	IdToken        string `json:"idToken"`
-	RefreshToken   string `json:"refreshToken"`
-	TokenExpiresAt int    `json:"tokenExpiresAt"`
 
 	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
 	SkipVerify bool `json:"skipVerify"`

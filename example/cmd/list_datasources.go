@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/spf13/cobra"
-
+	
 	"github.com/pydio/cells-sdk-go/client/config_service"
 )
 
@@ -15,7 +15,7 @@ var listDatasources = &cobra.Command{
 	Long:  `List all the datasources`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		//connects to the pydio api via the sdkConfig
+		// Connect to the Pydio API via the sdkConfig
 		ctx, apiClient, err := GetApiClient(DefaultConfig)
 		if err != nil {
 			log.Fatal(err.Error())
@@ -25,14 +25,14 @@ var listDatasources = &cobra.Command{
 		for the list data sources operation typically these are written to a http.Request */
 		params := &config_service.ListDataSourcesParams{Context: ctx}
 
-		//assigns the datasources data retrieved above in the results variable
+		// Assign the datasources data retrieved above in the results variable
 		result, err := apiClient.ConfigService.ListDataSources(params)
 		if err != nil {
 			fmt.Printf("could not list workspaces: %s\n", err.Error())
 			log.Fatal(err.Error())
 		}
 
-		//prints the name of the datasources retrieved previously
+		// Print the name of the datasources retrieved previously
 		if len(result.Payload.DataSources) > 0 {
 			fmt.Printf("* %d datasources	\n", len(result.Payload.DataSources))
 			for _, u := range result.Payload.DataSources {
