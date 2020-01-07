@@ -501,6 +501,34 @@ func (a *Client) ListServices(params *ListServicesParams) (*ListServicesOK, erro
 }
 
 /*
+ListStorageBuckets lists buckets on a given object storage
+*/
+func (a *Client) ListStorageBuckets(params *ListStorageBucketsParams) (*ListStorageBucketsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListStorageBucketsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListStorageBuckets",
+		Method:             "POST",
+		PathPattern:        "/config/buckets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListStorageBucketsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListStorageBucketsOK), nil
+
+}
+
+/*
 ListVersioningPolicies lists all defined versioning policies
 */
 func (a *Client) ListVersioningPolicies(params *ListVersioningPoliciesParams) (*ListVersioningPoliciesOK, error) {
