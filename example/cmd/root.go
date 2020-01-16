@@ -51,12 +51,6 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			if host == "" {
 				msg += " - Host URL\n"
 			}
-			if id == "" {
-				msg += " - API key (usually cells-front)\n"
-			}
-			if secret == "" {
-				msg += " - API secret\n"
-			}
 			if user == "" {
 				msg += " - the login of an existing user\n"
 			}
@@ -71,12 +65,10 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			}
 
 			DefaultConfig = &cells_sdk.SdkConfig{
-				Url:          host,
-				ClientKey:    id,
-				ClientSecret: secret,
-				User:         user,
-				Password:     pwd,
-				SkipVerify:   skipVerify,
+				Url:        host,
+				User:       user,
+				Password:   pwd,
+				SkipVerify: skipVerify,
 			}
 
 			return
@@ -90,6 +82,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 		var c cells_sdk.SdkConfig
 		if e = json.Unmarshal(data, &c); e != nil {
 			log.Fatal("Cannot decode config content for file at", configFile, "- route cause:", e)
+		} else {
+			DefaultConfig = &c
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {

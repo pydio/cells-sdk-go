@@ -21,27 +21,28 @@
 package oidc
 
 import (
+	"context"
 	"crypto/md5"
+	"crypto/tls"
 	"encoding/base64"
 	"encoding/hex"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
 
+	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/patrickmn/go-cache"
 
 	"github.com/pydio/cells-sdk-go"
-	http2 "github.com/pydio/cells-sdk-go/transport/http"
+	"github.com/pydio/cells-sdk-go/client"
+	"github.com/pydio/cells-sdk-go/client/frontend_service"
+	"github.com/pydio/cells-sdk-go/models"
 )
 
 var (
-	oidcResourcePath = "/auth/dex"
-	grantType        = "password"
-	scope            = "email profile pydio"
-	store            = NewTokenStore()
+	store = NewTokenStore()
 )
 
 type TokenStore struct {
@@ -86,14 +87,10 @@ func (t *TokenStore) computeKey(c *cells_sdk.SdkConfig) string {
 
 func RetrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
 
-	if sdkConfig.UseTokenCache {
-		cached := store.TokenFor(sdkConfig)
-		if cached != "" {
-			// fmt.Println("[Auth: Retrieved token from cache]")
-			return cached, nil
-		}
-		// fmt.Println("No token found in cache, querying the server")
+	if cached := store.TokenFor(sdkConfig); sdkConfig.UseTokenCache && cached != "" {
+		return cached, nil
 	}
+
 	if sdkConfig.IdToken != "" {
 		// We passed a pre-fetched valid token
 		expTime := time.Unix(int64(sdkConfig.TokenExpiresAt), 0)
@@ -101,44 +98,40 @@ func RetrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
 		return sdkConfig.IdToken, nil
 	}
 
-	fullURL := sdkConfig.Url + oidcResourcePath + "/token"
+	u, e := url.Parse(sdkConfig.Url)
+	if e != nil {
+		return "", e
+	}
 
-	data := url.Values{}
-	data.Set("grant_type", grantType)
-	data.Add("username", sdkConfig.User)
-	data.Add("password", sdkConfig.Password)
-	// TODO: Scope should ask for "offline_access" as well for more realism
-	data.Add("scope", scope)
-	// TODO: This should be a uuid.New() for more realism
-	data.Add("nonce", "aVerySpecialNonce")
+	ctx := context.Background()
+	runtime := httptransport.New(u.Host, "/a", []string{u.Scheme})
+	if sdkConfig.SkipVerify {
+		runtime.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired and self-signed SSL certificates
+		}
+	}
+	if sdkConfig.CustomHeaders != nil && len(sdkConfig.CustomHeaders) > 0 {
+		runtime.Transport = &customHeaderRoundTripper{
+			rt:      runtime.Transport,
+			Headers: sdkConfig.CustomHeaders,
+		}
+	}
+	runtime.Context = ctx
 
-	req, err := http.NewRequest("POST", fullURL, strings.NewReader(data.Encode()))
+	frontRequest := frontend_service.NewFrontSessionParams().WithBody(&models.RestFrontSessionRequest{
+		AuthInfo: map[string]string{
+			"login":    sdkConfig.User,
+			"password": sdkConfig.Password,
+			"type":     "credentials",
+		},
+	}).WithContext(ctx)
+	resp, err := client.New(runtime, strfmt.Default).FrontendService.FrontSession(frontRequest)
 	if err != nil {
 		return "", err
 	}
+	token := resp.Payload.JWT
+	expiry := float64(resp.Payload.ExpireTime) - 60
 
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded") // Important: our dex API does not yet support json payload.
-	req.Header.Add("Cache-Control", "no-cache")
-	req.Header.Add("Authorization", basicAuthToken(sdkConfig.ClientKey, sdkConfig.ClientSecret))
-
-	res, err := http2.GetHttpClient(sdkConfig).Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer res.Body.Close()
-
-	var respMap map[string]interface{}
-	err = json.NewDecoder(res.Body).Decode(&respMap)
-	if err != nil {
-		return "", fmt.Errorf("could not unmarshall response with status %d: %s\nerror cause: %s", res.StatusCode, res.Status, err.Error())
-	}
-	if errMsg, exists := respMap["error"]; exists {
-		return "", fmt.Errorf("could not retrieve token, %s: %s", errMsg, respMap["error_description"])
-	}
-
-	token := respMap["id_token"].(string)
-
-	expiry := respMap["expires_in"].(float64) - 60 // Secure by shortening expiration time
 	store.Store(sdkConfig, token, time.Duration(expiry)*time.Second)
 	return token, nil
 }
@@ -146,4 +139,16 @@ func RetrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
 func basicAuthToken(username, password string) string {
 	auth := username + ":" + password
 	return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
+}
+
+type customHeaderRoundTripper struct {
+	rt      http.RoundTripper
+	Headers map[string]string
+}
+
+func (c customHeaderRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	for k, v := range c.Headers {
+		req.Header.Set(k, v)
+	}
+	return c.rt.RoundTrip(req)
 }

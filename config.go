@@ -15,7 +15,7 @@ type SdkConfig struct {
 	RefreshToken   string `json:"refreshToken"`
 	TokenExpiresAt int    `json:"tokenExpiresAt"`
 
-	// OIDC ClientKey / ClientSecret
+	// OIDC ClientKey / ClientSecret - Legacy stuff, not used anymore
 	ClientKey    string `json:"clientKey"`
 	ClientSecret string `json:"clientSecret"`
 	// Pydio User Authentication

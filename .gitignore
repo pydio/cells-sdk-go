@@ -4,5 +4,4 @@
 cells-sdk-go
 swagger
 sdk-builder
-config/config.json
-config/config-s3.json
+config.json
