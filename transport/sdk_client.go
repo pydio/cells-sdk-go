@@ -46,9 +46,7 @@ func GetRestClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (con
 	jwt, err := oidc.RetrieveToken(sdkConfig)
 	if err != nil {
 		return nil, nil, fmt.Errorf(
-			"cannot retrieve token with config:\n%s - %s - %s - %s - %s - %v\nerror cause: %s",
-			sdkConfig.Url, sdkConfig.ClientKey, sdkConfig.ClientSecret,
-			sdkConfig.User, sdkConfig.Password, sdkConfig.SkipVerify, err.Error())
+			"cannot retrieve token with cause: %s", err.Error())
 	}
 	bearerTokenAuth := httptransport.BearerToken(jwt)
 	transport.DefaultAuthentication = bearerTokenAuth
