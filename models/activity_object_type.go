@@ -180,6 +180,12 @@ const (
 	// ActivityObjectTypeUpdate captures enum value "Update"
 	ActivityObjectTypeUpdate ActivityObjectType = "Update"
 
+	// ActivityObjectTypeUpdateComment captures enum value "UpdateComment"
+	ActivityObjectTypeUpdateComment ActivityObjectType = "UpdateComment"
+
+	// ActivityObjectTypeUpdateMeta captures enum value "UpdateMeta"
+	ActivityObjectTypeUpdateMeta ActivityObjectType = "UpdateMeta"
+
 	// ActivityObjectTypeView captures enum value "View"
 	ActivityObjectTypeView ActivityObjectType = "View"
 
@@ -204,7 +210,7 @@ var activityObjectTypeEnum []interface{}
 
 func init() {
 	var res []ActivityObjectType
-	if err := json.Unmarshal([]byte(`["BaseObject","Activity","Link","Mention","Collection","OrderedCollection","CollectionPage","OrderedCollectionPage","Application","Group","Organization","Person","Service","Article","Audio","Document","Event","Image","Note","Page","Place","Profile","Relationship","Tombstone","Video","Accept","Add","Announce","Arrive","Block","Create","Delete","Dislike","Flag","Follow","Ignore","Invite","Join","Leave","Like","Listen","Move","Offer","Question","Reject","Read","Remove","TentativeReject","TentativeAccept","Travel","Undo","Update","View","Workspace","Digest","Folder","Cell","Share"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["BaseObject","Activity","Link","Mention","Collection","OrderedCollection","CollectionPage","OrderedCollectionPage","Application","Group","Organization","Person","Service","Article","Audio","Document","Event","Image","Note","Page","Place","Profile","Relationship","Tombstone","Video","Accept","Add","Announce","Arrive","Block","Create","Delete","Dislike","Flag","Follow","Ignore","Invite","Join","Leave","Like","Listen","Move","Offer","Question","Reject","Read","Remove","TentativeReject","TentativeAccept","Travel","Undo","Update","UpdateComment","UpdateMeta","View","Workspace","Digest","Folder","Cell","Share"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
