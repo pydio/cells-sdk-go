@@ -8,6 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -15,11 +16,20 @@ import (
 // swagger:model restFrontSessionResponse
 type RestFrontSessionResponse struct {
 
+	// error
+	Error string `json:"Error,omitempty"`
+
 	// expire time
 	ExpireTime int32 `json:"ExpireTime,omitempty"`
 
-	// j w t
+	// Legacy information (now in token)
 	JWT string `json:"JWT,omitempty"`
+
+	// redirect to
+	RedirectTo string `json:"RedirectTo,omitempty"`
+
+	// token
+	Token *AuthToken `json:"Token,omitempty"`
 
 	// Trigger a specific Auth step
 	Trigger string `json:"Trigger,omitempty"`
@@ -30,6 +40,33 @@ type RestFrontSessionResponse struct {
 
 // Validate validates this rest front session response
 func (m *RestFrontSessionResponse) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestFrontSessionResponse) validateToken(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Token) { // not required
+		return nil
+	}
+
+	if m.Token != nil {
+		if err := m.Token.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Token")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

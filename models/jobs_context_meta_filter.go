@@ -12,19 +12,26 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// JobsSourceFilter jobs source filter
-// swagger:model jobsSourceFilter
-type JobsSourceFilter struct {
+// JobsContextMetaFilter PolicyContextFilter can be used to filter request metadata
+// swagger:model jobsContextMetaFilter
+type JobsContextMetaFilter struct {
 
-	// Can be built with SourceSingleQuery or ActionOutputQuery
+	// Can be built with ContextMetaSingleQuery
 	Query *ServiceQuery `json:"Query,omitempty"`
+
+	// Type of context filter
+	Type JobsContextMetaFilterType `json:"Type,omitempty"`
 }
 
-// Validate validates this jobs source filter
-func (m *JobsSourceFilter) Validate(formats strfmt.Registry) error {
+// Validate validates this jobs context meta filter
+func (m *JobsContextMetaFilter) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateQuery(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -34,7 +41,7 @@ func (m *JobsSourceFilter) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *JobsSourceFilter) validateQuery(formats strfmt.Registry) error {
+func (m *JobsContextMetaFilter) validateQuery(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Query) { // not required
 		return nil
@@ -52,8 +59,24 @@ func (m *JobsSourceFilter) validateQuery(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsContextMetaFilter) validateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	if err := m.Type.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Type")
+		}
+		return err
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
-func (m *JobsSourceFilter) MarshalBinary() ([]byte, error) {
+func (m *JobsContextMetaFilter) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -61,8 +84,8 @@ func (m *JobsSourceFilter) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *JobsSourceFilter) UnmarshalBinary(b []byte) error {
-	var res JobsSourceFilter
+func (m *JobsContextMetaFilter) UnmarshalBinary(b []byte) error {
+	var res JobsContextMetaFilter
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

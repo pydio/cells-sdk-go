@@ -668,6 +668,62 @@ func (a *Client) PutDataSource(params *PutDataSourceParams) (*PutDataSourceOK, e
 
 }
 
+/*
+SchedulerActionFormDiscovery publishes scheduler action XML form for building screens in frontend
+*/
+func (a *Client) SchedulerActionFormDiscovery(params *SchedulerActionFormDiscoveryParams) (*SchedulerActionFormDiscoveryOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSchedulerActionFormDiscoveryParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "SchedulerActionFormDiscovery",
+		Method:             "GET",
+		PathPattern:        "/config/scheduler/actions/{ActionName}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &SchedulerActionFormDiscoveryReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SchedulerActionFormDiscoveryOK), nil
+
+}
+
+/*
+SchedulerActionsDiscovery publishes scheduler registered actions
+*/
+func (a *Client) SchedulerActionsDiscovery(params *SchedulerActionsDiscoveryParams) (*SchedulerActionsDiscoveryOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSchedulerActionsDiscoveryParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "SchedulerActionsDiscovery",
+		Method:             "GET",
+		PathPattern:        "/config/scheduler/actions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &SchedulerActionsDiscoveryReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SchedulerActionsDiscoveryOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

@@ -20,25 +20,38 @@ import (
 // swagger:model jobsActionMessage
 type JobsActionMessage struct {
 
-	// activities
+	// One or more ACL
+	Acls []*IdmACL `json:"Acls"`
+
+	// One or more Activity
 	Activities []*ActivityObject `json:"Activities"`
 
-	// event
+	// Initial event that triggered the Job
 	Event *ProtobufAny `json:"Event,omitempty"`
 
-	// nodes
+	// One or more Node
 	Nodes []*TreeNode `json:"Nodes"`
 
-	// output chain
+	// Stack of ActionOutput messages appended by all previous actions
 	OutputChain []*JobsActionOutput `json:"OutputChain"`
 
-	// users
+	// One or more Role
+	Roles []*IdmRole `json:"Roles"`
+
+	// One or more User
 	Users []*IdmUser `json:"Users"`
+
+	// One or more Workspace
+	Workspaces []*IdmWorkspace `json:"Workspaces"`
 }
 
 // Validate validates this jobs action message
 func (m *JobsActionMessage) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAcls(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateActivities(formats); err != nil {
 		res = append(res, err)
@@ -56,13 +69,46 @@ func (m *JobsActionMessage) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateRoles(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateUsers(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaces(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *JobsActionMessage) validateAcls(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Acls) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Acls); i++ {
+		if swag.IsZero(m.Acls[i]) { // not required
+			continue
+		}
+
+		if m.Acls[i] != nil {
+			if err := m.Acls[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Acls" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -159,6 +205,31 @@ func (m *JobsActionMessage) validateOutputChain(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsActionMessage) validateRoles(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Roles) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Roles); i++ {
+		if swag.IsZero(m.Roles[i]) { // not required
+			continue
+		}
+
+		if m.Roles[i] != nil {
+			if err := m.Roles[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Roles" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *JobsActionMessage) validateUsers(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Users) { // not required
@@ -174,6 +245,31 @@ func (m *JobsActionMessage) validateUsers(formats strfmt.Registry) error {
 			if err := m.Users[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Users" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *JobsActionMessage) validateWorkspaces(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Workspaces) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Workspaces); i++ {
+		if swag.IsZero(m.Workspaces[i]) { // not required
+			continue
+		}
+
+		if m.Workspaces[i] != nil {
+			if err := m.Workspaces[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Workspaces" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -12,28 +12,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// JobsNodesSelector /////////////////
-// JOB  SERVICE  //
-// /////////////////
-// swagger:model jobsNodesSelector
-type JobsNodesSelector struct {
+// JobsActionOutputFilter ActionOutputFilter can be used to filter last message output
+// swagger:model jobsActionOutputFilter
+type JobsActionOutputFilter struct {
 
-	// Select all files - ignore any other condition
-	All bool `json:"All,omitempty"`
-
-	// Wether to trigger one action per node or one action
-	// with all nodes as selection
-	Collect bool `json:"Collect,omitempty"`
-
-	// Preset list of node pathes
-	Pathes []string `json:"Pathes"`
-
-	// Query to apply to select users (or filter a given node passed by event)
+	// Query built from ActionOutputSingleQuery
 	Query *ServiceQuery `json:"Query,omitempty"`
 }
 
-// Validate validates this jobs nodes selector
-func (m *JobsNodesSelector) Validate(formats strfmt.Registry) error {
+// Validate validates this jobs action output filter
+func (m *JobsActionOutputFilter) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateQuery(formats); err != nil {
@@ -46,7 +34,7 @@ func (m *JobsNodesSelector) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *JobsNodesSelector) validateQuery(formats strfmt.Registry) error {
+func (m *JobsActionOutputFilter) validateQuery(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Query) { // not required
 		return nil
@@ -65,7 +53,7 @@ func (m *JobsNodesSelector) validateQuery(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *JobsNodesSelector) MarshalBinary() ([]byte, error) {
+func (m *JobsActionOutputFilter) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -73,8 +61,8 @@ func (m *JobsNodesSelector) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *JobsNodesSelector) UnmarshalBinary(b []byte) error {
-	var res JobsNodesSelector
+func (m *JobsActionOutputFilter) UnmarshalBinary(b []byte) error {
+	var res JobsActionOutputFilter
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

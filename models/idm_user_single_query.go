@@ -31,6 +31,9 @@ type IdmUserSingleQuery struct {
 	// Search on group path, and if so, search recursively
 	GroupPath string `json:"GroupPath,omitempty"`
 
+	// Shortcut for pydio:profile attribute
+	HasProfile string `json:"HasProfile,omitempty"`
+
 	// Search on roles
 	HasRole string `json:"HasRole,omitempty"`
 

@@ -54,6 +54,15 @@ type LogLogMessage struct {
 	// role uuids
 	RoleUuids []string `json:"RoleUuids"`
 
+	// scheduler job Uuid
+	SchedulerJobUUID string `json:"SchedulerJobUuid,omitempty"`
+
+	// scheduler task action path
+	SchedulerTaskActionPath string `json:"SchedulerTaskActionPath,omitempty"`
+
+	// scheduler task Uuid
+	SchedulerTaskUUID string `json:"SchedulerTaskUuid,omitempty"`
+
 	// span parent Uuid
 	SpanParentUUID string `json:"SpanParentUuid,omitempty"`
 

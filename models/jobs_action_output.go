@@ -17,27 +17,27 @@ import (
 // swagger:model jobsActionOutput
 type JobsActionOutput struct {
 
-	// error string
+	// Error
 	ErrorString string `json:"ErrorString,omitempty"`
 
-	// ignored
+	// If action was returned WithIgnore()
 	Ignored bool `json:"Ignored,omitempty"`
 
-	// Json body
+	// Arbitrary JSON-encoded bytes
 	// Format: byte
 	JSONBody strfmt.Base64 `json:"JsonBody,omitempty"`
 
-	// raw body
+	// Arbitrary bytes sequence
 	// Format: byte
 	RawBody strfmt.Base64 `json:"RawBody,omitempty"`
 
-	// string body
+	// Arbitrary string
 	StringBody string `json:"StringBody,omitempty"`
 
-	// success
+	// True if action succeeded
 	Success bool `json:"Success,omitempty"`
 
-	// time
+	// Time taken to run the action
 	Time int32 `json:"Time,omitempty"`
 }
 

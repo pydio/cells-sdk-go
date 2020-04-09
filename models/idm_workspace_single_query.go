@@ -16,6 +16,18 @@ import (
 // swagger:model idmWorkspaceSingleQuery
 type IdmWorkspaceSingleQuery struct {
 
+	// attribute name
+	AttributeName string `json:"AttributeName,omitempty"`
+
+	// attribute value
+	AttributeValue string `json:"AttributeValue,omitempty"`
+
+	// has attribute
+	HasAttribute string `json:"HasAttribute,omitempty"`
+
+	// last updated
+	LastUpdated string `json:"LastUpdated,omitempty"`
+
 	// description
 	Description string `json:"description,omitempty"`
 

@@ -12,31 +12,32 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// JobsNodesSelector /////////////////
-// JOB  SERVICE  //
-// /////////////////
-// swagger:model jobsNodesSelector
-type JobsNodesSelector struct {
+// JobsIdmSelector Generic container for select/filter idm objects
+// swagger:model jobsIdmSelector
+type JobsIdmSelector struct {
 
-	// Select all files - ignore any other condition
+	// Load all objects
 	All bool `json:"All,omitempty"`
 
-	// Wether to trigger one action per node or one action
-	// with all nodes as selection
+	// Pass a slice of objects to one action, or trigger all actions in parallel
 	Collect bool `json:"Collect,omitempty"`
 
-	// Preset list of node pathes
-	Pathes []string `json:"Pathes"`
-
-	// Query to apply to select users (or filter a given node passed by event)
+	// Serialized search query
 	Query *ServiceQuery `json:"Query,omitempty"`
+
+	// Type of objects to look for
+	Type JobsIdmSelectorType `json:"Type,omitempty"`
 }
 
-// Validate validates this jobs nodes selector
-func (m *JobsNodesSelector) Validate(formats strfmt.Registry) error {
+// Validate validates this jobs idm selector
+func (m *JobsIdmSelector) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateQuery(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -46,7 +47,7 @@ func (m *JobsNodesSelector) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *JobsNodesSelector) validateQuery(formats strfmt.Registry) error {
+func (m *JobsIdmSelector) validateQuery(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Query) { // not required
 		return nil
@@ -64,8 +65,24 @@ func (m *JobsNodesSelector) validateQuery(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsIdmSelector) validateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	if err := m.Type.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Type")
+		}
+		return err
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
-func (m *JobsNodesSelector) MarshalBinary() ([]byte, error) {
+func (m *JobsIdmSelector) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -73,8 +90,8 @@ func (m *JobsNodesSelector) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *JobsNodesSelector) UnmarshalBinary(b []byte) error {
-	var res JobsNodesSelector
+func (m *JobsIdmSelector) UnmarshalBinary(b []byte) error {
+	var res JobsIdmSelector
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// JobsUsersSelector jobs users selector
+// JobsUsersSelector Select or filter users - should be replaced by more generic IdmSelector
 // swagger:model jobsUsersSelector
 type JobsUsersSelector struct {
 

@@ -10,17 +10,24 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RestSettingsEntry rest settings entry
 // swagger:model restSettingsEntry
 type RestSettingsEntry struct {
 
+	// accesses
+	Accesses map[string]RestSettingsAccess `json:"Accesses,omitempty"`
+
 	// alias
 	Alias string `json:"Alias,omitempty"`
 
 	// description
 	Description string `json:"Description,omitempty"`
+
+	// feature
+	Feature string `json:"Feature,omitempty"`
 
 	// key
 	Key string `json:"Key,omitempty"`
@@ -39,6 +46,10 @@ type RestSettingsEntry struct {
 func (m *RestSettingsEntry) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccesses(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateMetadata(formats); err != nil {
 		res = append(res, err)
 	}
@@ -46,6 +57,28 @@ func (m *RestSettingsEntry) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestSettingsEntry) validateAccesses(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Accesses) { // not required
+		return nil
+	}
+
+	for k := range m.Accesses {
+
+		if err := validate.Required("Accesses"+"."+k, "body", m.Accesses[k]); err != nil {
+			return err
+		}
+		if val, ok := m.Accesses[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

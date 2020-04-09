@@ -43,11 +43,23 @@ type TreeQuery struct {
 	// Range for size
 	MinSize string `json:"MinSize,omitempty"`
 
+	// Negate this query
+	Not bool `json:"Not,omitempty"`
+
+	// Limit to a given level of the tree - can be used in filters
+	PathDepth int32 `json:"PathDepth,omitempty"`
+
 	// Limit to a given subtree
 	PathPrefix []string `json:"PathPrefix"`
 
+	// Preset list of nodes by Path
+	Paths []string `json:"Paths"`
+
 	// Limit to a given node type
 	Type TreeNodeType `json:"Type,omitempty"`
+
+	// Preset list of Node by UUIDs
+	Uuids []string `json:"UUIDs"`
 }
 
 // Validate validates this tree query

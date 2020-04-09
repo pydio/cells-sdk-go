@@ -27,6 +27,9 @@ type JobsJob struct {
 	// Start task as soon as job is inserted
 	AutoStart bool `json:"AutoStart,omitempty"`
 
+	// Event Context Filter
+	ContextMetaFilter *JobsContextMetaFilter `json:"ContextMetaFilter,omitempty"`
+
 	// How the job will be triggered.
 	// One of these must be set (not exclusive)
 	// Listen to a given set of events
@@ -34,6 +37,9 @@ type JobsJob struct {
 
 	// Unique ID for this Job
 	ID string `json:"ID,omitempty"`
+
+	// Idm objects filter
+	IdmFilter *JobsIdmSelector `json:"IdmFilter,omitempty"`
 
 	// Admin can temporarily disable this job
 	Inactive bool `json:"Inactive,omitempty"`
@@ -47,11 +53,14 @@ type JobsJob struct {
 	// Task properties
 	MaxConcurrency int32 `json:"MaxConcurrency,omitempty"`
 
-	// node event filter
+	// Filter out specific events
 	NodeEventFilter *JobsNodesSelector `json:"NodeEventFilter,omitempty"`
 
 	// Who created this Job
 	Owner string `json:"Owner,omitempty"`
+
+	// Job-level parameters that can be passed to underlying actions
+	Parameters []*JobsJobParameter `json:"Parameters"`
 
 	// Schedule a periodic repetition
 	Schedule *JobsSchedule `json:"Schedule,omitempty"`
@@ -62,7 +71,7 @@ type JobsJob struct {
 	// Do not send notification on task update
 	TasksSilentUpdate bool `json:"TasksSilentUpdate,omitempty"`
 
-	// user event filter
+	// Deprecated in favor of more generic IdmSelector
 	UserEventFilter *JobsUsersSelector `json:"UserEventFilter,omitempty"`
 }
 
@@ -74,7 +83,19 @@ func (m *JobsJob) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateContextMetaFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIdmFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNodeEventFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateParameters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -121,6 +142,42 @@ func (m *JobsJob) validateActions(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsJob) validateContextMetaFilter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ContextMetaFilter) { // not required
+		return nil
+	}
+
+	if m.ContextMetaFilter != nil {
+		if err := m.ContextMetaFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ContextMetaFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsJob) validateIdmFilter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.IdmFilter) { // not required
+		return nil
+	}
+
+	if m.IdmFilter != nil {
+		if err := m.IdmFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("IdmFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *JobsJob) validateNodeEventFilter(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.NodeEventFilter) { // not required
@@ -134,6 +191,31 @@ func (m *JobsJob) validateNodeEventFilter(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *JobsJob) validateParameters(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Parameters) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Parameters); i++ {
+		if swag.IsZero(m.Parameters[i]) { // not required
+			continue
+		}
+
+		if m.Parameters[i] != nil {
+			if err := m.Parameters[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Parameters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
