@@ -109,6 +109,34 @@ func (a *Client) CreateEncryptionKey(params *CreateEncryptionKeyParams) (*Create
 }
 
 /*
+CreatePeerFolder creates a folder on a given path for a given peer filesystem
+*/
+func (a *Client) CreatePeerFolder(params *CreatePeerFolderParams) (*CreatePeerFolderOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreatePeerFolderParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "CreatePeerFolder",
+		Method:             "PUT",
+		PathPattern:        "/config/peers/{PeerAddress}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &CreatePeerFolderReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreatePeerFolderOK), nil
+
+}
+
+/*
 DeleteDataSource deletes a datasource
 */
 func (a *Client) DeleteDataSource(params *DeleteDataSourceParams) (*DeleteDataSourceOK, error) {

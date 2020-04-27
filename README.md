@@ -2,9 +2,9 @@
 
 Rest API Client for Pydio Cells.
 
-Temporary note: SDK has been updated on **Apr. 9th 2020** to follow the new development cycle of Cells 2.1+ that is not yet released.
+Temporary note: SDK has been updated on **Apr. 27th 2020** to follow the new development cycle of Cells 2.1+ that is not yet released.
 
-If you are using this in production and until we release Cells 2.1.0, we strongly advise that you stick to previous revision, typically, with go modules:
+If you are using this in production and until we release Cells 2.1.0, we strongly advise that you stick to previous **2.0.x** revision, typically, with go modules:
 
 ```go
 github.com/pydio/cells-sdk-go v0.0.0-20200313145255-e8831efc2d1b

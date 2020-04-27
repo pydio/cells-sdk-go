@@ -18,6 +18,12 @@ import (
 // swagger:model restSettingsAccess
 type RestSettingsAccess struct {
 
+	// description
+	Description string `json:"Description,omitempty"`
+
+	// label
+	Label string `json:"Label,omitempty"`
+
 	// policies
 	Policies []*RestSettingsAccessRestPolicy `json:"Policies"`
 }

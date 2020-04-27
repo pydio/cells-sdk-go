@@ -54,8 +54,8 @@ type InstallInstallConfig struct {
 	// db TCP port
 	DbTCPPort string `json:"dbTCPPort,omitempty"`
 
-	// db t cpuser
-	DbTCpuser string `json:"dbTCPUser,omitempty"`
+	// db TCP user
+	DbTCPUser string `json:"dbTCPUser,omitempty"`
 
 	// ds folder
 	DsFolder string `json:"dsFolder,omitempty"`
@@ -65,33 +65,6 @@ type InstallInstallConfig struct {
 
 	// ds port
 	DsPort string `json:"dsPort,omitempty"`
-
-	// external d a v
-	ExternalDAV string `json:"externalDAV,omitempty"`
-
-	// external dex
-	ExternalDex string `json:"externalDex,omitempty"`
-
-	// external dex ID
-	ExternalDexID string `json:"externalDexID,omitempty"`
-
-	// external dex secret
-	ExternalDexSecret string `json:"externalDexSecret,omitempty"`
-
-	// external front plugins
-	ExternalFrontPlugins string `json:"externalFrontPlugins,omitempty"`
-
-	// external gateway
-	ExternalGateway string `json:"externalGateway,omitempty"`
-
-	// external micro
-	ExternalMicro string `json:"externalMicro,omitempty"`
-
-	// external w o p i
-	ExternalWOPI string `json:"externalWOPI,omitempty"`
-
-	// external websocket
-	ExternalWebsocket string `json:"externalWebsocket,omitempty"`
 
 	// frontend application title
 	FrontendApplicationTitle string `json:"frontendApplicationTitle,omitempty"`
