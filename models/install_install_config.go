@@ -66,6 +66,39 @@ type InstallInstallConfig struct {
 	// ds port
 	DsPort string `json:"dsPort,omitempty"`
 
+	// ds s3 Api key
+	DsS3APIKey string `json:"dsS3ApiKey,omitempty"`
+
+	// ds s3 Api secret
+	DsS3APISecret string `json:"dsS3ApiSecret,omitempty"`
+
+	// ds s3 bucket binaries
+	DsS3BucketBinaries string `json:"dsS3BucketBinaries,omitempty"`
+
+	// ds s3 bucket cells
+	DsS3BucketCells string `json:"dsS3BucketCells,omitempty"`
+
+	// ds s3 bucket default
+	DsS3BucketDefault string `json:"dsS3BucketDefault,omitempty"`
+
+	// ds s3 bucket personal
+	DsS3BucketPersonal string `json:"dsS3BucketPersonal,omitempty"`
+
+	// ds s3 bucket thumbs
+	DsS3BucketThumbs string `json:"dsS3BucketThumbs,omitempty"`
+
+	// ds s3 bucket versions
+	DsS3BucketVersions string `json:"dsS3BucketVersions,omitempty"`
+
+	// ds s3 custom
+	DsS3Custom string `json:"dsS3Custom,omitempty"`
+
+	// ds s3 custom region
+	DsS3CustomRegion string `json:"dsS3CustomRegion,omitempty"`
+
+	// ds type
+	DsType string `json:"dsType,omitempty"`
+
 	// frontend application title
 	FrontendApplicationTitle string `json:"frontendApplicationTitle,omitempty"`
 
