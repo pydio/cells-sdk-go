@@ -33,9 +33,9 @@ import (
 
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/patrickmn/go-cache"
+	cache "github.com/patrickmn/go-cache"
 
-	"github.com/pydio/cells-sdk-go"
+	cells_sdk "github.com/pydio/cells-sdk-go"
 	"github.com/pydio/cells-sdk-go/client"
 	"github.com/pydio/cells-sdk-go/client/frontend_service"
 	"github.com/pydio/cells-sdk-go/models"
