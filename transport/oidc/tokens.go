@@ -130,9 +130,9 @@ func RetrieveToken(sdkConfig *cells_sdk.SdkConfig) (string, error) {
 		return "", err
 	}
 	token := resp.Payload.JWT
-	expiry := float64(resp.Payload.ExpireTime) - 60
+	expiryDate := time.Unix(int64(resp.Payload.ExpireTime), 0).Add(-60 * time.Second)
 
-	store.Store(sdkConfig, token, time.Duration(expiry)*time.Second)
+	store.Store(sdkConfig, token, expiryDate.Sub(time.Now()))
 	return token, nil
 }
 
