@@ -16,6 +16,12 @@ import (
 // swagger:model jobsContextMetaFilter
 type JobsContextMetaFilter struct {
 
+	// Selector additional description
+	Description string `json:"Description,omitempty"`
+
+	// Selector custom label
+	Label string `json:"Label,omitempty"`
+
 	// Can be built with ContextMetaSingleQuery
 	Query *ServiceQuery `json:"Query,omitempty"`
 

@@ -25,6 +25,9 @@ type IdmUserSingleQuery struct {
 	// attribute value
 	AttributeValue string `json:"AttributeValue,omitempty"`
 
+	// Compare to last connection date, starting with > or <
+	ConnectedSince string `json:"ConnectedSince,omitempty"`
+
 	// Search a specific group by path
 	FullPath string `json:"FullPath,omitempty"`
 

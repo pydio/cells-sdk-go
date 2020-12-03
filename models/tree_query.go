@@ -19,6 +19,9 @@ type TreeQuery struct {
 	// Search in content
 	Content string `json:"Content,omitempty"`
 
+	// Pass a duration with > or < to compute MinDate / MaxDate
+	DurationDate string `json:"DurationDate,omitempty"`
+
 	// Search files by extension
 	Extension string `json:"Extension,omitempty"`
 

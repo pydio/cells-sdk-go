@@ -529,6 +529,34 @@ func (a *Client) ListServices(params *ListServicesParams) (*ListServicesOK, erro
 }
 
 /*
+ListSites lists configured sites
+*/
+func (a *Client) ListSites(params *ListSitesParams) (*ListSitesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListSitesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListSites",
+		Method:             "GET",
+		PathPattern:        "/config/sites/{Filter}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListSitesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListSitesOK), nil
+
+}
+
+/*
 ListStorageBuckets lists buckets on a given object storage
 */
 func (a *Client) ListStorageBuckets(params *ListStorageBucketsParams) (*ListStorageBucketsOK, error) {

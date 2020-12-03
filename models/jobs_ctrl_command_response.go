@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// JobsCtrlCommandResponse jobs ctrl command response
+// JobsCtrlCommandResponse Response to the CtrlCommand
 // swagger:model jobsCtrlCommandResponse
 type JobsCtrlCommandResponse struct {
 

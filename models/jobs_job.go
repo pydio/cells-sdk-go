@@ -30,6 +30,9 @@ type JobsJob struct {
 	// Event Context Filter
 	ContextMetaFilter *JobsContextMetaFilter `json:"ContextMetaFilter,omitempty"`
 
+	// Job created by application or by administrator
+	Custom bool `json:"Custom,omitempty"`
+
 	// How the job will be triggered.
 	// One of these must be set (not exclusive)
 	// Listen to a given set of events

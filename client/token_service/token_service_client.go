@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+GenerateDocumentAccessToken generates a temporary access token for a specific document for the current user
+*/
+func (a *Client) GenerateDocumentAccessToken(params *GenerateDocumentAccessTokenParams) (*GenerateDocumentAccessTokenOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGenerateDocumentAccessTokenParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GenerateDocumentAccessToken",
+		Method:             "POST",
+		PathPattern:        "/auth/token/document",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &GenerateDocumentAccessTokenReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GenerateDocumentAccessTokenOK), nil
+
+}
+
+/*
 ResetPassword finishes up the reset password process by providing the unique token
 */
 func (a *Client) ResetPassword(params *ResetPasswordParams) (*ResetPasswordOK, error) {

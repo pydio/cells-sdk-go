@@ -25,6 +25,12 @@ type JobsUsersSelector struct {
 	// with all user as a selection
 	Collect bool `json:"Collect,omitempty"`
 
+	// Selector additional description
+	Description string `json:"Description,omitempty"`
+
+	// Selector custom label
+	Label string `json:"Label,omitempty"`
+
 	// Filter users using this query
 	Query *ServiceQuery `json:"Query,omitempty"`
 

@@ -21,6 +21,12 @@ type JobsAction struct {
 	// Previous action output filter
 	ActionOutputFilter *JobsActionOutputFilter `json:"ActionOutputFilter,omitempty"`
 
+	// Stop full chain now : do not carry on executing next actions
+	BreakAfter bool `json:"BreakAfter,omitempty"`
+
+	// Bypass this action (forward input to output and do nothing)
+	Bypass bool `json:"Bypass,omitempty"`
+
 	// Other actions to perform after this one is finished,
 	// using the Output of this action as Input for the next.
 	// If there are many, it is considered they can be triggered

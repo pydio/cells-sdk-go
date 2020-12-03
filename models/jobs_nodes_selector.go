@@ -21,9 +21,15 @@ type JobsNodesSelector struct {
 	// Select all files - ignore any other condition
 	All bool `json:"All,omitempty"`
 
-	// Wether to trigger one action per node or one action
+	// Whether to trigger one action per node or one action
 	// with all nodes as selection
 	Collect bool `json:"Collect,omitempty"`
+
+	// Selector additional description
+	Description string `json:"Description,omitempty"`
+
+	// Selector custom label
+	Label string `json:"Label,omitempty"`
 
 	// Preset list of node pathes
 	Pathes []string `json:"Pathes"`

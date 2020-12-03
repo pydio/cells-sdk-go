@@ -22,6 +22,12 @@ type JobsIdmSelector struct {
 	// Pass a slice of objects to one action, or trigger all actions in parallel
 	Collect bool `json:"Collect,omitempty"`
 
+	// Selector additional description
+	Description string `json:"Description,omitempty"`
+
+	// Selector custom label
+	Label string `json:"Label,omitempty"`
+
 	// Serialized search query
 	Query *ServiceQuery `json:"Query,omitempty"`
 

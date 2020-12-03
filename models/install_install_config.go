@@ -54,8 +54,8 @@ type InstallInstallConfig struct {
 	// db TCP port
 	DbTCPPort string `json:"dbTCPPort,omitempty"`
 
-	// db TCP user
-	DbTCPUser string `json:"dbTCPUser,omitempty"`
+	// db t cpuser
+	DbTCpuser string `json:"dbTCPUser,omitempty"`
 
 	// ds folder
 	DsFolder string `json:"dsFolder,omitempty"`

@@ -30,6 +30,9 @@ type IdmUser struct {
 	// Whether this object is a group or a user
 	IsGroup bool `json:"IsGroup,omitempty"`
 
+	// Last successful connection timestamp
+	LastConnected int32 `json:"LastConnected,omitempty"`
+
 	// User login is used to connect, field is empty for groups
 	Login string `json:"Login,omitempty"`
 
