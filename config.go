@@ -51,12 +51,3 @@ type S3Config struct {
 	// Should be cleaned as soon as we defined the logging strategy for this repo.
 	IsDebug bool `json:"isDebug"`
 }
-
-var (
-	// DefaultConfig stores a convenience static object that must be configured only once
-	// and is globally accessible to easily retrieve an up-and-running connected client.
-	DefaultConfig *SdkConfig
-	// DefaultS3Config stores a convenience static object that must be configured only once
-	// and is globally accessible to easily retrieve an up-and-running connected client.
-	DefaultS3Config *S3Config
-)

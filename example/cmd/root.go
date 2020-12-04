@@ -17,12 +17,11 @@ import (
 var (
 	configFile string
 
-	host       string
-	id         string
-	secret     string
-	user       string
-	pwd        string
-	skipVerify bool
+	host          string
+	user          string
+	pwd           string
+	personalToken string
+	skipVerify    bool
 )
 
 // ExampleCmd is the parent of all example commands defined in this package.
@@ -51,6 +50,14 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			if host == "" {
 				msg += " - Host URL\n"
 			}
+			if personalToken != "" {
+				DefaultConfig = &cells_sdk.SdkConfig{
+					Url:        host,
+					SkipVerify: skipVerify,
+					IdToken:    personalToken,
+				}
+				return
+			}
 			if user == "" {
 				msg += " - the login of an existing user\n"
 			}
@@ -66,9 +73,10 @@ the powerful Cobra framework to easily implement small CLI client applications.
 
 			DefaultConfig = &cells_sdk.SdkConfig{
 				Url:        host,
+				SkipVerify: skipVerify,
 				User:       user,
 				Password:   pwd,
-				SkipVerify: skipVerify,
+				IdToken:    personalToken,
 			}
 
 			return
@@ -96,10 +104,9 @@ func init() {
 	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
 
 	flags.StringVarP(&host, "url", "u", "", "HTTP URL to server")
-	flags.StringVarP(&id, "api-key", "k", "", "OIDC Client ID")
-	flags.StringVarP(&secret, "api-secret", "s", "", "OIDC Client Secret")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
+	flags.StringVarP(&personalToken, "token", "t", "", "Preset Access Token (replaces user/password)")
 	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")
 
 }
