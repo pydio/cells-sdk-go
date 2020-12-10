@@ -24,9 +24,6 @@ type RestGetBulkMetaRequest struct {
 	// List of node paths to query (use paths ending with /* to load the children)
 	NodePaths []string `json:"NodePaths"`
 
-	// List of nodes based on their Uuids
-	NodeUuids []string `json:"NodeUuids"`
-
 	// Start listing at a given position
 	Offset int32 `json:"Offset,omitempty"`
 

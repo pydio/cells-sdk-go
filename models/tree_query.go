@@ -28,6 +28,9 @@ type TreeQuery struct {
 	// Search in filename
 	FileName string `json:"FileName,omitempty"`
 
+	// Search in either filename or content (but at least one of them)
+	FileNameOrContent string `json:"FileNameOrContent,omitempty"`
+
 	// Free Query String (for metadata)
 	FreeString string `json:"FreeString,omitempty"`
 
