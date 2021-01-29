@@ -33,6 +33,9 @@ type IdmUserMeta struct {
 	// Context-resolved to quickly check if this meta is editable or not
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
+	// Pass along resolved Node for advanced filtering
+	ResolvedNode *TreeNode `json:"ResolvedNode,omitempty"`
+
 	// Unique identifier of the metadata
 	UUID string `json:"Uuid,omitempty"`
 }
@@ -42,6 +45,10 @@ func (m *IdmUserMeta) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePolicies(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResolvedNode(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,6 +78,24 @@ func (m *IdmUserMeta) validatePolicies(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *IdmUserMeta) validateResolvedNode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResolvedNode) { // not required
+		return nil
+	}
+
+	if m.ResolvedNode != nil {
+		if err := m.ResolvedNode.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ResolvedNode")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -2,7 +2,7 @@
 
 Rest API Client for Pydio Cells.
 
-Current SDK has been updated on **Jul. 1st 2020** with git commit **[fdebe76](https://github.com/pydio/cells/commit/fdebe76efcfff4d32f3a7c9c14853658fa74baaf)** for **Cells v2.1.0** release.
+Current SDK has been updated on **Jan. 28th 2021** with git commit **[5435dca](https://github.com/pydio/cells/commit/5435dca7487e314483e2c6e2e3cf9ae7f6bf24be)** for **Cells v2.2.0** release.
 
 ## Overview
 

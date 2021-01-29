@@ -57,6 +57,9 @@ type InstallInstallConfig struct {
 	// db t cpuser
 	DbTCpuser string `json:"dbTCPUser,omitempty"`
 
+	// db use defaults
+	DbUseDefaults bool `json:"dbUseDefaults,omitempty"`
+
 	// ds folder
 	DsFolder string `json:"dsFolder,omitempty"`
 

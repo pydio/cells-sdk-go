@@ -22,6 +22,9 @@ type TreeWorkspaceRelativePath struct {
 	// Workspace Label
 	WsLabel string `json:"WsLabel,omitempty"`
 
+	// Workspace Scope
+	WsScope string `json:"WsScope,omitempty"`
+
 	// Workspace slug
 	WsSlug string `json:"WsSlug,omitempty"`
 
