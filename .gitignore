@@ -7,3 +7,4 @@ cells-sdk-go
 config.json
 
 transport/oidc/test
+example/main
