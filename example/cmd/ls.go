@@ -3,6 +3,9 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"strings"
+
+	"github.com/pydio/cells-sdk-go/transport/rest"
 
 	"github.com/spf13/cobra"
 
@@ -10,26 +13,24 @@ import (
 	"github.com/pydio/cells-sdk-go/models"
 )
 
+var (
+	lsPath string
+)
+
 var listFiles = &cobra.Command{
-	Use:   "list-files",
-	Short: "lf",
-	Long:  `List files on pydio cells`,
+	Use:  "ls",
+	Long: `List files on pydio cells`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		//connects to the pydio api via the sdkConfig
-		ctx, apiClient, err := GetApiClient(DefaultConfig)
+		ctx, apiClient, err := rest.GetClient(DefaultConfig, false)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		/*GetBulkMetaParams contains all the parameters to send to the API endpoint
-		for the get bulk meta operation typically these are written to a http.Request
-		*/
 		params := &meta_service.GetBulkMetaParams{
 			Body: &models.RestGetBulkMetaRequest{NodePaths: []string{
-				//the workspaces from whom the files are listed
-				"/*",
-				"personal-files/*",
+				strings.TrimSuffix(lsPath, "/"),
 			}},
 			Context: ctx,
 		}
@@ -37,15 +38,19 @@ var listFiles = &cobra.Command{
 		//assigns the files data retrieved above in the results variable
 		result, err := apiClient.MetaService.GetBulkMeta(params)
 		if err != nil {
-			fmt.Printf("could not list meta: %s\n", err.Error())
+			fmt.Printf("Could not list meta: %s\n", err.Error())
 			log.Fatal(err)
 		}
 
 		//prints the path therefore the name of the files listed
 		if len(result.Payload.Nodes) > 0 {
-			fmt.Printf("* %d meta\n", len(result.Payload.Nodes))
+			fmt.Printf("Info for %s, got %d results\n", lsPath, len(result.Payload.Nodes))
 			for _, u := range result.Payload.Nodes {
-				fmt.Println("  -", u.Path)
+				fType := "F"
+				if u.Type == models.TreeNodeTypeCOLLECTION {
+					fType = "D"
+				}
+				fmt.Printf("  - [%s]\t%s\t%s\n", fType, u.Path, u.Size)
 			}
 		}
 
@@ -53,5 +58,6 @@ var listFiles = &cobra.Command{
 }
 
 func init() {
+	listFiles.Flags().StringVarP(&lsPath, "filepath", "f", "/*", "File or folder path, use /* to list children")
 	ExampleCmd.AddCommand(listFiles)
 }

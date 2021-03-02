@@ -4,6 +4,5 @@
   "region": "us-east-1",
   "apiKey": "gateway",
   "apiSecret": "gatewaysecret",
-  "usePydioSpecificHeader": true,
   "isDebug": false
 }
