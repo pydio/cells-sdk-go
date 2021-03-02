@@ -38,7 +38,7 @@ func cacheKey(c *cells_sdk.SdkConfig) string {
 	if c.IdToken != "" {
 		s = fmt.Sprintf("%s-%s", c.Url, c.User)
 	} else {
-		s = fmt.Sprintf("%s-%s-%s-%s-%s", c.Url, c.ClientKey, c.ClientSecret, c.User, c.Password)
+		s = fmt.Sprintf("%s-%s-%s", c.Url, c.User, c.Password)
 	}
 	hasher := md5.New()
 	hasher.Write([]byte(s))

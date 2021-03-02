@@ -5,12 +5,11 @@ import (
 	"log"
 	"strings"
 
-	"github.com/pydio/cells-sdk-go/transport/rest"
-
 	"github.com/spf13/cobra"
 
 	"github.com/pydio/cells-sdk-go/client/meta_service"
 	"github.com/pydio/cells-sdk-go/models"
+	"github.com/pydio/cells-sdk-go/transport/rest"
 )
 
 var (

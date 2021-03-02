@@ -90,8 +90,6 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 	}
 
 	c.Url = url
-	c.ClientKey = clientKey
-	c.ClientSecret = clientSecret
 	c.User = user
 	c.Password = password
 	c.SkipVerify = skipVerify

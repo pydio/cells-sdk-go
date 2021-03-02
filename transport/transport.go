@@ -30,7 +30,7 @@ func New(options ...interface{}) http.RoundTripper {
 		}
 	}
 
-	// Now use transport as a RoundTripper and go through RoundTipOptions
+	// Now use transport as a RoundTripper and go through RoundTripOptions
 	var roundTrip http.RoundTripper
 	roundTrip = baseT
 	for _, o := range options {

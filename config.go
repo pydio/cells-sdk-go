@@ -4,22 +4,19 @@ package cells_sdk
 
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
 type SdkConfig struct {
+
 	// Url stores domain name or IP & port to the server.
 	Url string `json:"url"`
+	// Username (login) for the currenly configured Pydio Account
+	User string `json:"user"`
 
-	// // Use OIDC code flow or client credential
-	// AuthType string `json:"authType"`
-
-	// OIDC Code Flow
-	IdToken        string `json:"idToken"`
+	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow
+	IdToken string `json:"idToken"`
+	// OIDC Code Flow additional info
 	RefreshToken   string `json:"refreshToken"`
 	TokenExpiresAt int    `json:"tokenExpiresAt"`
 
-	// OIDC ClientKey / ClientSecret - Legacy stuff, not used anymore
-	ClientKey    string `json:"clientKey"`
-	ClientSecret string `json:"clientSecret"`
-	// Pydio User Authentication
-	User     string `json:"user"`
+	// Password for client credential authentification (Legacy, less secure)
 	Password string `json:"password"`
 
 	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates

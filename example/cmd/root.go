@@ -101,8 +101,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 
 func init() {
 	flags := ExampleCmd.PersistentFlags()
-	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
 
+	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
 	flags.StringVarP(&host, "url", "u", "", "HTTP URL to server")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
