@@ -48,7 +48,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			// insure all necessary parameters are defined
 			var msg string
 			if host == "" {
-				msg += " - Host URL\n"
+				msg += "- your host URL\n"
 			}
 			if personalToken != "" {
 				DefaultConfig = &cells_sdk.SdkConfig{
@@ -66,8 +66,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			}
 
 			if len(msg) > 0 {
-				cmd.Println("Could not set up default configuration, missing arguments:\n", msg,
-					"\n\nYou might also directly provide the relative path to a config.json file. See in-line help for more details.")
+				cmd.Println("Could not set up a connection to your server, missing arguments:\n", msg,
+					"\nYou might also directly provide the relative path to a config.json file. See in-line help for further details.")
 				os.Exit(1)
 			}
 
@@ -89,7 +89,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 
 		var c cells_sdk.SdkConfig
 		if e = json.Unmarshal(data, &c); e != nil {
-			log.Fatal("Cannot decode config content for file at", configFile, "- route cause:", e)
+			log.Fatalf("Cannot decode config content for file at %s, cause: %s\n", configFile, e.Error())
 		} else {
 			DefaultConfig = &c
 		}

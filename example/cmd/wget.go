@@ -18,7 +18,7 @@ var (
 
 var getFile = &cobra.Command{
 	Use:  "wget",
-	Long: `Get a file from pydio cells`,
+	Long: `Get a file from your Pydio Cells server`,
 	Run: func(cmd *cobra.Command, args []string) {
 		s3Conf := getS3ConfigFromSdkConfig(*DefaultConfig)
 		cl, e := s3.GetClient(DefaultConfig, &s3Conf)
