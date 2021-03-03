@@ -11,13 +11,13 @@ type SdkConfig struct {
 	User string `json:"user"`
 
 	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow
-	IdToken string `json:"idToken"`
+	IdToken string `json:"idToken,omitempty"`
 	// OIDC Code Flow additional info
-	RefreshToken   string `json:"refreshToken"`
-	TokenExpiresAt int    `json:"tokenExpiresAt"`
+	RefreshToken   string `json:"refreshToken,omitempty"`
+	TokenExpiresAt int    `json:"tokenExpiresAt,omitempty"`
 
 	// Password for client credential authentification (Legacy, less secure)
-	Password string `json:"password"`
+	Password string `json:"password,omitempty"`
 
 	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
 	SkipVerify bool `json:"skipVerify"`

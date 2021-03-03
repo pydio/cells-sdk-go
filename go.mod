@@ -9,7 +9,6 @@ require (
 	github.com/go-openapi/strfmt v0.20.0
 	github.com/go-openapi/swag v0.19.14
 	github.com/go-openapi/validate v0.20.2
-	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/spf13/cobra v1.1.3
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 )
