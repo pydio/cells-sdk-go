@@ -8,3 +8,4 @@ config.json
 
 transport/oidc/test
 example/main
+v2/main
