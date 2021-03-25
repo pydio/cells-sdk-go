@@ -1,12 +1,18 @@
 package cmd
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strconv"
 
+	"github.com/go-openapi/strfmt"
+
 	cells_sdk "github.com/pydio/cells-sdk-go"
+	"github.com/pydio/cells-sdk-go/client"
+	"github.com/pydio/cells-sdk-go/transport"
 )
 
 var (
@@ -19,6 +25,25 @@ var (
 	// Keys to retrieve environment variables to configure connection to Pydio Cells S3 API
 	KeyS3Endpoint, KeyS3Region, KeyS3Bucket, KeyS3ApiKey, KeyS3ApiSecret, KeyS3UsePydioSpecificHeader, KeyS3IsDebug = "TARGET_S3_ENDPOINT", "TARGET_S3_REGION", "TARGET_S3_BUCKET", "TARGET_S3_API_KEY", "TARGET_S3_API_SECRET", "TARGET_S3_USE_PYDIO_SPECIFIC_HEADER", "TARGET_S3_IS_DEBUG"
 )
+
+// GetApiClient connects to the Pydio Cells server defined by this config, by sending an authentication
+// request to the OIDC service to get a valid JWT (or taking the JWT from cache).
+// Also returns a context to be used in subsequent requests.
+func GetApiClient(sdkConfig *cells_sdk.SdkConfig, anonymous ...bool) (context.Context, *client.PydioCellsRest, error) {
+
+	anon := false
+	if len(anonymous) > 0 && anonymous[0] {
+		anon = true
+	}
+
+	c, t, e := transport.GetRestClientTransport(sdkConfig, anon)
+	if e != nil {
+		return nil, nil, e
+	}
+	cl := client.New(t, strfmt.Default)
+	return c, cl, nil
+
+}
 
 // SetUpEnvironment retrieves parameters and stores them in the DefaultConfig of the SDK.
 // configFilePath and s3ConfigFilePath can be <nil> if the parameters are defined via env variables.
@@ -90,6 +115,8 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 	}
 
 	c.Url = url
+	c.ClientKey = clientKey
+	c.ClientSecret = clientSecret
 	c.User = user
 	c.Password = password
 	c.SkipVerify = skipVerify
@@ -153,4 +180,13 @@ func getS3ConfigFromEnv() (cells_sdk.S3Config, error) {
 	c.IsDebug = isDebug
 
 	return c, nil
+}
+
+// GetDefaultConfigFiles simply retrieves absolute path for cells and s3 SDK config
+// files given the absolute path to the root of the cells-sdk-go source code folder.
+func GetDefaultConfigFiles(codeRootPath string) (string, string) {
+	rpath := filepath.Join(codeRootPath, "config")
+	cpath := filepath.Join(rpath, "config.json")
+	s3path := filepath.Join(rpath, "config-s3.json")
+	return cpath, s3path
 }

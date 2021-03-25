@@ -78,11 +78,6 @@ type GetUserParams struct {
 
 	*/
 	IsGroup *bool
-	/*LastConnected
-	  Last successful connection timestamp.
-
-	*/
-	LastConnected *int32
 	/*Login*/
 	Login string
 	/*OldPassword
@@ -175,17 +170,6 @@ func (o *GetUserParams) WithIsGroup(isGroup *bool) *GetUserParams {
 // SetIsGroup adds the isGroup to the get user params
 func (o *GetUserParams) SetIsGroup(isGroup *bool) {
 	o.IsGroup = isGroup
-}
-
-// WithLastConnected adds the lastConnected to the get user params
-func (o *GetUserParams) WithLastConnected(lastConnected *int32) *GetUserParams {
-	o.SetLastConnected(lastConnected)
-	return o
-}
-
-// SetLastConnected adds the lastConnected to the get user params
-func (o *GetUserParams) SetLastConnected(lastConnected *int32) {
-	o.LastConnected = lastConnected
 }
 
 // WithLogin adds the login to the get user params
@@ -293,22 +277,6 @@ func (o *GetUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		qIsGroup := swag.FormatBool(qrIsGroup)
 		if qIsGroup != "" {
 			if err := r.SetQueryParam("IsGroup", qIsGroup); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.LastConnected != nil {
-
-		// query param LastConnected
-		var qrLastConnected int32
-		if o.LastConnected != nil {
-			qrLastConnected = *o.LastConnected
-		}
-		qLastConnected := swag.FormatInt32(qrLastConnected)
-		if qLastConnected != "" {
-			if err := r.SetQueryParam("LastConnected", qLastConnected); err != nil {
 				return err
 			}
 		}

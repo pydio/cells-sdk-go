@@ -258,33 +258,6 @@
         ]
       }
     },
-    "/auth/token/document": {
-      "post": {
-        "summary": "Generate a temporary access token for a specific document for the current user",
-        "operationId": "GenerateDocumentAccessToken",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/restDocumentAccessTokenResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/restDocumentAccessTokenRequest"
-            }
-          }
-        ],
-        "tags": [
-          "TokenService"
-        ]
-      }
-    },
     "/auth/token/revoke": {
       "post": {
         "summary": "Revoke a JWT token",
@@ -1000,31 +973,6 @@
         ]
       }
     },
-    "/config/sites/{Filter}": {
-      "get": {
-        "summary": "List configured sites",
-        "operationId": "ListSites",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/restListSitesResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "Filter",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ConfigService"
-        ]
-      }
-    },
     "/config/versioning": {
       "get": {
         "summary": "List all defined versioning policies",
@@ -1546,22 +1494,6 @@
             }
           }
         ],
-        "tags": [
-          "InstallService"
-        ]
-      }
-    },
-    "/install/events": {
-      "get": {
-        "operationId": "InstallEvents",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/installInstallEventsResponse"
-            }
-          }
-        },
         "tags": [
           "InstallService"
         ]
@@ -2939,14 +2871,6 @@
             "type": "string"
           },
           {
-            "name": "LastConnected",
-            "description": "Last successful connection timestamp.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
             "name": "PoliciesContextEditable",
             "description": "Context-resolved to quickly check if user is editable or not.",
             "in": "query",
@@ -4282,11 +4206,6 @@
           "type": "string",
           "title": "Label of the group, field is empty for users"
         },
-        "LastConnected": {
-          "type": "integer",
-          "format": "int32",
-          "title": "Last successful connection timestamp"
-        },
         "Policies": {
           "type": "array",
           "items": {
@@ -4332,10 +4251,6 @@
           "type": "boolean",
           "format": "boolean",
           "title": "Context-resolved to quickly check if this meta is editable or not"
-        },
-        "ResolvedNode": {
-          "$ref": "#/definitions/treeNode",
-          "title": "Pass along resolved Node for advanced filtering"
         }
       },
       "title": "Piece of metadata attached to a node"
@@ -4420,10 +4335,6 @@
         "HasProfile": {
           "type": "string",
           "title": "Shortcut for pydio:profile attribute"
-        },
-        "ConnectedSince": {
-          "type": "string",
-          "title": "Compare to last connection date, starting with \u003e or \u003c"
         },
         "not": {
           "type": "boolean",
@@ -4608,10 +4519,6 @@
         "dbManualDSN": {
           "type": "string"
         },
-        "dbUseDefaults": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "dsName": {
           "type": "string"
         },
@@ -4691,9 +4598,6 @@
         }
       }
     },
-    "installInstallEventsResponse": {
-      "type": "object"
-    },
     "installInstallRequest": {
       "type": "object",
       "properties": {
@@ -4733,16 +4637,17 @@
     "installProxyConfig": {
       "type": "object",
       "properties": {
-        "Binds": {
+        "BindURL": {
+          "type": "string"
+        },
+        "ExternalURL": {
+          "type": "string"
+        },
+        "RedirectURLs": {
           "type": "array",
           "items": {
             "type": "string"
-          },
-          "title": "A list of [host]:port to bind to"
-        },
-        "ReverseProxyURL": {
-          "type": "string",
-          "title": "Optional URL of reverse proxy exposing this site"
+          }
         },
         "SelfSigned": {
           "$ref": "#/definitions/installTLSSelfSigned"
@@ -4752,23 +4657,6 @@
         },
         "Certificate": {
           "$ref": "#/definitions/installTLSCertificate"
-        },
-        "SSLRedirect": {
-          "type": "boolean",
-          "format": "boolean",
-          "title": "If TLS is set, whether to automatically redirect each http://host:port to https://host:port"
-        },
-        "Maintenance": {
-          "type": "boolean",
-          "format": "boolean",
-          "title": "If set, this site will be in maintenance mode"
-        },
-        "MaintenanceConditions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "Append caddy directive to restrict maintenance mode"
         }
       },
       "title": "ProxyConfig gives necessary URL and TLS configurations to start proxy"
@@ -4780,9 +4668,6 @@
           "type": "string"
         },
         "KeyFile": {
-          "type": "string"
-        },
-        "CellsRootCA": {
           "type": "string"
         }
       },
@@ -4831,16 +4716,6 @@
         "Description": {
           "type": "string",
           "title": "User-defined comment for this action"
-        },
-        "Bypass": {
-          "type": "boolean",
-          "format": "boolean",
-          "title": "Bypass this action (forward input to output and do nothing)"
-        },
-        "BreakAfter": {
-          "type": "boolean",
-          "format": "boolean",
-          "title": "Stop full chain now : do not carry on executing next actions"
         },
         "NodesSelector": {
           "$ref": "#/definitions/jobsNodesSelector",
@@ -5015,14 +4890,6 @@
         "Query": {
           "$ref": "#/definitions/serviceQuery",
           "title": "Query built from ActionOutputSingleQuery"
-        },
-        "Label": {
-          "type": "string",
-          "title": "Selector custom label"
-        },
-        "Description": {
-          "type": "string",
-          "title": "Selector additional description"
         }
       },
       "title": "ActionOutputFilter can be used to filter last message output"
@@ -5051,14 +4918,6 @@
         "Query": {
           "$ref": "#/definitions/serviceQuery",
           "title": "Can be built with ContextMetaSingleQuery"
-        },
-        "Label": {
-          "type": "string",
-          "title": "Selector custom label"
-        },
-        "Description": {
-          "type": "string",
-          "title": "Selector additional description"
         }
       },
       "title": "PolicyContextFilter can be used to filter request metadata"
@@ -5089,16 +4948,8 @@
         "OwnerId": {
           "type": "string",
           "title": "Owner of the job"
-        },
-        "RunParameters": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "title": "Parameters used for RunOnce command"
         }
-      },
-      "title": "Command sent to control a job or a task"
+      }
     },
     "jobsCtrlCommandResponse": {
       "type": "object",
@@ -5106,8 +4957,7 @@
         "Msg": {
           "type": "string"
         }
-      },
-      "title": "Response to the CtrlCommand"
+      }
     },
     "jobsDeleteTasksRequest": {
       "type": "object",
@@ -5168,14 +5018,6 @@
           "type": "boolean",
           "format": "boolean",
           "title": "Pass a slice of objects to one action, or trigger all actions in parallel"
-        },
-        "Label": {
-          "type": "string",
-          "title": "Selector custom label"
-        },
-        "Description": {
-          "type": "string",
-          "title": "Selector additional description"
         }
       },
       "title": "Generic container for select/filter idm objects"
@@ -5210,11 +5052,6 @@
           "type": "boolean",
           "format": "boolean",
           "title": "Admin can temporarily disable this job"
-        },
-        "Custom": {
-          "type": "boolean",
-          "format": "boolean",
-          "title": "Job created by application or by administrator"
         },
         "Languages": {
           "type": "array",
@@ -5385,15 +5222,7 @@
         "Collect": {
           "type": "boolean",
           "format": "boolean",
-          "title": "Whether to trigger one action per node or one action\nwith all nodes as selection"
-        },
-        "Label": {
-          "type": "string",
-          "title": "Selector custom label"
-        },
-        "Description": {
-          "type": "string",
-          "title": "Selector additional description"
+          "title": "Wether to trigger one action per node or one action\nwith all nodes as selection"
         }
       },
       "title": "/////////////////\nJOB  SERVICE  //\n/////////////////"
@@ -5505,14 +5334,6 @@
           "type": "boolean",
           "format": "boolean",
           "title": "Wether to trigger one action per user or one action\nwith all user as a selection"
-        },
-        "Label": {
-          "type": "string",
-          "title": "Selector custom label"
-        },
-        "Description": {
-          "type": "string",
-          "title": "Selector additional description"
         }
       },
       "title": "Select or filter users - should be replaced by more generic IdmSelector"
@@ -5923,14 +5744,6 @@
           "format": "boolean",
           "title": "Whether this action has a form or not"
         },
-        "FormModule": {
-          "type": "string",
-          "title": "JS module name to be used instead of loading standard form"
-        },
-        "FormModuleProps": {
-          "type": "string",
-          "title": "JSON props used to init the FormModule (optional)"
-        },
         "Category": {
           "type": "string",
           "title": "User-defined category to organize actions list"
@@ -5946,11 +5759,6 @@
         "OutputDescription": {
           "type": "string",
           "title": "Additional description describing the action output"
-        },
-        "IsInternal": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": "If action is declared internal, it is hidden to avoid polluting the list."
         }
       }
     },
@@ -6333,25 +6141,6 @@
         }
       }
     },
-    "restDocumentAccessTokenRequest": {
-      "type": "object",
-      "properties": {
-        "Path": {
-          "type": "string"
-        },
-        "ClientID": {
-          "type": "string"
-        }
-      }
-    },
-    "restDocumentAccessTokenResponse": {
-      "type": "object",
-      "properties": {
-        "AccessToken": {
-          "type": "string"
-        }
-      }
-    },
     "restFrontBinaryRequest": {
       "type": "object",
       "properties": {
@@ -6489,6 +6278,13 @@
           },
           "title": "List of node paths to query (use paths ending with /* to load the children)"
         },
+        "NodeUuids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of nodes based on their Uuids"
+        },
         "AllMetaProviders": {
           "type": "boolean",
           "format": "boolean",
@@ -6620,18 +6416,6 @@
           "format": "int32"
         }
       }
-    },
-    "restListSitesResponse": {
-      "type": "object",
-      "properties": {
-        "Sites": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/installProxyConfig"
-          }
-        }
-      },
-      "title": "Response with declared sites"
     },
     "restListStorageBucketsRequest": {
       "type": "object",
@@ -7070,12 +6854,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/treeNode"
-          }
-        },
-        "Facets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/treeSearchFacet"
           }
         },
         "Total": {
@@ -8031,10 +7809,6 @@
           "type": "string",
           "format": "int64"
         },
-        "DurationDate": {
-          "type": "string",
-          "title": "Pass a duration with \u003e or \u003c to compute MinDate / MaxDate"
-        },
         "Type": {
           "$ref": "#/definitions/treeNodeType",
           "title": "Limit to a given node type"
@@ -8046,10 +7820,6 @@
         "Content": {
           "type": "string",
           "title": "Search in content"
-        },
-        "FileNameOrContent": {
-          "type": "string",
-          "title": "Search in either filename or content (but at least one of them)"
         },
         "FreeString": {
           "type": "string",
@@ -8120,46 +7890,6 @@
         }
       }
     },
-    "treeSearchFacet": {
-      "type": "object",
-      "properties": {
-        "FieldName": {
-          "type": "string",
-          "title": "Facet field name"
-        },
-        "Label": {
-          "type": "string",
-          "title": "Segment Label"
-        },
-        "Count": {
-          "type": "integer",
-          "format": "int32",
-          "title": "Segment results count"
-        },
-        "Term": {
-          "type": "string",
-          "title": "For string facets, term value"
-        },
-        "Min": {
-          "type": "string",
-          "format": "int64",
-          "title": "For NumericRange facets, min/max values"
-        },
-        "Max": {
-          "type": "string",
-          "format": "int64"
-        },
-        "Start": {
-          "type": "integer",
-          "format": "int32",
-          "title": "For DateRange facets, start/end values"
-        },
-        "End": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "treeSearchRequest": {
       "type": "object",
       "properties": {
@@ -8181,6 +7911,10 @@
           "type": "boolean",
           "format": "boolean",
           "title": "Load node details"
+        },
+        "Facet": {
+          "type": "string",
+          "title": "Facet search"
         }
       }
     },
@@ -8252,10 +7986,6 @@
         "WsSlug": {
           "type": "string",
           "title": "Workspace slug"
-        },
-        "WsScope": {
-          "type": "string",
-          "title": "Workspace Scope"
         }
       },
       "title": "Used in AppearsIn to signal a node is\nappearing in multiple workspaces in the current context"

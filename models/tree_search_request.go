@@ -19,6 +19,9 @@ type TreeSearchRequest struct {
 	// Load node details
 	Details bool `json:"Details,omitempty"`
 
+	// Facet search
+	Facet string `json:"Facet,omitempty"`
+
 	// Start at given position
 	From int32 `json:"From,omitempty"`
 

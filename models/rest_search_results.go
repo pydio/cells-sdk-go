@@ -18,9 +18,6 @@ import (
 // swagger:model restSearchResults
 type RestSearchResults struct {
 
-	// facets
-	Facets []*TreeSearchFacet `json:"Facets"`
-
 	// results
 	Results []*TreeNode `json:"Results"`
 
@@ -32,10 +29,6 @@ type RestSearchResults struct {
 func (m *RestSearchResults) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFacets(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateResults(formats); err != nil {
 		res = append(res, err)
 	}
@@ -43,31 +36,6 @@ func (m *RestSearchResults) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *RestSearchResults) validateFacets(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Facets) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Facets); i++ {
-		if swag.IsZero(m.Facets[i]) { // not required
-			continue
-		}
-
-		if m.Facets[i] != nil {
-			if err := m.Facets[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Facets" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

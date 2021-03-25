@@ -16,12 +16,6 @@ import (
 // swagger:model jobsActionOutputFilter
 type JobsActionOutputFilter struct {
 
-	// Selector additional description
-	Description string `json:"Description,omitempty"`
-
-	// Selector custom label
-	Label string `json:"Label,omitempty"`
-
 	// Query built from ActionOutputSingleQuery
 	Query *ServiceQuery `json:"Query,omitempty"`
 }

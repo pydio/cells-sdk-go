@@ -15,9 +15,6 @@ import (
 // swagger:model installTLSCertificate
 type InstallTLSCertificate struct {
 
-	// cells root c a
-	CellsRootCA string `json:"CellsRootCA,omitempty"`
-
 	// cert file
 	CertFile string `json:"CertFile,omitempty"`
 

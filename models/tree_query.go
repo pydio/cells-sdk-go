@@ -19,17 +19,11 @@ type TreeQuery struct {
 	// Search in content
 	Content string `json:"Content,omitempty"`
 
-	// Pass a duration with > or < to compute MinDate / MaxDate
-	DurationDate string `json:"DurationDate,omitempty"`
-
 	// Search files by extension
 	Extension string `json:"Extension,omitempty"`
 
 	// Search in filename
 	FileName string `json:"FileName,omitempty"`
-
-	// Search in either filename or content (but at least one of them)
-	FileNameOrContent string `json:"FileNameOrContent,omitempty"`
 
 	// Free Query String (for metadata)
 	FreeString string `json:"FreeString,omitempty"`

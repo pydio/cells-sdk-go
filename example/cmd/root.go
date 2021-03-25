@@ -17,11 +17,12 @@ import (
 var (
 	configFile string
 
-	host          string
-	user          string
-	pwd           string
-	personalToken string
-	skipVerify    bool
+	host       string
+	id         string
+	secret     string
+	user       string
+	pwd        string
+	skipVerify bool
 )
 
 // ExampleCmd is the parent of all example commands defined in this package.
@@ -48,15 +49,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			// insure all necessary parameters are defined
 			var msg string
 			if host == "" {
-				msg += "- your host URL\n"
-			}
-			if personalToken != "" {
-				DefaultConfig = &cells_sdk.SdkConfig{
-					Url:        host,
-					SkipVerify: skipVerify,
-					IdToken:    personalToken,
-				}
-				return
+				msg += " - Host URL\n"
 			}
 			if user == "" {
 				msg += " - the login of an existing user\n"
@@ -66,17 +59,16 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			}
 
 			if len(msg) > 0 {
-				cmd.Println("Could not set up a connection to your server, missing arguments:\n", msg,
-					"\nYou might also directly provide the relative path to a config.json file. See in-line help for further details.")
+				cmd.Println("Could not set up default configuration, missing arguments:\n", msg,
+					"\n\nYou might also directly provide the relative path to a config.json file. See in-line help for more details.")
 				os.Exit(1)
 			}
 
 			DefaultConfig = &cells_sdk.SdkConfig{
 				Url:        host,
-				SkipVerify: skipVerify,
 				User:       user,
 				Password:   pwd,
-				IdToken:    personalToken,
+				SkipVerify: skipVerify,
 			}
 
 			return
@@ -89,7 +81,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 
 		var c cells_sdk.SdkConfig
 		if e = json.Unmarshal(data, &c); e != nil {
-			log.Fatalf("Cannot decode config content for file at %s, cause: %s\n", configFile, e.Error())
+			log.Fatal("Cannot decode config content for file at", configFile, "- route cause:", e)
 		} else {
 			DefaultConfig = &c
 		}
@@ -101,12 +93,13 @@ the powerful Cobra framework to easily implement small CLI client applications.
 
 func init() {
 	flags := ExampleCmd.PersistentFlags()
-
 	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
+
 	flags.StringVarP(&host, "url", "u", "", "HTTP URL to server")
+	flags.StringVarP(&id, "api-key", "k", "", "OIDC Client ID")
+	flags.StringVarP(&secret, "api-secret", "s", "", "OIDC Client Secret")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
-	flags.StringVarP(&personalToken, "token", "t", "", "Preset Access Token (replaces user/password)")
 	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")
 
 }

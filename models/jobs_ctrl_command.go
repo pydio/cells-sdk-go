@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// JobsCtrlCommand Command sent to control a job or a task
+// JobsCtrlCommand jobs ctrl command
 // swagger:model jobsCtrlCommand
 type JobsCtrlCommand struct {
 
@@ -24,9 +24,6 @@ type JobsCtrlCommand struct {
 
 	// Owner of the job
 	OwnerID string `json:"OwnerId,omitempty"`
-
-	// Parameters used for RunOnce command
-	RunParameters map[string]string `json:"RunParameters,omitempty"`
 
 	// Id of the associated task
 	TaskID string `json:"TaskId,omitempty"`

@@ -81,34 +81,6 @@ func (a *Client) GetInstall(params *GetInstallParams) (*GetInstallOK, error) {
 }
 
 /*
-InstallEvents install events API
-*/
-func (a *Client) InstallEvents(params *InstallEventsParams) (*InstallEventsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewInstallEventsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "InstallEvents",
-		Method:             "GET",
-		PathPattern:        "/install/events",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https", "wss"},
-		Params:             params,
-		Reader:             &InstallEventsReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*InstallEventsOK), nil
-
-}
-
-/*
 PerformInstallCheck performs a check during install like a valid d b connection
 */
 func (a *Client) PerformInstallCheck(params *PerformInstallCheckParams) (*PerformInstallCheckOK, error) {

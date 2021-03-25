@@ -16,26 +16,20 @@ import (
 // swagger:model installProxyConfig
 type InstallProxyConfig struct {
 
-	// A list of [host]:port to bind to
-	Binds []string `json:"Binds"`
+	// bind URL
+	BindURL string `json:"BindURL,omitempty"`
 
 	// certificate
 	Certificate *InstallTLSCertificate `json:"Certificate,omitempty"`
 
+	// external URL
+	ExternalURL string `json:"ExternalURL,omitempty"`
+
 	// lets encrypt
 	LetsEncrypt *InstallTLSLetsEncrypt `json:"LetsEncrypt,omitempty"`
 
-	// If set, this site will be in maintenance mode
-	Maintenance bool `json:"Maintenance,omitempty"`
-
-	// Append caddy directive to restrict maintenance mode
-	MaintenanceConditions []string `json:"MaintenanceConditions"`
-
-	// Optional URL of reverse proxy exposing this site
-	ReverseProxyURL string `json:"ReverseProxyURL,omitempty"`
-
-	// If TLS is set, whether to automatically redirect each http://host:port to https://host:port
-	SSLRedirect bool `json:"SSLRedirect,omitempty"`
+	// redirect urls
+	RedirectUrls []string `json:"RedirectURLs"`
 
 	// self signed
 	SelfSigned *InstallTLSSelfSigned `json:"SelfSigned,omitempty"`

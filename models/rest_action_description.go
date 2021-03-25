@@ -21,12 +21,6 @@ type RestActionDescription struct {
 	// Long description and help text
 	Description string `json:"Description,omitempty"`
 
-	// JS module name to be used instead of loading standard form
-	FormModule string `json:"FormModule,omitempty"`
-
-	// JSON props used to init the FormModule (optional)
-	FormModuleProps string `json:"FormModuleProps,omitempty"`
-
 	// Whether this action has a form or not
 	HasForm bool `json:"HasForm,omitempty"`
 
@@ -35,9 +29,6 @@ type RestActionDescription struct {
 
 	// Additional description for expected inputs
 	InputDescription string `json:"InputDescription,omitempty"`
-
-	// If action is declared internal, it is hidden to avoid polluting the list.
-	IsInternal bool `json:"IsInternal,omitempty"`
 
 	// Human-readable label
 	Label string `json:"Label,omitempty"`

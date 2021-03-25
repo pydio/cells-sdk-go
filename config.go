@@ -4,20 +4,23 @@ package cells_sdk
 
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
 type SdkConfig struct {
-
 	// Url stores domain name or IP & port to the server.
 	Url string `json:"url"`
-	// Username (login) for the currenly configured Pydio Account
-	User string `json:"user"`
 
-	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow
-	IdToken string `json:"idToken,omitempty"`
-	// OIDC Code Flow additional info
-	RefreshToken   string `json:"refreshToken,omitempty"`
-	TokenExpiresAt int    `json:"tokenExpiresAt,omitempty"`
+	// // Use OIDC code flow or client credential
+	// AuthType string `json:"authType"`
 
-	// Password for client credential authentification (Legacy, less secure)
-	Password string `json:"password,omitempty"`
+	// OIDC Code Flow
+	IdToken        string `json:"idToken"`
+	RefreshToken   string `json:"refreshToken"`
+	TokenExpiresAt int    `json:"tokenExpiresAt"`
+
+	// OIDC ClientKey / ClientSecret - Legacy stuff, not used anymore
+	ClientKey    string `json:"clientKey"`
+	ClientSecret string `json:"clientSecret"`
+	// Pydio User Authentication
+	User     string `json:"user"`
+	Password string `json:"password"`
 
 	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
 	SkipVerify bool `json:"skipVerify"`
@@ -48,3 +51,12 @@ type S3Config struct {
 	// Should be cleaned as soon as we defined the logging strategy for this repo.
 	IsDebug bool `json:"isDebug"`
 }
+
+var (
+	// DefaultConfig stores a convenience static object that must be configured only once
+	// and is globally accessible to easily retrieve an up-and-running connected client.
+	DefaultConfig *SdkConfig
+	// DefaultS3Config stores a convenience static object that must be configured only once
+	// and is globally accessible to easily retrieve an up-and-running connected client.
+	DefaultS3Config *S3Config
+)
