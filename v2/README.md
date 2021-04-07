@@ -2,7 +2,7 @@
 
 Rest API Client for Pydio Cells v2.
 
-Current SDK has been updated on **Jan. 28th 2021** with git commit **[5435dca](https://github.com/pydio/cells/commit/5435dca7487e314483e2c6e2e3cf9ae7f6bf24be)** for **Cells v2.2.0** release.
+This SDK assumes that your server is running Pydio Cells 2.2.x or later.
 
 ## Overview
 
@@ -21,3 +21,7 @@ Simply put the package under your project folder and add the following import:
 The `transport` package provides utilitary methods to ease the set up of a communication with your target Cells instance. You might find the commands that are in the `example` package useful to jump in.
 
 You can also have a look at the [Cells client repository](https://github.com/pydio/cells-client) (also on Github) to see more working examples.
+
+## Versioning policy
+
+As from version 2.2, we will release a minor version of the SDK for each minor version of the Pydio Cells Server.

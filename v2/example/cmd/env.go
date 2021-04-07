@@ -14,7 +14,7 @@ var (
 	DefaultS3Config *cells_sdk.S3Config
 
 	// Keys to retrieve configuration via environment variables
-	KeyURL, KeyClientKey, KeyClientSecret, KeyUser, KeyPassword, KeySkipVerify = "TARGET_URL", "TARGET_CLIENT_KEY", "TARGET_CLIENT_SECRET", "TARGET_USER", "TARGET_PASSWORD", "TARGET_SKIP_VERIFY"
+	KeyURL, KeyUser, KeyPassword, KeySkipVerify = "TARGET_URL", "TARGET_USER", "TARGET_PASSWORD", "TARGET_SKIP_VERIFY"
 
 	// Keys to retrieve environment variables to configure connection to Pydio Cells S3 API
 	KeyS3Endpoint, KeyS3Region, KeyS3Bucket, KeyS3ApiKey, KeyS3ApiSecret, KeyS3UsePydioSpecificHeader, KeyS3IsDebug = "TARGET_S3_ENDPOINT", "TARGET_S3_REGION", "TARGET_S3_BUCKET", "TARGET_S3_API_KEY", "TARGET_S3_API_SECRET", "TARGET_S3_USE_PYDIO_SPECIFIC_HEADER", "TARGET_S3_IS_DEBUG"
@@ -72,8 +72,6 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 
 	// check presence of Env variable
 	url := os.Getenv(KeyURL)
-	clientKey := os.Getenv(KeyClientKey)
-	clientSecret := os.Getenv(KeyClientSecret)
 	user := os.Getenv(KeyUser)
 	password := os.Getenv(KeyPassword)
 	skipVerifyStr := os.Getenv(KeySkipVerify)
@@ -85,7 +83,7 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 		return c, err
 	}
 
-	if !(len(url) > 0 && len(clientKey) > 0 && len(clientSecret) > 0 && len(user) > 0 && len(password) > 0) {
+	if !(len(url) > 0 && len(user) > 0 && len(password) > 0) {
 		return c, nil
 	}
 
@@ -94,7 +92,7 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 	c.Password = password
 	c.SkipVerify = skipVerify
 
-	// Note: this cannot be set via env variable. Enhance?
+	// Note: this cannot be set via env variable for the current example.
 	c.UseTokenCache = true
 
 	return c, nil
