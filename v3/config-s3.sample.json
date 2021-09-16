@@ -1,0 +1,8 @@
+{
+  "bucket": "io",
+  "enpoint": "http://192.168.0.1:8080",
+  "region": "us-east-1",
+  "apiKey": "gateway",
+  "apiSecret": "gatewaysecret",
+  "isDebug": false
+}
