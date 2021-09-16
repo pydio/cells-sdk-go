@@ -10,5 +10,5 @@ require (
 	github.com/go-openapi/swag v0.19.15
 	github.com/go-openapi/validate v0.20.2
 	github.com/spf13/cobra v1.2.1
-	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8
+	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8 // indirect
 )

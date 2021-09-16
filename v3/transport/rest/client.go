@@ -13,7 +13,7 @@ import (
 	"github.com/pydio/cells-sdk-go/v3/transport"
 )
 
-func GetClient(sdkConfig *cells_sdk.SdkConfig, anon bool) (context.Context, *client2.PydioCellsRest, error) {
+func GetClient(sdkConfig *cells_sdk.SdkConfig, anon bool) (context.Context, *client2.PydioCellsRestAPI, error) {
 
 	c, t, e := GetClientTransport(sdkConfig, anon)
 	if e != nil {

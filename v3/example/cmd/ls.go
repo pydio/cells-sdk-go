@@ -17,8 +17,12 @@ var (
 )
 
 var listFiles = &cobra.Command{
-	Use:  "ls",
-	Long: `List files in your Pydio Cells server`,
+	Use: "ls",
+	Long: `List files in your Pydio Cells server.
+	
+	Example:
+	$ go run main.go -u https://pydio.example.com -l admin -p password -f common-files/* ls 
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// Connect to the pydio api via the sdkConfig
@@ -46,7 +50,7 @@ var listFiles = &cobra.Command{
 			fmt.Printf("Listing %s. Found %d results\n", lsPath, len(result.Payload.Nodes))
 			for _, u := range result.Payload.Nodes {
 				fType := "F"
-				if u.Type == models.TreeNodeTypeCOLLECTION {
+				if *u.Type == models.TreeNodeTypeCOLLECTION {
 					fType = "D"
 				}
 				fmt.Printf("  - [%s]\t%s\t%s\n", fType, u.Path, u.Size)
