@@ -22,6 +22,18 @@ The `transport` package provides utilitary methods to ease the set up of a commu
 
 You can also have a look at the [Cells client repository](https://github.com/pydio/cells-client) (also on Github) to see more working examples.
 
+## Migrate from version 2
+
+Between version 2 and 3, we have updated the [go-swagger](https://github.com/go-swagger/go-swagger) version that we use, to [v0.27.0](https://github.com/go-swagger/go-swagger/releases/tag/v0.27.0), this has led to a few breaking changes: you might have to adapt your client code.
+
+Here is a short list of the modification you might have to do:
+
+- `client.PydioCellsRest` is now `client.PydioCellsRestAPI`
+- `enum` objects are managed more cleanly:
+  - you have to dereference the pointer to make comparison: `*node.Type == models.TreeNodeTypeCOLLECTION`
+  - you cannot use a string to create a parameter. This won't compile: `Type: "COLLECTION"` and you must rather write: `Type: models.NewTreeNodeType(models.TreeNodeTypeCOLLECTION)`
+- `Acls` param in struc `models.RestCell` has been renamed `ACLs`
+
 ## Versioning policy
 
 As from version 2.2, we release a minor version of the SDK for each minor version of the Pydio Cells Server.
