@@ -29,6 +29,30 @@ func (o *GetMetaReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetMetaUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetMetaForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetMetaNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetMetaInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetMetaOK) GetPayload() *models.TreeNode {
 func (o *GetMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TreeNode)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMetaUnauthorized creates a GetMetaUnauthorized with default headers values
+func NewGetMetaUnauthorized() *GetMetaUnauthorized {
+	return &GetMetaUnauthorized{}
+}
+
+/* GetMetaUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetMetaUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetMetaUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMetaForbidden creates a GetMetaForbidden with default headers values
+func NewGetMetaForbidden() *GetMetaForbidden {
+	return &GetMetaForbidden{}
+}
+
+/* GetMetaForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetMetaForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetMetaForbidden) Error() string {
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaForbidden  %+v", 403, o.Payload)
+}
+func (o *GetMetaForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMetaNotFound creates a GetMetaNotFound with default headers values
+func NewGetMetaNotFound() *GetMetaNotFound {
+	return &GetMetaNotFound{}
+}
+
+/* GetMetaNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetMetaNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetMetaNotFound) Error() string {
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaNotFound  %+v", 404, o.Payload)
+}
+func (o *GetMetaNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMetaInternalServerError creates a GetMetaInternalServerError with default headers values
+func NewGetMetaInternalServerError() *GetMetaInternalServerError {
+	return &GetMetaInternalServerError{}
+}
+
+/* GetMetaInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetMetaInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetMetaInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetMetaInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

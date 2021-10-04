@@ -29,6 +29,30 @@ func (o *DeleteWorkspaceReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewDeleteWorkspaceUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteWorkspaceForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteWorkspaceNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteWorkspaceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *DeleteWorkspaceOK) GetPayload() *models.RestDeleteResponse {
 func (o *DeleteWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDeleteResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteWorkspaceUnauthorized creates a DeleteWorkspaceUnauthorized with default headers values
+func NewDeleteWorkspaceUnauthorized() *DeleteWorkspaceUnauthorized {
+	return &DeleteWorkspaceUnauthorized{}
+}
+
+/* DeleteWorkspaceUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type DeleteWorkspaceUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteWorkspaceUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceUnauthorized  %+v", 401, o.Payload)
+}
+func (o *DeleteWorkspaceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteWorkspaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteWorkspaceForbidden creates a DeleteWorkspaceForbidden with default headers values
+func NewDeleteWorkspaceForbidden() *DeleteWorkspaceForbidden {
+	return &DeleteWorkspaceForbidden{}
+}
+
+/* DeleteWorkspaceForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type DeleteWorkspaceForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteWorkspaceForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceForbidden  %+v", 403, o.Payload)
+}
+func (o *DeleteWorkspaceForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteWorkspaceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteWorkspaceNotFound creates a DeleteWorkspaceNotFound with default headers values
+func NewDeleteWorkspaceNotFound() *DeleteWorkspaceNotFound {
+	return &DeleteWorkspaceNotFound{}
+}
+
+/* DeleteWorkspaceNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type DeleteWorkspaceNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteWorkspaceNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceNotFound  %+v", 404, o.Payload)
+}
+func (o *DeleteWorkspaceNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteWorkspaceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteWorkspaceInternalServerError creates a DeleteWorkspaceInternalServerError with default headers values
+func NewDeleteWorkspaceInternalServerError() *DeleteWorkspaceInternalServerError {
+	return &DeleteWorkspaceInternalServerError{}
+}
+
+/* DeleteWorkspaceInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type DeleteWorkspaceInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteWorkspaceInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceInternalServerError  %+v", 500, o.Payload)
+}
+func (o *DeleteWorkspaceInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteWorkspaceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *CreateSelectionReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewCreateSelectionUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewCreateSelectionForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewCreateSelectionNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCreateSelectionInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *CreateSelectionOK) GetPayload() *models.RestCreateSelectionResponse {
 func (o *CreateSelectionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestCreateSelectionResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateSelectionUnauthorized creates a CreateSelectionUnauthorized with default headers values
+func NewCreateSelectionUnauthorized() *CreateSelectionUnauthorized {
+	return &CreateSelectionUnauthorized{}
+}
+
+/* CreateSelectionUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type CreateSelectionUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *CreateSelectionUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized  %+v", 401, o.Payload)
+}
+func (o *CreateSelectionUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateSelectionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateSelectionForbidden creates a CreateSelectionForbidden with default headers values
+func NewCreateSelectionForbidden() *CreateSelectionForbidden {
+	return &CreateSelectionForbidden{}
+}
+
+/* CreateSelectionForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type CreateSelectionForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *CreateSelectionForbidden) Error() string {
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionForbidden  %+v", 403, o.Payload)
+}
+func (o *CreateSelectionForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateSelectionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateSelectionNotFound creates a CreateSelectionNotFound with default headers values
+func NewCreateSelectionNotFound() *CreateSelectionNotFound {
+	return &CreateSelectionNotFound{}
+}
+
+/* CreateSelectionNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type CreateSelectionNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *CreateSelectionNotFound) Error() string {
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound  %+v", 404, o.Payload)
+}
+func (o *CreateSelectionNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateSelectionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateSelectionInternalServerError creates a CreateSelectionInternalServerError with default headers values
+func NewCreateSelectionInternalServerError() *CreateSelectionInternalServerError {
+	return &CreateSelectionInternalServerError{}
+}
+
+/* CreateSelectionInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type CreateSelectionInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *CreateSelectionInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionInternalServerError  %+v", 500, o.Payload)
+}
+func (o *CreateSelectionInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateSelectionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

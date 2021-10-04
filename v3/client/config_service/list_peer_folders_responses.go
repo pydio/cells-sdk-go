@@ -29,6 +29,30 @@ func (o *ListPeerFoldersReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListPeerFoldersUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListPeerFoldersForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListPeerFoldersNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListPeerFoldersInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListPeerFoldersOK) GetPayload() *models.RestNodesCollection {
 func (o *ListPeerFoldersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestNodesCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListPeerFoldersUnauthorized creates a ListPeerFoldersUnauthorized with default headers values
+func NewListPeerFoldersUnauthorized() *ListPeerFoldersUnauthorized {
+	return &ListPeerFoldersUnauthorized{}
+}
+
+/* ListPeerFoldersUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListPeerFoldersUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListPeerFoldersUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListPeerFoldersUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListPeerFoldersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListPeerFoldersForbidden creates a ListPeerFoldersForbidden with default headers values
+func NewListPeerFoldersForbidden() *ListPeerFoldersForbidden {
+	return &ListPeerFoldersForbidden{}
+}
+
+/* ListPeerFoldersForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListPeerFoldersForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListPeerFoldersForbidden) Error() string {
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersForbidden  %+v", 403, o.Payload)
+}
+func (o *ListPeerFoldersForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListPeerFoldersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListPeerFoldersNotFound creates a ListPeerFoldersNotFound with default headers values
+func NewListPeerFoldersNotFound() *ListPeerFoldersNotFound {
+	return &ListPeerFoldersNotFound{}
+}
+
+/* ListPeerFoldersNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListPeerFoldersNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListPeerFoldersNotFound) Error() string {
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersNotFound  %+v", 404, o.Payload)
+}
+func (o *ListPeerFoldersNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListPeerFoldersNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListPeerFoldersInternalServerError creates a ListPeerFoldersInternalServerError with default headers values
+func NewListPeerFoldersInternalServerError() *ListPeerFoldersInternalServerError {
+	return &ListPeerFoldersInternalServerError{}
+}
+
+/* ListPeerFoldersInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListPeerFoldersInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListPeerFoldersInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListPeerFoldersInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListPeerFoldersInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

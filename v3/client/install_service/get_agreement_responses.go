@@ -29,6 +29,30 @@ func (o *GetAgreementReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetAgreementUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetAgreementForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetAgreementNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetAgreementInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetAgreementOK) GetPayload() *models.InstallGetAgreementResponse {
 func (o *GetAgreementOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.InstallGetAgreementResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAgreementUnauthorized creates a GetAgreementUnauthorized with default headers values
+func NewGetAgreementUnauthorized() *GetAgreementUnauthorized {
+	return &GetAgreementUnauthorized{}
+}
+
+/* GetAgreementUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetAgreementUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetAgreementUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetAgreementUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetAgreementUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAgreementForbidden creates a GetAgreementForbidden with default headers values
+func NewGetAgreementForbidden() *GetAgreementForbidden {
+	return &GetAgreementForbidden{}
+}
+
+/* GetAgreementForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetAgreementForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetAgreementForbidden) Error() string {
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementForbidden  %+v", 403, o.Payload)
+}
+func (o *GetAgreementForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetAgreementForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAgreementNotFound creates a GetAgreementNotFound with default headers values
+func NewGetAgreementNotFound() *GetAgreementNotFound {
+	return &GetAgreementNotFound{}
+}
+
+/* GetAgreementNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetAgreementNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetAgreementNotFound) Error() string {
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementNotFound  %+v", 404, o.Payload)
+}
+func (o *GetAgreementNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetAgreementNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAgreementInternalServerError creates a GetAgreementInternalServerError with default headers values
+func NewGetAgreementInternalServerError() *GetAgreementInternalServerError {
+	return &GetAgreementInternalServerError{}
+}
+
+/* GetAgreementInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetAgreementInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetAgreementInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetAgreementInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetAgreementInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

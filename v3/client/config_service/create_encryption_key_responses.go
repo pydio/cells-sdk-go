@@ -29,6 +29,30 @@ func (o *CreateEncryptionKeyReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewCreateEncryptionKeyUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewCreateEncryptionKeyForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewCreateEncryptionKeyNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCreateEncryptionKeyInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *CreateEncryptionKeyOK) GetPayload() *models.EncryptionAdminCreateKeyRes
 func (o *CreateEncryptionKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EncryptionAdminCreateKeyResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateEncryptionKeyUnauthorized creates a CreateEncryptionKeyUnauthorized with default headers values
+func NewCreateEncryptionKeyUnauthorized() *CreateEncryptionKeyUnauthorized {
+	return &CreateEncryptionKeyUnauthorized{}
+}
+
+/* CreateEncryptionKeyUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type CreateEncryptionKeyUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *CreateEncryptionKeyUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized  %+v", 401, o.Payload)
+}
+func (o *CreateEncryptionKeyUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateEncryptionKeyForbidden creates a CreateEncryptionKeyForbidden with default headers values
+func NewCreateEncryptionKeyForbidden() *CreateEncryptionKeyForbidden {
+	return &CreateEncryptionKeyForbidden{}
+}
+
+/* CreateEncryptionKeyForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type CreateEncryptionKeyForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *CreateEncryptionKeyForbidden) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyForbidden  %+v", 403, o.Payload)
+}
+func (o *CreateEncryptionKeyForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateEncryptionKeyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateEncryptionKeyNotFound creates a CreateEncryptionKeyNotFound with default headers values
+func NewCreateEncryptionKeyNotFound() *CreateEncryptionKeyNotFound {
+	return &CreateEncryptionKeyNotFound{}
+}
+
+/* CreateEncryptionKeyNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type CreateEncryptionKeyNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *CreateEncryptionKeyNotFound) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyNotFound  %+v", 404, o.Payload)
+}
+func (o *CreateEncryptionKeyNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateEncryptionKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateEncryptionKeyInternalServerError creates a CreateEncryptionKeyInternalServerError with default headers values
+func NewCreateEncryptionKeyInternalServerError() *CreateEncryptionKeyInternalServerError {
+	return &CreateEncryptionKeyInternalServerError{}
+}
+
+/* CreateEncryptionKeyInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type CreateEncryptionKeyInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *CreateEncryptionKeyInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyInternalServerError  %+v", 500, o.Payload)
+}
+func (o *CreateEncryptionKeyInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateEncryptionKeyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

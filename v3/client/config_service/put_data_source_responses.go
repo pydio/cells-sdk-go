@@ -29,6 +29,30 @@ func (o *PutDataSourceReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewPutDataSourceUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPutDataSourceForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPutDataSourceNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPutDataSourceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *PutDataSourceOK) GetPayload() *models.ObjectDataSource {
 func (o *PutDataSourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ObjectDataSource)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutDataSourceUnauthorized creates a PutDataSourceUnauthorized with default headers values
+func NewPutDataSourceUnauthorized() *PutDataSourceUnauthorized {
+	return &PutDataSourceUnauthorized{}
+}
+
+/* PutDataSourceUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type PutDataSourceUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *PutDataSourceUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized  %+v", 401, o.Payload)
+}
+func (o *PutDataSourceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutDataSourceForbidden creates a PutDataSourceForbidden with default headers values
+func NewPutDataSourceForbidden() *PutDataSourceForbidden {
+	return &PutDataSourceForbidden{}
+}
+
+/* PutDataSourceForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type PutDataSourceForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *PutDataSourceForbidden) Error() string {
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceForbidden  %+v", 403, o.Payload)
+}
+func (o *PutDataSourceForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutDataSourceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutDataSourceNotFound creates a PutDataSourceNotFound with default headers values
+func NewPutDataSourceNotFound() *PutDataSourceNotFound {
+	return &PutDataSourceNotFound{}
+}
+
+/* PutDataSourceNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type PutDataSourceNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *PutDataSourceNotFound) Error() string {
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound  %+v", 404, o.Payload)
+}
+func (o *PutDataSourceNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutDataSourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutDataSourceInternalServerError creates a PutDataSourceInternalServerError with default headers values
+func NewPutDataSourceInternalServerError() *PutDataSourceInternalServerError {
+	return &PutDataSourceInternalServerError{}
+}
+
+/* PutDataSourceInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type PutDataSourceInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *PutDataSourceInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceInternalServerError  %+v", 500, o.Payload)
+}
+func (o *PutDataSourceInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutDataSourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

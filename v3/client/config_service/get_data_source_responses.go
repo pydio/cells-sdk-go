@@ -29,6 +29,30 @@ func (o *GetDataSourceReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetDataSourceUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetDataSourceForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetDataSourceNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetDataSourceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetDataSourceOK) GetPayload() *models.ObjectDataSource {
 func (o *GetDataSourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ObjectDataSource)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDataSourceUnauthorized creates a GetDataSourceUnauthorized with default headers values
+func NewGetDataSourceUnauthorized() *GetDataSourceUnauthorized {
+	return &GetDataSourceUnauthorized{}
+}
+
+/* GetDataSourceUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetDataSourceUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetDataSourceUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetDataSourceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDataSourceForbidden creates a GetDataSourceForbidden with default headers values
+func NewGetDataSourceForbidden() *GetDataSourceForbidden {
+	return &GetDataSourceForbidden{}
+}
+
+/* GetDataSourceForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetDataSourceForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetDataSourceForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceForbidden  %+v", 403, o.Payload)
+}
+func (o *GetDataSourceForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetDataSourceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDataSourceNotFound creates a GetDataSourceNotFound with default headers values
+func NewGetDataSourceNotFound() *GetDataSourceNotFound {
+	return &GetDataSourceNotFound{}
+}
+
+/* GetDataSourceNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetDataSourceNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetDataSourceNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound  %+v", 404, o.Payload)
+}
+func (o *GetDataSourceNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetDataSourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDataSourceInternalServerError creates a GetDataSourceInternalServerError with default headers values
+func NewGetDataSourceInternalServerError() *GetDataSourceInternalServerError {
+	return &GetDataSourceInternalServerError{}
+}
+
+/* GetDataSourceInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetDataSourceInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetDataSourceInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetDataSourceInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetDataSourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

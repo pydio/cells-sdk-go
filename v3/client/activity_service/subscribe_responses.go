@@ -29,6 +29,30 @@ func (o *SubscribeReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSubscribeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSubscribeForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSubscribeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSubscribeInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *SubscribeOK) GetPayload() *models.ActivitySubscription {
 func (o *SubscribeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ActivitySubscription)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeUnauthorized creates a SubscribeUnauthorized with default headers values
+func NewSubscribeUnauthorized() *SubscribeUnauthorized {
+	return &SubscribeUnauthorized{}
+}
+
+/* SubscribeUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SubscribeUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SubscribeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SubscribeUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SubscribeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeForbidden creates a SubscribeForbidden with default headers values
+func NewSubscribeForbidden() *SubscribeForbidden {
+	return &SubscribeForbidden{}
+}
+
+/* SubscribeForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SubscribeForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SubscribeForbidden) Error() string {
+	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeForbidden  %+v", 403, o.Payload)
+}
+func (o *SubscribeForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SubscribeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeNotFound creates a SubscribeNotFound with default headers values
+func NewSubscribeNotFound() *SubscribeNotFound {
+	return &SubscribeNotFound{}
+}
+
+/* SubscribeNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SubscribeNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SubscribeNotFound) Error() string {
+	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeNotFound  %+v", 404, o.Payload)
+}
+func (o *SubscribeNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SubscribeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeInternalServerError creates a SubscribeInternalServerError with default headers values
+func NewSubscribeInternalServerError() *SubscribeInternalServerError {
+	return &SubscribeInternalServerError{}
+}
+
+/* SubscribeInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SubscribeInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SubscribeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SubscribeInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SubscribeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

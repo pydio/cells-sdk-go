@@ -29,6 +29,30 @@ func (o *ListVirtualNodesReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListVirtualNodesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListVirtualNodesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListVirtualNodesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListVirtualNodesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListVirtualNodesOK) GetPayload() *models.RestNodesCollection {
 func (o *ListVirtualNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestNodesCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVirtualNodesUnauthorized creates a ListVirtualNodesUnauthorized with default headers values
+func NewListVirtualNodesUnauthorized() *ListVirtualNodesUnauthorized {
+	return &ListVirtualNodesUnauthorized{}
+}
+
+/* ListVirtualNodesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListVirtualNodesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListVirtualNodesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListVirtualNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVirtualNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVirtualNodesForbidden creates a ListVirtualNodesForbidden with default headers values
+func NewListVirtualNodesForbidden() *ListVirtualNodesForbidden {
+	return &ListVirtualNodesForbidden{}
+}
+
+/* ListVirtualNodesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListVirtualNodesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListVirtualNodesForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesForbidden  %+v", 403, o.Payload)
+}
+func (o *ListVirtualNodesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVirtualNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVirtualNodesNotFound creates a ListVirtualNodesNotFound with default headers values
+func NewListVirtualNodesNotFound() *ListVirtualNodesNotFound {
+	return &ListVirtualNodesNotFound{}
+}
+
+/* ListVirtualNodesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListVirtualNodesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListVirtualNodesNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound  %+v", 404, o.Payload)
+}
+func (o *ListVirtualNodesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVirtualNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVirtualNodesInternalServerError creates a ListVirtualNodesInternalServerError with default headers values
+func NewListVirtualNodesInternalServerError() *ListVirtualNodesInternalServerError {
+	return &ListVirtualNodesInternalServerError{}
+}
+
+/* ListVirtualNodesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListVirtualNodesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListVirtualNodesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListVirtualNodesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVirtualNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

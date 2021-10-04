@@ -29,6 +29,30 @@ func (o *FrontBootConfReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewFrontBootConfUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewFrontBootConfForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewFrontBootConfNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewFrontBootConfInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *FrontBootConfOK) GetPayload() *models.RestFrontBootConfResponse {
 func (o *FrontBootConfOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestFrontBootConfResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontBootConfUnauthorized creates a FrontBootConfUnauthorized with default headers values
+func NewFrontBootConfUnauthorized() *FrontBootConfUnauthorized {
+	return &FrontBootConfUnauthorized{}
+}
+
+/* FrontBootConfUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type FrontBootConfUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *FrontBootConfUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized  %+v", 401, o.Payload)
+}
+func (o *FrontBootConfUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontBootConfUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontBootConfForbidden creates a FrontBootConfForbidden with default headers values
+func NewFrontBootConfForbidden() *FrontBootConfForbidden {
+	return &FrontBootConfForbidden{}
+}
+
+/* FrontBootConfForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type FrontBootConfForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *FrontBootConfForbidden) Error() string {
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfForbidden  %+v", 403, o.Payload)
+}
+func (o *FrontBootConfForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontBootConfForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontBootConfNotFound creates a FrontBootConfNotFound with default headers values
+func NewFrontBootConfNotFound() *FrontBootConfNotFound {
+	return &FrontBootConfNotFound{}
+}
+
+/* FrontBootConfNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type FrontBootConfNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *FrontBootConfNotFound) Error() string {
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound  %+v", 404, o.Payload)
+}
+func (o *FrontBootConfNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontBootConfNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontBootConfInternalServerError creates a FrontBootConfInternalServerError with default headers values
+func NewFrontBootConfInternalServerError() *FrontBootConfInternalServerError {
+	return &FrontBootConfInternalServerError{}
+}
+
+/* FrontBootConfInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type FrontBootConfInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *FrontBootConfInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfInternalServerError  %+v", 500, o.Payload)
+}
+func (o *FrontBootConfInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontBootConfInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

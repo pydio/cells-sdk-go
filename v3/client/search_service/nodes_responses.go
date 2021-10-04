@@ -29,6 +29,30 @@ func (o *NodesReader) ReadResponse(response runtime.ClientResponse, consumer run
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewNodesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewNodesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewNodesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewNodesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *NodesOK) GetPayload() *models.RestSearchResults {
 func (o *NodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestSearchResults)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewNodesUnauthorized creates a NodesUnauthorized with default headers values
+func NewNodesUnauthorized() *NodesUnauthorized {
+	return &NodesUnauthorized{}
+}
+
+/* NodesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type NodesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *NodesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *NodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *NodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewNodesForbidden creates a NodesForbidden with default headers values
+func NewNodesForbidden() *NodesForbidden {
+	return &NodesForbidden{}
+}
+
+/* NodesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type NodesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *NodesForbidden) Error() string {
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesForbidden  %+v", 403, o.Payload)
+}
+func (o *NodesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *NodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewNodesNotFound creates a NodesNotFound with default headers values
+func NewNodesNotFound() *NodesNotFound {
+	return &NodesNotFound{}
+}
+
+/* NodesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type NodesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *NodesNotFound) Error() string {
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound  %+v", 404, o.Payload)
+}
+func (o *NodesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *NodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewNodesInternalServerError creates a NodesInternalServerError with default headers values
+func NewNodesInternalServerError() *NodesInternalServerError {
+	return &NodesInternalServerError{}
+}
+
+/* NodesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type NodesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *NodesInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *NodesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *NodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

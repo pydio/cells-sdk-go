@@ -29,6 +29,30 @@ func (o *SettingsMenuReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSettingsMenuUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSettingsMenuForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSettingsMenuNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSettingsMenuInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *SettingsMenuOK) GetPayload() *models.RestSettingsMenuResponse {
 func (o *SettingsMenuOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestSettingsMenuResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSettingsMenuUnauthorized creates a SettingsMenuUnauthorized with default headers values
+func NewSettingsMenuUnauthorized() *SettingsMenuUnauthorized {
+	return &SettingsMenuUnauthorized{}
+}
+
+/* SettingsMenuUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SettingsMenuUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SettingsMenuUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SettingsMenuUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SettingsMenuUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSettingsMenuForbidden creates a SettingsMenuForbidden with default headers values
+func NewSettingsMenuForbidden() *SettingsMenuForbidden {
+	return &SettingsMenuForbidden{}
+}
+
+/* SettingsMenuForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SettingsMenuForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SettingsMenuForbidden) Error() string {
+	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuForbidden  %+v", 403, o.Payload)
+}
+func (o *SettingsMenuForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SettingsMenuForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSettingsMenuNotFound creates a SettingsMenuNotFound with default headers values
+func NewSettingsMenuNotFound() *SettingsMenuNotFound {
+	return &SettingsMenuNotFound{}
+}
+
+/* SettingsMenuNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SettingsMenuNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SettingsMenuNotFound) Error() string {
+	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuNotFound  %+v", 404, o.Payload)
+}
+func (o *SettingsMenuNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SettingsMenuNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSettingsMenuInternalServerError creates a SettingsMenuInternalServerError with default headers values
+func NewSettingsMenuInternalServerError() *SettingsMenuInternalServerError {
+	return &SettingsMenuInternalServerError{}
+}
+
+/* SettingsMenuInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SettingsMenuInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SettingsMenuInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SettingsMenuInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SettingsMenuInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

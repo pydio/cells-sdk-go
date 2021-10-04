@@ -29,6 +29,30 @@ func (o *ListProcessesReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListProcessesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListProcessesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListProcessesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListProcessesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListProcessesOK) GetPayload() *models.RestListProcessesResponse {
 func (o *ListProcessesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestListProcessesResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListProcessesUnauthorized creates a ListProcessesUnauthorized with default headers values
+func NewListProcessesUnauthorized() *ListProcessesUnauthorized {
+	return &ListProcessesUnauthorized{}
+}
+
+/* ListProcessesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListProcessesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListProcessesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListProcessesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListProcessesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListProcessesForbidden creates a ListProcessesForbidden with default headers values
+func NewListProcessesForbidden() *ListProcessesForbidden {
+	return &ListProcessesForbidden{}
+}
+
+/* ListProcessesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListProcessesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListProcessesForbidden) Error() string {
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesForbidden  %+v", 403, o.Payload)
+}
+func (o *ListProcessesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListProcessesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListProcessesNotFound creates a ListProcessesNotFound with default headers values
+func NewListProcessesNotFound() *ListProcessesNotFound {
+	return &ListProcessesNotFound{}
+}
+
+/* ListProcessesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListProcessesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListProcessesNotFound) Error() string {
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound  %+v", 404, o.Payload)
+}
+func (o *ListProcessesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListProcessesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListProcessesInternalServerError creates a ListProcessesInternalServerError with default headers values
+func NewListProcessesInternalServerError() *ListProcessesInternalServerError {
+	return &ListProcessesInternalServerError{}
+}
+
+/* ListProcessesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListProcessesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListProcessesInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListProcessesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListProcessesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

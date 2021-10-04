@@ -29,6 +29,30 @@ func (o *UserControlJobReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewUserControlJobUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewUserControlJobForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewUserControlJobNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUserControlJobInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *UserControlJobOK) GetPayload() *models.JobsCtrlCommandResponse {
 func (o *UserControlJobOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.JobsCtrlCommandResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserControlJobUnauthorized creates a UserControlJobUnauthorized with default headers values
+func NewUserControlJobUnauthorized() *UserControlJobUnauthorized {
+	return &UserControlJobUnauthorized{}
+}
+
+/* UserControlJobUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type UserControlJobUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *UserControlJobUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobUnauthorized  %+v", 401, o.Payload)
+}
+func (o *UserControlJobUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserControlJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserControlJobForbidden creates a UserControlJobForbidden with default headers values
+func NewUserControlJobForbidden() *UserControlJobForbidden {
+	return &UserControlJobForbidden{}
+}
+
+/* UserControlJobForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type UserControlJobForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *UserControlJobForbidden) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobForbidden  %+v", 403, o.Payload)
+}
+func (o *UserControlJobForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserControlJobForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserControlJobNotFound creates a UserControlJobNotFound with default headers values
+func NewUserControlJobNotFound() *UserControlJobNotFound {
+	return &UserControlJobNotFound{}
+}
+
+/* UserControlJobNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type UserControlJobNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *UserControlJobNotFound) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobNotFound  %+v", 404, o.Payload)
+}
+func (o *UserControlJobNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserControlJobNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserControlJobInternalServerError creates a UserControlJobInternalServerError with default headers values
+func NewUserControlJobInternalServerError() *UserControlJobInternalServerError {
+	return &UserControlJobInternalServerError{}
+}
+
+/* UserControlJobInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type UserControlJobInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *UserControlJobInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobInternalServerError  %+v", 500, o.Payload)
+}
+func (o *UserControlJobInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserControlJobInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

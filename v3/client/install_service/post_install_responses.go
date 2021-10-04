@@ -29,6 +29,30 @@ func (o *PostInstallReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewPostInstallUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostInstallForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostInstallNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostInstallInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *PostInstallOK) GetPayload() *models.InstallInstallResponse {
 func (o *PostInstallOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.InstallInstallResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostInstallUnauthorized creates a PostInstallUnauthorized with default headers values
+func NewPostInstallUnauthorized() *PostInstallUnauthorized {
+	return &PostInstallUnauthorized{}
+}
+
+/* PostInstallUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type PostInstallUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *PostInstallUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /install][%d] postInstallUnauthorized  %+v", 401, o.Payload)
+}
+func (o *PostInstallUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PostInstallUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostInstallForbidden creates a PostInstallForbidden with default headers values
+func NewPostInstallForbidden() *PostInstallForbidden {
+	return &PostInstallForbidden{}
+}
+
+/* PostInstallForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type PostInstallForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *PostInstallForbidden) Error() string {
+	return fmt.Sprintf("[POST /install][%d] postInstallForbidden  %+v", 403, o.Payload)
+}
+func (o *PostInstallForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PostInstallForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostInstallNotFound creates a PostInstallNotFound with default headers values
+func NewPostInstallNotFound() *PostInstallNotFound {
+	return &PostInstallNotFound{}
+}
+
+/* PostInstallNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type PostInstallNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *PostInstallNotFound) Error() string {
+	return fmt.Sprintf("[POST /install][%d] postInstallNotFound  %+v", 404, o.Payload)
+}
+func (o *PostInstallNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PostInstallNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostInstallInternalServerError creates a PostInstallInternalServerError with default headers values
+func NewPostInstallInternalServerError() *PostInstallInternalServerError {
+	return &PostInstallInternalServerError{}
+}
+
+/* PostInstallInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type PostInstallInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *PostInstallInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /install][%d] postInstallInternalServerError  %+v", 500, o.Payload)
+}
+func (o *PostInstallInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PostInstallInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewDeleteUserUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteUserForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteUserNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteUserInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *DeleteUserOK) GetPayload() *models.RestDeleteResponse {
 func (o *DeleteUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDeleteResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserUnauthorized creates a DeleteUserUnauthorized with default headers values
+func NewDeleteUserUnauthorized() *DeleteUserUnauthorized {
+	return &DeleteUserUnauthorized{}
+}
+
+/* DeleteUserUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type DeleteUserUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteUserUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized  %+v", 401, o.Payload)
+}
+func (o *DeleteUserUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserForbidden creates a DeleteUserForbidden with default headers values
+func NewDeleteUserForbidden() *DeleteUserForbidden {
+	return &DeleteUserForbidden{}
+}
+
+/* DeleteUserForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type DeleteUserForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteUserForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserForbidden  %+v", 403, o.Payload)
+}
+func (o *DeleteUserForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserNotFound creates a DeleteUserNotFound with default headers values
+func NewDeleteUserNotFound() *DeleteUserNotFound {
+	return &DeleteUserNotFound{}
+}
+
+/* DeleteUserNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type DeleteUserNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteUserNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound  %+v", 404, o.Payload)
+}
+func (o *DeleteUserNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserInternalServerError creates a DeleteUserInternalServerError with default headers values
+func NewDeleteUserInternalServerError() *DeleteUserInternalServerError {
+	return &DeleteUserInternalServerError{}
+}
+
+/* DeleteUserInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type DeleteUserInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteUserInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserInternalServerError  %+v", 500, o.Payload)
+}
+func (o *DeleteUserInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

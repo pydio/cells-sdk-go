@@ -29,6 +29,30 @@ func (o *SearchSubscriptionsReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSearchSubscriptionsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSearchSubscriptionsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSearchSubscriptionsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSearchSubscriptionsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *SearchSubscriptionsOK) GetPayload() *models.RestSubscriptionsCollection
 func (o *SearchSubscriptionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestSubscriptionsCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchSubscriptionsUnauthorized creates a SearchSubscriptionsUnauthorized with default headers values
+func NewSearchSubscriptionsUnauthorized() *SearchSubscriptionsUnauthorized {
+	return &SearchSubscriptionsUnauthorized{}
+}
+
+/* SearchSubscriptionsUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SearchSubscriptionsUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SearchSubscriptionsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SearchSubscriptionsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchSubscriptionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchSubscriptionsForbidden creates a SearchSubscriptionsForbidden with default headers values
+func NewSearchSubscriptionsForbidden() *SearchSubscriptionsForbidden {
+	return &SearchSubscriptionsForbidden{}
+}
+
+/* SearchSubscriptionsForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SearchSubscriptionsForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SearchSubscriptionsForbidden) Error() string {
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsForbidden  %+v", 403, o.Payload)
+}
+func (o *SearchSubscriptionsForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchSubscriptionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchSubscriptionsNotFound creates a SearchSubscriptionsNotFound with default headers values
+func NewSearchSubscriptionsNotFound() *SearchSubscriptionsNotFound {
+	return &SearchSubscriptionsNotFound{}
+}
+
+/* SearchSubscriptionsNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SearchSubscriptionsNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SearchSubscriptionsNotFound) Error() string {
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound  %+v", 404, o.Payload)
+}
+func (o *SearchSubscriptionsNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchSubscriptionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchSubscriptionsInternalServerError creates a SearchSubscriptionsInternalServerError with default headers values
+func NewSearchSubscriptionsInternalServerError() *SearchSubscriptionsInternalServerError {
+	return &SearchSubscriptionsInternalServerError{}
+}
+
+/* SearchSubscriptionsInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SearchSubscriptionsInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SearchSubscriptionsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SearchSubscriptionsInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchSubscriptionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

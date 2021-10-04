@@ -29,6 +29,30 @@ func (o *DeleteShareLinkReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewDeleteShareLinkUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteShareLinkForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteShareLinkNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteShareLinkInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *DeleteShareLinkOK) GetPayload() *models.RestDeleteShareLinkResponse {
 func (o *DeleteShareLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDeleteShareLinkResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteShareLinkUnauthorized creates a DeleteShareLinkUnauthorized with default headers values
+func NewDeleteShareLinkUnauthorized() *DeleteShareLinkUnauthorized {
+	return &DeleteShareLinkUnauthorized{}
+}
+
+/* DeleteShareLinkUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type DeleteShareLinkUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteShareLinkUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized  %+v", 401, o.Payload)
+}
+func (o *DeleteShareLinkUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteShareLinkForbidden creates a DeleteShareLinkForbidden with default headers values
+func NewDeleteShareLinkForbidden() *DeleteShareLinkForbidden {
+	return &DeleteShareLinkForbidden{}
+}
+
+/* DeleteShareLinkForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type DeleteShareLinkForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteShareLinkForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkForbidden  %+v", 403, o.Payload)
+}
+func (o *DeleteShareLinkForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteShareLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteShareLinkNotFound creates a DeleteShareLinkNotFound with default headers values
+func NewDeleteShareLinkNotFound() *DeleteShareLinkNotFound {
+	return &DeleteShareLinkNotFound{}
+}
+
+/* DeleteShareLinkNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type DeleteShareLinkNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteShareLinkNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound  %+v", 404, o.Payload)
+}
+func (o *DeleteShareLinkNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteShareLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteShareLinkInternalServerError creates a DeleteShareLinkInternalServerError with default headers values
+func NewDeleteShareLinkInternalServerError() *DeleteShareLinkInternalServerError {
+	return &DeleteShareLinkInternalServerError{}
+}
+
+/* DeleteShareLinkInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type DeleteShareLinkInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteShareLinkInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkInternalServerError  %+v", 500, o.Payload)
+}
+func (o *DeleteShareLinkInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteShareLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

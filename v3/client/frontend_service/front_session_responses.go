@@ -29,6 +29,30 @@ func (o *FrontSessionReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewFrontSessionUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewFrontSessionForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewFrontSessionNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewFrontSessionInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *FrontSessionOK) GetPayload() *models.RestFrontSessionResponse {
 func (o *FrontSessionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestFrontSessionResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontSessionUnauthorized creates a FrontSessionUnauthorized with default headers values
+func NewFrontSessionUnauthorized() *FrontSessionUnauthorized {
+	return &FrontSessionUnauthorized{}
+}
+
+/* FrontSessionUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type FrontSessionUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *FrontSessionUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionUnauthorized  %+v", 401, o.Payload)
+}
+func (o *FrontSessionUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontSessionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontSessionForbidden creates a FrontSessionForbidden with default headers values
+func NewFrontSessionForbidden() *FrontSessionForbidden {
+	return &FrontSessionForbidden{}
+}
+
+/* FrontSessionForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type FrontSessionForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *FrontSessionForbidden) Error() string {
+	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionForbidden  %+v", 403, o.Payload)
+}
+func (o *FrontSessionForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontSessionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontSessionNotFound creates a FrontSessionNotFound with default headers values
+func NewFrontSessionNotFound() *FrontSessionNotFound {
+	return &FrontSessionNotFound{}
+}
+
+/* FrontSessionNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type FrontSessionNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *FrontSessionNotFound) Error() string {
+	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionNotFound  %+v", 404, o.Payload)
+}
+func (o *FrontSessionNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontSessionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontSessionInternalServerError creates a FrontSessionInternalServerError with default headers values
+func NewFrontSessionInternalServerError() *FrontSessionInternalServerError {
+	return &FrontSessionInternalServerError{}
+}
+
+/* FrontSessionInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type FrontSessionInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *FrontSessionInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionInternalServerError  %+v", 500, o.Payload)
+}
+func (o *FrontSessionInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontSessionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *PutWorkspaceReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewPutWorkspaceUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPutWorkspaceForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPutWorkspaceNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPutWorkspaceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *PutWorkspaceOK) GetPayload() *models.IdmWorkspace {
 func (o *PutWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IdmWorkspace)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutWorkspaceUnauthorized creates a PutWorkspaceUnauthorized with default headers values
+func NewPutWorkspaceUnauthorized() *PutWorkspaceUnauthorized {
+	return &PutWorkspaceUnauthorized{}
+}
+
+/* PutWorkspaceUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type PutWorkspaceUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *PutWorkspaceUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized  %+v", 401, o.Payload)
+}
+func (o *PutWorkspaceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutWorkspaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutWorkspaceForbidden creates a PutWorkspaceForbidden with default headers values
+func NewPutWorkspaceForbidden() *PutWorkspaceForbidden {
+	return &PutWorkspaceForbidden{}
+}
+
+/* PutWorkspaceForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type PutWorkspaceForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *PutWorkspaceForbidden) Error() string {
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceForbidden  %+v", 403, o.Payload)
+}
+func (o *PutWorkspaceForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutWorkspaceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutWorkspaceNotFound creates a PutWorkspaceNotFound with default headers values
+func NewPutWorkspaceNotFound() *PutWorkspaceNotFound {
+	return &PutWorkspaceNotFound{}
+}
+
+/* PutWorkspaceNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type PutWorkspaceNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *PutWorkspaceNotFound) Error() string {
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceNotFound  %+v", 404, o.Payload)
+}
+func (o *PutWorkspaceNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutWorkspaceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutWorkspaceInternalServerError creates a PutWorkspaceInternalServerError with default headers values
+func NewPutWorkspaceInternalServerError() *PutWorkspaceInternalServerError {
+	return &PutWorkspaceInternalServerError{}
+}
+
+/* PutWorkspaceInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type PutWorkspaceInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *PutWorkspaceInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceInternalServerError  %+v", 500, o.Payload)
+}
+func (o *PutWorkspaceInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutWorkspaceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

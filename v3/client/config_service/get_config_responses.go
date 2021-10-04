@@ -29,6 +29,30 @@ func (o *GetConfigReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetConfigUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetConfigForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetConfigNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetConfigInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetConfigOK) GetPayload() *models.RestConfiguration {
 func (o *GetConfigOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestConfiguration)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfigUnauthorized creates a GetConfigUnauthorized with default headers values
+func NewGetConfigUnauthorized() *GetConfigUnauthorized {
+	return &GetConfigUnauthorized{}
+}
+
+/* GetConfigUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetConfigUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetConfigUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/{FullPath}][%d] getConfigUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetConfigUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetConfigUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfigForbidden creates a GetConfigForbidden with default headers values
+func NewGetConfigForbidden() *GetConfigForbidden {
+	return &GetConfigForbidden{}
+}
+
+/* GetConfigForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetConfigForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetConfigForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/{FullPath}][%d] getConfigForbidden  %+v", 403, o.Payload)
+}
+func (o *GetConfigForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetConfigForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfigNotFound creates a GetConfigNotFound with default headers values
+func NewGetConfigNotFound() *GetConfigNotFound {
+	return &GetConfigNotFound{}
+}
+
+/* GetConfigNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetConfigNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetConfigNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/{FullPath}][%d] getConfigNotFound  %+v", 404, o.Payload)
+}
+func (o *GetConfigNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetConfigNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfigInternalServerError creates a GetConfigInternalServerError with default headers values
+func NewGetConfigInternalServerError() *GetConfigInternalServerError {
+	return &GetConfigInternalServerError{}
+}
+
+/* GetConfigInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetConfigInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetConfigInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/{FullPath}][%d] getConfigInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetConfigInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetConfigInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

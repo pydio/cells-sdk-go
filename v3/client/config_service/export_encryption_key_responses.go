@@ -29,6 +29,30 @@ func (o *ExportEncryptionKeyReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewExportEncryptionKeyUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewExportEncryptionKeyForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewExportEncryptionKeyNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewExportEncryptionKeyInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ExportEncryptionKeyOK) GetPayload() *models.EncryptionAdminExportKeyRes
 func (o *ExportEncryptionKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EncryptionAdminExportKeyResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExportEncryptionKeyUnauthorized creates a ExportEncryptionKeyUnauthorized with default headers values
+func NewExportEncryptionKeyUnauthorized() *ExportEncryptionKeyUnauthorized {
+	return &ExportEncryptionKeyUnauthorized{}
+}
+
+/* ExportEncryptionKeyUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ExportEncryptionKeyUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ExportEncryptionKeyUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ExportEncryptionKeyUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ExportEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExportEncryptionKeyForbidden creates a ExportEncryptionKeyForbidden with default headers values
+func NewExportEncryptionKeyForbidden() *ExportEncryptionKeyForbidden {
+	return &ExportEncryptionKeyForbidden{}
+}
+
+/* ExportEncryptionKeyForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ExportEncryptionKeyForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ExportEncryptionKeyForbidden) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyForbidden  %+v", 403, o.Payload)
+}
+func (o *ExportEncryptionKeyForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ExportEncryptionKeyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExportEncryptionKeyNotFound creates a ExportEncryptionKeyNotFound with default headers values
+func NewExportEncryptionKeyNotFound() *ExportEncryptionKeyNotFound {
+	return &ExportEncryptionKeyNotFound{}
+}
+
+/* ExportEncryptionKeyNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ExportEncryptionKeyNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ExportEncryptionKeyNotFound) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyNotFound  %+v", 404, o.Payload)
+}
+func (o *ExportEncryptionKeyNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ExportEncryptionKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExportEncryptionKeyInternalServerError creates a ExportEncryptionKeyInternalServerError with default headers values
+func NewExportEncryptionKeyInternalServerError() *ExportEncryptionKeyInternalServerError {
+	return &ExportEncryptionKeyInternalServerError{}
+}
+
+/* ExportEncryptionKeyInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ExportEncryptionKeyInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ExportEncryptionKeyInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ExportEncryptionKeyInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ExportEncryptionKeyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

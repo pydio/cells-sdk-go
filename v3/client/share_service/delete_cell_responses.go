@@ -29,6 +29,30 @@ func (o *DeleteCellReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewDeleteCellUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteCellForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteCellNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteCellInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *DeleteCellOK) GetPayload() *models.RestDeleteCellResponse {
 func (o *DeleteCellOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDeleteCellResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteCellUnauthorized creates a DeleteCellUnauthorized with default headers values
+func NewDeleteCellUnauthorized() *DeleteCellUnauthorized {
+	return &DeleteCellUnauthorized{}
+}
+
+/* DeleteCellUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type DeleteCellUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteCellUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellUnauthorized  %+v", 401, o.Payload)
+}
+func (o *DeleteCellUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteCellForbidden creates a DeleteCellForbidden with default headers values
+func NewDeleteCellForbidden() *DeleteCellForbidden {
+	return &DeleteCellForbidden{}
+}
+
+/* DeleteCellForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type DeleteCellForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteCellForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellForbidden  %+v", 403, o.Payload)
+}
+func (o *DeleteCellForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteCellForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteCellNotFound creates a DeleteCellNotFound with default headers values
+func NewDeleteCellNotFound() *DeleteCellNotFound {
+	return &DeleteCellNotFound{}
+}
+
+/* DeleteCellNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type DeleteCellNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteCellNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellNotFound  %+v", 404, o.Payload)
+}
+func (o *DeleteCellNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteCellNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteCellInternalServerError creates a DeleteCellInternalServerError with default headers values
+func NewDeleteCellInternalServerError() *DeleteCellInternalServerError {
+	return &DeleteCellInternalServerError{}
+}
+
+/* DeleteCellInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type DeleteCellInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteCellInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellInternalServerError  %+v", 500, o.Payload)
+}
+func (o *DeleteCellInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteCellInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

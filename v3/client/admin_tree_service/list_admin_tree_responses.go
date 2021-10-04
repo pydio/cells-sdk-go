@@ -29,6 +29,30 @@ func (o *ListAdminTreeReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListAdminTreeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListAdminTreeForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListAdminTreeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListAdminTreeInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListAdminTreeOK) GetPayload() *models.RestNodesCollection {
 func (o *ListAdminTreeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestNodesCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListAdminTreeUnauthorized creates a ListAdminTreeUnauthorized with default headers values
+func NewListAdminTreeUnauthorized() *ListAdminTreeUnauthorized {
+	return &ListAdminTreeUnauthorized{}
+}
+
+/* ListAdminTreeUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListAdminTreeUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListAdminTreeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListAdminTreeUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListAdminTreeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListAdminTreeForbidden creates a ListAdminTreeForbidden with default headers values
+func NewListAdminTreeForbidden() *ListAdminTreeForbidden {
+	return &ListAdminTreeForbidden{}
+}
+
+/* ListAdminTreeForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListAdminTreeForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListAdminTreeForbidden) Error() string {
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeForbidden  %+v", 403, o.Payload)
+}
+func (o *ListAdminTreeForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListAdminTreeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListAdminTreeNotFound creates a ListAdminTreeNotFound with default headers values
+func NewListAdminTreeNotFound() *ListAdminTreeNotFound {
+	return &ListAdminTreeNotFound{}
+}
+
+/* ListAdminTreeNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListAdminTreeNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListAdminTreeNotFound) Error() string {
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeNotFound  %+v", 404, o.Payload)
+}
+func (o *ListAdminTreeNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListAdminTreeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListAdminTreeInternalServerError creates a ListAdminTreeInternalServerError with default headers values
+func NewListAdminTreeInternalServerError() *ListAdminTreeInternalServerError {
+	return &ListAdminTreeInternalServerError{}
+}
+
+/* ListAdminTreeInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListAdminTreeInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListAdminTreeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListAdminTreeInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListAdminTreeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

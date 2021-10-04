@@ -29,6 +29,30 @@ func (o *EndpointsDiscoveryReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewEndpointsDiscoveryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewEndpointsDiscoveryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewEndpointsDiscoveryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewEndpointsDiscoveryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *EndpointsDiscoveryOK) GetPayload() *models.RestDiscoveryResponse {
 func (o *EndpointsDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDiscoveryResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEndpointsDiscoveryUnauthorized creates a EndpointsDiscoveryUnauthorized with default headers values
+func NewEndpointsDiscoveryUnauthorized() *EndpointsDiscoveryUnauthorized {
+	return &EndpointsDiscoveryUnauthorized{}
+}
+
+/* EndpointsDiscoveryUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type EndpointsDiscoveryUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *EndpointsDiscoveryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+func (o *EndpointsDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *EndpointsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEndpointsDiscoveryForbidden creates a EndpointsDiscoveryForbidden with default headers values
+func NewEndpointsDiscoveryForbidden() *EndpointsDiscoveryForbidden {
+	return &EndpointsDiscoveryForbidden{}
+}
+
+/* EndpointsDiscoveryForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type EndpointsDiscoveryForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *EndpointsDiscoveryForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryForbidden  %+v", 403, o.Payload)
+}
+func (o *EndpointsDiscoveryForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *EndpointsDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEndpointsDiscoveryNotFound creates a EndpointsDiscoveryNotFound with default headers values
+func NewEndpointsDiscoveryNotFound() *EndpointsDiscoveryNotFound {
+	return &EndpointsDiscoveryNotFound{}
+}
+
+/* EndpointsDiscoveryNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type EndpointsDiscoveryNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *EndpointsDiscoveryNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound  %+v", 404, o.Payload)
+}
+func (o *EndpointsDiscoveryNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *EndpointsDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEndpointsDiscoveryInternalServerError creates a EndpointsDiscoveryInternalServerError with default headers values
+func NewEndpointsDiscoveryInternalServerError() *EndpointsDiscoveryInternalServerError {
+	return &EndpointsDiscoveryInternalServerError{}
+}
+
+/* EndpointsDiscoveryInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type EndpointsDiscoveryInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *EndpointsDiscoveryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryInternalServerError  %+v", 500, o.Payload)
+}
+func (o *EndpointsDiscoveryInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *EndpointsDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

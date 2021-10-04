@@ -29,6 +29,30 @@ func (o *GetCellReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetCellUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetCellForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetCellNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetCellInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetCellOK) GetPayload() *models.RestCell {
 func (o *GetCellOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestCell)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCellUnauthorized creates a GetCellUnauthorized with default headers values
+func NewGetCellUnauthorized() *GetCellUnauthorized {
+	return &GetCellUnauthorized{}
+}
+
+/* GetCellUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetCellUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetCellUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetCellUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCellForbidden creates a GetCellForbidden with default headers values
+func NewGetCellForbidden() *GetCellForbidden {
+	return &GetCellForbidden{}
+}
+
+/* GetCellForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetCellForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetCellForbidden) Error() string {
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellForbidden  %+v", 403, o.Payload)
+}
+func (o *GetCellForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetCellForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCellNotFound creates a GetCellNotFound with default headers values
+func NewGetCellNotFound() *GetCellNotFound {
+	return &GetCellNotFound{}
+}
+
+/* GetCellNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetCellNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetCellNotFound) Error() string {
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound  %+v", 404, o.Payload)
+}
+func (o *GetCellNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetCellNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCellInternalServerError creates a GetCellInternalServerError with default headers values
+func NewGetCellInternalServerError() *GetCellInternalServerError {
+	return &GetCellInternalServerError{}
+}
+
+/* GetCellInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetCellInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetCellInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetCellInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetCellInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

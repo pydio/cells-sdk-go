@@ -29,6 +29,30 @@ func (o *ResetPasswordTokenReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewResetPasswordTokenUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewResetPasswordTokenForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewResetPasswordTokenNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewResetPasswordTokenInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ResetPasswordTokenOK) GetPayload() *models.RestResetPasswordTokenRespon
 func (o *ResetPasswordTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestResetPasswordTokenResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewResetPasswordTokenUnauthorized creates a ResetPasswordTokenUnauthorized with default headers values
+func NewResetPasswordTokenUnauthorized() *ResetPasswordTokenUnauthorized {
+	return &ResetPasswordTokenUnauthorized{}
+}
+
+/* ResetPasswordTokenUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ResetPasswordTokenUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ResetPasswordTokenUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ResetPasswordTokenUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ResetPasswordTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewResetPasswordTokenForbidden creates a ResetPasswordTokenForbidden with default headers values
+func NewResetPasswordTokenForbidden() *ResetPasswordTokenForbidden {
+	return &ResetPasswordTokenForbidden{}
+}
+
+/* ResetPasswordTokenForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ResetPasswordTokenForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ResetPasswordTokenForbidden) Error() string {
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenForbidden  %+v", 403, o.Payload)
+}
+func (o *ResetPasswordTokenForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ResetPasswordTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewResetPasswordTokenNotFound creates a ResetPasswordTokenNotFound with default headers values
+func NewResetPasswordTokenNotFound() *ResetPasswordTokenNotFound {
+	return &ResetPasswordTokenNotFound{}
+}
+
+/* ResetPasswordTokenNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ResetPasswordTokenNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ResetPasswordTokenNotFound) Error() string {
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound  %+v", 404, o.Payload)
+}
+func (o *ResetPasswordTokenNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ResetPasswordTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewResetPasswordTokenInternalServerError creates a ResetPasswordTokenInternalServerError with default headers values
+func NewResetPasswordTokenInternalServerError() *ResetPasswordTokenInternalServerError {
+	return &ResetPasswordTokenInternalServerError{}
+}
+
+/* ResetPasswordTokenInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ResetPasswordTokenInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ResetPasswordTokenInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ResetPasswordTokenInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ResetPasswordTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *GetBulkMetaReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetBulkMetaUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetBulkMetaForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetBulkMetaNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetBulkMetaInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetBulkMetaOK) GetPayload() *models.RestBulkMetaResponse {
 func (o *GetBulkMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestBulkMetaResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBulkMetaUnauthorized creates a GetBulkMetaUnauthorized with default headers values
+func NewGetBulkMetaUnauthorized() *GetBulkMetaUnauthorized {
+	return &GetBulkMetaUnauthorized{}
+}
+
+/* GetBulkMetaUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetBulkMetaUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetBulkMetaUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetBulkMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetBulkMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBulkMetaForbidden creates a GetBulkMetaForbidden with default headers values
+func NewGetBulkMetaForbidden() *GetBulkMetaForbidden {
+	return &GetBulkMetaForbidden{}
+}
+
+/* GetBulkMetaForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetBulkMetaForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetBulkMetaForbidden) Error() string {
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaForbidden  %+v", 403, o.Payload)
+}
+func (o *GetBulkMetaForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetBulkMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBulkMetaNotFound creates a GetBulkMetaNotFound with default headers values
+func NewGetBulkMetaNotFound() *GetBulkMetaNotFound {
+	return &GetBulkMetaNotFound{}
+}
+
+/* GetBulkMetaNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetBulkMetaNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetBulkMetaNotFound) Error() string {
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaNotFound  %+v", 404, o.Payload)
+}
+func (o *GetBulkMetaNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetBulkMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBulkMetaInternalServerError creates a GetBulkMetaInternalServerError with default headers values
+func NewGetBulkMetaInternalServerError() *GetBulkMetaInternalServerError {
+	return &GetBulkMetaInternalServerError{}
+}
+
+/* GetBulkMetaInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetBulkMetaInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetBulkMetaInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetBulkMetaInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetBulkMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

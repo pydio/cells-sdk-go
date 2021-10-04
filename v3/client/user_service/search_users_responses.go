@@ -29,6 +29,30 @@ func (o *SearchUsersReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSearchUsersUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSearchUsersForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSearchUsersNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSearchUsersInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *SearchUsersOK) GetPayload() *models.RestUsersCollection {
 func (o *SearchUsersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestUsersCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchUsersUnauthorized creates a SearchUsersUnauthorized with default headers values
+func NewSearchUsersUnauthorized() *SearchUsersUnauthorized {
+	return &SearchUsersUnauthorized{}
+}
+
+/* SearchUsersUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SearchUsersUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SearchUsersUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /user][%d] searchUsersUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SearchUsersUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchUsersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchUsersForbidden creates a SearchUsersForbidden with default headers values
+func NewSearchUsersForbidden() *SearchUsersForbidden {
+	return &SearchUsersForbidden{}
+}
+
+/* SearchUsersForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SearchUsersForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SearchUsersForbidden) Error() string {
+	return fmt.Sprintf("[POST /user][%d] searchUsersForbidden  %+v", 403, o.Payload)
+}
+func (o *SearchUsersForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchUsersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchUsersNotFound creates a SearchUsersNotFound with default headers values
+func NewSearchUsersNotFound() *SearchUsersNotFound {
+	return &SearchUsersNotFound{}
+}
+
+/* SearchUsersNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SearchUsersNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SearchUsersNotFound) Error() string {
+	return fmt.Sprintf("[POST /user][%d] searchUsersNotFound  %+v", 404, o.Payload)
+}
+func (o *SearchUsersNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchUsersNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchUsersInternalServerError creates a SearchUsersInternalServerError with default headers values
+func NewSearchUsersInternalServerError() *SearchUsersInternalServerError {
+	return &SearchUsersInternalServerError{}
+}
+
+/* SearchUsersInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SearchUsersInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SearchUsersInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /user][%d] searchUsersInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SearchUsersInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchUsersInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

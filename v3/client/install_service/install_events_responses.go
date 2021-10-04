@@ -29,6 +29,30 @@ func (o *InstallEventsReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewInstallEventsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewInstallEventsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewInstallEventsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewInstallEventsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,6 +82,134 @@ func (o *InstallEventsOK) readResponse(response runtime.ClientResponse, consumer
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewInstallEventsUnauthorized creates a InstallEventsUnauthorized with default headers values
+func NewInstallEventsUnauthorized() *InstallEventsUnauthorized {
+	return &InstallEventsUnauthorized{}
+}
+
+/* InstallEventsUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type InstallEventsUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *InstallEventsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /install/events][%d] installEventsUnauthorized  %+v", 401, o.Payload)
+}
+func (o *InstallEventsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *InstallEventsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewInstallEventsForbidden creates a InstallEventsForbidden with default headers values
+func NewInstallEventsForbidden() *InstallEventsForbidden {
+	return &InstallEventsForbidden{}
+}
+
+/* InstallEventsForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type InstallEventsForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *InstallEventsForbidden) Error() string {
+	return fmt.Sprintf("[GET /install/events][%d] installEventsForbidden  %+v", 403, o.Payload)
+}
+func (o *InstallEventsForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *InstallEventsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewInstallEventsNotFound creates a InstallEventsNotFound with default headers values
+func NewInstallEventsNotFound() *InstallEventsNotFound {
+	return &InstallEventsNotFound{}
+}
+
+/* InstallEventsNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type InstallEventsNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *InstallEventsNotFound) Error() string {
+	return fmt.Sprintf("[GET /install/events][%d] installEventsNotFound  %+v", 404, o.Payload)
+}
+func (o *InstallEventsNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *InstallEventsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewInstallEventsInternalServerError creates a InstallEventsInternalServerError with default headers values
+func NewInstallEventsInternalServerError() *InstallEventsInternalServerError {
+	return &InstallEventsInternalServerError{}
+}
+
+/* InstallEventsInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type InstallEventsInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *InstallEventsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /install/events][%d] installEventsInternalServerError  %+v", 500, o.Payload)
+}
+func (o *InstallEventsInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *InstallEventsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

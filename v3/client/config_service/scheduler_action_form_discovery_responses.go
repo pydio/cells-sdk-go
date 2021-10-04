@@ -29,6 +29,30 @@ func (o *SchedulerActionFormDiscoveryReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSchedulerActionFormDiscoveryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSchedulerActionFormDiscoveryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSchedulerActionFormDiscoveryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSchedulerActionFormDiscoveryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,6 +82,134 @@ func (o *SchedulerActionFormDiscoveryOK) readResponse(response runtime.ClientRes
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionFormDiscoveryUnauthorized creates a SchedulerActionFormDiscoveryUnauthorized with default headers values
+func NewSchedulerActionFormDiscoveryUnauthorized() *SchedulerActionFormDiscoveryUnauthorized {
+	return &SchedulerActionFormDiscoveryUnauthorized{}
+}
+
+/* SchedulerActionFormDiscoveryUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SchedulerActionFormDiscoveryUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionFormDiscoveryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SchedulerActionFormDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionFormDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionFormDiscoveryForbidden creates a SchedulerActionFormDiscoveryForbidden with default headers values
+func NewSchedulerActionFormDiscoveryForbidden() *SchedulerActionFormDiscoveryForbidden {
+	return &SchedulerActionFormDiscoveryForbidden{}
+}
+
+/* SchedulerActionFormDiscoveryForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SchedulerActionFormDiscoveryForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionFormDiscoveryForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryForbidden  %+v", 403, o.Payload)
+}
+func (o *SchedulerActionFormDiscoveryForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionFormDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionFormDiscoveryNotFound creates a SchedulerActionFormDiscoveryNotFound with default headers values
+func NewSchedulerActionFormDiscoveryNotFound() *SchedulerActionFormDiscoveryNotFound {
+	return &SchedulerActionFormDiscoveryNotFound{}
+}
+
+/* SchedulerActionFormDiscoveryNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SchedulerActionFormDiscoveryNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionFormDiscoveryNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryNotFound  %+v", 404, o.Payload)
+}
+func (o *SchedulerActionFormDiscoveryNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionFormDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionFormDiscoveryInternalServerError creates a SchedulerActionFormDiscoveryInternalServerError with default headers values
+func NewSchedulerActionFormDiscoveryInternalServerError() *SchedulerActionFormDiscoveryInternalServerError {
+	return &SchedulerActionFormDiscoveryInternalServerError{}
+}
+
+/* SchedulerActionFormDiscoveryInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SchedulerActionFormDiscoveryInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionFormDiscoveryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SchedulerActionFormDiscoveryInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionFormDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

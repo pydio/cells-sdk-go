@@ -29,6 +29,30 @@ func (o *GetShareLinkReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetShareLinkUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetShareLinkForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetShareLinkNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetShareLinkInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetShareLinkOK) GetPayload() *models.RestShareLink {
 func (o *GetShareLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestShareLink)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareLinkUnauthorized creates a GetShareLinkUnauthorized with default headers values
+func NewGetShareLinkUnauthorized() *GetShareLinkUnauthorized {
+	return &GetShareLinkUnauthorized{}
+}
+
+/* GetShareLinkUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetShareLinkUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetShareLinkUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetShareLinkUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareLinkForbidden creates a GetShareLinkForbidden with default headers values
+func NewGetShareLinkForbidden() *GetShareLinkForbidden {
+	return &GetShareLinkForbidden{}
+}
+
+/* GetShareLinkForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetShareLinkForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetShareLinkForbidden) Error() string {
+	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkForbidden  %+v", 403, o.Payload)
+}
+func (o *GetShareLinkForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetShareLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareLinkNotFound creates a GetShareLinkNotFound with default headers values
+func NewGetShareLinkNotFound() *GetShareLinkNotFound {
+	return &GetShareLinkNotFound{}
+}
+
+/* GetShareLinkNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetShareLinkNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetShareLinkNotFound) Error() string {
+	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkNotFound  %+v", 404, o.Payload)
+}
+func (o *GetShareLinkNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetShareLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareLinkInternalServerError creates a GetShareLinkInternalServerError with default headers values
+func NewGetShareLinkInternalServerError() *GetShareLinkInternalServerError {
+	return &GetShareLinkInternalServerError{}
+}
+
+/* GetShareLinkInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetShareLinkInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetShareLinkInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetShareLinkInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetShareLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

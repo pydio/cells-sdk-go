@@ -29,6 +29,30 @@ func (o *FrontMessagesReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewFrontMessagesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewFrontMessagesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewFrontMessagesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewFrontMessagesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *FrontMessagesOK) GetPayload() *models.RestFrontMessagesResponse {
 func (o *FrontMessagesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestFrontMessagesResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontMessagesUnauthorized creates a FrontMessagesUnauthorized with default headers values
+func NewFrontMessagesUnauthorized() *FrontMessagesUnauthorized {
+	return &FrontMessagesUnauthorized{}
+}
+
+/* FrontMessagesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type FrontMessagesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *FrontMessagesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *FrontMessagesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontMessagesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontMessagesForbidden creates a FrontMessagesForbidden with default headers values
+func NewFrontMessagesForbidden() *FrontMessagesForbidden {
+	return &FrontMessagesForbidden{}
+}
+
+/* FrontMessagesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type FrontMessagesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *FrontMessagesForbidden) Error() string {
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesForbidden  %+v", 403, o.Payload)
+}
+func (o *FrontMessagesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontMessagesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontMessagesNotFound creates a FrontMessagesNotFound with default headers values
+func NewFrontMessagesNotFound() *FrontMessagesNotFound {
+	return &FrontMessagesNotFound{}
+}
+
+/* FrontMessagesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type FrontMessagesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *FrontMessagesNotFound) Error() string {
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound  %+v", 404, o.Payload)
+}
+func (o *FrontMessagesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontMessagesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontMessagesInternalServerError creates a FrontMessagesInternalServerError with default headers values
+func NewFrontMessagesInternalServerError() *FrontMessagesInternalServerError {
+	return &FrontMessagesInternalServerError{}
+}
+
+/* FrontMessagesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type FrontMessagesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *FrontMessagesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *FrontMessagesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontMessagesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

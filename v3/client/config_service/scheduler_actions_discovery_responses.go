@@ -29,6 +29,30 @@ func (o *SchedulerActionsDiscoveryReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSchedulerActionsDiscoveryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSchedulerActionsDiscoveryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSchedulerActionsDiscoveryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSchedulerActionsDiscoveryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *SchedulerActionsDiscoveryOK) GetPayload() *models.RestSchedulerActionsR
 func (o *SchedulerActionsDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestSchedulerActionsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionsDiscoveryUnauthorized creates a SchedulerActionsDiscoveryUnauthorized with default headers values
+func NewSchedulerActionsDiscoveryUnauthorized() *SchedulerActionsDiscoveryUnauthorized {
+	return &SchedulerActionsDiscoveryUnauthorized{}
+}
+
+/* SchedulerActionsDiscoveryUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SchedulerActionsDiscoveryUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionsDiscoveryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SchedulerActionsDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionsDiscoveryForbidden creates a SchedulerActionsDiscoveryForbidden with default headers values
+func NewSchedulerActionsDiscoveryForbidden() *SchedulerActionsDiscoveryForbidden {
+	return &SchedulerActionsDiscoveryForbidden{}
+}
+
+/* SchedulerActionsDiscoveryForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SchedulerActionsDiscoveryForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionsDiscoveryForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryForbidden  %+v", 403, o.Payload)
+}
+func (o *SchedulerActionsDiscoveryForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionsDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionsDiscoveryNotFound creates a SchedulerActionsDiscoveryNotFound with default headers values
+func NewSchedulerActionsDiscoveryNotFound() *SchedulerActionsDiscoveryNotFound {
+	return &SchedulerActionsDiscoveryNotFound{}
+}
+
+/* SchedulerActionsDiscoveryNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SchedulerActionsDiscoveryNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionsDiscoveryNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryNotFound  %+v", 404, o.Payload)
+}
+func (o *SchedulerActionsDiscoveryNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionsDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSchedulerActionsDiscoveryInternalServerError creates a SchedulerActionsDiscoveryInternalServerError with default headers values
+func NewSchedulerActionsDiscoveryInternalServerError() *SchedulerActionsDiscoveryInternalServerError {
+	return &SchedulerActionsDiscoveryInternalServerError{}
+}
+
+/* SchedulerActionsDiscoveryInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SchedulerActionsDiscoveryInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SchedulerActionsDiscoveryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SchedulerActionsDiscoveryInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SchedulerActionsDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

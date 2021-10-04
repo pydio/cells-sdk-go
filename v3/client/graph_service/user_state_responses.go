@@ -29,6 +29,30 @@ func (o *UserStateReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewUserStateUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewUserStateForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewUserStateNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUserStateInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *UserStateOK) GetPayload() *models.RestUserStateResponse {
 func (o *UserStateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestUserStateResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserStateUnauthorized creates a UserStateUnauthorized with default headers values
+func NewUserStateUnauthorized() *UserStateUnauthorized {
+	return &UserStateUnauthorized{}
+}
+
+/* UserStateUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type UserStateUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *UserStateUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized  %+v", 401, o.Payload)
+}
+func (o *UserStateUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserStateForbidden creates a UserStateForbidden with default headers values
+func NewUserStateForbidden() *UserStateForbidden {
+	return &UserStateForbidden{}
+}
+
+/* UserStateForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type UserStateForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *UserStateForbidden) Error() string {
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateForbidden  %+v", 403, o.Payload)
+}
+func (o *UserStateForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserStateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserStateNotFound creates a UserStateNotFound with default headers values
+func NewUserStateNotFound() *UserStateNotFound {
+	return &UserStateNotFound{}
+}
+
+/* UserStateNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type UserStateNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *UserStateNotFound) Error() string {
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound  %+v", 404, o.Payload)
+}
+func (o *UserStateNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserStateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserStateInternalServerError creates a UserStateInternalServerError with default headers values
+func NewUserStateInternalServerError() *UserStateInternalServerError {
+	return &UserStateInternalServerError{}
+}
+
+/* UserStateInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type UserStateInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *UserStateInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateInternalServerError  %+v", 500, o.Payload)
+}
+func (o *UserStateInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserStateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

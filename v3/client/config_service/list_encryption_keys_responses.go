@@ -29,6 +29,30 @@ func (o *ListEncryptionKeysReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListEncryptionKeysUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListEncryptionKeysForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListEncryptionKeysNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListEncryptionKeysInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListEncryptionKeysOK) GetPayload() *models.EncryptionAdminListKeysRespo
 func (o *ListEncryptionKeysOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EncryptionAdminListKeysResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListEncryptionKeysUnauthorized creates a ListEncryptionKeysUnauthorized with default headers values
+func NewListEncryptionKeysUnauthorized() *ListEncryptionKeysUnauthorized {
+	return &ListEncryptionKeysUnauthorized{}
+}
+
+/* ListEncryptionKeysUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListEncryptionKeysUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListEncryptionKeysUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListEncryptionKeysUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListEncryptionKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListEncryptionKeysForbidden creates a ListEncryptionKeysForbidden with default headers values
+func NewListEncryptionKeysForbidden() *ListEncryptionKeysForbidden {
+	return &ListEncryptionKeysForbidden{}
+}
+
+/* ListEncryptionKeysForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListEncryptionKeysForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListEncryptionKeysForbidden) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysForbidden  %+v", 403, o.Payload)
+}
+func (o *ListEncryptionKeysForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListEncryptionKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListEncryptionKeysNotFound creates a ListEncryptionKeysNotFound with default headers values
+func NewListEncryptionKeysNotFound() *ListEncryptionKeysNotFound {
+	return &ListEncryptionKeysNotFound{}
+}
+
+/* ListEncryptionKeysNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListEncryptionKeysNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListEncryptionKeysNotFound) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysNotFound  %+v", 404, o.Payload)
+}
+func (o *ListEncryptionKeysNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListEncryptionKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListEncryptionKeysInternalServerError creates a ListEncryptionKeysInternalServerError with default headers values
+func NewListEncryptionKeysInternalServerError() *ListEncryptionKeysInternalServerError {
+	return &ListEncryptionKeysInternalServerError{}
+}
+
+/* ListEncryptionKeysInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListEncryptionKeysInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListEncryptionKeysInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListEncryptionKeysInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListEncryptionKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *SearchWorkspacesReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewSearchWorkspacesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewSearchWorkspacesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSearchWorkspacesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSearchWorkspacesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *SearchWorkspacesOK) GetPayload() *models.RestWorkspaceCollection {
 func (o *SearchWorkspacesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestWorkspaceCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchWorkspacesUnauthorized creates a SearchWorkspacesUnauthorized with default headers values
+func NewSearchWorkspacesUnauthorized() *SearchWorkspacesUnauthorized {
+	return &SearchWorkspacesUnauthorized{}
+}
+
+/* SearchWorkspacesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type SearchWorkspacesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *SearchWorkspacesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *SearchWorkspacesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchWorkspacesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchWorkspacesForbidden creates a SearchWorkspacesForbidden with default headers values
+func NewSearchWorkspacesForbidden() *SearchWorkspacesForbidden {
+	return &SearchWorkspacesForbidden{}
+}
+
+/* SearchWorkspacesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type SearchWorkspacesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *SearchWorkspacesForbidden) Error() string {
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesForbidden  %+v", 403, o.Payload)
+}
+func (o *SearchWorkspacesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchWorkspacesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchWorkspacesNotFound creates a SearchWorkspacesNotFound with default headers values
+func NewSearchWorkspacesNotFound() *SearchWorkspacesNotFound {
+	return &SearchWorkspacesNotFound{}
+}
+
+/* SearchWorkspacesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type SearchWorkspacesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *SearchWorkspacesNotFound) Error() string {
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesNotFound  %+v", 404, o.Payload)
+}
+func (o *SearchWorkspacesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchWorkspacesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSearchWorkspacesInternalServerError creates a SearchWorkspacesInternalServerError with default headers values
+func NewSearchWorkspacesInternalServerError() *SearchWorkspacesInternalServerError {
+	return &SearchWorkspacesInternalServerError{}
+}
+
+/* SearchWorkspacesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type SearchWorkspacesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *SearchWorkspacesInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *SearchWorkspacesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *SearchWorkspacesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

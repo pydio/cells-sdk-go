@@ -29,6 +29,30 @@ func (o *RestoreNodesReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewRestoreNodesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewRestoreNodesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewRestoreNodesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewRestoreNodesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *RestoreNodesOK) GetPayload() *models.RestRestoreNodesResponse {
 func (o *RestoreNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestRestoreNodesResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRestoreNodesUnauthorized creates a RestoreNodesUnauthorized with default headers values
+func NewRestoreNodesUnauthorized() *RestoreNodesUnauthorized {
+	return &RestoreNodesUnauthorized{}
+}
+
+/* RestoreNodesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type RestoreNodesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *RestoreNodesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /tree/restore][%d] restoreNodesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *RestoreNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RestoreNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRestoreNodesForbidden creates a RestoreNodesForbidden with default headers values
+func NewRestoreNodesForbidden() *RestoreNodesForbidden {
+	return &RestoreNodesForbidden{}
+}
+
+/* RestoreNodesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type RestoreNodesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *RestoreNodesForbidden) Error() string {
+	return fmt.Sprintf("[POST /tree/restore][%d] restoreNodesForbidden  %+v", 403, o.Payload)
+}
+func (o *RestoreNodesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RestoreNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRestoreNodesNotFound creates a RestoreNodesNotFound with default headers values
+func NewRestoreNodesNotFound() *RestoreNodesNotFound {
+	return &RestoreNodesNotFound{}
+}
+
+/* RestoreNodesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type RestoreNodesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *RestoreNodesNotFound) Error() string {
+	return fmt.Sprintf("[POST /tree/restore][%d] restoreNodesNotFound  %+v", 404, o.Payload)
+}
+func (o *RestoreNodesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RestoreNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRestoreNodesInternalServerError creates a RestoreNodesInternalServerError with default headers values
+func NewRestoreNodesInternalServerError() *RestoreNodesInternalServerError {
+	return &RestoreNodesInternalServerError{}
+}
+
+/* RestoreNodesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type RestoreNodesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *RestoreNodesInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /tree/restore][%d] restoreNodesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *RestoreNodesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RestoreNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

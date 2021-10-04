@@ -29,6 +29,30 @@ func (o *PutCellReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewPutCellUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPutCellForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPutCellNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPutCellInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *PutCellOK) GetPayload() *models.RestCell {
 func (o *PutCellOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestCell)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutCellUnauthorized creates a PutCellUnauthorized with default headers values
+func NewPutCellUnauthorized() *PutCellUnauthorized {
+	return &PutCellUnauthorized{}
+}
+
+/* PutCellUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type PutCellUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *PutCellUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized  %+v", 401, o.Payload)
+}
+func (o *PutCellUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutCellForbidden creates a PutCellForbidden with default headers values
+func NewPutCellForbidden() *PutCellForbidden {
+	return &PutCellForbidden{}
+}
+
+/* PutCellForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type PutCellForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *PutCellForbidden) Error() string {
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellForbidden  %+v", 403, o.Payload)
+}
+func (o *PutCellForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutCellForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutCellNotFound creates a PutCellNotFound with default headers values
+func NewPutCellNotFound() *PutCellNotFound {
+	return &PutCellNotFound{}
+}
+
+/* PutCellNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type PutCellNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *PutCellNotFound) Error() string {
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound  %+v", 404, o.Payload)
+}
+func (o *PutCellNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutCellNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutCellInternalServerError creates a PutCellInternalServerError with default headers values
+func NewPutCellInternalServerError() *PutCellInternalServerError {
+	return &PutCellInternalServerError{}
+}
+
+/* PutCellInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type PutCellInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *PutCellInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellInternalServerError  %+v", 500, o.Payload)
+}
+func (o *PutCellInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutCellInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

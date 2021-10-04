@@ -29,6 +29,30 @@ func (o *PutRolesReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewPutRolesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPutRolesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPutRolesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPutRolesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *PutRolesOK) GetPayload() *models.IdmUser {
 func (o *PutRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IdmUser)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutRolesUnauthorized creates a PutRolesUnauthorized with default headers values
+func NewPutRolesUnauthorized() *PutRolesUnauthorized {
+	return &PutRolesUnauthorized{}
+}
+
+/* PutRolesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type PutRolesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *PutRolesUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *PutRolesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutRolesForbidden creates a PutRolesForbidden with default headers values
+func NewPutRolesForbidden() *PutRolesForbidden {
+	return &PutRolesForbidden{}
+}
+
+/* PutRolesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type PutRolesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *PutRolesForbidden) Error() string {
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesForbidden  %+v", 403, o.Payload)
+}
+func (o *PutRolesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutRolesNotFound creates a PutRolesNotFound with default headers values
+func NewPutRolesNotFound() *PutRolesNotFound {
+	return &PutRolesNotFound{}
+}
+
+/* PutRolesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type PutRolesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *PutRolesNotFound) Error() string {
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound  %+v", 404, o.Payload)
+}
+func (o *PutRolesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutRolesInternalServerError creates a PutRolesInternalServerError with default headers values
+func NewPutRolesInternalServerError() *PutRolesInternalServerError {
+	return &PutRolesInternalServerError{}
+}
+
+/* PutRolesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type PutRolesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *PutRolesInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *PutRolesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *GetRoleReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewGetRoleUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetRoleForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetRoleNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetRoleInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *GetRoleOK) GetPayload() *models.IdmRole {
 func (o *GetRoleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IdmRole)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRoleUnauthorized creates a GetRoleUnauthorized with default headers values
+func NewGetRoleUnauthorized() *GetRoleUnauthorized {
+	return &GetRoleUnauthorized{}
+}
+
+/* GetRoleUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type GetRoleUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *GetRoleUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized  %+v", 401, o.Payload)
+}
+func (o *GetRoleUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRoleForbidden creates a GetRoleForbidden with default headers values
+func NewGetRoleForbidden() *GetRoleForbidden {
+	return &GetRoleForbidden{}
+}
+
+/* GetRoleForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type GetRoleForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *GetRoleForbidden) Error() string {
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleForbidden  %+v", 403, o.Payload)
+}
+func (o *GetRoleForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetRoleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRoleNotFound creates a GetRoleNotFound with default headers values
+func NewGetRoleNotFound() *GetRoleNotFound {
+	return &GetRoleNotFound{}
+}
+
+/* GetRoleNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type GetRoleNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *GetRoleNotFound) Error() string {
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleNotFound  %+v", 404, o.Payload)
+}
+func (o *GetRoleNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRoleInternalServerError creates a GetRoleInternalServerError with default headers values
+func NewGetRoleInternalServerError() *GetRoleInternalServerError {
+	return &GetRoleInternalServerError{}
+}
+
+/* GetRoleInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type GetRoleInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *GetRoleInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetRoleInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *GetRoleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

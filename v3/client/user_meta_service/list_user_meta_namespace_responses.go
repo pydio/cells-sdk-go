@@ -29,6 +29,30 @@ func (o *ListUserMetaNamespaceReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListUserMetaNamespaceUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListUserMetaNamespaceForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListUserMetaNamespaceNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListUserMetaNamespaceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListUserMetaNamespaceOK) GetPayload() *models.RestUserMetaNamespaceColl
 func (o *ListUserMetaNamespaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestUserMetaNamespaceCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaNamespaceUnauthorized creates a ListUserMetaNamespaceUnauthorized with default headers values
+func NewListUserMetaNamespaceUnauthorized() *ListUserMetaNamespaceUnauthorized {
+	return &ListUserMetaNamespaceUnauthorized{}
+}
+
+/* ListUserMetaNamespaceUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListUserMetaNamespaceUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaNamespaceUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListUserMetaNamespaceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaNamespaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaNamespaceForbidden creates a ListUserMetaNamespaceForbidden with default headers values
+func NewListUserMetaNamespaceForbidden() *ListUserMetaNamespaceForbidden {
+	return &ListUserMetaNamespaceForbidden{}
+}
+
+/* ListUserMetaNamespaceForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListUserMetaNamespaceForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaNamespaceForbidden) Error() string {
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceForbidden  %+v", 403, o.Payload)
+}
+func (o *ListUserMetaNamespaceForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaNamespaceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaNamespaceNotFound creates a ListUserMetaNamespaceNotFound with default headers values
+func NewListUserMetaNamespaceNotFound() *ListUserMetaNamespaceNotFound {
+	return &ListUserMetaNamespaceNotFound{}
+}
+
+/* ListUserMetaNamespaceNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListUserMetaNamespaceNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaNamespaceNotFound) Error() string {
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceNotFound  %+v", 404, o.Payload)
+}
+func (o *ListUserMetaNamespaceNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaNamespaceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaNamespaceInternalServerError creates a ListUserMetaNamespaceInternalServerError with default headers values
+func NewListUserMetaNamespaceInternalServerError() *ListUserMetaNamespaceInternalServerError {
+	return &ListUserMetaNamespaceInternalServerError{}
+}
+
+/* ListUserMetaNamespaceInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListUserMetaNamespaceInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaNamespaceInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListUserMetaNamespaceInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaNamespaceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

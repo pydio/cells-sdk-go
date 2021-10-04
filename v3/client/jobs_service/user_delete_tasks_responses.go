@@ -29,6 +29,30 @@ func (o *UserDeleteTasksReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewUserDeleteTasksUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewUserDeleteTasksForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewUserDeleteTasksNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUserDeleteTasksInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *UserDeleteTasksOK) GetPayload() *models.JobsDeleteTasksResponse {
 func (o *UserDeleteTasksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.JobsDeleteTasksResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserDeleteTasksUnauthorized creates a UserDeleteTasksUnauthorized with default headers values
+func NewUserDeleteTasksUnauthorized() *UserDeleteTasksUnauthorized {
+	return &UserDeleteTasksUnauthorized{}
+}
+
+/* UserDeleteTasksUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type UserDeleteTasksUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *UserDeleteTasksUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized  %+v", 401, o.Payload)
+}
+func (o *UserDeleteTasksUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserDeleteTasksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserDeleteTasksForbidden creates a UserDeleteTasksForbidden with default headers values
+func NewUserDeleteTasksForbidden() *UserDeleteTasksForbidden {
+	return &UserDeleteTasksForbidden{}
+}
+
+/* UserDeleteTasksForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type UserDeleteTasksForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *UserDeleteTasksForbidden) Error() string {
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksForbidden  %+v", 403, o.Payload)
+}
+func (o *UserDeleteTasksForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserDeleteTasksForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserDeleteTasksNotFound creates a UserDeleteTasksNotFound with default headers values
+func NewUserDeleteTasksNotFound() *UserDeleteTasksNotFound {
+	return &UserDeleteTasksNotFound{}
+}
+
+/* UserDeleteTasksNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type UserDeleteTasksNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *UserDeleteTasksNotFound) Error() string {
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound  %+v", 404, o.Payload)
+}
+func (o *UserDeleteTasksNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserDeleteTasksNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserDeleteTasksInternalServerError creates a UserDeleteTasksInternalServerError with default headers values
+func NewUserDeleteTasksInternalServerError() *UserDeleteTasksInternalServerError {
+	return &UserDeleteTasksInternalServerError{}
+}
+
+/* UserDeleteTasksInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type UserDeleteTasksInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *UserDeleteTasksInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksInternalServerError  %+v", 500, o.Payload)
+}
+func (o *UserDeleteTasksInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserDeleteTasksInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

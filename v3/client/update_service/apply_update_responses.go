@@ -29,6 +29,30 @@ func (o *ApplyUpdateReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewApplyUpdateUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewApplyUpdateForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewApplyUpdateNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewApplyUpdateInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ApplyUpdateOK) GetPayload() *models.UpdateApplyUpdateResponse {
 func (o *ApplyUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UpdateApplyUpdateResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewApplyUpdateUnauthorized creates a ApplyUpdateUnauthorized with default headers values
+func NewApplyUpdateUnauthorized() *ApplyUpdateUnauthorized {
+	return &ApplyUpdateUnauthorized{}
+}
+
+/* ApplyUpdateUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ApplyUpdateUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ApplyUpdateUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ApplyUpdateUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ApplyUpdateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewApplyUpdateForbidden creates a ApplyUpdateForbidden with default headers values
+func NewApplyUpdateForbidden() *ApplyUpdateForbidden {
+	return &ApplyUpdateForbidden{}
+}
+
+/* ApplyUpdateForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ApplyUpdateForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ApplyUpdateForbidden) Error() string {
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateForbidden  %+v", 403, o.Payload)
+}
+func (o *ApplyUpdateForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ApplyUpdateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewApplyUpdateNotFound creates a ApplyUpdateNotFound with default headers values
+func NewApplyUpdateNotFound() *ApplyUpdateNotFound {
+	return &ApplyUpdateNotFound{}
+}
+
+/* ApplyUpdateNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ApplyUpdateNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ApplyUpdateNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound  %+v", 404, o.Payload)
+}
+func (o *ApplyUpdateNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ApplyUpdateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewApplyUpdateInternalServerError creates a ApplyUpdateInternalServerError with default headers values
+func NewApplyUpdateInternalServerError() *ApplyUpdateInternalServerError {
+	return &ApplyUpdateInternalServerError{}
+}
+
+/* ApplyUpdateInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ApplyUpdateInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ApplyUpdateInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ApplyUpdateInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ApplyUpdateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

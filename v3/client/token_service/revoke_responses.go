@@ -29,6 +29,30 @@ func (o *RevokeReader) ReadResponse(response runtime.ClientResponse, consumer ru
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewRevokeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewRevokeForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewRevokeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewRevokeInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *RevokeOK) GetPayload() *models.RestRevokeResponse {
 func (o *RevokeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestRevokeResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRevokeUnauthorized creates a RevokeUnauthorized with default headers values
+func NewRevokeUnauthorized() *RevokeUnauthorized {
+	return &RevokeUnauthorized{}
+}
+
+/* RevokeUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type RevokeUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *RevokeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeUnauthorized  %+v", 401, o.Payload)
+}
+func (o *RevokeUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RevokeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRevokeForbidden creates a RevokeForbidden with default headers values
+func NewRevokeForbidden() *RevokeForbidden {
+	return &RevokeForbidden{}
+}
+
+/* RevokeForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type RevokeForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *RevokeForbidden) Error() string {
+	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeForbidden  %+v", 403, o.Payload)
+}
+func (o *RevokeForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RevokeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRevokeNotFound creates a RevokeNotFound with default headers values
+func NewRevokeNotFound() *RevokeNotFound {
+	return &RevokeNotFound{}
+}
+
+/* RevokeNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type RevokeNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *RevokeNotFound) Error() string {
+	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeNotFound  %+v", 404, o.Payload)
+}
+func (o *RevokeNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RevokeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRevokeInternalServerError creates a RevokeInternalServerError with default headers values
+func NewRevokeInternalServerError() *RevokeInternalServerError {
+	return &RevokeInternalServerError{}
+}
+
+/* RevokeInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type RevokeInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *RevokeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeInternalServerError  %+v", 500, o.Payload)
+}
+func (o *RevokeInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *RevokeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *OpenAPIDiscoveryReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewOpenAPIDiscoveryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewOpenAPIDiscoveryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewOpenAPIDiscoveryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewOpenAPIDiscoveryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,6 +82,134 @@ func (o *OpenAPIDiscoveryOK) readResponse(response runtime.ClientResponse, consu
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewOpenAPIDiscoveryUnauthorized creates a OpenAPIDiscoveryUnauthorized with default headers values
+func NewOpenAPIDiscoveryUnauthorized() *OpenAPIDiscoveryUnauthorized {
+	return &OpenAPIDiscoveryUnauthorized{}
+}
+
+/* OpenAPIDiscoveryUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type OpenAPIDiscoveryUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *OpenAPIDiscoveryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+func (o *OpenAPIDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *OpenAPIDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewOpenAPIDiscoveryForbidden creates a OpenAPIDiscoveryForbidden with default headers values
+func NewOpenAPIDiscoveryForbidden() *OpenAPIDiscoveryForbidden {
+	return &OpenAPIDiscoveryForbidden{}
+}
+
+/* OpenAPIDiscoveryForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type OpenAPIDiscoveryForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *OpenAPIDiscoveryForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryForbidden  %+v", 403, o.Payload)
+}
+func (o *OpenAPIDiscoveryForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *OpenAPIDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewOpenAPIDiscoveryNotFound creates a OpenAPIDiscoveryNotFound with default headers values
+func NewOpenAPIDiscoveryNotFound() *OpenAPIDiscoveryNotFound {
+	return &OpenAPIDiscoveryNotFound{}
+}
+
+/* OpenAPIDiscoveryNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type OpenAPIDiscoveryNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *OpenAPIDiscoveryNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryNotFound  %+v", 404, o.Payload)
+}
+func (o *OpenAPIDiscoveryNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *OpenAPIDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewOpenAPIDiscoveryInternalServerError creates a OpenAPIDiscoveryInternalServerError with default headers values
+func NewOpenAPIDiscoveryInternalServerError() *OpenAPIDiscoveryInternalServerError {
+	return &OpenAPIDiscoveryInternalServerError{}
+}
+
+/* OpenAPIDiscoveryInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type OpenAPIDiscoveryInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *OpenAPIDiscoveryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryInternalServerError  %+v", 500, o.Payload)
+}
+func (o *OpenAPIDiscoveryInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *OpenAPIDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

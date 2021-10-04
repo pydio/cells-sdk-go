@@ -29,6 +29,30 @@ func (o *PutConfigReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewPutConfigUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPutConfigForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPutConfigNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPutConfigInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *PutConfigOK) GetPayload() *models.RestConfiguration {
 func (o *PutConfigOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestConfiguration)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutConfigUnauthorized creates a PutConfigUnauthorized with default headers values
+func NewPutConfigUnauthorized() *PutConfigUnauthorized {
+	return &PutConfigUnauthorized{}
+}
+
+/* PutConfigUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type PutConfigUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *PutConfigUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized  %+v", 401, o.Payload)
+}
+func (o *PutConfigUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutConfigUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutConfigForbidden creates a PutConfigForbidden with default headers values
+func NewPutConfigForbidden() *PutConfigForbidden {
+	return &PutConfigForbidden{}
+}
+
+/* PutConfigForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type PutConfigForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *PutConfigForbidden) Error() string {
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigForbidden  %+v", 403, o.Payload)
+}
+func (o *PutConfigForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutConfigForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutConfigNotFound creates a PutConfigNotFound with default headers values
+func NewPutConfigNotFound() *PutConfigNotFound {
+	return &PutConfigNotFound{}
+}
+
+/* PutConfigNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type PutConfigNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *PutConfigNotFound) Error() string {
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigNotFound  %+v", 404, o.Payload)
+}
+func (o *PutConfigNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutConfigNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutConfigInternalServerError creates a PutConfigInternalServerError with default headers values
+func NewPutConfigInternalServerError() *PutConfigInternalServerError {
+	return &PutConfigInternalServerError{}
+}
+
+/* PutConfigInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type PutConfigInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *PutConfigInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigInternalServerError  %+v", 500, o.Payload)
+}
+func (o *PutConfigInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *PutConfigInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

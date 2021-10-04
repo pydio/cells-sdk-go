@@ -29,6 +29,30 @@ func (o *CreateNodesReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewCreateNodesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewCreateNodesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewCreateNodesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCreateNodesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *CreateNodesOK) GetPayload() *models.RestNodesCollection {
 func (o *CreateNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestNodesCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateNodesUnauthorized creates a CreateNodesUnauthorized with default headers values
+func NewCreateNodesUnauthorized() *CreateNodesUnauthorized {
+	return &CreateNodesUnauthorized{}
+}
+
+/* CreateNodesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type CreateNodesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *CreateNodesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *CreateNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateNodesForbidden creates a CreateNodesForbidden with default headers values
+func NewCreateNodesForbidden() *CreateNodesForbidden {
+	return &CreateNodesForbidden{}
+}
+
+/* CreateNodesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type CreateNodesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *CreateNodesForbidden) Error() string {
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesForbidden  %+v", 403, o.Payload)
+}
+func (o *CreateNodesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateNodesNotFound creates a CreateNodesNotFound with default headers values
+func NewCreateNodesNotFound() *CreateNodesNotFound {
+	return &CreateNodesNotFound{}
+}
+
+/* CreateNodesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type CreateNodesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *CreateNodesNotFound) Error() string {
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesNotFound  %+v", 404, o.Payload)
+}
+func (o *CreateNodesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateNodesInternalServerError creates a CreateNodesInternalServerError with default headers values
+func NewCreateNodesInternalServerError() *CreateNodesInternalServerError {
+	return &CreateNodesInternalServerError{}
+}
+
+/* CreateNodesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type CreateNodesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *CreateNodesInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *CreateNodesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *CreateNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

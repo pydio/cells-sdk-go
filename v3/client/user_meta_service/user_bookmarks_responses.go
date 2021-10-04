@@ -29,6 +29,30 @@ func (o *UserBookmarksReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewUserBookmarksUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewUserBookmarksForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewUserBookmarksNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUserBookmarksInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *UserBookmarksOK) GetPayload() *models.RestBulkMetaResponse {
 func (o *UserBookmarksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestBulkMetaResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserBookmarksUnauthorized creates a UserBookmarksUnauthorized with default headers values
+func NewUserBookmarksUnauthorized() *UserBookmarksUnauthorized {
+	return &UserBookmarksUnauthorized{}
+}
+
+/* UserBookmarksUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type UserBookmarksUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *UserBookmarksUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksUnauthorized  %+v", 401, o.Payload)
+}
+func (o *UserBookmarksUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserBookmarksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserBookmarksForbidden creates a UserBookmarksForbidden with default headers values
+func NewUserBookmarksForbidden() *UserBookmarksForbidden {
+	return &UserBookmarksForbidden{}
+}
+
+/* UserBookmarksForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type UserBookmarksForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *UserBookmarksForbidden) Error() string {
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksForbidden  %+v", 403, o.Payload)
+}
+func (o *UserBookmarksForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserBookmarksForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserBookmarksNotFound creates a UserBookmarksNotFound with default headers values
+func NewUserBookmarksNotFound() *UserBookmarksNotFound {
+	return &UserBookmarksNotFound{}
+}
+
+/* UserBookmarksNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type UserBookmarksNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *UserBookmarksNotFound) Error() string {
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksNotFound  %+v", 404, o.Payload)
+}
+func (o *UserBookmarksNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserBookmarksNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserBookmarksInternalServerError creates a UserBookmarksInternalServerError with default headers values
+func NewUserBookmarksInternalServerError() *UserBookmarksInternalServerError {
+	return &UserBookmarksInternalServerError{}
+}
+
+/* UserBookmarksInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type UserBookmarksInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *UserBookmarksInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksInternalServerError  %+v", 500, o.Payload)
+}
+func (o *UserBookmarksInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserBookmarksInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

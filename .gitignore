@@ -11,3 +11,4 @@ transport/oidc/test
 example/main
 v2/example/main
 v3/example/main
+v3/cctl

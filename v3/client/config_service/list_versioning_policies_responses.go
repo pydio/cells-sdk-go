@@ -29,6 +29,30 @@ func (o *ListVersioningPoliciesReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListVersioningPoliciesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListVersioningPoliciesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListVersioningPoliciesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListVersioningPoliciesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListVersioningPoliciesOK) GetPayload() *models.RestVersioningPolicyColl
 func (o *ListVersioningPoliciesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestVersioningPolicyCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVersioningPoliciesUnauthorized creates a ListVersioningPoliciesUnauthorized with default headers values
+func NewListVersioningPoliciesUnauthorized() *ListVersioningPoliciesUnauthorized {
+	return &ListVersioningPoliciesUnauthorized{}
+}
+
+/* ListVersioningPoliciesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListVersioningPoliciesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListVersioningPoliciesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListVersioningPoliciesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVersioningPoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVersioningPoliciesForbidden creates a ListVersioningPoliciesForbidden with default headers values
+func NewListVersioningPoliciesForbidden() *ListVersioningPoliciesForbidden {
+	return &ListVersioningPoliciesForbidden{}
+}
+
+/* ListVersioningPoliciesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListVersioningPoliciesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListVersioningPoliciesForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesForbidden  %+v", 403, o.Payload)
+}
+func (o *ListVersioningPoliciesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVersioningPoliciesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVersioningPoliciesNotFound creates a ListVersioningPoliciesNotFound with default headers values
+func NewListVersioningPoliciesNotFound() *ListVersioningPoliciesNotFound {
+	return &ListVersioningPoliciesNotFound{}
+}
+
+/* ListVersioningPoliciesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListVersioningPoliciesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListVersioningPoliciesNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound  %+v", 404, o.Payload)
+}
+func (o *ListVersioningPoliciesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVersioningPoliciesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListVersioningPoliciesInternalServerError creates a ListVersioningPoliciesInternalServerError with default headers values
+func NewListVersioningPoliciesInternalServerError() *ListVersioningPoliciesInternalServerError {
+	return &ListVersioningPoliciesInternalServerError{}
+}
+
+/* ListVersioningPoliciesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListVersioningPoliciesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListVersioningPoliciesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListVersioningPoliciesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListVersioningPoliciesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

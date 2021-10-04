@@ -29,6 +29,30 @@ func (o *ListServicesReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListServicesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListServicesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListServicesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListServicesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListServicesOK) GetPayload() *models.RestServiceCollection {
 func (o *ListServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestServiceCollection)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListServicesUnauthorized creates a ListServicesUnauthorized with default headers values
+func NewListServicesUnauthorized() *ListServicesUnauthorized {
+	return &ListServicesUnauthorized{}
+}
+
+/* ListServicesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListServicesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListServicesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/ctl][%d] listServicesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListServicesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListServicesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListServicesForbidden creates a ListServicesForbidden with default headers values
+func NewListServicesForbidden() *ListServicesForbidden {
+	return &ListServicesForbidden{}
+}
+
+/* ListServicesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListServicesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListServicesForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/ctl][%d] listServicesForbidden  %+v", 403, o.Payload)
+}
+func (o *ListServicesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListServicesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListServicesNotFound creates a ListServicesNotFound with default headers values
+func NewListServicesNotFound() *ListServicesNotFound {
+	return &ListServicesNotFound{}
+}
+
+/* ListServicesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListServicesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListServicesNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/ctl][%d] listServicesNotFound  %+v", 404, o.Payload)
+}
+func (o *ListServicesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListServicesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListServicesInternalServerError creates a ListServicesInternalServerError with default headers values
+func NewListServicesInternalServerError() *ListServicesInternalServerError {
+	return &ListServicesInternalServerError{}
+}
+
+/* ListServicesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListServicesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListServicesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/ctl][%d] listServicesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListServicesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListServicesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

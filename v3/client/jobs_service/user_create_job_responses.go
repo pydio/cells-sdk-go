@@ -29,6 +29,30 @@ func (o *UserCreateJobReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewUserCreateJobUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewUserCreateJobForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewUserCreateJobNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUserCreateJobInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *UserCreateJobOK) GetPayload() *models.RestUserJobResponse {
 func (o *UserCreateJobOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestUserJobResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserCreateJobUnauthorized creates a UserCreateJobUnauthorized with default headers values
+func NewUserCreateJobUnauthorized() *UserCreateJobUnauthorized {
+	return &UserCreateJobUnauthorized{}
+}
+
+/* UserCreateJobUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type UserCreateJobUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *UserCreateJobUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized  %+v", 401, o.Payload)
+}
+func (o *UserCreateJobUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserCreateJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserCreateJobForbidden creates a UserCreateJobForbidden with default headers values
+func NewUserCreateJobForbidden() *UserCreateJobForbidden {
+	return &UserCreateJobForbidden{}
+}
+
+/* UserCreateJobForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type UserCreateJobForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *UserCreateJobForbidden) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobForbidden  %+v", 403, o.Payload)
+}
+func (o *UserCreateJobForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserCreateJobForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserCreateJobNotFound creates a UserCreateJobNotFound with default headers values
+func NewUserCreateJobNotFound() *UserCreateJobNotFound {
+	return &UserCreateJobNotFound{}
+}
+
+/* UserCreateJobNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type UserCreateJobNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *UserCreateJobNotFound) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound  %+v", 404, o.Payload)
+}
+func (o *UserCreateJobNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserCreateJobNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUserCreateJobInternalServerError creates a UserCreateJobInternalServerError with default headers values
+func NewUserCreateJobInternalServerError() *UserCreateJobInternalServerError {
+	return &UserCreateJobInternalServerError{}
+}
+
+/* UserCreateJobInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type UserCreateJobInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *UserCreateJobInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobInternalServerError  %+v", 500, o.Payload)
+}
+func (o *UserCreateJobInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UserCreateJobInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

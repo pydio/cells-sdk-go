@@ -29,6 +29,30 @@ func (o *UpdateUserMetaReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewUpdateUserMetaUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewUpdateUserMetaForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewUpdateUserMetaNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUpdateUserMetaInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *UpdateUserMetaOK) GetPayload() *models.IdmUpdateUserMetaResponse {
 func (o *UpdateUserMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IdmUpdateUserMetaResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateUserMetaUnauthorized creates a UpdateUserMetaUnauthorized with default headers values
+func NewUpdateUserMetaUnauthorized() *UpdateUserMetaUnauthorized {
+	return &UpdateUserMetaUnauthorized{}
+}
+
+/* UpdateUserMetaUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type UpdateUserMetaUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *UpdateUserMetaUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized  %+v", 401, o.Payload)
+}
+func (o *UpdateUserMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UpdateUserMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateUserMetaForbidden creates a UpdateUserMetaForbidden with default headers values
+func NewUpdateUserMetaForbidden() *UpdateUserMetaForbidden {
+	return &UpdateUserMetaForbidden{}
+}
+
+/* UpdateUserMetaForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type UpdateUserMetaForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *UpdateUserMetaForbidden) Error() string {
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaForbidden  %+v", 403, o.Payload)
+}
+func (o *UpdateUserMetaForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UpdateUserMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateUserMetaNotFound creates a UpdateUserMetaNotFound with default headers values
+func NewUpdateUserMetaNotFound() *UpdateUserMetaNotFound {
+	return &UpdateUserMetaNotFound{}
+}
+
+/* UpdateUserMetaNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type UpdateUserMetaNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *UpdateUserMetaNotFound) Error() string {
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound  %+v", 404, o.Payload)
+}
+func (o *UpdateUserMetaNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UpdateUserMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateUserMetaInternalServerError creates a UpdateUserMetaInternalServerError with default headers values
+func NewUpdateUserMetaInternalServerError() *UpdateUserMetaInternalServerError {
+	return &UpdateUserMetaInternalServerError{}
+}
+
+/* UpdateUserMetaInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type UpdateUserMetaInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *UpdateUserMetaInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaInternalServerError  %+v", 500, o.Payload)
+}
+func (o *UpdateUserMetaInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *UpdateUserMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -29,6 +29,30 @@ func (o *ListSharedResourcesReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListSharedResourcesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListSharedResourcesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListSharedResourcesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListSharedResourcesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListSharedResourcesOK) GetPayload() *models.RestListSharedResourcesResp
 func (o *ListSharedResourcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestListSharedResourcesResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListSharedResourcesUnauthorized creates a ListSharedResourcesUnauthorized with default headers values
+func NewListSharedResourcesUnauthorized() *ListSharedResourcesUnauthorized {
+	return &ListSharedResourcesUnauthorized{}
+}
+
+/* ListSharedResourcesUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListSharedResourcesUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListSharedResourcesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListSharedResourcesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListSharedResourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListSharedResourcesForbidden creates a ListSharedResourcesForbidden with default headers values
+func NewListSharedResourcesForbidden() *ListSharedResourcesForbidden {
+	return &ListSharedResourcesForbidden{}
+}
+
+/* ListSharedResourcesForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListSharedResourcesForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListSharedResourcesForbidden) Error() string {
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesForbidden  %+v", 403, o.Payload)
+}
+func (o *ListSharedResourcesForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListSharedResourcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListSharedResourcesNotFound creates a ListSharedResourcesNotFound with default headers values
+func NewListSharedResourcesNotFound() *ListSharedResourcesNotFound {
+	return &ListSharedResourcesNotFound{}
+}
+
+/* ListSharedResourcesNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListSharedResourcesNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListSharedResourcesNotFound) Error() string {
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound  %+v", 404, o.Payload)
+}
+func (o *ListSharedResourcesNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListSharedResourcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListSharedResourcesInternalServerError creates a ListSharedResourcesInternalServerError with default headers values
+func NewListSharedResourcesInternalServerError() *ListSharedResourcesInternalServerError {
+	return &ListSharedResourcesInternalServerError{}
+}
+
+/* ListSharedResourcesInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListSharedResourcesInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListSharedResourcesInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListSharedResourcesInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListSharedResourcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

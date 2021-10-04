@@ -29,6 +29,30 @@ func (o *ListUserMetaTagsReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewListUserMetaTagsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewListUserMetaTagsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewListUserMetaTagsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewListUserMetaTagsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ListUserMetaTagsOK) GetPayload() *models.RestListUserMetaTagsResponse {
 func (o *ListUserMetaTagsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestListUserMetaTagsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaTagsUnauthorized creates a ListUserMetaTagsUnauthorized with default headers values
+func NewListUserMetaTagsUnauthorized() *ListUserMetaTagsUnauthorized {
+	return &ListUserMetaTagsUnauthorized{}
+}
+
+/* ListUserMetaTagsUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ListUserMetaTagsUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaTagsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ListUserMetaTagsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaTagsForbidden creates a ListUserMetaTagsForbidden with default headers values
+func NewListUserMetaTagsForbidden() *ListUserMetaTagsForbidden {
+	return &ListUserMetaTagsForbidden{}
+}
+
+/* ListUserMetaTagsForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ListUserMetaTagsForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaTagsForbidden) Error() string {
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsForbidden  %+v", 403, o.Payload)
+}
+func (o *ListUserMetaTagsForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaTagsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaTagsNotFound creates a ListUserMetaTagsNotFound with default headers values
+func NewListUserMetaTagsNotFound() *ListUserMetaTagsNotFound {
+	return &ListUserMetaTagsNotFound{}
+}
+
+/* ListUserMetaTagsNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ListUserMetaTagsNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaTagsNotFound) Error() string {
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound  %+v", 404, o.Payload)
+}
+func (o *ListUserMetaTagsNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaTagsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListUserMetaTagsInternalServerError creates a ListUserMetaTagsInternalServerError with default headers values
+func NewListUserMetaTagsInternalServerError() *ListUserMetaTagsInternalServerError {
+	return &ListUserMetaTagsInternalServerError{}
+}
+
+/* ListUserMetaTagsInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ListUserMetaTagsInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ListUserMetaTagsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ListUserMetaTagsInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ListUserMetaTagsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

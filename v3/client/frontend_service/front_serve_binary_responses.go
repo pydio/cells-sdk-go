@@ -29,6 +29,30 @@ func (o *FrontServeBinaryReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewFrontServeBinaryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewFrontServeBinaryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewFrontServeBinaryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewFrontServeBinaryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,6 +82,134 @@ func (o *FrontServeBinaryOK) readResponse(response runtime.ClientResponse, consu
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontServeBinaryUnauthorized creates a FrontServeBinaryUnauthorized with default headers values
+func NewFrontServeBinaryUnauthorized() *FrontServeBinaryUnauthorized {
+	return &FrontServeBinaryUnauthorized{}
+}
+
+/* FrontServeBinaryUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type FrontServeBinaryUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *FrontServeBinaryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryUnauthorized  %+v", 401, o.Payload)
+}
+func (o *FrontServeBinaryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontServeBinaryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontServeBinaryForbidden creates a FrontServeBinaryForbidden with default headers values
+func NewFrontServeBinaryForbidden() *FrontServeBinaryForbidden {
+	return &FrontServeBinaryForbidden{}
+}
+
+/* FrontServeBinaryForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type FrontServeBinaryForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *FrontServeBinaryForbidden) Error() string {
+	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryForbidden  %+v", 403, o.Payload)
+}
+func (o *FrontServeBinaryForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontServeBinaryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontServeBinaryNotFound creates a FrontServeBinaryNotFound with default headers values
+func NewFrontServeBinaryNotFound() *FrontServeBinaryNotFound {
+	return &FrontServeBinaryNotFound{}
+}
+
+/* FrontServeBinaryNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type FrontServeBinaryNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *FrontServeBinaryNotFound) Error() string {
+	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryNotFound  %+v", 404, o.Payload)
+}
+func (o *FrontServeBinaryNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontServeBinaryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewFrontServeBinaryInternalServerError creates a FrontServeBinaryInternalServerError with default headers values
+func NewFrontServeBinaryInternalServerError() *FrontServeBinaryInternalServerError {
+	return &FrontServeBinaryInternalServerError{}
+}
+
+/* FrontServeBinaryInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type FrontServeBinaryInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *FrontServeBinaryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryInternalServerError  %+v", 500, o.Payload)
+}
+func (o *FrontServeBinaryInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *FrontServeBinaryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

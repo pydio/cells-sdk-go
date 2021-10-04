@@ -29,6 +29,30 @@ func (o *DeleteDataSourceReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewDeleteDataSourceUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteDataSourceForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteDataSourceNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteDataSourceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *DeleteDataSourceOK) GetPayload() *models.RestDeleteDataSourceResponse {
 func (o *DeleteDataSourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDeleteDataSourceResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteDataSourceUnauthorized creates a DeleteDataSourceUnauthorized with default headers values
+func NewDeleteDataSourceUnauthorized() *DeleteDataSourceUnauthorized {
+	return &DeleteDataSourceUnauthorized{}
+}
+
+/* DeleteDataSourceUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type DeleteDataSourceUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteDataSourceUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceUnauthorized  %+v", 401, o.Payload)
+}
+func (o *DeleteDataSourceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteDataSourceForbidden creates a DeleteDataSourceForbidden with default headers values
+func NewDeleteDataSourceForbidden() *DeleteDataSourceForbidden {
+	return &DeleteDataSourceForbidden{}
+}
+
+/* DeleteDataSourceForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type DeleteDataSourceForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteDataSourceForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceForbidden  %+v", 403, o.Payload)
+}
+func (o *DeleteDataSourceForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteDataSourceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteDataSourceNotFound creates a DeleteDataSourceNotFound with default headers values
+func NewDeleteDataSourceNotFound() *DeleteDataSourceNotFound {
+	return &DeleteDataSourceNotFound{}
+}
+
+/* DeleteDataSourceNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type DeleteDataSourceNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteDataSourceNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceNotFound  %+v", 404, o.Payload)
+}
+func (o *DeleteDataSourceNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteDataSourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteDataSourceInternalServerError creates a DeleteDataSourceInternalServerError with default headers values
+func NewDeleteDataSourceInternalServerError() *DeleteDataSourceInternalServerError {
+	return &DeleteDataSourceInternalServerError{}
+}
+
+/* DeleteDataSourceInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type DeleteDataSourceInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *DeleteDataSourceInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceInternalServerError  %+v", 500, o.Payload)
+}
+func (o *DeleteDataSourceInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *DeleteDataSourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

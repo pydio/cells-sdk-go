@@ -29,6 +29,30 @@ func (o *ConfigFormsDiscoveryReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
+	case 401:
+		result := NewConfigFormsDiscoveryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewConfigFormsDiscoveryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewConfigFormsDiscoveryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewConfigFormsDiscoveryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,6 +81,134 @@ func (o *ConfigFormsDiscoveryOK) GetPayload() *models.RestDiscoveryResponse {
 func (o *ConfigFormsDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestDiscoveryResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewConfigFormsDiscoveryUnauthorized creates a ConfigFormsDiscoveryUnauthorized with default headers values
+func NewConfigFormsDiscoveryUnauthorized() *ConfigFormsDiscoveryUnauthorized {
+	return &ConfigFormsDiscoveryUnauthorized{}
+}
+
+/* ConfigFormsDiscoveryUnauthorized describes a response with status code 401, with default header values.
+
+User is not authenticated
+*/
+type ConfigFormsDiscoveryUnauthorized struct {
+	Payload *models.RestError
+}
+
+func (o *ConfigFormsDiscoveryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+func (o *ConfigFormsDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ConfigFormsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewConfigFormsDiscoveryForbidden creates a ConfigFormsDiscoveryForbidden with default headers values
+func NewConfigFormsDiscoveryForbidden() *ConfigFormsDiscoveryForbidden {
+	return &ConfigFormsDiscoveryForbidden{}
+}
+
+/* ConfigFormsDiscoveryForbidden describes a response with status code 403, with default header values.
+
+User has no permission to access this resource
+*/
+type ConfigFormsDiscoveryForbidden struct {
+	Payload *models.RestError
+}
+
+func (o *ConfigFormsDiscoveryForbidden) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryForbidden  %+v", 403, o.Payload)
+}
+func (o *ConfigFormsDiscoveryForbidden) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ConfigFormsDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewConfigFormsDiscoveryNotFound creates a ConfigFormsDiscoveryNotFound with default headers values
+func NewConfigFormsDiscoveryNotFound() *ConfigFormsDiscoveryNotFound {
+	return &ConfigFormsDiscoveryNotFound{}
+}
+
+/* ConfigFormsDiscoveryNotFound describes a response with status code 404, with default header values.
+
+Resource does not exist in the system
+*/
+type ConfigFormsDiscoveryNotFound struct {
+	Payload *models.RestError
+}
+
+func (o *ConfigFormsDiscoveryNotFound) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound  %+v", 404, o.Payload)
+}
+func (o *ConfigFormsDiscoveryNotFound) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ConfigFormsDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewConfigFormsDiscoveryInternalServerError creates a ConfigFormsDiscoveryInternalServerError with default headers values
+func NewConfigFormsDiscoveryInternalServerError() *ConfigFormsDiscoveryInternalServerError {
+	return &ConfigFormsDiscoveryInternalServerError{}
+}
+
+/* ConfigFormsDiscoveryInternalServerError describes a response with status code 500, with default header values.
+
+An internal error occurred in the backend
+*/
+type ConfigFormsDiscoveryInternalServerError struct {
+	Payload *models.RestError
+}
+
+func (o *ConfigFormsDiscoveryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryInternalServerError  %+v", 500, o.Payload)
+}
+func (o *ConfigFormsDiscoveryInternalServerError) GetPayload() *models.RestError {
+	return o.Payload
+}
+
+func (o *ConfigFormsDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
