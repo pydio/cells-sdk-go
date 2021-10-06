@@ -26,6 +26,8 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 Between version 2 and 3, we have updated the [go-swagger](https://github.com/go-swagger/go-swagger) version that we use, to [v0.27.0](https://github.com/go-swagger/go-swagger/releases/tag/v0.27.0), this has led to a few breaking changes: you might have to adapt your client code.
 
+We have also reworked our error model in the json file: well-known http status are now correctly handled and messages are meaningful.
+
 Here is a short list of the modification you might have to do:
 
 - `client.PydioCellsRest` is now `client.PydioCellsRestAPI`
