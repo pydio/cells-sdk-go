@@ -100,24 +100,13 @@ func NewSearchUsersUnauthorized() *SearchUsersUnauthorized {
 User is not authenticated
 */
 type SearchUsersUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *SearchUsersUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /user][%d] searchUsersUnauthorized  %+v", 401, o.Payload)
-}
-func (o *SearchUsersUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /user][%d] searchUsersUnauthorized ", 401)
 }
 
 func (o *SearchUsersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -98,24 +98,13 @@ func NewFrontServeBinaryUnauthorized() *FrontServeBinaryUnauthorized {
 User is not authenticated
 */
 type FrontServeBinaryUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *FrontServeBinaryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryUnauthorized  %+v", 401, o.Payload)
-}
-func (o *FrontServeBinaryUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryUnauthorized ", 401)
 }
 
 func (o *FrontServeBinaryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

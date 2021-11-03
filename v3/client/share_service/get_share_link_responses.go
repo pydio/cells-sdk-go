@@ -100,24 +100,13 @@ func NewGetShareLinkUnauthorized() *GetShareLinkUnauthorized {
 User is not authenticated
 */
 type GetShareLinkUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *GetShareLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkUnauthorized  %+v", 401, o.Payload)
-}
-func (o *GetShareLinkUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkUnauthorized ", 401)
 }
 
 func (o *GetShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

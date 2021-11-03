@@ -100,24 +100,13 @@ func NewDeleteUserUnauthorized() *DeleteUserUnauthorized {
 User is not authenticated
 */
 type DeleteUserUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *DeleteUserUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized  %+v", 401, o.Payload)
-}
-func (o *DeleteUserUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized ", 401)
 }
 
 func (o *DeleteUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

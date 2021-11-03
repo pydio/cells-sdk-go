@@ -100,24 +100,13 @@ func NewPutUserUnauthorized() *PutUserUnauthorized {
 User is not authenticated
 */
 type PutUserUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *PutUserUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /user/{Login}][%d] putUserUnauthorized  %+v", 401, o.Payload)
-}
-func (o *PutUserUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /user/{Login}][%d] putUserUnauthorized ", 401)
 }
 
 func (o *PutUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

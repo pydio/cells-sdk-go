@@ -100,24 +100,13 @@ func NewRelationUnauthorized() *RelationUnauthorized {
 User is not authenticated
 */
 type RelationUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *RelationUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized  %+v", 401, o.Payload)
-}
-func (o *RelationUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized ", 401)
 }
 
 func (o *RelationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

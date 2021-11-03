@@ -100,24 +100,13 @@ func NewSendUnauthorized() *SendUnauthorized {
 User is not authenticated
 */
 type SendUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *SendUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized  %+v", 401, o.Payload)
-}
-func (o *SendUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized ", 401)
 }
 
 func (o *SendUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

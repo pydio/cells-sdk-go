@@ -100,24 +100,13 @@ func NewListVirtualNodesUnauthorized() *ListVirtualNodesUnauthorized {
 User is not authenticated
 */
 type ListVirtualNodesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListVirtualNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListVirtualNodesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized ", 401)
 }
 
 func (o *ListVirtualNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

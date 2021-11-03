@@ -100,24 +100,13 @@ func NewGetAgreementUnauthorized() *GetAgreementUnauthorized {
 User is not authenticated
 */
 type GetAgreementUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *GetAgreementUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized  %+v", 401, o.Payload)
-}
-func (o *GetAgreementUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized ", 401)
 }
 
 func (o *GetAgreementUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

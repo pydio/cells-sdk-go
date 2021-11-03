@@ -100,24 +100,13 @@ func NewListStorageBucketsUnauthorized() *ListStorageBucketsUnauthorized {
 User is not authenticated
 */
 type ListStorageBucketsUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListStorageBucketsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/buckets][%d] listStorageBucketsUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListStorageBucketsUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /config/buckets][%d] listStorageBucketsUnauthorized ", 401)
 }
 
 func (o *ListStorageBucketsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

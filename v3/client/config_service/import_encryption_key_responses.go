@@ -100,24 +100,13 @@ func NewImportEncryptionKeyUnauthorized() *ImportEncryptionKeyUnauthorized {
 User is not authenticated
 */
 type ImportEncryptionKeyUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ImportEncryptionKeyUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ImportEncryptionKeyUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized ", 401)
 }
 
 func (o *ImportEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

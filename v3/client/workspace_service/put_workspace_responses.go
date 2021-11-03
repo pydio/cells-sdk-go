@@ -100,24 +100,13 @@ func NewPutWorkspaceUnauthorized() *PutWorkspaceUnauthorized {
 User is not authenticated
 */
 type PutWorkspaceUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *PutWorkspaceUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized  %+v", 401, o.Payload)
-}
-func (o *PutWorkspaceUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized ", 401)
 }
 
 func (o *PutWorkspaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

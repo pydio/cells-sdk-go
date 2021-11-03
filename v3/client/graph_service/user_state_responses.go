@@ -100,24 +100,13 @@ func NewUserStateUnauthorized() *UserStateUnauthorized {
 User is not authenticated
 */
 type UserStateUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *UserStateUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized  %+v", 401, o.Payload)
-}
-func (o *UserStateUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized ", 401)
 }
 
 func (o *UserStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

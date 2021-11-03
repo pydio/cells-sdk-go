@@ -100,24 +100,13 @@ func NewPostInstallUnauthorized() *PostInstallUnauthorized {
 User is not authenticated
 */
 type PostInstallUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *PostInstallUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /install][%d] postInstallUnauthorized  %+v", 401, o.Payload)
-}
-func (o *PostInstallUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /install][%d] postInstallUnauthorized ", 401)
 }
 
 func (o *PostInstallUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

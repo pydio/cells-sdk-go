@@ -100,24 +100,13 @@ func NewGetVersioningPolicyUnauthorized() *GetVersioningPolicyUnauthorized {
 User is not authenticated
 */
 type GetVersioningPolicyUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *GetVersioningPolicyUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized  %+v", 401, o.Payload)
-}
-func (o *GetVersioningPolicyUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized ", 401)
 }
 
 func (o *GetVersioningPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

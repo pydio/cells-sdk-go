@@ -100,24 +100,13 @@ func NewStreamUnauthorized() *StreamUnauthorized {
 User is not authenticated
 */
 type StreamUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *StreamUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized  %+v", 401, o.Payload)
-}
-func (o *StreamUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized ", 401)
 }
 
 func (o *StreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -100,24 +100,13 @@ func NewListTemplatesUnauthorized() *ListTemplatesUnauthorized {
 User is not authenticated
 */
 type ListTemplatesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListTemplatesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized ", 401)
 }
 
 func (o *ListTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

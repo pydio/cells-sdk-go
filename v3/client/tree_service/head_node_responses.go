@@ -100,24 +100,13 @@ func NewHeadNodeUnauthorized() *HeadNodeUnauthorized {
 User is not authenticated
 */
 type HeadNodeUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *HeadNodeUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeUnauthorized  %+v", 401, o.Payload)
-}
-func (o *HeadNodeUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeUnauthorized ", 401)
 }
 
 func (o *HeadNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

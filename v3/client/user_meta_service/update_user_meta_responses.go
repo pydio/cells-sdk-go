@@ -100,24 +100,13 @@ func NewUpdateUserMetaUnauthorized() *UpdateUserMetaUnauthorized {
 User is not authenticated
 */
 type UpdateUserMetaUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *UpdateUserMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized  %+v", 401, o.Payload)
-}
-func (o *UpdateUserMetaUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized ", 401)
 }
 
 func (o *UpdateUserMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

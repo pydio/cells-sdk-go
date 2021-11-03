@@ -100,24 +100,13 @@ func NewDeleteACLUnauthorized() *DeleteACLUnauthorized {
 User is not authenticated
 */
 type DeleteACLUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *DeleteACLUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclUnauthorized  %+v", 401, o.Payload)
-}
-func (o *DeleteACLUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclUnauthorized ", 401)
 }
 
 func (o *DeleteACLUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

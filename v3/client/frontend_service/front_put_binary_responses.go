@@ -98,24 +98,13 @@ func NewFrontPutBinaryUnauthorized() *FrontPutBinaryUnauthorized {
 User is not authenticated
 */
 type FrontPutBinaryUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *FrontPutBinaryUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /frontend/binaries/{BinaryType}/{Uuid}][%d] frontPutBinaryUnauthorized  %+v", 401, o.Payload)
-}
-func (o *FrontPutBinaryUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /frontend/binaries/{BinaryType}/{Uuid}][%d] frontPutBinaryUnauthorized ", 401)
 }
 
 func (o *FrontPutBinaryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

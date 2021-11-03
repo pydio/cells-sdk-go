@@ -98,24 +98,13 @@ func NewFrontStateUnauthorized() *FrontStateUnauthorized {
 User is not authenticated
 */
 type FrontStateUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *FrontStateUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized  %+v", 401, o.Payload)
-}
-func (o *FrontStateUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized ", 401)
 }
 
 func (o *FrontStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

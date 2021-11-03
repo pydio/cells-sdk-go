@@ -100,24 +100,13 @@ func NewResetPasswordTokenUnauthorized() *ResetPasswordTokenUnauthorized {
 User is not authenticated
 */
 type ResetPasswordTokenUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ResetPasswordTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ResetPasswordTokenUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized ", 401)
 }
 
 func (o *ResetPasswordTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

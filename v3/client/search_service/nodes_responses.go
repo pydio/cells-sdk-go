@@ -100,24 +100,13 @@ func NewNodesUnauthorized() *NodesUnauthorized {
 User is not authenticated
 */
 type NodesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *NodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *NodesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized ", 401)
 }
 
 func (o *NodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

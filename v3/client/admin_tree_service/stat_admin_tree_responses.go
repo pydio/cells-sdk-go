@@ -100,24 +100,13 @@ func NewStatAdminTreeUnauthorized() *StatAdminTreeUnauthorized {
 User is not authenticated
 */
 type StatAdminTreeUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *StatAdminTreeUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeUnauthorized  %+v", 401, o.Payload)
-}
-func (o *StatAdminTreeUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeUnauthorized ", 401)
 }
 
 func (o *StatAdminTreeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -100,24 +100,13 @@ func NewGetRoleUnauthorized() *GetRoleUnauthorized {
 User is not authenticated
 */
 type GetRoleUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *GetRoleUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized  %+v", 401, o.Payload)
-}
-func (o *GetRoleUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized ", 401)
 }
 
 func (o *GetRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

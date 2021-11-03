@@ -100,24 +100,13 @@ func NewFrontSessionUnauthorized() *FrontSessionUnauthorized {
 User is not authenticated
 */
 type FrontSessionUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *FrontSessionUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionUnauthorized  %+v", 401, o.Payload)
-}
-func (o *FrontSessionUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionUnauthorized ", 401)
 }
 
 func (o *FrontSessionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

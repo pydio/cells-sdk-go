@@ -100,24 +100,13 @@ func NewGetDataSourceUnauthorized() *GetDataSourceUnauthorized {
 User is not authenticated
 */
 type GetDataSourceUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *GetDataSourceUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized  %+v", 401, o.Payload)
-}
-func (o *GetDataSourceUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized ", 401)
 }
 
 func (o *GetDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

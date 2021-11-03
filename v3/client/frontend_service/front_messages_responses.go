@@ -100,24 +100,13 @@ func NewFrontMessagesUnauthorized() *FrontMessagesUnauthorized {
 User is not authenticated
 */
 type FrontMessagesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *FrontMessagesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *FrontMessagesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized ", 401)
 }
 
 func (o *FrontMessagesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -100,24 +100,13 @@ func NewDeleteNodesUnauthorized() *DeleteNodesUnauthorized {
 User is not authenticated
 */
 type DeleteNodesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *DeleteNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *DeleteNodesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized ", 401)
 }
 
 func (o *DeleteNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

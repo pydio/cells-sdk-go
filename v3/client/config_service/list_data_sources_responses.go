@@ -100,24 +100,13 @@ func NewListDataSourcesUnauthorized() *ListDataSourcesUnauthorized {
 User is not authenticated
 */
 type ListDataSourcesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListDataSourcesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListDataSourcesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized ", 401)
 }
 
 func (o *ListDataSourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

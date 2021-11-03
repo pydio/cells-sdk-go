@@ -100,24 +100,13 @@ func NewGetCellUnauthorized() *GetCellUnauthorized {
 User is not authenticated
 */
 type GetCellUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *GetCellUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized  %+v", 401, o.Payload)
-}
-func (o *GetCellUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized ", 401)
 }
 
 func (o *GetCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -100,24 +100,13 @@ func NewExportEncryptionKeyUnauthorized() *ExportEncryptionKeyUnauthorized {
 User is not authenticated
 */
 type ExportEncryptionKeyUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ExportEncryptionKeyUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ExportEncryptionKeyUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized ", 401)
 }
 
 func (o *ExportEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -100,24 +100,13 @@ func NewListPeerFoldersUnauthorized() *ListPeerFoldersUnauthorized {
 User is not authenticated
 */
 type ListPeerFoldersUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListPeerFoldersUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListPeerFoldersUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized ", 401)
 }
 
 func (o *ListPeerFoldersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

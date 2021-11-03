@@ -100,24 +100,13 @@ func NewListServicesUnauthorized() *ListServicesUnauthorized {
 User is not authenticated
 */
 type ListServicesUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListServicesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/ctl][%d] listServicesUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListServicesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/ctl][%d] listServicesUnauthorized ", 401)
 }
 
 func (o *ListServicesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

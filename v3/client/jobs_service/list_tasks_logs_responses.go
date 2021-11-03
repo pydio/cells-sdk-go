@@ -100,24 +100,13 @@ func NewListTasksLogsUnauthorized() *ListTasksLogsUnauthorized {
 User is not authenticated
 */
 type ListTasksLogsUnauthorized struct {
-	Payload *models.RestError
 }
 
 func (o *ListTasksLogsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized  %+v", 401, o.Payload)
-}
-func (o *ListTasksLogsUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized ", 401)
 }
 
 func (o *ListTasksLogsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
