@@ -1,4 +1,4 @@
-# Cells SDK Go client (v3)
+# Cells SDK Go (v3)
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 
