@@ -12,7 +12,7 @@ It provides:
 
 Although we strive to maintain retrocompatibility in our APIs, this SDK assumes that your server is running Pydio Cells 3.x or later.
 
-For more information, please visit [https://pydio.com/en/docs/developer-guide/cells-sdk-go](https://pydio.com)
+For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide)
 
 ## Usage
 
