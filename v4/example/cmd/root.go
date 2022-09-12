@@ -42,10 +42,9 @@ the powerful Cobra framework to easily implement small CLI client applications.
 `,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 
-		if configFile == "" {
-			// Parse from parameters
+		if configFile == "" { // No config file is found, parsing from parameters
 
-			// insure all necessary parameters are defined
+			// Also insure all necessary parameters are defined
 			var msg string
 			if host == "" {
 				msg += "- your host URL\n"

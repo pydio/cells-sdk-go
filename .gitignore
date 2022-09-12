@@ -8,9 +8,11 @@ config.json
 
 transport/oidc/test
 
+main
 example/main
 v2/example/main
 v3/example/main
 v3/cctl
-main
 v4/cctl
+v4/.vscode
+v4/example/test.txt
