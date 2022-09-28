@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"os"
 	"strconv"
 
@@ -30,7 +29,7 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 	}
 
 	if c.Url == "" {
-		s, err := ioutil.ReadFile(configFilePath)
+		s, err := os.ReadFile(configFilePath)
 		if err != nil {
 			return err
 		}
@@ -49,7 +48,7 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 	}
 
 	if cs3.Bucket == "" && len(s3ConfigFilePath) > 0 {
-		s, err := ioutil.ReadFile(s3ConfigFilePath[0])
+		s, err := os.ReadFile(s3ConfigFilePath[0])
 		if err == nil {
 			json.Unmarshal(s, &cs3)
 		}

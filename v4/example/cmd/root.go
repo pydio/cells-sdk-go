@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -81,7 +80,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			return
 		}
 
-		data, e := ioutil.ReadFile(configFile)
+		data, e := os.ReadFile(configFile)
 		if e != nil {
 			log.Fatal("cannot read config file:", e)
 		}
