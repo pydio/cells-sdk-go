@@ -38,6 +38,8 @@ type ClientService interface {
 
 	CreatePeerFolder(params *CreatePeerFolderParams, opts ...ClientOption) (*CreatePeerFolderOK, error)
 
+	CreateStorageBucket(params *CreateStorageBucketParams, opts ...ClientOption) (*CreateStorageBucketOK, error)
+
 	DeleteDataSource(params *DeleteDataSourceParams, opts ...ClientOption) (*DeleteDataSourceOK, error)
 
 	DeleteEncryptionKey(params *DeleteEncryptionKeyParams, opts ...ClientOption) (*DeleteEncryptionKeyOK, error)
@@ -238,6 +240,44 @@ func (a *Client) CreatePeerFolder(params *CreatePeerFolderParams, opts ...Client
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for CreatePeerFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateStorageBucket lists buckets on a given object storage
+*/
+func (a *Client) CreateStorageBucket(params *CreateStorageBucketParams, opts ...ClientOption) (*CreateStorageBucketOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateStorageBucketParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "CreateStorageBucket",
+		Method:             "PUT",
+		PathPattern:        "/config/buckets/{BucketName}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &CreateStorageBucketReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateStorageBucketOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for CreateStorageBucket: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
