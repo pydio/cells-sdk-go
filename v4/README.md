@@ -10,8 +10,7 @@ It provides:
 - a transport layer that handles authentication and wraps AWS SDK for file transfers
 - a bunch of basic examples that use this SDK to perform simple actions on a running Cells server instance
 
-Although we strive to maintain retrocompatibility in our APIs, this SDK assumes that your server is running Pydio Cells 4.x or later.
-
+To use this SDK, your server must be running Pydio Cells 4.x or later.
 For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide)
 
 ## Usage
@@ -32,7 +31,7 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 # From Cells v3
 
-Between version 3 and 4, we have updated the [go-swagger](https://github.com/go-swagger/go-swagger) version that we use, to [v0.30.2](https://github.com/go-swagger/go-swagger/releases/tag/v0.30.2).
+Between version 3 and 4, we have updated the [go-swagger](https://github.com/go-swagger/go-swagger) version that we use, to [v0.30.3](https://github.com/go-swagger/go-swagger/releases/tag/v0.30.3).
 
 We have also changed the name of the swagger spec file in Cells that is now: `cellsapi-rest.swagger.json`.
 
