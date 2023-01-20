@@ -64,7 +64,7 @@ type DeleteRoleParams struct {
 
 	/* AutoApplies.
 
-	   List of profiles (standard, shared, admin) on which the role will be automatically applied.
+	   List of profiles (standard, shared, admin) on which the role will be automatically applied
 	*/
 	AutoApplies []string
 
@@ -76,25 +76,25 @@ type DeleteRoleParams struct {
 
 	/* GroupRole.
 
-	   Whether this role is attached to a Group object.
+	   Whether this role is attached to a Group object
 	*/
 	GroupRole *bool
 
 	/* IsTeam.
 
-	   Whether this role represents a user team or not.
+	   Whether this role represents a user team or not
 	*/
 	IsTeam *bool
 
 	/* Label.
 
-	   Label of this role.
+	   Label of this role
 	*/
 	Label *string
 
 	/* LastUpdated.
 
-	   Last modification date of the role.
+	   Last modification date of the role
 
 	   Format: int32
 	*/
@@ -102,13 +102,13 @@ type DeleteRoleParams struct {
 
 	/* PoliciesContextEditable.
 
-	   Whether the policies resolve into an editable state.
+	   Whether the policies resolve into an editable state
 	*/
 	PoliciesContextEditable *bool
 
 	/* UserRole.
 
-	   Whether this role is attached to a User object.
+	   Whether this role is attached to a User object
 	*/
 	UserRole *bool
 

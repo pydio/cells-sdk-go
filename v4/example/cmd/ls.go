@@ -66,7 +66,6 @@ var listFiles = &cobra.Command{
 				fmt.Printf("  - [%s]\t%s\t%s\n", fType, u.Path, u.Size)
 			}
 		}
-
 	},
 }
 

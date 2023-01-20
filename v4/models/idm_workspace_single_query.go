@@ -18,34 +18,34 @@ import (
 // swagger:model idmWorkspaceSingleQuery
 type IdmWorkspaceSingleQuery struct {
 
-	// attribute name
+	// Lookup for an attribute, to be used in combination with AttributeValue
 	AttributeName string `json:"AttributeName,omitempty"`
 
-	// attribute value
+	// Value used for comparison
 	AttributeValue string `json:"AttributeValue,omitempty"`
 
-	// has attribute
+	// Lookup for the presence of a specific attribute, whatever its value
 	HasAttribute string `json:"HasAttribute,omitempty"`
 
-	// last updated
+	// Compared to workspace update date (Golang duration with a leading comparator < or >)
 	LastUpdated string `json:"LastUpdated,omitempty"`
 
-	// description
+	// Lookup by description
 	Description string `json:"description,omitempty"`
 
-	// label
+	// Lookup by workspace Label
 	Label string `json:"label,omitempty"`
 
-	// not
+	// Internal - Negate the query result
 	Not bool `json:"not,omitempty"`
 
-	// scope
+	// Restrict to a specific workspace type
 	Scope *IdmWorkspaceScope `json:"scope,omitempty"`
 
-	// slug
+	// Select workspace by slug
 	Slug string `json:"slug,omitempty"`
 
-	// uuid
+	// Lookup by workspace Uuid
 	UUID string `json:"uuid,omitempty"`
 }
 

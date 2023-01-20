@@ -64,19 +64,19 @@ type GetDataSourceParams struct {
 
 	/* APIKey.
 
-	   Corresponding objects service api key.
+	   Corresponding objects service api key
 	*/
 	APIKey *string
 
 	/* APISecret.
 
-	   Corresponding objects service api secret.
+	   Corresponding objects service api secret
 	*/
 	APISecret *string
 
 	/* CreationDate.
 
-	   Data Source creation date.
+	   Data Source creation date
 
 	   Format: int32
 	*/
@@ -84,19 +84,19 @@ type GetDataSourceParams struct {
 
 	/* Disabled.
 
-	   Whether this data source is disabled or running.
+	   Whether this data source is disabled or running
 	*/
 	Disabled *bool
 
 	/* EncryptionKey.
 
-	   Encryption key used for encrypting data.
+	   Encryption key used for encrypting data
 	*/
 	EncryptionKey *string
 
 	/* EncryptionMode.
 
-	   Type of encryption applied before sending data to storage.
+	   Type of encryption applied before sending data to storage
 
 	   Default: "CLEAR"
 	*/
@@ -104,13 +104,13 @@ type GetDataSourceParams struct {
 
 	/* FlatStorage.
 
-	   Store data in flat format (object-storage like).
+	   Store data in flat format (object-storage like)
 	*/
 	FlatStorage *bool
 
 	/* LastSynchronizationDate.
 
-	   Data Source last synchronization date.
+	   Data Source last synchronization date
 
 	   Format: int32
 	*/
@@ -124,25 +124,25 @@ type GetDataSourceParams struct {
 
 	/* ObjectsBaseFolder.
 
-	   Corresponding objects service base folder inside the bucket.
+	   Corresponding objects service base folder inside the bucket
 	*/
 	ObjectsBaseFolder *string
 
 	/* ObjectsBucket.
 
-	   Corresponding objects service bucket.
+	   Corresponding objects service bucket
 	*/
 	ObjectsBucket *string
 
 	/* ObjectsHost.
 
-	   Corresponding objects service host.
+	   Corresponding objects service host
 	*/
 	ObjectsHost *string
 
 	/* ObjectsPort.
 
-	   Corresponding objects service port.
+	   Corresponding objects service port
 
 	   Format: int32
 	*/
@@ -150,31 +150,31 @@ type GetDataSourceParams struct {
 
 	/* ObjectsSecure.
 
-	   Corresponding objects service connection type.
+	   Corresponding objects service connection type
 	*/
 	ObjectsSecure *bool
 
 	/* ObjectsServiceName.
 
-	   Corresponding objects service name (underlying s3 service).
+	   Corresponding objects service name (underlying s3 service)
 	*/
 	ObjectsServiceName *string
 
 	/* PeerAddress.
 
-	   Peer address of the data source.
+	   Peer address of the data source
 	*/
 	PeerAddress *string
 
 	/* SkipSyncOnRestart.
 
-	   Do not trigger resync at start.
+	   Do not trigger resync at start
 	*/
 	SkipSyncOnRestart *bool
 
 	/* StorageType.
 
-	   Type of underlying storage (LOCAL, S3, AZURE, GCS).
+	   Type of underlying storage (LOCAL, S3, AZURE, GCS)
 
 	   Default: "LOCAL"
 	*/
@@ -182,13 +182,13 @@ type GetDataSourceParams struct {
 
 	/* VersioningPolicyName.
 
-	   Versioning policy describes how files are kept in the versioning queue.
+	   Versioning policy describes how files are kept in the versioning queue
 	*/
 	VersioningPolicyName *string
 
 	/* Watch.
 
-	   Not implemented, whether to watch for underlying changes on the FS.
+	   Not implemented, whether to watch for underlying changes on the FS
 	*/
 	Watch *bool
 

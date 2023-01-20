@@ -20,22 +20,22 @@ type IdmRoleSingleQuery struct {
 	// Look for roles that have any value in the autoApplies field
 	HasAutoApply bool `json:"HasAutoApply,omitempty"`
 
-	// Look for group roles only
+	// Look for roles associated with a Group
 	IsGroupRole bool `json:"IsGroupRole,omitempty"`
 
-	// Look for team roles only
+	// Look up for roles associated with a Team
 	IsTeam bool `json:"IsTeam,omitempty"`
 
-	// Look for user roles only
+	// Look for roles associated with a User
 	IsUserRole bool `json:"IsUserRole,omitempty"`
 
-	// Look for roles by label, eventually using wildchar
+	// Look for roles by label, eventually using "wildchar"
 	Label string `json:"Label,omitempty"`
 
 	// Look for roles by Uuid
 	UUID []string `json:"Uuid"`
 
-	// Negate the query
+	// Internal - Negate the query
 	Not bool `json:"not,omitempty"`
 }
 

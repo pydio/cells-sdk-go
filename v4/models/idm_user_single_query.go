@@ -18,46 +18,46 @@ import (
 // swagger:model idmUserSingleQuery
 type IdmUserSingleQuery struct {
 
-	// attribute any value
+	// Search for the existence of the AttributeName, whatever its value
 	AttributeAnyValue bool `json:"AttributeAnyValue,omitempty"`
 
-	// Search on attribute
+	// Search on attribute, to be combined with AttributeValue
 	AttributeName string `json:"AttributeName,omitempty"`
 
-	// attribute value
+	// Value used for comparison
 	AttributeValue string `json:"AttributeValue,omitempty"`
 
-	// Compare to last connection date, starting with > or <
+	// Lookup by last connection date. Must be a timestamp with a leading comparison symbol ('<' or '>')
 	ConnectedSince string `json:"ConnectedSince,omitempty"`
 
-	// Search a specific group by path
+	// Search one specific Group by its path
 	FullPath string `json:"FullPath,omitempty"`
 
-	// Search on group path, and if so, search recursively
+	// List users below a specific on group path
 	GroupPath string `json:"GroupPath,omitempty"`
 
-	// Shortcut for pydio:profile attribute
+	// Lookup by profile name (e.g. admin, standard, shared). This is a shortcut for searching on the pydio:profile attribute
 	HasProfile string `json:"HasProfile,omitempty"`
 
-	// Search on roles
+	// Search users having a specific role UUID
 	HasRole string `json:"HasRole,omitempty"`
 
-	// login
+	// Lookup a user by Login
 	Login string `json:"Login,omitempty"`
 
-	// node type
+	// Filter/Search by NodeType (generally user or group)
 	NodeType *IdmNodeType `json:"NodeType,omitempty"`
 
-	// password
+	// Lookup by hashed password, probably never used
 	Password string `json:"Password,omitempty"`
 
-	// recursive
+	// When searching on group path, load all users and groups recursively
 	Recursive bool `json:"Recursive,omitempty"`
 
-	// Uuid
+	// Lookup a user by its Uuid
 	UUID string `json:"Uuid,omitempty"`
 
-	// not
+	// Internal - Negate the query/filter result
 	Not bool `json:"not,omitempty"`
 }
 

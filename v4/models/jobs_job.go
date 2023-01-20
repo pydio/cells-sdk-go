@@ -31,6 +31,9 @@ type JobsJob struct {
 	// Event Context Filter
 	ContextMetaFilter *JobsContextMetaFilter `json:"ContextMetaFilter,omitempty"`
 
+	// Timestamp for creation time
+	CreatedAt int32 `json:"CreatedAt,omitempty"`
+
 	// Job created by application or by administrator
 	Custom bool `json:"Custom,omitempty"`
 
@@ -41,6 +44,9 @@ type JobsJob struct {
 	// One of these must be set (not exclusive)
 	// Listen to a given set of events
 	EventNames []string `json:"EventNames"`
+
+	// Expose this job through one or more-userspace APIs
+	Hooks []*JobsJobHook `json:"Hooks"`
 
 	// Unique ID for this Job
 	ID string `json:"ID,omitempty"`
@@ -59,6 +65,12 @@ type JobsJob struct {
 
 	// Task properties
 	MaxConcurrency int32 `json:"MaxConcurrency,omitempty"`
+
+	// Collect chain of actions into a merged output
+	MergeAction *JobsAction `json:"MergeAction,omitempty"`
+
+	// Timestamp for modification time
+	ModifiedAt int32 `json:"ModifiedAt,omitempty"`
 
 	// Filter out specific events
 	NodeEventFilter *JobsNodesSelector `json:"NodeEventFilter,omitempty"`
@@ -86,6 +98,9 @@ type JobsJob struct {
 
 	// Deprecated in favor of more generic IdmSelector
 	UserEventFilter *JobsUsersSelector `json:"UserEventFilter,omitempty"`
+
+	// Additional Versioning Metadata
+	VersionMeta map[string]string `json:"VersionMeta,omitempty"`
 }
 
 // Validate validates this jobs job
@@ -104,7 +119,15 @@ func (m *JobsJob) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateHooks(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateIdmFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMergeAction(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -202,6 +225,32 @@ func (m *JobsJob) validateDataSourceFilter(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsJob) validateHooks(formats strfmt.Registry) error {
+	if swag.IsZero(m.Hooks) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Hooks); i++ {
+		if swag.IsZero(m.Hooks[i]) { // not required
+			continue
+		}
+
+		if m.Hooks[i] != nil {
+			if err := m.Hooks[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Hooks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Hooks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *JobsJob) validateIdmFilter(formats strfmt.Registry) error {
 	if swag.IsZero(m.IdmFilter) { // not required
 		return nil
@@ -213,6 +262,25 @@ func (m *JobsJob) validateIdmFilter(formats strfmt.Registry) error {
 				return ve.ValidateName("IdmFilter")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("IdmFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsJob) validateMergeAction(formats strfmt.Registry) error {
+	if swag.IsZero(m.MergeAction) { // not required
+		return nil
+	}
+
+	if m.MergeAction != nil {
+		if err := m.MergeAction.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("MergeAction")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("MergeAction")
 			}
 			return err
 		}
@@ -372,7 +440,15 @@ func (m *JobsJob) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateHooks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateIdmFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMergeAction(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -458,6 +534,26 @@ func (m *JobsJob) contextValidateDataSourceFilter(ctx context.Context, formats s
 	return nil
 }
 
+func (m *JobsJob) contextValidateHooks(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Hooks); i++ {
+
+		if m.Hooks[i] != nil {
+			if err := m.Hooks[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Hooks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Hooks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *JobsJob) contextValidateIdmFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IdmFilter != nil {
@@ -466,6 +562,22 @@ func (m *JobsJob) contextValidateIdmFilter(ctx context.Context, formats strfmt.R
 				return ve.ValidateName("IdmFilter")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("IdmFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsJob) contextValidateMergeAction(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MergeAction != nil {
+		if err := m.MergeAction.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("MergeAction")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("MergeAction")
 			}
 			return err
 		}

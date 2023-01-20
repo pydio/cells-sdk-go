@@ -17,10 +17,10 @@ import (
 // swagger:model idmACLAction
 type IdmACLAction struct {
 
-	// name
+	// ACL Action name, most frequent values are "read" or "write"
 	Name string `json:"Name,omitempty"`
 
-	// value
+	// ACL Action value
 	Value string `json:"Value,omitempty"`
 }
 

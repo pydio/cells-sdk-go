@@ -63,7 +63,7 @@ type EndpointsDiscoveryParams struct {
 
 	/* EndpointType.
 
-	   Filter result to a specific endpoint type.
+	   Filter result to a specific endpoint type
 	*/
 	EndpointType *string
 

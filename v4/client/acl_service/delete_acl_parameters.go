@@ -63,7 +63,11 @@ DeleteACLParams contains all the parameters to send to the API endpoint
 */
 type DeleteACLParams struct {
 
-	// Body.
+	/* Body.
+
+	     ACL are the basic flags that can be put anywhere in the tree to provide some specific rights to a given role.
+	The context of how they apply can be fine-tuned by workspace.
+	*/
 	Body *models.IdmACL
 
 	timeout    time.Duration

@@ -18,58 +18,66 @@ import (
 // swagger:model treeQuery
 type TreeQuery struct {
 
-	// Search in content
+	// Search in textual content (if search engine has this feature enabled)
 	Content string `json:"Content,omitempty"`
 
-	// Pass a duration with > or < to compute MinDate / MaxDate
+	// Compute MinDate/MaxDate with a Golang duration with a leading comparator (> or <)
+	// Duration may contain "s" second, "m" minute, "d" day.
+	// Example: ">10m" for files modified before 10minutes ago
 	DurationDate string `json:"DurationDate,omitempty"`
 
-	// Look for a specific eTag value
+	// Look for a specific ETag value, may only be useful to lookup for files with __temporary__ ETag
 	ETag string `json:"ETag,omitempty"`
 
-	// Search files by extension
+	// Search files by their extension, use pipe symbol | if you wish to allow many extensions.
+	// Example png|pdf|jpg
 	Extension string `json:"Extension,omitempty"`
 
-	// Search in filename
+	// Lookup by file basename
 	FileName string `json:"FileName,omitempty"`
 
-	// Search in either filename or content (but at least one of them)
+	// Search in either filename or content (if search engine has this feature enabled)
 	FileNameOrContent string `json:"FileNameOrContent,omitempty"`
 
-	// Free Query String (for metadata)
+	// Bleve-like search query to search for a specific metadata value.
+	// When querying nodes, this will redirect this query to the Search Engine. When filtering an input, this will load an in-memory bleve engine to evaluate the node.
+	//
+	// Bleve query string format is a space separated list of `[+-]key:value`, where node meta keys must be prepended with "Meta."
+	// For Example, for tags: `+Meta.usermeta-tags:myvalue`
 	FreeString string `json:"FreeString,omitempty"`
 
 	// Search geographically
 	GeoQuery *TreeGeoQuery `json:"GeoQuery,omitempty"`
 
-	// max date
+	// Range for modification date - node was modified before this date
 	MaxDate string `json:"MaxDate,omitempty"`
 
-	// max size
+	// Range for file size - size is smaller than
 	MaxSize string `json:"MaxSize,omitempty"`
 
-	// Range for date
+	// Range for modification date - node was modified after this date
 	MinDate string `json:"MinDate,omitempty"`
 
-	// Range for size
+	// Range for file size - size bigger than
 	MinSize string `json:"MinSize,omitempty"`
 
 	// Negate this query
 	Not bool `json:"Not,omitempty"`
 
-	// Limit to a given level of the tree - can be used in filters
+	// Restrict recursive listing to a given level of the tree starting from root.
+	// Special value "-1" should list only one level in the folder defined by PathPrefix
 	PathDepth int32 `json:"PathDepth,omitempty"`
 
-	// Limit to a given subtree
+	// Recursive listing of nodes below a given path. Combine with the PathDepth parameter to limit request results
 	PathPrefix []string `json:"PathPrefix"`
 
-	// Preset list of nodes by Path
+	// List of nodes paths, exactly matching
 	Paths []string `json:"Paths"`
 
-	// Limit to a given node type
+	// Limit to a given node type (file or folder)
 	Type *TreeNodeType `json:"Type,omitempty"`
 
-	// Preset list of Node by UUIDs
+	// Preset list of specific node defined by their UUIDs
 	UUIDs []string `json:"UUIDs"`
 }
 

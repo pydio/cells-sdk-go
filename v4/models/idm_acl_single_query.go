@@ -19,19 +19,19 @@ import (
 // swagger:model idmACLSingleQuery
 type IdmACLSingleQuery struct {
 
-	// actions
+	// List of Actions to lookup
 	Actions []*IdmACLAction `json:"Actions"`
 
-	// node i ds
+	// Filter by one or more node UUID
 	NodeIDs []string `json:"NodeIDs"`
 
-	// role i ds
+	// Filter by one or more role UUID
 	RoleIDs []string `json:"RoleIDs"`
 
-	// workspace i ds
+	// Filter by one or more workspace UUID
 	WorkspaceIDs []string `json:"WorkspaceIDs"`
 
-	// not
+	// Internal - Negate query
 	Not bool `json:"not,omitempty"`
 }
 

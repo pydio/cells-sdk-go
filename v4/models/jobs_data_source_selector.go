@@ -27,6 +27,9 @@ type JobsDataSourceSelector struct {
 	// Selector additional description
 	Description string `json:"Description,omitempty"`
 
+	// Ignore query and just fan out input.DataSources
+	FanOutInput bool `json:"FanOutInput,omitempty"`
+
 	// Selector custom label
 	Label string `json:"Label,omitempty"`
 

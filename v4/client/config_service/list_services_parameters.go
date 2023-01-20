@@ -63,7 +63,7 @@ type ListServicesParams struct {
 
 	/* StatusFilter.
 
-	   Filter services by a given status (ANY, STOPPED, STOPPING, RUNNING).
+	   Filter services by a given status (ANY, STOPPED, STOPPING, RUNNING)
 
 	   Default: "ANY"
 	*/

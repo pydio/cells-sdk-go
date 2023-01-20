@@ -62,6 +62,9 @@ type JobsAction struct {
 	// User-defined label for this action
 	Label string `json:"Label,omitempty"`
 
+	// CollectAction adds starts another chain after the whole ChainedAction/FailedFilterActions have been performed
+	MergeAction *JobsAction `json:"MergeAction,omitempty"`
+
 	// Node Filter
 	NodesFilter *JobsNodesSelector `json:"NodesFilter,omitempty"`
 
@@ -117,6 +120,10 @@ func (m *JobsAction) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateIdmSelector(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMergeAction(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -312,6 +319,25 @@ func (m *JobsAction) validateIdmSelector(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsAction) validateMergeAction(formats strfmt.Registry) error {
+	if swag.IsZero(m.MergeAction) { // not required
+		return nil
+	}
+
+	if m.MergeAction != nil {
+		if err := m.MergeAction.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("MergeAction")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("MergeAction")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *JobsAction) validateNodesFilter(formats strfmt.Registry) error {
 	if swag.IsZero(m.NodesFilter) { // not required
 		return nil
@@ -440,6 +466,10 @@ func (m *JobsAction) ContextValidate(ctx context.Context, formats strfmt.Registr
 	}
 
 	if err := m.contextValidateIdmSelector(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMergeAction(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -597,6 +627,22 @@ func (m *JobsAction) contextValidateIdmSelector(ctx context.Context, formats str
 				return ve.ValidateName("IdmSelector")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("IdmSelector")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsAction) contextValidateMergeAction(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MergeAction != nil {
+		if err := m.MergeAction.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("MergeAction")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("MergeAction")
 			}
 			return err
 		}

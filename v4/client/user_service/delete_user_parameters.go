@@ -64,25 +64,25 @@ type DeleteUserParams struct {
 
 	/* GroupLabel.
 
-	   Label of the group, field is empty for users.
+	   Label of the group, field is empty for users
 	*/
 	GroupLabel *string
 
 	/* GroupPath.
 
-	   Path to the parent group.
+	   Path to the parent group
 	*/
 	GroupPath *string
 
 	/* IsGroup.
 
-	   Whether this object is a group or a user.
+	   Whether this object is a group or a user
 	*/
 	IsGroup *bool
 
 	/* LastConnected.
 
-	   Last successful connection timestamp.
+	   Last successful connection timestamp
 
 	   Format: int32
 	*/
@@ -96,13 +96,13 @@ type DeleteUserParams struct {
 
 	/* OldPassword.
 
-	   OldPassword must be set when a user updates her own password.
+	   OldPassword must be set when a user updates her own password
 	*/
 	OldPassword *string
 
 	/* Password.
 
-	   Password can be passed to be updated (but never read back), field is empty for groups.
+	   Password can be passed to be updated (but never read back), field is empty for groups
 	*/
 	Password *string
 
@@ -114,7 +114,7 @@ type DeleteUserParams struct {
 
 	/* UUID.
 
-	   User unique identifier.
+	   User unique identifier
 	*/
 	UUID *string
 

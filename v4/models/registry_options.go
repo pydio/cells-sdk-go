@@ -22,6 +22,9 @@ type RegistryOptions struct {
 	// actions
 	Actions []*RegistryActionType `json:"actions"`
 
+	// ids
+	Ids []string `json:"ids"`
+
 	// meta name
 	MetaName string `json:"metaName,omitempty"`
 

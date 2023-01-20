@@ -40,6 +40,9 @@ type JobsActionOutput struct {
 
 	// Time taken to run the action
 	Time int32 `json:"Time,omitempty"`
+
+	// Vars container, values are json-encoded.
+	Vars map[string]string `json:"Vars,omitempty"`
 }
 
 // Validate validates this jobs action output

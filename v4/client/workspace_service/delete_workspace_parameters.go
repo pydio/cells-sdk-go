@@ -64,25 +64,25 @@ type DeleteWorkspaceParams struct {
 
 	/* Attributes.
 
-	   JSON-encoded list of attributes.
+	   JSON-encoded list of attributes
 	*/
 	Attributes *string
 
 	/* Description.
 
-	   Description of the workspace (max length 1000).
+	   Description of the workspace (max length 1000)
 	*/
 	Description *string
 
 	/* Label.
 
-	   Label of the workspace (max length 500).
+	   Label of the workspace (max length 500)
 	*/
 	Label *string
 
 	/* LastUpdated.
 
-	   Last modification time.
+	   Last modification time
 
 	   Format: int32
 	*/
@@ -90,19 +90,19 @@ type DeleteWorkspaceParams struct {
 
 	/* PoliciesContextEditable.
 
-	   Context-resolved to quickly check if workspace is editable or not.
+	   Context-resolved to quickly check if workspace is editable or not
 	*/
 	PoliciesContextEditable *bool
 
 	/* RootUUIDs.
 
-	   Quick list of the RootNodes uuids.
+	   Quick list of the RootNodes uuids
 	*/
 	RootUUIDs []string
 
 	/* Scope.
 
-	   Scope can be ADMIN, ROOM (=CELL) or LINK.
+	   Scope can be ADMIN, ROOM (=CELL) or LINK
 
 	   Default: "ANY"
 	*/
@@ -116,7 +116,7 @@ type DeleteWorkspaceParams struct {
 
 	/* UUID.
 
-	   Unique identifier of the workspace.
+	   Unique identifier of the workspace
 	*/
 	UUID *string
 

@@ -63,7 +63,7 @@ type GetConfigParams struct {
 
 	/* Data.
 
-	   JSON-encoded data to store.
+	   JSON-encoded data to store
 	*/
 	Data *string
 
