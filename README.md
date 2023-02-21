@@ -2,8 +2,8 @@
 
 Go SDK client for Pydio Cells.
 
-**WARNING** the 1.x branch of the curent repository (that is shown here) is **_legacy_**.
-You should really use version 4+ that is up to date in `./v4` folder. 
+**WARNING** the 1.x branch of the curent repository (that is shown here) is **_legacy_** and is **not maintained anymore**.
+Please, rather use version 4+ that is up to date in `./v4` folder. 
 
 Please see [the corresponding ReadMe](https://github.com/pydio/cells-sdk-go/blob/master/v4/README.md).
 

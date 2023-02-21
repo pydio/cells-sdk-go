@@ -1,10 +1,11 @@
 # Cells API client v2
 
-Legacy Rest API Client in go for Pydio Cells. Please see v3 subfolder.
+Legacy Rest API Client in go for Pydio Cells. Please see v4 subfolder.
 
 ## WARNING LEGACY BRANCH
 
-You should really rather use [the v3 branch](https://github.com/pydio/cells-sdk-go/blob/master/v3/README.md)
+You should really rather use [the v4 branch](https://github.com/pydio/cells-sdk-go/blob/master/v4/README.md).  
+This branch is old and not updated anymore, some of the embedded third parties also have known issues. 
 
 ## Overview
 
