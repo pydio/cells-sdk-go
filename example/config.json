@@ -1,0 +1,7 @@
+{
+  "url":"https://localhost:8080",
+  "user":"admin",
+  "password":"admin",
+  "skipVerify": true,
+  "useTokenCache": true
+}
