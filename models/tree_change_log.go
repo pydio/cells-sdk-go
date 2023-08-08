@@ -121,6 +121,11 @@ func (m *TreeChangeLog) ContextValidate(ctx context.Context, formats strfmt.Regi
 func (m *TreeChangeLog) contextValidateEvent(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Event != nil {
+
+		if swag.IsZero(m.Event) { // not required
+			return nil
+		}
+
 		if err := m.Event.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Event")
@@ -137,6 +142,11 @@ func (m *TreeChangeLog) contextValidateEvent(ctx context.Context, formats strfmt
 func (m *TreeChangeLog) contextValidateLocation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Location != nil {
+
+		if swag.IsZero(m.Location) { // not required
+			return nil
+		}
+
 		if err := m.Location.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Location")

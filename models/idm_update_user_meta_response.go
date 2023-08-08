@@ -82,6 +82,11 @@ func (m *IdmUpdateUserMetaResponse) contextValidateMetaDatas(ctx context.Context
 	for i := 0; i < len(m.MetaDatas); i++ {
 
 		if m.MetaDatas[i] != nil {
+
+			if swag.IsZero(m.MetaDatas[i]) { // not required
+				return nil
+			}
+
 			if err := m.MetaDatas[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("MetaDatas" + "." + strconv.Itoa(i))

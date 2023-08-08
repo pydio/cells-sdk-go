@@ -21,6 +21,9 @@ type JobsDataSourceSelector struct {
 	// Select all
 	All bool `json:"All,omitempty"`
 
+	// Clear previous selection
+	ClearInput bool `json:"ClearInput,omitempty"`
+
 	// Collect results
 	Collect bool `json:"Collect,omitempty"`
 
@@ -120,6 +123,11 @@ func (m *JobsDataSourceSelector) ContextValidate(ctx context.Context, formats st
 func (m *JobsDataSourceSelector) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
@@ -136,6 +144,11 @@ func (m *JobsDataSourceSelector) contextValidateQuery(ctx context.Context, forma
 func (m *JobsDataSourceSelector) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
+
+		if swag.IsZero(m.Type) { // not required
+			return nil
+		}
+
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")

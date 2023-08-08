@@ -54,7 +54,7 @@ func (o *DeleteEncryptionKeyReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/encryption/delete] DeleteEncryptionKey", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteEncryptionKeyOK) IsServerError() bool {
 // IsCode returns true when this delete encryption key o k response a status code equal to that given
 func (o *DeleteEncryptionKeyOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete encryption key o k response
+func (o *DeleteEncryptionKeyOK) Code() int {
+	return 200
 }
 
 func (o *DeleteEncryptionKeyOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteEncryptionKeyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete encryption key unauthorized response
+func (o *DeleteEncryptionKeyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteEncryptionKeyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteEncryptionKeyForbidden) IsServerError() bool {
 // IsCode returns true when this delete encryption key forbidden response a status code equal to that given
 func (o *DeleteEncryptionKeyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete encryption key forbidden response
+func (o *DeleteEncryptionKeyForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteEncryptionKeyForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteEncryptionKeyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete encryption key not found response
+func (o *DeleteEncryptionKeyNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteEncryptionKeyNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteEncryptionKeyInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete encryption key internal server error response a status code equal to that given
 func (o *DeleteEncryptionKeyInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete encryption key internal server error response
+func (o *DeleteEncryptionKeyInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteEncryptionKeyInternalServerError) Error() string {

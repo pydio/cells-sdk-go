@@ -159,6 +159,11 @@ func (m *ObjectDataSource) ContextValidate(ctx context.Context, formats strfmt.R
 func (m *ObjectDataSource) contextValidateEncryptionMode(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.EncryptionMode != nil {
+
+		if swag.IsZero(m.EncryptionMode) { // not required
+			return nil
+		}
+
 		if err := m.EncryptionMode.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EncryptionMode")
@@ -175,6 +180,11 @@ func (m *ObjectDataSource) contextValidateEncryptionMode(ctx context.Context, fo
 func (m *ObjectDataSource) contextValidateStorageType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.StorageType != nil {
+
+		if swag.IsZero(m.StorageType) { // not required
+			return nil
+		}
+
 		if err := m.StorageType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("StorageType")

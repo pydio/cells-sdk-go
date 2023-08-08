@@ -114,6 +114,11 @@ func (m *ServiceResourcePolicy) ContextValidate(ctx context.Context, formats str
 func (m *ServiceResourcePolicy) contextValidateAction(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Action != nil {
+
+		if swag.IsZero(m.Action) { // not required
+			return nil
+		}
+
 		if err := m.Action.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
@@ -130,6 +135,11 @@ func (m *ServiceResourcePolicy) contextValidateAction(ctx context.Context, forma
 func (m *ServiceResourcePolicy) contextValidateEffect(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Effect != nil {
+
+		if swag.IsZero(m.Effect) { // not required
+			return nil
+		}
+
 		if err := m.Effect.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Effect")

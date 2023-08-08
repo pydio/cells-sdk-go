@@ -132,6 +132,11 @@ func (m *JobsActionLog) ContextValidate(ctx context.Context, formats strfmt.Regi
 func (m *JobsActionLog) contextValidateAction(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Action != nil {
+
+		if swag.IsZero(m.Action) { // not required
+			return nil
+		}
+
 		if err := m.Action.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
@@ -148,6 +153,11 @@ func (m *JobsActionLog) contextValidateAction(ctx context.Context, formats strfm
 func (m *JobsActionLog) contextValidateInputMessage(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.InputMessage != nil {
+
+		if swag.IsZero(m.InputMessage) { // not required
+			return nil
+		}
+
 		if err := m.InputMessage.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("InputMessage")
@@ -164,6 +174,11 @@ func (m *JobsActionLog) contextValidateInputMessage(ctx context.Context, formats
 func (m *JobsActionLog) contextValidateOutputMessage(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.OutputMessage != nil {
+
+		if swag.IsZero(m.OutputMessage) { // not required
+			return nil
+		}
+
 		if err := m.OutputMessage.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("OutputMessage")

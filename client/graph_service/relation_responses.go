@@ -54,7 +54,7 @@ func (o *RelationReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /graph/relation/{UserId}] Relation", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *RelationOK) IsServerError() bool {
 // IsCode returns true when this relation o k response a status code equal to that given
 func (o *RelationOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the relation o k response
+func (o *RelationOK) Code() int {
+	return 200
 }
 
 func (o *RelationOK) Error() string {
@@ -159,6 +164,11 @@ func (o *RelationUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the relation unauthorized response
+func (o *RelationUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RelationUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *RelationForbidden) IsServerError() bool {
 // IsCode returns true when this relation forbidden response a status code equal to that given
 func (o *RelationForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the relation forbidden response
+func (o *RelationForbidden) Code() int {
+	return 403
 }
 
 func (o *RelationForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *RelationNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the relation not found response
+func (o *RelationNotFound) Code() int {
+	return 404
+}
+
 func (o *RelationNotFound) Error() string {
 	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *RelationInternalServerError) IsServerError() bool {
 // IsCode returns true when this relation internal server error response a status code equal to that given
 func (o *RelationInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the relation internal server error response
+func (o *RelationInternalServerError) Code() int {
+	return 500
 }
 
 func (o *RelationInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *ListEncryptionKeysReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/encryption/list] ListEncryptionKeys", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListEncryptionKeysOK) IsServerError() bool {
 // IsCode returns true when this list encryption keys o k response a status code equal to that given
 func (o *ListEncryptionKeysOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list encryption keys o k response
+func (o *ListEncryptionKeysOK) Code() int {
+	return 200
 }
 
 func (o *ListEncryptionKeysOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListEncryptionKeysUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list encryption keys unauthorized response
+func (o *ListEncryptionKeysUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListEncryptionKeysUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListEncryptionKeysForbidden) IsServerError() bool {
 // IsCode returns true when this list encryption keys forbidden response a status code equal to that given
 func (o *ListEncryptionKeysForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list encryption keys forbidden response
+func (o *ListEncryptionKeysForbidden) Code() int {
+	return 403
 }
 
 func (o *ListEncryptionKeysForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListEncryptionKeysNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list encryption keys not found response
+func (o *ListEncryptionKeysNotFound) Code() int {
+	return 404
+}
+
 func (o *ListEncryptionKeysNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListEncryptionKeysInternalServerError) IsServerError() bool {
 // IsCode returns true when this list encryption keys internal server error response a status code equal to that given
 func (o *ListEncryptionKeysInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list encryption keys internal server error response
+func (o *ListEncryptionKeysInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListEncryptionKeysInternalServerError) Error() string {

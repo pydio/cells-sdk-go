@@ -54,7 +54,7 @@ func (o *ControlServiceReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/ctl] ControlService", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ControlServiceOK) IsServerError() bool {
 // IsCode returns true when this control service o k response a status code equal to that given
 func (o *ControlServiceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the control service o k response
+func (o *ControlServiceOK) Code() int {
+	return 200
 }
 
 func (o *ControlServiceOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ControlServiceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the control service unauthorized response
+func (o *ControlServiceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ControlServiceUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ControlServiceForbidden) IsServerError() bool {
 // IsCode returns true when this control service forbidden response a status code equal to that given
 func (o *ControlServiceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the control service forbidden response
+func (o *ControlServiceForbidden) Code() int {
+	return 403
 }
 
 func (o *ControlServiceForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ControlServiceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the control service not found response
+func (o *ControlServiceNotFound) Code() int {
+	return 404
+}
+
 func (o *ControlServiceNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ControlServiceInternalServerError) IsServerError() bool {
 // IsCode returns true when this control service internal server error response a status code equal to that given
 func (o *ControlServiceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the control service internal server error response
+func (o *ControlServiceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ControlServiceInternalServerError) Error() string {

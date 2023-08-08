@@ -54,7 +54,7 @@ func (o *ListDataSourcesReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/datasource] ListDataSources", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListDataSourcesOK) IsServerError() bool {
 // IsCode returns true when this list data sources o k response a status code equal to that given
 func (o *ListDataSourcesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list data sources o k response
+func (o *ListDataSourcesOK) Code() int {
+	return 200
 }
 
 func (o *ListDataSourcesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListDataSourcesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list data sources unauthorized response
+func (o *ListDataSourcesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListDataSourcesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListDataSourcesForbidden) IsServerError() bool {
 // IsCode returns true when this list data sources forbidden response a status code equal to that given
 func (o *ListDataSourcesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list data sources forbidden response
+func (o *ListDataSourcesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListDataSourcesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListDataSourcesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list data sources not found response
+func (o *ListDataSourcesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListDataSourcesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListDataSourcesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list data sources internal server error response a status code equal to that given
 func (o *ListDataSourcesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list data sources internal server error response
+func (o *ListDataSourcesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListDataSourcesInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *UserStateReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /graph/state/{Segment}] UserState", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UserStateOK) IsServerError() bool {
 // IsCode returns true when this user state o k response a status code equal to that given
 func (o *UserStateOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the user state o k response
+func (o *UserStateOK) Code() int {
+	return 200
 }
 
 func (o *UserStateOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UserStateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the user state unauthorized response
+func (o *UserStateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UserStateUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UserStateForbidden) IsServerError() bool {
 // IsCode returns true when this user state forbidden response a status code equal to that given
 func (o *UserStateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the user state forbidden response
+func (o *UserStateForbidden) Code() int {
+	return 403
 }
 
 func (o *UserStateForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UserStateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the user state not found response
+func (o *UserStateNotFound) Code() int {
+	return 404
+}
+
 func (o *UserStateNotFound) Error() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UserStateInternalServerError) IsServerError() bool {
 // IsCode returns true when this user state internal server error response a status code equal to that given
 func (o *UserStateInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the user state internal server error response
+func (o *UserStateInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UserStateInternalServerError) Error() string {

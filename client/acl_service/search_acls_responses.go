@@ -54,7 +54,7 @@ func (o *SearchAclsReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /acl] SearchAcls", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SearchAclsOK) IsServerError() bool {
 // IsCode returns true when this search acls o k response a status code equal to that given
 func (o *SearchAclsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the search acls o k response
+func (o *SearchAclsOK) Code() int {
+	return 200
 }
 
 func (o *SearchAclsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SearchAclsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search acls unauthorized response
+func (o *SearchAclsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchAclsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SearchAclsForbidden) IsServerError() bool {
 // IsCode returns true when this search acls forbidden response a status code equal to that given
 func (o *SearchAclsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search acls forbidden response
+func (o *SearchAclsForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchAclsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SearchAclsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search acls not found response
+func (o *SearchAclsNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchAclsNotFound) Error() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SearchAclsInternalServerError) IsServerError() bool {
 // IsCode returns true when this search acls internal server error response a status code equal to that given
 func (o *SearchAclsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the search acls internal server error response
+func (o *SearchAclsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SearchAclsInternalServerError) Error() string {

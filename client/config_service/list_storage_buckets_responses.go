@@ -54,7 +54,7 @@ func (o *ListStorageBucketsReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/buckets] ListStorageBuckets", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListStorageBucketsOK) IsServerError() bool {
 // IsCode returns true when this list storage buckets o k response a status code equal to that given
 func (o *ListStorageBucketsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list storage buckets o k response
+func (o *ListStorageBucketsOK) Code() int {
+	return 200
 }
 
 func (o *ListStorageBucketsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListStorageBucketsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list storage buckets unauthorized response
+func (o *ListStorageBucketsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListStorageBucketsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/buckets][%d] listStorageBucketsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListStorageBucketsForbidden) IsServerError() bool {
 // IsCode returns true when this list storage buckets forbidden response a status code equal to that given
 func (o *ListStorageBucketsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list storage buckets forbidden response
+func (o *ListStorageBucketsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListStorageBucketsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListStorageBucketsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list storage buckets not found response
+func (o *ListStorageBucketsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListStorageBucketsNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/buckets][%d] listStorageBucketsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListStorageBucketsInternalServerError) IsServerError() bool {
 // IsCode returns true when this list storage buckets internal server error response a status code equal to that given
 func (o *ListStorageBucketsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list storage buckets internal server error response
+func (o *ListStorageBucketsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListStorageBucketsInternalServerError) Error() string {

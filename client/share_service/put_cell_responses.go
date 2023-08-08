@@ -54,7 +54,7 @@ func (o *PutCellReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /share/cell] PutCell", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *PutCellOK) IsServerError() bool {
 // IsCode returns true when this put cell o k response a status code equal to that given
 func (o *PutCellOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put cell o k response
+func (o *PutCellOK) Code() int {
+	return 200
 }
 
 func (o *PutCellOK) Error() string {
@@ -159,6 +164,11 @@ func (o *PutCellUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put cell unauthorized response
+func (o *PutCellUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutCellUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *PutCellForbidden) IsServerError() bool {
 // IsCode returns true when this put cell forbidden response a status code equal to that given
 func (o *PutCellForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put cell forbidden response
+func (o *PutCellForbidden) Code() int {
+	return 403
 }
 
 func (o *PutCellForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *PutCellNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put cell not found response
+func (o *PutCellNotFound) Code() int {
+	return 404
+}
+
 func (o *PutCellNotFound) Error() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *PutCellInternalServerError) IsServerError() bool {
 // IsCode returns true when this put cell internal server error response a status code equal to that given
 func (o *PutCellInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put cell internal server error response
+func (o *PutCellInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutCellInternalServerError) Error() string {

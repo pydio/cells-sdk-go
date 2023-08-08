@@ -54,7 +54,7 @@ func (o *UpdateSharePoliciesReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /share/policies] UpdateSharePolicies", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UpdateSharePoliciesOK) IsServerError() bool {
 // IsCode returns true when this update share policies o k response a status code equal to that given
 func (o *UpdateSharePoliciesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the update share policies o k response
+func (o *UpdateSharePoliciesOK) Code() int {
+	return 200
 }
 
 func (o *UpdateSharePoliciesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UpdateSharePoliciesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the update share policies unauthorized response
+func (o *UpdateSharePoliciesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateSharePoliciesUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UpdateSharePoliciesForbidden) IsServerError() bool {
 // IsCode returns true when this update share policies forbidden response a status code equal to that given
 func (o *UpdateSharePoliciesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the update share policies forbidden response
+func (o *UpdateSharePoliciesForbidden) Code() int {
+	return 403
 }
 
 func (o *UpdateSharePoliciesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UpdateSharePoliciesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the update share policies not found response
+func (o *UpdateSharePoliciesNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateSharePoliciesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UpdateSharePoliciesInternalServerError) IsServerError() bool {
 // IsCode returns true when this update share policies internal server error response a status code equal to that given
 func (o *UpdateSharePoliciesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the update share policies internal server error response
+func (o *UpdateSharePoliciesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UpdateSharePoliciesInternalServerError) Error() string {

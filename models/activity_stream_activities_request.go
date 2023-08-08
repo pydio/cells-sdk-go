@@ -126,6 +126,11 @@ func (m *ActivityStreamActivitiesRequest) ContextValidate(ctx context.Context, f
 func (m *ActivityStreamActivitiesRequest) contextValidateContext(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Context != nil {
+
+		if swag.IsZero(m.Context) { // not required
+			return nil
+		}
+
 		if err := m.Context.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Context")
@@ -142,6 +147,11 @@ func (m *ActivityStreamActivitiesRequest) contextValidateContext(ctx context.Con
 func (m *ActivityStreamActivitiesRequest) contextValidatePointOfView(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.PointOfView != nil {
+
+		if swag.IsZero(m.PointOfView) { // not required
+			return nil
+		}
+
 		if err := m.PointOfView.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("PointOfView")

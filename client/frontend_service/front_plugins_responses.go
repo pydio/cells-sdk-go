@@ -54,7 +54,7 @@ func (o *FrontPluginsReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /frontend/plugins/{Lang}] FrontPlugins", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontPluginsOK) IsServerError() bool {
 // IsCode returns true when this front plugins o k response a status code equal to that given
 func (o *FrontPluginsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front plugins o k response
+func (o *FrontPluginsOK) Code() int {
+	return 200
 }
 
 func (o *FrontPluginsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontPluginsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front plugins unauthorized response
+func (o *FrontPluginsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontPluginsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontPluginsForbidden) IsServerError() bool {
 // IsCode returns true when this front plugins forbidden response a status code equal to that given
 func (o *FrontPluginsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front plugins forbidden response
+func (o *FrontPluginsForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontPluginsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontPluginsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front plugins not found response
+func (o *FrontPluginsNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontPluginsNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontPluginsInternalServerError) IsServerError() bool {
 // IsCode returns true when this front plugins internal server error response a status code equal to that given
 func (o *FrontPluginsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front plugins internal server error response
+func (o *FrontPluginsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontPluginsInternalServerError) Error() string {

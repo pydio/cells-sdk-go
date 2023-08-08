@@ -54,7 +54,7 @@ func (o *SendReader) ReadResponse(response runtime.ClientResponse, consumer runt
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /mailer/send] Send", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SendOK) IsServerError() bool {
 // IsCode returns true when this send o k response a status code equal to that given
 func (o *SendOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the send o k response
+func (o *SendOK) Code() int {
+	return 200
 }
 
 func (o *SendOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SendUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the send unauthorized response
+func (o *SendUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SendUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SendForbidden) IsServerError() bool {
 // IsCode returns true when this send forbidden response a status code equal to that given
 func (o *SendForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the send forbidden response
+func (o *SendForbidden) Code() int {
+	return 403
 }
 
 func (o *SendForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SendNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the send not found response
+func (o *SendNotFound) Code() int {
+	return 404
+}
+
 func (o *SendNotFound) Error() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SendInternalServerError) IsServerError() bool {
 // IsCode returns true when this send internal server error response a status code equal to that given
 func (o *SendInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the send internal server error response
+func (o *SendInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SendInternalServerError) Error() string {

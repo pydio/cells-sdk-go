@@ -84,6 +84,11 @@ func (m *RestPutShareLinkRequest) ContextValidate(ctx context.Context, formats s
 func (m *RestPutShareLinkRequest) contextValidateShareLink(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ShareLink != nil {
+
+		if swag.IsZero(m.ShareLink) { // not required
+			return nil
+		}
+
 		if err := m.ShareLink.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ShareLink")

@@ -54,7 +54,7 @@ func (o *ListUserMetaTagsReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /user-meta/tags/{Namespace}] ListUserMetaTags", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListUserMetaTagsOK) IsServerError() bool {
 // IsCode returns true when this list user meta tags o k response a status code equal to that given
 func (o *ListUserMetaTagsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list user meta tags o k response
+func (o *ListUserMetaTagsOK) Code() int {
+	return 200
 }
 
 func (o *ListUserMetaTagsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListUserMetaTagsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list user meta tags unauthorized response
+func (o *ListUserMetaTagsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListUserMetaTagsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListUserMetaTagsForbidden) IsServerError() bool {
 // IsCode returns true when this list user meta tags forbidden response a status code equal to that given
 func (o *ListUserMetaTagsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list user meta tags forbidden response
+func (o *ListUserMetaTagsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListUserMetaTagsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListUserMetaTagsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list user meta tags not found response
+func (o *ListUserMetaTagsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListUserMetaTagsNotFound) Error() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListUserMetaTagsInternalServerError) IsServerError() bool {
 // IsCode returns true when this list user meta tags internal server error response a status code equal to that given
 func (o *ListUserMetaTagsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list user meta tags internal server error response
+func (o *ListUserMetaTagsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListUserMetaTagsInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *StreamReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /activity/stream] Stream", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *StreamOK) IsServerError() bool {
 // IsCode returns true when this stream o k response a status code equal to that given
 func (o *StreamOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the stream o k response
+func (o *StreamOK) Code() int {
+	return 200
 }
 
 func (o *StreamOK) Error() string {
@@ -159,6 +164,11 @@ func (o *StreamUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the stream unauthorized response
+func (o *StreamUnauthorized) Code() int {
+	return 401
+}
+
 func (o *StreamUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *StreamForbidden) IsServerError() bool {
 // IsCode returns true when this stream forbidden response a status code equal to that given
 func (o *StreamForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the stream forbidden response
+func (o *StreamForbidden) Code() int {
+	return 403
 }
 
 func (o *StreamForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *StreamNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the stream not found response
+func (o *StreamNotFound) Code() int {
+	return 404
+}
+
 func (o *StreamNotFound) Error() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *StreamInternalServerError) IsServerError() bool {
 // IsCode returns true when this stream internal server error response a status code equal to that given
 func (o *StreamInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the stream internal server error response
+func (o *StreamInternalServerError) Code() int {
+	return 500
 }
 
 func (o *StreamInternalServerError) Error() string {

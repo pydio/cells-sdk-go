@@ -21,6 +21,9 @@ type JobsIdmSelector struct {
 	// Load all objects
 	All bool `json:"All,omitempty"`
 
+	// Clear previous selection
+	ClearInput bool `json:"ClearInput,omitempty"`
+
 	// Pass a slice of objects to one action, or trigger all actions in parallel
 	Collect bool `json:"Collect,omitempty"`
 
@@ -120,6 +123,11 @@ func (m *JobsIdmSelector) ContextValidate(ctx context.Context, formats strfmt.Re
 func (m *JobsIdmSelector) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
@@ -136,6 +144,11 @@ func (m *JobsIdmSelector) contextValidateQuery(ctx context.Context, formats strf
 func (m *JobsIdmSelector) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
+
+		if swag.IsZero(m.Type) { // not required
+			return nil
+		}
+
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")

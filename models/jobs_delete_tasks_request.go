@@ -91,6 +91,11 @@ func (m *JobsDeleteTasksRequest) contextValidateStatus(ctx context.Context, form
 	for i := 0; i < len(m.Status); i++ {
 
 		if m.Status[i] != nil {
+
+			if swag.IsZero(m.Status[i]) { // not required
+				return nil
+			}
+
 			if err := m.Status[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Status" + "." + strconv.Itoa(i))

@@ -54,7 +54,7 @@ func (o *StatAdminTreeReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/admin/stat] StatAdminTree", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *StatAdminTreeOK) IsServerError() bool {
 // IsCode returns true when this stat admin tree o k response a status code equal to that given
 func (o *StatAdminTreeOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the stat admin tree o k response
+func (o *StatAdminTreeOK) Code() int {
+	return 200
 }
 
 func (o *StatAdminTreeOK) Error() string {
@@ -159,6 +164,11 @@ func (o *StatAdminTreeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the stat admin tree unauthorized response
+func (o *StatAdminTreeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *StatAdminTreeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *StatAdminTreeForbidden) IsServerError() bool {
 // IsCode returns true when this stat admin tree forbidden response a status code equal to that given
 func (o *StatAdminTreeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the stat admin tree forbidden response
+func (o *StatAdminTreeForbidden) Code() int {
+	return 403
 }
 
 func (o *StatAdminTreeForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *StatAdminTreeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the stat admin tree not found response
+func (o *StatAdminTreeNotFound) Code() int {
+	return 404
+}
+
 func (o *StatAdminTreeNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *StatAdminTreeInternalServerError) IsServerError() bool {
 // IsCode returns true when this stat admin tree internal server error response a status code equal to that given
 func (o *StatAdminTreeInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the stat admin tree internal server error response
+func (o *StatAdminTreeInternalServerError) Code() int {
+	return 500
 }
 
 func (o *StatAdminTreeInternalServerError) Error() string {

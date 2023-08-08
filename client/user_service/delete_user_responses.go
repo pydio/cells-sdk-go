@@ -54,7 +54,7 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /user/{Login}] DeleteUser", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteUserOK) IsServerError() bool {
 // IsCode returns true when this delete user o k response a status code equal to that given
 func (o *DeleteUserOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete user o k response
+func (o *DeleteUserOK) Code() int {
+	return 200
 }
 
 func (o *DeleteUserOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteUserUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete user unauthorized response
+func (o *DeleteUserUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteUserUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteUserForbidden) IsServerError() bool {
 // IsCode returns true when this delete user forbidden response a status code equal to that given
 func (o *DeleteUserForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete user forbidden response
+func (o *DeleteUserForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteUserForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteUserNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete user not found response
+func (o *DeleteUserNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteUserNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteUserInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete user internal server error response a status code equal to that given
 func (o *DeleteUserInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete user internal server error response
+func (o *DeleteUserInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteUserInternalServerError) Error() string {

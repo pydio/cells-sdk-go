@@ -54,7 +54,7 @@ func (o *ListProcessesReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/processes] ListProcesses", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListProcessesOK) IsServerError() bool {
 // IsCode returns true when this list processes o k response a status code equal to that given
 func (o *ListProcessesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list processes o k response
+func (o *ListProcessesOK) Code() int {
+	return 200
 }
 
 func (o *ListProcessesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListProcessesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list processes unauthorized response
+func (o *ListProcessesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListProcessesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListProcessesForbidden) IsServerError() bool {
 // IsCode returns true when this list processes forbidden response a status code equal to that given
 func (o *ListProcessesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list processes forbidden response
+func (o *ListProcessesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListProcessesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListProcessesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list processes not found response
+func (o *ListProcessesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListProcessesNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListProcessesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list processes internal server error response a status code equal to that given
 func (o *ListProcessesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list processes internal server error response
+func (o *ListProcessesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListProcessesInternalServerError) Error() string {

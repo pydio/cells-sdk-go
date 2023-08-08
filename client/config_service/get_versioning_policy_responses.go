@@ -54,7 +54,7 @@ func (o *GetVersioningPolicyReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/versioning/{Uuid}] GetVersioningPolicy", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetVersioningPolicyOK) IsServerError() bool {
 // IsCode returns true when this get versioning policy o k response a status code equal to that given
 func (o *GetVersioningPolicyOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get versioning policy o k response
+func (o *GetVersioningPolicyOK) Code() int {
+	return 200
 }
 
 func (o *GetVersioningPolicyOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetVersioningPolicyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get versioning policy unauthorized response
+func (o *GetVersioningPolicyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetVersioningPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetVersioningPolicyForbidden) IsServerError() bool {
 // IsCode returns true when this get versioning policy forbidden response a status code equal to that given
 func (o *GetVersioningPolicyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get versioning policy forbidden response
+func (o *GetVersioningPolicyForbidden) Code() int {
+	return 403
 }
 
 func (o *GetVersioningPolicyForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetVersioningPolicyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get versioning policy not found response
+func (o *GetVersioningPolicyNotFound) Code() int {
+	return 404
+}
+
 func (o *GetVersioningPolicyNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetVersioningPolicyInternalServerError) IsServerError() bool {
 // IsCode returns true when this get versioning policy internal server error response a status code equal to that given
 func (o *GetVersioningPolicyInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get versioning policy internal server error response
+func (o *GetVersioningPolicyInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetVersioningPolicyInternalServerError) Error() string {

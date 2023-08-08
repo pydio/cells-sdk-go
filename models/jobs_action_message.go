@@ -373,6 +373,11 @@ func (m *JobsActionMessage) contextValidateAcls(ctx context.Context, formats str
 	for i := 0; i < len(m.Acls); i++ {
 
 		if m.Acls[i] != nil {
+
+			if swag.IsZero(m.Acls[i]) { // not required
+				return nil
+			}
+
 			if err := m.Acls[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Acls" + "." + strconv.Itoa(i))
@@ -393,6 +398,11 @@ func (m *JobsActionMessage) contextValidateActivities(ctx context.Context, forma
 	for i := 0; i < len(m.Activities); i++ {
 
 		if m.Activities[i] != nil {
+
+			if swag.IsZero(m.Activities[i]) { // not required
+				return nil
+			}
+
 			if err := m.Activities[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Activities" + "." + strconv.Itoa(i))
@@ -413,6 +423,11 @@ func (m *JobsActionMessage) contextValidateDataSources(ctx context.Context, form
 	for i := 0; i < len(m.DataSources); i++ {
 
 		if m.DataSources[i] != nil {
+
+			if swag.IsZero(m.DataSources[i]) { // not required
+				return nil
+			}
+
 			if err := m.DataSources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("DataSources" + "." + strconv.Itoa(i))
@@ -431,6 +446,11 @@ func (m *JobsActionMessage) contextValidateDataSources(ctx context.Context, form
 func (m *JobsActionMessage) contextValidateEvent(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Event != nil {
+
+		if swag.IsZero(m.Event) { // not required
+			return nil
+		}
+
 		if err := m.Event.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Event")
@@ -449,6 +469,11 @@ func (m *JobsActionMessage) contextValidateNodes(ctx context.Context, formats st
 	for i := 0; i < len(m.Nodes); i++ {
 
 		if m.Nodes[i] != nil {
+
+			if swag.IsZero(m.Nodes[i]) { // not required
+				return nil
+			}
+
 			if err := m.Nodes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Nodes" + "." + strconv.Itoa(i))
@@ -469,6 +494,11 @@ func (m *JobsActionMessage) contextValidateOutputChain(ctx context.Context, form
 	for i := 0; i < len(m.OutputChain); i++ {
 
 		if m.OutputChain[i] != nil {
+
+			if swag.IsZero(m.OutputChain[i]) { // not required
+				return nil
+			}
+
 			if err := m.OutputChain[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("OutputChain" + "." + strconv.Itoa(i))
@@ -489,6 +519,11 @@ func (m *JobsActionMessage) contextValidateRoles(ctx context.Context, formats st
 	for i := 0; i < len(m.Roles); i++ {
 
 		if m.Roles[i] != nil {
+
+			if swag.IsZero(m.Roles[i]) { // not required
+				return nil
+			}
+
 			if err := m.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Roles" + "." + strconv.Itoa(i))
@@ -509,6 +544,11 @@ func (m *JobsActionMessage) contextValidateUsers(ctx context.Context, formats st
 	for i := 0; i < len(m.Users); i++ {
 
 		if m.Users[i] != nil {
+
+			if swag.IsZero(m.Users[i]) { // not required
+				return nil
+			}
+
 			if err := m.Users[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Users" + "." + strconv.Itoa(i))
@@ -529,6 +569,11 @@ func (m *JobsActionMessage) contextValidateWorkspaces(ctx context.Context, forma
 	for i := 0; i < len(m.Workspaces); i++ {
 
 		if m.Workspaces[i] != nil {
+
+			if swag.IsZero(m.Workspaces[i]) { // not required
+				return nil
+			}
+
 			if err := m.Workspaces[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Workspaces" + "." + strconv.Itoa(i))

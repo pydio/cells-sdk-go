@@ -122,6 +122,11 @@ func (m *RestSearchACLRequest) ContextValidate(ctx context.Context, formats strf
 func (m *RestSearchACLRequest) contextValidateOperation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Operation != nil {
+
+		if swag.IsZero(m.Operation) { // not required
+			return nil
+		}
+
 		if err := m.Operation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Operation")
@@ -140,6 +145,11 @@ func (m *RestSearchACLRequest) contextValidateQueries(ctx context.Context, forma
 	for i := 0; i < len(m.Queries); i++ {
 
 		if m.Queries[i] != nil {
+
+			if swag.IsZero(m.Queries[i]) { // not required
+				return nil
+			}
+
 			if err := m.Queries[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Queries" + "." + strconv.Itoa(i))

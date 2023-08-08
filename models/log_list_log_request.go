@@ -81,6 +81,11 @@ func (m *LogListLogRequest) ContextValidate(ctx context.Context, formats strfmt.
 func (m *LogListLogRequest) contextValidateFormat(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Format != nil {
+
+		if swag.IsZero(m.Format) { // not required
+			return nil
+		}
+
 		if err := m.Format.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Format")

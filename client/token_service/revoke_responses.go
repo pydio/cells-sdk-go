@@ -54,7 +54,7 @@ func (o *RevokeReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /auth/token/revoke] Revoke", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *RevokeOK) IsServerError() bool {
 // IsCode returns true when this revoke o k response a status code equal to that given
 func (o *RevokeOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the revoke o k response
+func (o *RevokeOK) Code() int {
+	return 200
 }
 
 func (o *RevokeOK) Error() string {
@@ -159,6 +164,11 @@ func (o *RevokeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the revoke unauthorized response
+func (o *RevokeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RevokeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *RevokeForbidden) IsServerError() bool {
 // IsCode returns true when this revoke forbidden response a status code equal to that given
 func (o *RevokeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the revoke forbidden response
+func (o *RevokeForbidden) Code() int {
+	return 403
 }
 
 func (o *RevokeForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *RevokeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the revoke not found response
+func (o *RevokeNotFound) Code() int {
+	return 404
+}
+
 func (o *RevokeNotFound) Error() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *RevokeInternalServerError) IsServerError() bool {
 // IsCode returns true when this revoke internal server error response a status code equal to that given
 func (o *RevokeInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the revoke internal server error response
+func (o *RevokeInternalServerError) Code() int {
+	return 500
 }
 
 func (o *RevokeInternalServerError) Error() string {

@@ -82,6 +82,11 @@ func (m *RestUserMetaCollection) contextValidateMetadatas(ctx context.Context, f
 	for i := 0; i < len(m.Metadatas); i++ {
 
 		if m.Metadatas[i] != nil {
+
+			if swag.IsZero(m.Metadatas[i]) { // not required
+				return nil
+			}
+
 			if err := m.Metadatas[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Metadatas" + "." + strconv.Itoa(i))

@@ -54,7 +54,7 @@ func (o *UpdateUserMetaReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /user-meta/update] UpdateUserMeta", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UpdateUserMetaOK) IsServerError() bool {
 // IsCode returns true when this update user meta o k response a status code equal to that given
 func (o *UpdateUserMetaOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the update user meta o k response
+func (o *UpdateUserMetaOK) Code() int {
+	return 200
 }
 
 func (o *UpdateUserMetaOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UpdateUserMetaUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the update user meta unauthorized response
+func (o *UpdateUserMetaUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateUserMetaUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UpdateUserMetaForbidden) IsServerError() bool {
 // IsCode returns true when this update user meta forbidden response a status code equal to that given
 func (o *UpdateUserMetaForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the update user meta forbidden response
+func (o *UpdateUserMetaForbidden) Code() int {
+	return 403
 }
 
 func (o *UpdateUserMetaForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UpdateUserMetaNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the update user meta not found response
+func (o *UpdateUserMetaNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateUserMetaNotFound) Error() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UpdateUserMetaInternalServerError) IsServerError() bool {
 // IsCode returns true when this update user meta internal server error response a status code equal to that given
 func (o *UpdateUserMetaInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the update user meta internal server error response
+func (o *UpdateUserMetaInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UpdateUserMetaInternalServerError) Error() string {

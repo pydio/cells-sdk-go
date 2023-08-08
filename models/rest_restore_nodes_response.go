@@ -82,6 +82,11 @@ func (m *RestRestoreNodesResponse) contextValidateRestoreJobs(ctx context.Contex
 	for i := 0; i < len(m.RestoreJobs); i++ {
 
 		if m.RestoreJobs[i] != nil {
+
+			if swag.IsZero(m.RestoreJobs[i]) { // not required
+				return nil
+			}
+
 			if err := m.RestoreJobs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RestoreJobs" + "." + strconv.Itoa(i))

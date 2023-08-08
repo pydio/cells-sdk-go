@@ -22,6 +22,9 @@ type JobsUsersSelector struct {
 	// Select all users
 	All bool `json:"All,omitempty"`
 
+	// Clear previous selection
+	ClearInput bool `json:"ClearInput,omitempty"`
+
 	// Wether to trigger one action per user or one action
 	// with all user as a selection
 	Collect bool `json:"Collect,omitempty"`
@@ -126,6 +129,11 @@ func (m *JobsUsersSelector) ContextValidate(ctx context.Context, formats strfmt.
 func (m *JobsUsersSelector) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
@@ -144,6 +152,11 @@ func (m *JobsUsersSelector) contextValidateUsers(ctx context.Context, formats st
 	for i := 0; i < len(m.Users); i++ {
 
 		if m.Users[i] != nil {
+
+			if swag.IsZero(m.Users[i]) { // not required
+				return nil
+			}
+
 			if err := m.Users[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Users" + "." + strconv.Itoa(i))

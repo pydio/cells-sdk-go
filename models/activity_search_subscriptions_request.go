@@ -88,6 +88,11 @@ func (m *ActivitySearchSubscriptionsRequest) contextValidateObjectTypes(ctx cont
 	for i := 0; i < len(m.ObjectTypes); i++ {
 
 		if m.ObjectTypes[i] != nil {
+
+			if swag.IsZero(m.ObjectTypes[i]) { // not required
+				return nil
+			}
+
 			if err := m.ObjectTypes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ObjectTypes" + "." + strconv.Itoa(i))

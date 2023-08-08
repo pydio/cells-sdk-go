@@ -54,7 +54,7 @@ func (o *SettingsMenuReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /frontend/settings-menu] SettingsMenu", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SettingsMenuOK) IsServerError() bool {
 // IsCode returns true when this settings menu o k response a status code equal to that given
 func (o *SettingsMenuOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the settings menu o k response
+func (o *SettingsMenuOK) Code() int {
+	return 200
 }
 
 func (o *SettingsMenuOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SettingsMenuUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the settings menu unauthorized response
+func (o *SettingsMenuUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SettingsMenuUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SettingsMenuForbidden) IsServerError() bool {
 // IsCode returns true when this settings menu forbidden response a status code equal to that given
 func (o *SettingsMenuForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the settings menu forbidden response
+func (o *SettingsMenuForbidden) Code() int {
+	return 403
 }
 
 func (o *SettingsMenuForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SettingsMenuNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the settings menu not found response
+func (o *SettingsMenuNotFound) Code() int {
+	return 404
+}
+
 func (o *SettingsMenuNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SettingsMenuInternalServerError) IsServerError() bool {
 // IsCode returns true when this settings menu internal server error response a status code equal to that given
 func (o *SettingsMenuInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the settings menu internal server error response
+func (o *SettingsMenuInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SettingsMenuInternalServerError) Error() string {

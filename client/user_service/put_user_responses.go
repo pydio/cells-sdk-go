@@ -58,7 +58,7 @@ func (o *PutUserReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /user/{Login}] PutUser", response, response.Code())
 	}
 }
 
@@ -99,6 +99,11 @@ func (o *PutUserOK) IsServerError() bool {
 // IsCode returns true when this put user o k response a status code equal to that given
 func (o *PutUserOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put user o k response
+func (o *PutUserOK) Code() int {
+	return 200
 }
 
 func (o *PutUserOK) Error() string {
@@ -163,6 +168,11 @@ func (o *PutUserUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put user unauthorized response
+func (o *PutUserUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutUserUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /user/{Login}][%d] putUserUnauthorized ", 401)
 }
@@ -213,6 +223,11 @@ func (o *PutUserForbidden) IsServerError() bool {
 // IsCode returns true when this put user forbidden response a status code equal to that given
 func (o *PutUserForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put user forbidden response
+func (o *PutUserForbidden) Code() int {
+	return 403
 }
 
 func (o *PutUserForbidden) Error() string {
@@ -278,6 +293,11 @@ func (o *PutUserNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put user not found response
+func (o *PutUserNotFound) Code() int {
+	return 404
+}
+
 func (o *PutUserNotFound) Error() string {
 	return fmt.Sprintf("[PUT /user/{Login}][%d] putUserNotFound  %+v", 404, o.Payload)
 }
@@ -339,6 +359,11 @@ func (o *PutUserInternalServerError) IsServerError() bool {
 // IsCode returns true when this put user internal server error response a status code equal to that given
 func (o *PutUserInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put user internal server error response
+func (o *PutUserInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutUserInternalServerError) Error() string {
@@ -498,6 +523,11 @@ func (o *PutUserBody) contextValidatePolicies(ctx context.Context, formats strfm
 	for i := 0; i < len(o.Policies); i++ {
 
 		if o.Policies[i] != nil {
+
+			if swag.IsZero(o.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
@@ -518,6 +548,11 @@ func (o *PutUserBody) contextValidateRoles(ctx context.Context, formats strfmt.R
 	for i := 0; i < len(o.Roles); i++ {
 
 		if o.Roles[i] != nil {
+
+			if swag.IsZero(o.Roles[i]) { // not required
+				return nil
+			}
+
 			if err := o.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Roles" + "." + strconv.Itoa(i))

@@ -82,6 +82,11 @@ func (m *RestSubscriptionsCollection) contextValidateSubscriptions(ctx context.C
 	for i := 0; i < len(m.Subscriptions); i++ {
 
 		if m.Subscriptions[i] != nil {
+
+			if swag.IsZero(m.Subscriptions[i]) { // not required
+				return nil
+			}
+
 			if err := m.Subscriptions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("subscriptions" + "." + strconv.Itoa(i))

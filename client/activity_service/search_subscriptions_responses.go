@@ -54,7 +54,7 @@ func (o *SearchSubscriptionsReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /activity/subscriptions] SearchSubscriptions", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SearchSubscriptionsOK) IsServerError() bool {
 // IsCode returns true when this search subscriptions o k response a status code equal to that given
 func (o *SearchSubscriptionsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the search subscriptions o k response
+func (o *SearchSubscriptionsOK) Code() int {
+	return 200
 }
 
 func (o *SearchSubscriptionsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SearchSubscriptionsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search subscriptions unauthorized response
+func (o *SearchSubscriptionsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchSubscriptionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SearchSubscriptionsForbidden) IsServerError() bool {
 // IsCode returns true when this search subscriptions forbidden response a status code equal to that given
 func (o *SearchSubscriptionsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search subscriptions forbidden response
+func (o *SearchSubscriptionsForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchSubscriptionsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SearchSubscriptionsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search subscriptions not found response
+func (o *SearchSubscriptionsNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchSubscriptionsNotFound) Error() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SearchSubscriptionsInternalServerError) IsServerError() bool {
 // IsCode returns true when this search subscriptions internal server error response a status code equal to that given
 func (o *SearchSubscriptionsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the search subscriptions internal server error response
+func (o *SearchSubscriptionsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SearchSubscriptionsInternalServerError) Error() string {

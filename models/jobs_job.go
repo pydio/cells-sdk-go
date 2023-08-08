@@ -25,6 +25,9 @@ type JobsJob struct {
 	// Remove job automatically once it is finished (success only)
 	AutoClean bool `json:"AutoClean,omitempty"`
 
+	// Start task as soon as server is started
+	AutoRestart bool `json:"AutoRestart,omitempty"`
+
 	// Start task as soon as job is inserted
 	AutoStart bool `json:"AutoStart,omitempty"`
 
@@ -487,6 +490,11 @@ func (m *JobsJob) contextValidateActions(ctx context.Context, formats strfmt.Reg
 	for i := 0; i < len(m.Actions); i++ {
 
 		if m.Actions[i] != nil {
+
+			if swag.IsZero(m.Actions[i]) { // not required
+				return nil
+			}
+
 			if err := m.Actions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Actions" + "." + strconv.Itoa(i))
@@ -505,6 +513,11 @@ func (m *JobsJob) contextValidateActions(ctx context.Context, formats strfmt.Reg
 func (m *JobsJob) contextValidateContextMetaFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ContextMetaFilter != nil {
+
+		if swag.IsZero(m.ContextMetaFilter) { // not required
+			return nil
+		}
+
 		if err := m.ContextMetaFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
@@ -521,6 +534,11 @@ func (m *JobsJob) contextValidateContextMetaFilter(ctx context.Context, formats 
 func (m *JobsJob) contextValidateDataSourceFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.DataSourceFilter != nil {
+
+		if swag.IsZero(m.DataSourceFilter) { // not required
+			return nil
+		}
+
 		if err := m.DataSourceFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceFilter")
@@ -539,6 +557,11 @@ func (m *JobsJob) contextValidateHooks(ctx context.Context, formats strfmt.Regis
 	for i := 0; i < len(m.Hooks); i++ {
 
 		if m.Hooks[i] != nil {
+
+			if swag.IsZero(m.Hooks[i]) { // not required
+				return nil
+			}
+
 			if err := m.Hooks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Hooks" + "." + strconv.Itoa(i))
@@ -557,6 +580,11 @@ func (m *JobsJob) contextValidateHooks(ctx context.Context, formats strfmt.Regis
 func (m *JobsJob) contextValidateIdmFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IdmFilter != nil {
+
+		if swag.IsZero(m.IdmFilter) { // not required
+			return nil
+		}
+
 		if err := m.IdmFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmFilter")
@@ -573,6 +601,11 @@ func (m *JobsJob) contextValidateIdmFilter(ctx context.Context, formats strfmt.R
 func (m *JobsJob) contextValidateMergeAction(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.MergeAction != nil {
+
+		if swag.IsZero(m.MergeAction) { // not required
+			return nil
+		}
+
 		if err := m.MergeAction.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("MergeAction")
@@ -589,6 +622,11 @@ func (m *JobsJob) contextValidateMergeAction(ctx context.Context, formats strfmt
 func (m *JobsJob) contextValidateNodeEventFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.NodeEventFilter != nil {
+
+		if swag.IsZero(m.NodeEventFilter) { // not required
+			return nil
+		}
+
 		if err := m.NodeEventFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeEventFilter")
@@ -607,6 +645,11 @@ func (m *JobsJob) contextValidateParameters(ctx context.Context, formats strfmt.
 	for i := 0; i < len(m.Parameters); i++ {
 
 		if m.Parameters[i] != nil {
+
+			if swag.IsZero(m.Parameters[i]) { // not required
+				return nil
+			}
+
 			if err := m.Parameters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Parameters" + "." + strconv.Itoa(i))
@@ -627,6 +670,11 @@ func (m *JobsJob) contextValidateResourcesDependencies(ctx context.Context, form
 	for i := 0; i < len(m.ResourcesDependencies); i++ {
 
 		if m.ResourcesDependencies[i] != nil {
+
+			if swag.IsZero(m.ResourcesDependencies[i]) { // not required
+				return nil
+			}
+
 			if err := m.ResourcesDependencies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ResourcesDependencies" + "." + strconv.Itoa(i))
@@ -645,6 +693,11 @@ func (m *JobsJob) contextValidateResourcesDependencies(ctx context.Context, form
 func (m *JobsJob) contextValidateSchedule(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Schedule != nil {
+
+		if swag.IsZero(m.Schedule) { // not required
+			return nil
+		}
+
 		if err := m.Schedule.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Schedule")
@@ -663,6 +716,11 @@ func (m *JobsJob) contextValidateTasks(ctx context.Context, formats strfmt.Regis
 	for i := 0; i < len(m.Tasks); i++ {
 
 		if m.Tasks[i] != nil {
+
+			if swag.IsZero(m.Tasks[i]) { // not required
+				return nil
+			}
+
 			if err := m.Tasks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Tasks" + "." + strconv.Itoa(i))
@@ -681,6 +739,11 @@ func (m *JobsJob) contextValidateTasks(ctx context.Context, formats strfmt.Regis
 func (m *JobsJob) contextValidateUserEventFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.UserEventFilter != nil {
+
+		if swag.IsZero(m.UserEventFilter) { // not required
+			return nil
+		}
+
 		if err := m.UserEventFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UserEventFilter")

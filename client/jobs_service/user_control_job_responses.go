@@ -54,7 +54,7 @@ func (o *UserControlJobReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /jobs/user] UserControlJob", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UserControlJobOK) IsServerError() bool {
 // IsCode returns true when this user control job o k response a status code equal to that given
 func (o *UserControlJobOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the user control job o k response
+func (o *UserControlJobOK) Code() int {
+	return 200
 }
 
 func (o *UserControlJobOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UserControlJobUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the user control job unauthorized response
+func (o *UserControlJobUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UserControlJobUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UserControlJobForbidden) IsServerError() bool {
 // IsCode returns true when this user control job forbidden response a status code equal to that given
 func (o *UserControlJobForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the user control job forbidden response
+func (o *UserControlJobForbidden) Code() int {
+	return 403
 }
 
 func (o *UserControlJobForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UserControlJobNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the user control job not found response
+func (o *UserControlJobNotFound) Code() int {
+	return 404
+}
+
 func (o *UserControlJobNotFound) Error() string {
 	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UserControlJobInternalServerError) IsServerError() bool {
 // IsCode returns true when this user control job internal server error response a status code equal to that given
 func (o *UserControlJobInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the user control job internal server error response
+func (o *UserControlJobInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UserControlJobInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *CreateEncryptionKeyReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/encryption/create] CreateEncryptionKey", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *CreateEncryptionKeyOK) IsServerError() bool {
 // IsCode returns true when this create encryption key o k response a status code equal to that given
 func (o *CreateEncryptionKeyOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the create encryption key o k response
+func (o *CreateEncryptionKeyOK) Code() int {
+	return 200
 }
 
 func (o *CreateEncryptionKeyOK) Error() string {
@@ -159,6 +164,11 @@ func (o *CreateEncryptionKeyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the create encryption key unauthorized response
+func (o *CreateEncryptionKeyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateEncryptionKeyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *CreateEncryptionKeyForbidden) IsServerError() bool {
 // IsCode returns true when this create encryption key forbidden response a status code equal to that given
 func (o *CreateEncryptionKeyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the create encryption key forbidden response
+func (o *CreateEncryptionKeyForbidden) Code() int {
+	return 403
 }
 
 func (o *CreateEncryptionKeyForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *CreateEncryptionKeyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the create encryption key not found response
+func (o *CreateEncryptionKeyNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateEncryptionKeyNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *CreateEncryptionKeyInternalServerError) IsServerError() bool {
 // IsCode returns true when this create encryption key internal server error response a status code equal to that given
 func (o *CreateEncryptionKeyInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the create encryption key internal server error response
+func (o *CreateEncryptionKeyInternalServerError) Code() int {
+	return 500
 }
 
 func (o *CreateEncryptionKeyInternalServerError) Error() string {

@@ -58,7 +58,7 @@ func (o *SetRoleReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /role/{Uuid}] SetRole", response, response.Code())
 	}
 }
 
@@ -99,6 +99,11 @@ func (o *SetRoleOK) IsServerError() bool {
 // IsCode returns true when this set role o k response a status code equal to that given
 func (o *SetRoleOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the set role o k response
+func (o *SetRoleOK) Code() int {
+	return 200
 }
 
 func (o *SetRoleOK) Error() string {
@@ -163,6 +168,11 @@ func (o *SetRoleUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the set role unauthorized response
+func (o *SetRoleUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SetRoleUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /role/{Uuid}][%d] setRoleUnauthorized ", 401)
 }
@@ -213,6 +223,11 @@ func (o *SetRoleForbidden) IsServerError() bool {
 // IsCode returns true when this set role forbidden response a status code equal to that given
 func (o *SetRoleForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the set role forbidden response
+func (o *SetRoleForbidden) Code() int {
+	return 403
 }
 
 func (o *SetRoleForbidden) Error() string {
@@ -278,6 +293,11 @@ func (o *SetRoleNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the set role not found response
+func (o *SetRoleNotFound) Code() int {
+	return 404
+}
+
 func (o *SetRoleNotFound) Error() string {
 	return fmt.Sprintf("[PUT /role/{Uuid}][%d] setRoleNotFound  %+v", 404, o.Payload)
 }
@@ -339,6 +359,11 @@ func (o *SetRoleInternalServerError) IsServerError() bool {
 // IsCode returns true when this set role internal server error response a status code equal to that given
 func (o *SetRoleInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the set role internal server error response
+func (o *SetRoleInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SetRoleInternalServerError) Error() string {
@@ -458,6 +483,11 @@ func (o *SetRoleBody) contextValidatePolicies(ctx context.Context, formats strfm
 	for i := 0; i < len(o.Policies); i++ {
 
 		if o.Policies[i] != nil {
+
+			if swag.IsZero(o.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))

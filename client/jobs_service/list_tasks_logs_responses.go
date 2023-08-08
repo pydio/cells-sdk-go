@@ -54,7 +54,7 @@ func (o *ListTasksLogsReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /jobs/tasks/logs] ListTasksLogs", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListTasksLogsOK) IsServerError() bool {
 // IsCode returns true when this list tasks logs o k response a status code equal to that given
 func (o *ListTasksLogsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list tasks logs o k response
+func (o *ListTasksLogsOK) Code() int {
+	return 200
 }
 
 func (o *ListTasksLogsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListTasksLogsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list tasks logs unauthorized response
+func (o *ListTasksLogsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListTasksLogsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListTasksLogsForbidden) IsServerError() bool {
 // IsCode returns true when this list tasks logs forbidden response a status code equal to that given
 func (o *ListTasksLogsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list tasks logs forbidden response
+func (o *ListTasksLogsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListTasksLogsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListTasksLogsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list tasks logs not found response
+func (o *ListTasksLogsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListTasksLogsNotFound) Error() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListTasksLogsInternalServerError) IsServerError() bool {
 // IsCode returns true when this list tasks logs internal server error response a status code equal to that given
 func (o *ListTasksLogsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list tasks logs internal server error response
+func (o *ListTasksLogsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListTasksLogsInternalServerError) Error() string {

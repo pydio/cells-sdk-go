@@ -122,6 +122,11 @@ func (m *RestUsersCollection) contextValidateGroups(ctx context.Context, formats
 	for i := 0; i < len(m.Groups); i++ {
 
 		if m.Groups[i] != nil {
+
+			if swag.IsZero(m.Groups[i]) { // not required
+				return nil
+			}
+
 			if err := m.Groups[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Groups" + "." + strconv.Itoa(i))
@@ -142,6 +147,11 @@ func (m *RestUsersCollection) contextValidateUsers(ctx context.Context, formats 
 	for i := 0; i < len(m.Users); i++ {
 
 		if m.Users[i] != nil {
+
+			if swag.IsZero(m.Users[i]) { // not required
+				return nil
+			}
+
 			if err := m.Users[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Users" + "." + strconv.Itoa(i))

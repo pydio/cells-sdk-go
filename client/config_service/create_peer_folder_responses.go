@@ -56,7 +56,7 @@ func (o *CreatePeerFolderReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /config/peers/{PeerAddress}] CreatePeerFolder", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *CreatePeerFolderOK) IsServerError() bool {
 // IsCode returns true when this create peer folder o k response a status code equal to that given
 func (o *CreatePeerFolderOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the create peer folder o k response
+func (o *CreatePeerFolderOK) Code() int {
+	return 200
 }
 
 func (o *CreatePeerFolderOK) Error() string {
@@ -161,6 +166,11 @@ func (o *CreatePeerFolderUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the create peer folder unauthorized response
+func (o *CreatePeerFolderUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreatePeerFolderUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/peers/{PeerAddress}][%d] createPeerFolderUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *CreatePeerFolderForbidden) IsServerError() bool {
 // IsCode returns true when this create peer folder forbidden response a status code equal to that given
 func (o *CreatePeerFolderForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the create peer folder forbidden response
+func (o *CreatePeerFolderForbidden) Code() int {
+	return 403
 }
 
 func (o *CreatePeerFolderForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *CreatePeerFolderNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the create peer folder not found response
+func (o *CreatePeerFolderNotFound) Code() int {
+	return 404
+}
+
 func (o *CreatePeerFolderNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/peers/{PeerAddress}][%d] createPeerFolderNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *CreatePeerFolderInternalServerError) IsServerError() bool {
 // IsCode returns true when this create peer folder internal server error response a status code equal to that given
 func (o *CreatePeerFolderInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the create peer folder internal server error response
+func (o *CreatePeerFolderInternalServerError) Code() int {
+	return 500
 }
 
 func (o *CreatePeerFolderInternalServerError) Error() string {

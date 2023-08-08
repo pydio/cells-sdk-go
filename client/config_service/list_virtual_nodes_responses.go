@@ -54,7 +54,7 @@ func (o *ListVirtualNodesReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/virtualnodes] ListVirtualNodes", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListVirtualNodesOK) IsServerError() bool {
 // IsCode returns true when this list virtual nodes o k response a status code equal to that given
 func (o *ListVirtualNodesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list virtual nodes o k response
+func (o *ListVirtualNodesOK) Code() int {
+	return 200
 }
 
 func (o *ListVirtualNodesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListVirtualNodesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list virtual nodes unauthorized response
+func (o *ListVirtualNodesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListVirtualNodesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListVirtualNodesForbidden) IsServerError() bool {
 // IsCode returns true when this list virtual nodes forbidden response a status code equal to that given
 func (o *ListVirtualNodesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list virtual nodes forbidden response
+func (o *ListVirtualNodesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListVirtualNodesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListVirtualNodesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list virtual nodes not found response
+func (o *ListVirtualNodesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListVirtualNodesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListVirtualNodesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list virtual nodes internal server error response a status code equal to that given
 func (o *ListVirtualNodesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list virtual nodes internal server error response
+func (o *ListVirtualNodesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListVirtualNodesInternalServerError) Error() string {

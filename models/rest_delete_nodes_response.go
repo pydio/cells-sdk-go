@@ -82,6 +82,11 @@ func (m *RestDeleteNodesResponse) contextValidateDeleteJobs(ctx context.Context,
 	for i := 0; i < len(m.DeleteJobs); i++ {
 
 		if m.DeleteJobs[i] != nil {
+
+			if swag.IsZero(m.DeleteJobs[i]) { // not required
+				return nil
+			}
+
 			if err := m.DeleteJobs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("DeleteJobs" + "." + strconv.Itoa(i))

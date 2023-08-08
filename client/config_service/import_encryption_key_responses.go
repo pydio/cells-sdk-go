@@ -54,7 +54,7 @@ func (o *ImportEncryptionKeyReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /config/encryption/import] ImportEncryptionKey", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ImportEncryptionKeyOK) IsServerError() bool {
 // IsCode returns true when this import encryption key o k response a status code equal to that given
 func (o *ImportEncryptionKeyOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the import encryption key o k response
+func (o *ImportEncryptionKeyOK) Code() int {
+	return 200
 }
 
 func (o *ImportEncryptionKeyOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ImportEncryptionKeyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the import encryption key unauthorized response
+func (o *ImportEncryptionKeyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ImportEncryptionKeyUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ImportEncryptionKeyForbidden) IsServerError() bool {
 // IsCode returns true when this import encryption key forbidden response a status code equal to that given
 func (o *ImportEncryptionKeyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the import encryption key forbidden response
+func (o *ImportEncryptionKeyForbidden) Code() int {
+	return 403
 }
 
 func (o *ImportEncryptionKeyForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ImportEncryptionKeyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the import encryption key not found response
+func (o *ImportEncryptionKeyNotFound) Code() int {
+	return 404
+}
+
 func (o *ImportEncryptionKeyNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ImportEncryptionKeyInternalServerError) IsServerError() bool {
 // IsCode returns true when this import encryption key internal server error response a status code equal to that given
 func (o *ImportEncryptionKeyInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the import encryption key internal server error response
+func (o *ImportEncryptionKeyInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ImportEncryptionKeyInternalServerError) Error() string {

@@ -56,7 +56,7 @@ func (o *GetMetaReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /meta/get/{NodePath}] GetMeta", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *GetMetaOK) IsServerError() bool {
 // IsCode returns true when this get meta o k response a status code equal to that given
 func (o *GetMetaOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get meta o k response
+func (o *GetMetaOK) Code() int {
+	return 200
 }
 
 func (o *GetMetaOK) Error() string {
@@ -161,6 +166,11 @@ func (o *GetMetaUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get meta unauthorized response
+func (o *GetMetaUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetMetaUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *GetMetaForbidden) IsServerError() bool {
 // IsCode returns true when this get meta forbidden response a status code equal to that given
 func (o *GetMetaForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get meta forbidden response
+func (o *GetMetaForbidden) Code() int {
+	return 403
 }
 
 func (o *GetMetaForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *GetMetaNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get meta not found response
+func (o *GetMetaNotFound) Code() int {
+	return 404
+}
+
 func (o *GetMetaNotFound) Error() string {
 	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *GetMetaInternalServerError) IsServerError() bool {
 // IsCode returns true when this get meta internal server error response a status code equal to that given
 func (o *GetMetaInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get meta internal server error response
+func (o *GetMetaInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetMetaInternalServerError) Error() string {

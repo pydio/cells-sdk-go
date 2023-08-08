@@ -54,7 +54,7 @@ func (o *FrontPutBinaryReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /frontend/binaries/{BinaryType}/{Uuid}] FrontPutBinary", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontPutBinaryOK) IsServerError() bool {
 // IsCode returns true when this front put binary o k response a status code equal to that given
 func (o *FrontPutBinaryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front put binary o k response
+func (o *FrontPutBinaryOK) Code() int {
+	return 200
 }
 
 func (o *FrontPutBinaryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontPutBinaryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front put binary unauthorized response
+func (o *FrontPutBinaryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontPutBinaryUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /frontend/binaries/{BinaryType}/{Uuid}][%d] frontPutBinaryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontPutBinaryForbidden) IsServerError() bool {
 // IsCode returns true when this front put binary forbidden response a status code equal to that given
 func (o *FrontPutBinaryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front put binary forbidden response
+func (o *FrontPutBinaryForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontPutBinaryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontPutBinaryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front put binary not found response
+func (o *FrontPutBinaryNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontPutBinaryNotFound) Error() string {
 	return fmt.Sprintf("[POST /frontend/binaries/{BinaryType}/{Uuid}][%d] frontPutBinaryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontPutBinaryInternalServerError) IsServerError() bool {
 // IsCode returns true when this front put binary internal server error response a status code equal to that given
 func (o *FrontPutBinaryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front put binary internal server error response
+func (o *FrontPutBinaryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontPutBinaryInternalServerError) Error() string {

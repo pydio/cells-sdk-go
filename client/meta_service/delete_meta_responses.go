@@ -56,7 +56,7 @@ func (o *DeleteMetaReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /meta/delete/{NodePath}] DeleteMeta", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *DeleteMetaOK) IsServerError() bool {
 // IsCode returns true when this delete meta o k response a status code equal to that given
 func (o *DeleteMetaOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete meta o k response
+func (o *DeleteMetaOK) Code() int {
+	return 200
 }
 
 func (o *DeleteMetaOK) Error() string {
@@ -161,6 +166,11 @@ func (o *DeleteMetaUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete meta unauthorized response
+func (o *DeleteMetaUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteMetaUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *DeleteMetaForbidden) IsServerError() bool {
 // IsCode returns true when this delete meta forbidden response a status code equal to that given
 func (o *DeleteMetaForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete meta forbidden response
+func (o *DeleteMetaForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteMetaForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *DeleteMetaNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete meta not found response
+func (o *DeleteMetaNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteMetaNotFound) Error() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *DeleteMetaInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete meta internal server error response a status code equal to that given
 func (o *DeleteMetaInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete meta internal server error response
+func (o *DeleteMetaInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteMetaInternalServerError) Error() string {

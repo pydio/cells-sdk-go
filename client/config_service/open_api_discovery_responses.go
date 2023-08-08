@@ -54,7 +54,7 @@ func (o *OpenAPIDiscoveryReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/discovery/openapi] OpenApiDiscovery", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *OpenAPIDiscoveryOK) IsServerError() bool {
 // IsCode returns true when this open Api discovery o k response a status code equal to that given
 func (o *OpenAPIDiscoveryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the open Api discovery o k response
+func (o *OpenAPIDiscoveryOK) Code() int {
+	return 200
 }
 
 func (o *OpenAPIDiscoveryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *OpenAPIDiscoveryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the open Api discovery unauthorized response
+func (o *OpenAPIDiscoveryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *OpenAPIDiscoveryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *OpenAPIDiscoveryForbidden) IsServerError() bool {
 // IsCode returns true when this open Api discovery forbidden response a status code equal to that given
 func (o *OpenAPIDiscoveryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the open Api discovery forbidden response
+func (o *OpenAPIDiscoveryForbidden) Code() int {
+	return 403
 }
 
 func (o *OpenAPIDiscoveryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *OpenAPIDiscoveryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the open Api discovery not found response
+func (o *OpenAPIDiscoveryNotFound) Code() int {
+	return 404
+}
+
 func (o *OpenAPIDiscoveryNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *OpenAPIDiscoveryInternalServerError) IsServerError() bool {
 // IsCode returns true when this open Api discovery internal server error response a status code equal to that given
 func (o *OpenAPIDiscoveryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the open Api discovery internal server error response
+func (o *OpenAPIDiscoveryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *OpenAPIDiscoveryInternalServerError) Error() string {

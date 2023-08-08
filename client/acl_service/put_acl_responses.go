@@ -54,7 +54,7 @@ func (o *PutACLReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /acl] PutAcl", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *PutACLOK) IsServerError() bool {
 // IsCode returns true when this put Acl o k response a status code equal to that given
 func (o *PutACLOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put Acl o k response
+func (o *PutACLOK) Code() int {
+	return 200
 }
 
 func (o *PutACLOK) Error() string {
@@ -159,6 +164,11 @@ func (o *PutACLUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put Acl unauthorized response
+func (o *PutACLUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutACLUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *PutACLForbidden) IsServerError() bool {
 // IsCode returns true when this put Acl forbidden response a status code equal to that given
 func (o *PutACLForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put Acl forbidden response
+func (o *PutACLForbidden) Code() int {
+	return 403
 }
 
 func (o *PutACLForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *PutACLNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put Acl not found response
+func (o *PutACLNotFound) Code() int {
+	return 404
+}
+
 func (o *PutACLNotFound) Error() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *PutACLInternalServerError) IsServerError() bool {
 // IsCode returns true when this put Acl internal server error response a status code equal to that given
 func (o *PutACLInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put Acl internal server error response
+func (o *PutACLInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutACLInternalServerError) Error() string {

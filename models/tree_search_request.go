@@ -84,6 +84,11 @@ func (m *TreeSearchRequest) ContextValidate(ctx context.Context, formats strfmt.
 func (m *TreeSearchRequest) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")

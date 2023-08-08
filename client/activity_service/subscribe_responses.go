@@ -54,7 +54,7 @@ func (o *SubscribeReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /activity/subscribe] Subscribe", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SubscribeOK) IsServerError() bool {
 // IsCode returns true when this subscribe o k response a status code equal to that given
 func (o *SubscribeOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the subscribe o k response
+func (o *SubscribeOK) Code() int {
+	return 200
 }
 
 func (o *SubscribeOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SubscribeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the subscribe unauthorized response
+func (o *SubscribeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SubscribeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SubscribeForbidden) IsServerError() bool {
 // IsCode returns true when this subscribe forbidden response a status code equal to that given
 func (o *SubscribeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the subscribe forbidden response
+func (o *SubscribeForbidden) Code() int {
+	return 403
 }
 
 func (o *SubscribeForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SubscribeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the subscribe not found response
+func (o *SubscribeNotFound) Code() int {
+	return 404
+}
+
 func (o *SubscribeNotFound) Error() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SubscribeInternalServerError) IsServerError() bool {
 // IsCode returns true when this subscribe internal server error response a status code equal to that given
 func (o *SubscribeInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the subscribe internal server error response
+func (o *SubscribeInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SubscribeInternalServerError) Error() string {

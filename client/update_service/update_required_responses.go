@@ -54,7 +54,7 @@ func (o *UpdateRequiredReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /update] UpdateRequired", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UpdateRequiredOK) IsServerError() bool {
 // IsCode returns true when this update required o k response a status code equal to that given
 func (o *UpdateRequiredOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the update required o k response
+func (o *UpdateRequiredOK) Code() int {
+	return 200
 }
 
 func (o *UpdateRequiredOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UpdateRequiredUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the update required unauthorized response
+func (o *UpdateRequiredUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateRequiredUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /update][%d] updateRequiredUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UpdateRequiredForbidden) IsServerError() bool {
 // IsCode returns true when this update required forbidden response a status code equal to that given
 func (o *UpdateRequiredForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the update required forbidden response
+func (o *UpdateRequiredForbidden) Code() int {
+	return 403
 }
 
 func (o *UpdateRequiredForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UpdateRequiredNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the update required not found response
+func (o *UpdateRequiredNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateRequiredNotFound) Error() string {
 	return fmt.Sprintf("[POST /update][%d] updateRequiredNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UpdateRequiredInternalServerError) IsServerError() bool {
 // IsCode returns true when this update required internal server error response a status code equal to that given
 func (o *UpdateRequiredInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the update required internal server error response
+func (o *UpdateRequiredInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UpdateRequiredInternalServerError) Error() string {

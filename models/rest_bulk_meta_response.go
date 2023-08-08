@@ -112,6 +112,11 @@ func (m *RestBulkMetaResponse) contextValidateNodes(ctx context.Context, formats
 	for i := 0; i < len(m.Nodes); i++ {
 
 		if m.Nodes[i] != nil {
+
+			if swag.IsZero(m.Nodes[i]) { // not required
+				return nil
+			}
+
 			if err := m.Nodes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Nodes" + "." + strconv.Itoa(i))
@@ -130,6 +135,11 @@ func (m *RestBulkMetaResponse) contextValidateNodes(ctx context.Context, formats
 func (m *RestBulkMetaResponse) contextValidatePagination(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Pagination != nil {
+
+		if swag.IsZero(m.Pagination) { // not required
+			return nil
+		}
+
 		if err := m.Pagination.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Pagination")

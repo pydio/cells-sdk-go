@@ -88,6 +88,11 @@ func (m *RestCreateSelectionRequest) contextValidateNodes(ctx context.Context, f
 	for i := 0; i < len(m.Nodes); i++ {
 
 		if m.Nodes[i] != nil {
+
+			if swag.IsZero(m.Nodes[i]) { // not required
+				return nil
+			}
+
 			if err := m.Nodes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Nodes" + "." + strconv.Itoa(i))

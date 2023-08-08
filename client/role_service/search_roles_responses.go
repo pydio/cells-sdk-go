@@ -54,7 +54,7 @@ func (o *SearchRolesReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /role] SearchRoles", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SearchRolesOK) IsServerError() bool {
 // IsCode returns true when this search roles o k response a status code equal to that given
 func (o *SearchRolesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the search roles o k response
+func (o *SearchRolesOK) Code() int {
+	return 200
 }
 
 func (o *SearchRolesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SearchRolesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search roles unauthorized response
+func (o *SearchRolesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SearchRolesForbidden) IsServerError() bool {
 // IsCode returns true when this search roles forbidden response a status code equal to that given
 func (o *SearchRolesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search roles forbidden response
+func (o *SearchRolesForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchRolesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SearchRolesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search roles not found response
+func (o *SearchRolesNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchRolesNotFound) Error() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SearchRolesInternalServerError) IsServerError() bool {
 // IsCode returns true when this search roles internal server error response a status code equal to that given
 func (o *SearchRolesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the search roles internal server error response
+func (o *SearchRolesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SearchRolesInternalServerError) Error() string {

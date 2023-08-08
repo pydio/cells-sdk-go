@@ -59,7 +59,7 @@ func (o *PutWorkspaceReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /workspace/{Slug}] PutWorkspace", response, response.Code())
 	}
 }
 
@@ -100,6 +100,11 @@ func (o *PutWorkspaceOK) IsServerError() bool {
 // IsCode returns true when this put workspace o k response a status code equal to that given
 func (o *PutWorkspaceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put workspace o k response
+func (o *PutWorkspaceOK) Code() int {
+	return 200
 }
 
 func (o *PutWorkspaceOK) Error() string {
@@ -164,6 +169,11 @@ func (o *PutWorkspaceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put workspace unauthorized response
+func (o *PutWorkspaceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutWorkspaceUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized ", 401)
 }
@@ -214,6 +224,11 @@ func (o *PutWorkspaceForbidden) IsServerError() bool {
 // IsCode returns true when this put workspace forbidden response a status code equal to that given
 func (o *PutWorkspaceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put workspace forbidden response
+func (o *PutWorkspaceForbidden) Code() int {
+	return 403
 }
 
 func (o *PutWorkspaceForbidden) Error() string {
@@ -279,6 +294,11 @@ func (o *PutWorkspaceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put workspace not found response
+func (o *PutWorkspaceNotFound) Code() int {
+	return 404
+}
+
 func (o *PutWorkspaceNotFound) Error() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceNotFound  %+v", 404, o.Payload)
 }
@@ -340,6 +360,11 @@ func (o *PutWorkspaceInternalServerError) IsServerError() bool {
 // IsCode returns true when this put workspace internal server error response a status code equal to that given
 func (o *PutWorkspaceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put workspace internal server error response
+func (o *PutWorkspaceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutWorkspaceInternalServerError) Error() string {
@@ -523,6 +548,11 @@ func (o *PutWorkspaceBody) contextValidatePolicies(ctx context.Context, formats 
 	for i := 0; i < len(o.Policies); i++ {
 
 		if o.Policies[i] != nil {
+
+			if swag.IsZero(o.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
@@ -556,6 +586,11 @@ func (o *PutWorkspaceBody) contextValidateRootNodes(ctx context.Context, formats
 func (o *PutWorkspaceBody) contextValidateScope(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Scope != nil {
+
+		if swag.IsZero(o.Scope) { // not required
+			return nil
+		}
+
 		if err := o.Scope.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "Scope")

@@ -54,7 +54,7 @@ func (o *ListAdminTreeReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/admin/list] ListAdminTree", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListAdminTreeOK) IsServerError() bool {
 // IsCode returns true when this list admin tree o k response a status code equal to that given
 func (o *ListAdminTreeOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list admin tree o k response
+func (o *ListAdminTreeOK) Code() int {
+	return 200
 }
 
 func (o *ListAdminTreeOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListAdminTreeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list admin tree unauthorized response
+func (o *ListAdminTreeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListAdminTreeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListAdminTreeForbidden) IsServerError() bool {
 // IsCode returns true when this list admin tree forbidden response a status code equal to that given
 func (o *ListAdminTreeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list admin tree forbidden response
+func (o *ListAdminTreeForbidden) Code() int {
+	return 403
 }
 
 func (o *ListAdminTreeForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListAdminTreeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list admin tree not found response
+func (o *ListAdminTreeNotFound) Code() int {
+	return 404
+}
+
 func (o *ListAdminTreeNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListAdminTreeInternalServerError) IsServerError() bool {
 // IsCode returns true when this list admin tree internal server error response a status code equal to that given
 func (o *ListAdminTreeInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list admin tree internal server error response
+func (o *ListAdminTreeInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListAdminTreeInternalServerError) Error() string {

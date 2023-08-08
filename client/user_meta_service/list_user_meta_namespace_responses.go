@@ -54,7 +54,7 @@ func (o *ListUserMetaNamespaceReader) ReadResponse(response runtime.ClientRespon
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /user-meta/namespace] ListUserMetaNamespace", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListUserMetaNamespaceOK) IsServerError() bool {
 // IsCode returns true when this list user meta namespace o k response a status code equal to that given
 func (o *ListUserMetaNamespaceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list user meta namespace o k response
+func (o *ListUserMetaNamespaceOK) Code() int {
+	return 200
 }
 
 func (o *ListUserMetaNamespaceOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListUserMetaNamespaceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list user meta namespace unauthorized response
+func (o *ListUserMetaNamespaceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListUserMetaNamespaceUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListUserMetaNamespaceForbidden) IsServerError() bool {
 // IsCode returns true when this list user meta namespace forbidden response a status code equal to that given
 func (o *ListUserMetaNamespaceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list user meta namespace forbidden response
+func (o *ListUserMetaNamespaceForbidden) Code() int {
+	return 403
 }
 
 func (o *ListUserMetaNamespaceForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListUserMetaNamespaceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list user meta namespace not found response
+func (o *ListUserMetaNamespaceNotFound) Code() int {
+	return 404
+}
+
 func (o *ListUserMetaNamespaceNotFound) Error() string {
 	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListUserMetaNamespaceInternalServerError) IsServerError() bool {
 // IsCode returns true when this list user meta namespace internal server error response a status code equal to that given
 func (o *ListUserMetaNamespaceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list user meta namespace internal server error response
+func (o *ListUserMetaNamespaceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListUserMetaNamespaceInternalServerError) Error() string {

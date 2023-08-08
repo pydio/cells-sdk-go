@@ -158,6 +158,11 @@ func (m *TreeQuery) ContextValidate(ctx context.Context, formats strfmt.Registry
 func (m *TreeQuery) contextValidateGeoQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.GeoQuery != nil {
+
+		if swag.IsZero(m.GeoQuery) { // not required
+			return nil
+		}
+
 		if err := m.GeoQuery.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("GeoQuery")
@@ -174,6 +179,11 @@ func (m *TreeQuery) contextValidateGeoQuery(ctx context.Context, formats strfmt.
 func (m *TreeQuery) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
+
+		if swag.IsZero(m.Type) { // not required
+			return nil
+		}
+
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")

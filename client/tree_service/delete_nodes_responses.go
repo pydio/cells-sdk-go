@@ -54,7 +54,7 @@ func (o *DeleteNodesReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/delete] DeleteNodes", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteNodesOK) IsServerError() bool {
 // IsCode returns true when this delete nodes o k response a status code equal to that given
 func (o *DeleteNodesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete nodes o k response
+func (o *DeleteNodesOK) Code() int {
+	return 200
 }
 
 func (o *DeleteNodesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteNodesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete nodes unauthorized response
+func (o *DeleteNodesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteNodesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteNodesForbidden) IsServerError() bool {
 // IsCode returns true when this delete nodes forbidden response a status code equal to that given
 func (o *DeleteNodesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete nodes forbidden response
+func (o *DeleteNodesForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteNodesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteNodesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete nodes not found response
+func (o *DeleteNodesNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteNodesNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteNodesInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete nodes internal server error response a status code equal to that given
 func (o *DeleteNodesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete nodes internal server error response
+func (o *DeleteNodesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteNodesInternalServerError) Error() string {

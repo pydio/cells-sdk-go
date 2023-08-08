@@ -122,6 +122,11 @@ func (m *RestSearchResults) contextValidateFacets(ctx context.Context, formats s
 	for i := 0; i < len(m.Facets); i++ {
 
 		if m.Facets[i] != nil {
+
+			if swag.IsZero(m.Facets[i]) { // not required
+				return nil
+			}
+
 			if err := m.Facets[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Facets" + "." + strconv.Itoa(i))
@@ -142,6 +147,11 @@ func (m *RestSearchResults) contextValidateResults(ctx context.Context, formats 
 	for i := 0; i < len(m.Results); i++ {
 
 		if m.Results[i] != nil {
+
+			if swag.IsZero(m.Results[i]) { // not required
+				return nil
+			}
+
 			if err := m.Results[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Results" + "." + strconv.Itoa(i))

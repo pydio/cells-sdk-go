@@ -86,6 +86,11 @@ func (m *RestListSharedResourcesRequest) ContextValidate(ctx context.Context, fo
 func (m *RestListSharedResourcesRequest) contextValidateShareType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ShareType != nil {
+
+		if swag.IsZero(m.ShareType) { // not required
+			return nil
+		}
+
 		if err := m.ShareType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ShareType")

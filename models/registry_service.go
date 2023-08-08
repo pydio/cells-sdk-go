@@ -78,6 +78,11 @@ func (m *RegistryService) ContextValidate(ctx context.Context, formats strfmt.Re
 func (m *RegistryService) contextValidateOptions(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Options != nil {
+
+		if swag.IsZero(m.Options) { // not required
+			return nil
+		}
+
 		if err := m.Options.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("options")

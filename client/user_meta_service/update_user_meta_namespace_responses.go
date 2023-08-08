@@ -54,7 +54,7 @@ func (o *UpdateUserMetaNamespaceReader) ReadResponse(response runtime.ClientResp
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /user-meta/namespace] UpdateUserMetaNamespace", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UpdateUserMetaNamespaceOK) IsServerError() bool {
 // IsCode returns true when this update user meta namespace o k response a status code equal to that given
 func (o *UpdateUserMetaNamespaceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the update user meta namespace o k response
+func (o *UpdateUserMetaNamespaceOK) Code() int {
+	return 200
 }
 
 func (o *UpdateUserMetaNamespaceOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UpdateUserMetaNamespaceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the update user meta namespace unauthorized response
+func (o *UpdateUserMetaNamespaceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateUserMetaNamespaceUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /user-meta/namespace][%d] updateUserMetaNamespaceUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UpdateUserMetaNamespaceForbidden) IsServerError() bool {
 // IsCode returns true when this update user meta namespace forbidden response a status code equal to that given
 func (o *UpdateUserMetaNamespaceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the update user meta namespace forbidden response
+func (o *UpdateUserMetaNamespaceForbidden) Code() int {
+	return 403
 }
 
 func (o *UpdateUserMetaNamespaceForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UpdateUserMetaNamespaceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the update user meta namespace not found response
+func (o *UpdateUserMetaNamespaceNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateUserMetaNamespaceNotFound) Error() string {
 	return fmt.Sprintf("[PUT /user-meta/namespace][%d] updateUserMetaNamespaceNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UpdateUserMetaNamespaceInternalServerError) IsServerError() bool {
 // IsCode returns true when this update user meta namespace internal server error response a status code equal to that given
 func (o *UpdateUserMetaNamespaceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the update user meta namespace internal server error response
+func (o *UpdateUserMetaNamespaceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UpdateUserMetaNamespaceInternalServerError) Error() string {

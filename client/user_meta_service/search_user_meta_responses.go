@@ -54,7 +54,7 @@ func (o *SearchUserMetaReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /user-meta/search] SearchUserMeta", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SearchUserMetaOK) IsServerError() bool {
 // IsCode returns true when this search user meta o k response a status code equal to that given
 func (o *SearchUserMetaOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the search user meta o k response
+func (o *SearchUserMetaOK) Code() int {
+	return 200
 }
 
 func (o *SearchUserMetaOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SearchUserMetaUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search user meta unauthorized response
+func (o *SearchUserMetaUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchUserMetaUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /user-meta/search][%d] searchUserMetaUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SearchUserMetaForbidden) IsServerError() bool {
 // IsCode returns true when this search user meta forbidden response a status code equal to that given
 func (o *SearchUserMetaForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search user meta forbidden response
+func (o *SearchUserMetaForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchUserMetaForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SearchUserMetaNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search user meta not found response
+func (o *SearchUserMetaNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchUserMetaNotFound) Error() string {
 	return fmt.Sprintf("[POST /user-meta/search][%d] searchUserMetaNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SearchUserMetaInternalServerError) IsServerError() bool {
 // IsCode returns true when this search user meta internal server error response a status code equal to that given
 func (o *SearchUserMetaInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the search user meta internal server error response
+func (o *SearchUserMetaInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SearchUserMetaInternalServerError) Error() string {

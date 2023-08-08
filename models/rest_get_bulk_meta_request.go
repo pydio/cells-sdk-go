@@ -20,6 +20,9 @@ type RestGetBulkMetaRequest struct {
 	// Whether to query all services for the metadata they can contribute to enrich the node
 	AllMetaProviders bool `json:"AllMetaProviders,omitempty"`
 
+	// Children Filtering
+	Filters map[string]string `json:"Filters,omitempty"`
+
 	// Limit number of results
 	Limit int32 `json:"Limit,omitempty"`
 
@@ -28,6 +31,12 @@ type RestGetBulkMetaRequest struct {
 
 	// Start listing at a given position
 	Offset int32 `json:"Offset,omitempty"`
+
+	// Sort descending (otherwise ascending)
+	SortDirDesc bool `json:"SortDirDesc,omitempty"`
+
+	// Remote Sort on specific field
+	SortField string `json:"SortField,omitempty"`
 
 	// Load Versions of the given node
 	Versions bool `json:"Versions,omitempty"`

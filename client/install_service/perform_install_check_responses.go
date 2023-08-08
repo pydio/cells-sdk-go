@@ -54,7 +54,7 @@ func (o *PerformInstallCheckReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /install/check] PerformInstallCheck", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *PerformInstallCheckOK) IsServerError() bool {
 // IsCode returns true when this perform install check o k response a status code equal to that given
 func (o *PerformInstallCheckOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the perform install check o k response
+func (o *PerformInstallCheckOK) Code() int {
+	return 200
 }
 
 func (o *PerformInstallCheckOK) Error() string {
@@ -159,6 +164,11 @@ func (o *PerformInstallCheckUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the perform install check unauthorized response
+func (o *PerformInstallCheckUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PerformInstallCheckUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *PerformInstallCheckForbidden) IsServerError() bool {
 // IsCode returns true when this perform install check forbidden response a status code equal to that given
 func (o *PerformInstallCheckForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the perform install check forbidden response
+func (o *PerformInstallCheckForbidden) Code() int {
+	return 403
 }
 
 func (o *PerformInstallCheckForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *PerformInstallCheckNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the perform install check not found response
+func (o *PerformInstallCheckNotFound) Code() int {
+	return 404
+}
+
 func (o *PerformInstallCheckNotFound) Error() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *PerformInstallCheckInternalServerError) IsServerError() bool {
 // IsCode returns true when this perform install check internal server error response a status code equal to that given
 func (o *PerformInstallCheckInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the perform install check internal server error response
+func (o *PerformInstallCheckInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PerformInstallCheckInternalServerError) Error() string {

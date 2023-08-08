@@ -140,6 +140,11 @@ func (m *TreeGeoQuery) ContextValidate(ctx context.Context, formats strfmt.Regis
 func (m *TreeGeoQuery) contextValidateBottomRight(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.BottomRight != nil {
+
+		if swag.IsZero(m.BottomRight) { // not required
+			return nil
+		}
+
 		if err := m.BottomRight.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("BottomRight")
@@ -156,6 +161,11 @@ func (m *TreeGeoQuery) contextValidateBottomRight(ctx context.Context, formats s
 func (m *TreeGeoQuery) contextValidateCenter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Center != nil {
+
+		if swag.IsZero(m.Center) { // not required
+			return nil
+		}
+
 		if err := m.Center.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Center")
@@ -172,6 +182,11 @@ func (m *TreeGeoQuery) contextValidateCenter(ctx context.Context, formats strfmt
 func (m *TreeGeoQuery) contextValidateTopLeft(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.TopLeft != nil {
+
+		if swag.IsZero(m.TopLeft) { // not required
+			return nil
+		}
+
 		if err := m.TopLeft.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TopLeft")

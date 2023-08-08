@@ -56,7 +56,7 @@ func (o *PutUserMetaTagReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /user-meta/tags/{Namespace}] PutUserMetaTag", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *PutUserMetaTagOK) IsServerError() bool {
 // IsCode returns true when this put user meta tag o k response a status code equal to that given
 func (o *PutUserMetaTagOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put user meta tag o k response
+func (o *PutUserMetaTagOK) Code() int {
+	return 200
 }
 
 func (o *PutUserMetaTagOK) Error() string {
@@ -161,6 +166,11 @@ func (o *PutUserMetaTagUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put user meta tag unauthorized response
+func (o *PutUserMetaTagUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutUserMetaTagUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *PutUserMetaTagForbidden) IsServerError() bool {
 // IsCode returns true when this put user meta tag forbidden response a status code equal to that given
 func (o *PutUserMetaTagForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put user meta tag forbidden response
+func (o *PutUserMetaTagForbidden) Code() int {
+	return 403
 }
 
 func (o *PutUserMetaTagForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *PutUserMetaTagNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put user meta tag not found response
+func (o *PutUserMetaTagNotFound) Code() int {
+	return 404
+}
+
 func (o *PutUserMetaTagNotFound) Error() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *PutUserMetaTagInternalServerError) IsServerError() bool {
 // IsCode returns true when this put user meta tag internal server error response a status code equal to that given
 func (o *PutUserMetaTagInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put user meta tag internal server error response
+func (o *PutUserMetaTagInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutUserMetaTagInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *SearchUsersReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /user] SearchUsers", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SearchUsersOK) IsServerError() bool {
 // IsCode returns true when this search users o k response a status code equal to that given
 func (o *SearchUsersOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the search users o k response
+func (o *SearchUsersOK) Code() int {
+	return 200
 }
 
 func (o *SearchUsersOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SearchUsersUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search users unauthorized response
+func (o *SearchUsersUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchUsersUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /user][%d] searchUsersUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SearchUsersForbidden) IsServerError() bool {
 // IsCode returns true when this search users forbidden response a status code equal to that given
 func (o *SearchUsersForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search users forbidden response
+func (o *SearchUsersForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchUsersForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SearchUsersNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search users not found response
+func (o *SearchUsersNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchUsersNotFound) Error() string {
 	return fmt.Sprintf("[POST /user][%d] searchUsersNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SearchUsersInternalServerError) IsServerError() bool {
 // IsCode returns true when this search users internal server error response a status code equal to that given
 func (o *SearchUsersInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the search users internal server error response
+func (o *SearchUsersInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SearchUsersInternalServerError) Error() string {

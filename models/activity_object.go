@@ -1355,6 +1355,11 @@ func (m *ActivityObject) ContextValidate(ctx context.Context, formats strfmt.Reg
 func (m *ActivityObject) contextValidateActor(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Actor != nil {
+
+		if swag.IsZero(m.Actor) { // not required
+			return nil
+		}
+
 		if err := m.Actor.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("actor")
@@ -1371,6 +1376,11 @@ func (m *ActivityObject) contextValidateActor(ctx context.Context, formats strfm
 func (m *ActivityObject) contextValidateAnyOf(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.AnyOf != nil {
+
+		if swag.IsZero(m.AnyOf) { // not required
+			return nil
+		}
+
 		if err := m.AnyOf.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("anyOf")
@@ -1387,6 +1397,11 @@ func (m *ActivityObject) contextValidateAnyOf(ctx context.Context, formats strfm
 func (m *ActivityObject) contextValidateAttachment(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Attachment != nil {
+
+		if swag.IsZero(m.Attachment) { // not required
+			return nil
+		}
+
 		if err := m.Attachment.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attachment")
@@ -1403,6 +1418,11 @@ func (m *ActivityObject) contextValidateAttachment(ctx context.Context, formats 
 func (m *ActivityObject) contextValidateAttributedTo(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.AttributedTo != nil {
+
+		if swag.IsZero(m.AttributedTo) { // not required
+			return nil
+		}
+
 		if err := m.AttributedTo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributedTo")
@@ -1419,6 +1439,11 @@ func (m *ActivityObject) contextValidateAttributedTo(ctx context.Context, format
 func (m *ActivityObject) contextValidateAudience(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Audience != nil {
+
+		if swag.IsZero(m.Audience) { // not required
+			return nil
+		}
+
 		if err := m.Audience.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("audience")
@@ -1435,6 +1460,11 @@ func (m *ActivityObject) contextValidateAudience(ctx context.Context, formats st
 func (m *ActivityObject) contextValidateBcc(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Bcc != nil {
+
+		if swag.IsZero(m.Bcc) { // not required
+			return nil
+		}
+
 		if err := m.Bcc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bcc")
@@ -1451,6 +1481,11 @@ func (m *ActivityObject) contextValidateBcc(ctx context.Context, formats strfmt.
 func (m *ActivityObject) contextValidateBto(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Bto != nil {
+
+		if swag.IsZero(m.Bto) { // not required
+			return nil
+		}
+
 		if err := m.Bto.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bto")
@@ -1467,6 +1502,11 @@ func (m *ActivityObject) contextValidateBto(ctx context.Context, formats strfmt.
 func (m *ActivityObject) contextValidateCc(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Cc != nil {
+
+		if swag.IsZero(m.Cc) { // not required
+			return nil
+		}
+
 		if err := m.Cc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cc")
@@ -1483,6 +1523,11 @@ func (m *ActivityObject) contextValidateCc(ctx context.Context, formats strfmt.R
 func (m *ActivityObject) contextValidateContent(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Content != nil {
+
+		if swag.IsZero(m.Content) { // not required
+			return nil
+		}
+
 		if err := m.Content.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("content")
@@ -1499,6 +1544,11 @@ func (m *ActivityObject) contextValidateContent(ctx context.Context, formats str
 func (m *ActivityObject) contextValidateContext(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Context != nil {
+
+		if swag.IsZero(m.Context) { // not required
+			return nil
+		}
+
 		if err := m.Context.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("context")
@@ -1515,6 +1565,11 @@ func (m *ActivityObject) contextValidateContext(ctx context.Context, formats str
 func (m *ActivityObject) contextValidateCurrent(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Current != nil {
+
+		if swag.IsZero(m.Current) { // not required
+			return nil
+		}
+
 		if err := m.Current.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("current")
@@ -1531,6 +1586,11 @@ func (m *ActivityObject) contextValidateCurrent(ctx context.Context, formats str
 func (m *ActivityObject) contextValidateFirst(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.First != nil {
+
+		if swag.IsZero(m.First) { // not required
+			return nil
+		}
+
 		if err := m.First.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("first")
@@ -1547,6 +1607,11 @@ func (m *ActivityObject) contextValidateFirst(ctx context.Context, formats strfm
 func (m *ActivityObject) contextValidateFormerType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.FormerType != nil {
+
+		if swag.IsZero(m.FormerType) { // not required
+			return nil
+		}
+
 		if err := m.FormerType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("formerType")
@@ -1563,6 +1628,11 @@ func (m *ActivityObject) contextValidateFormerType(ctx context.Context, formats 
 func (m *ActivityObject) contextValidateGenerator(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Generator != nil {
+
+		if swag.IsZero(m.Generator) { // not required
+			return nil
+		}
+
 		if err := m.Generator.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("generator")
@@ -1579,6 +1649,11 @@ func (m *ActivityObject) contextValidateGenerator(ctx context.Context, formats s
 func (m *ActivityObject) contextValidateIcon(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Icon != nil {
+
+		if swag.IsZero(m.Icon) { // not required
+			return nil
+		}
+
 		if err := m.Icon.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("icon")
@@ -1595,6 +1670,11 @@ func (m *ActivityObject) contextValidateIcon(ctx context.Context, formats strfmt
 func (m *ActivityObject) contextValidateImage(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Image != nil {
+
+		if swag.IsZero(m.Image) { // not required
+			return nil
+		}
+
 		if err := m.Image.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("image")
@@ -1611,6 +1691,11 @@ func (m *ActivityObject) contextValidateImage(ctx context.Context, formats strfm
 func (m *ActivityObject) contextValidateInReplyTo(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.InReplyTo != nil {
+
+		if swag.IsZero(m.InReplyTo) { // not required
+			return nil
+		}
+
 		if err := m.InReplyTo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("inReplyTo")
@@ -1627,6 +1712,11 @@ func (m *ActivityObject) contextValidateInReplyTo(ctx context.Context, formats s
 func (m *ActivityObject) contextValidateInstrument(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Instrument != nil {
+
+		if swag.IsZero(m.Instrument) { // not required
+			return nil
+		}
+
 		if err := m.Instrument.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("instrument")
@@ -1645,6 +1735,11 @@ func (m *ActivityObject) contextValidateItems(ctx context.Context, formats strfm
 	for i := 0; i < len(m.Items); i++ {
 
 		if m.Items[i] != nil {
+
+			if swag.IsZero(m.Items[i]) { // not required
+				return nil
+			}
+
 			if err := m.Items[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("items" + "." + strconv.Itoa(i))
@@ -1663,6 +1758,11 @@ func (m *ActivityObject) contextValidateItems(ctx context.Context, formats strfm
 func (m *ActivityObject) contextValidateLast(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Last != nil {
+
+		if swag.IsZero(m.Last) { // not required
+			return nil
+		}
+
 		if err := m.Last.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last")
@@ -1679,6 +1779,11 @@ func (m *ActivityObject) contextValidateLast(ctx context.Context, formats strfmt
 func (m *ActivityObject) contextValidateLocation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Location != nil {
+
+		if swag.IsZero(m.Location) { // not required
+			return nil
+		}
+
 		if err := m.Location.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("location")
@@ -1695,6 +1800,11 @@ func (m *ActivityObject) contextValidateLocation(ctx context.Context, formats st
 func (m *ActivityObject) contextValidateNext(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Next != nil {
+
+		if swag.IsZero(m.Next) { // not required
+			return nil
+		}
+
 		if err := m.Next.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("next")
@@ -1711,6 +1821,11 @@ func (m *ActivityObject) contextValidateNext(ctx context.Context, formats strfmt
 func (m *ActivityObject) contextValidateObject(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Object != nil {
+
+		if swag.IsZero(m.Object) { // not required
+			return nil
+		}
+
 		if err := m.Object.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("object")
@@ -1727,6 +1842,11 @@ func (m *ActivityObject) contextValidateObject(ctx context.Context, formats strf
 func (m *ActivityObject) contextValidateOneOf(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.OneOf != nil {
+
+		if swag.IsZero(m.OneOf) { // not required
+			return nil
+		}
+
 		if err := m.OneOf.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oneOf")
@@ -1743,6 +1863,11 @@ func (m *ActivityObject) contextValidateOneOf(ctx context.Context, formats strfm
 func (m *ActivityObject) contextValidateOrigin(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Origin != nil {
+
+		if swag.IsZero(m.Origin) { // not required
+			return nil
+		}
+
 		if err := m.Origin.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("origin")
@@ -1759,6 +1884,11 @@ func (m *ActivityObject) contextValidateOrigin(ctx context.Context, formats strf
 func (m *ActivityObject) contextValidatePartOf(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.PartOf != nil {
+
+		if swag.IsZero(m.PartOf) { // not required
+			return nil
+		}
+
 		if err := m.PartOf.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partOf")
@@ -1775,6 +1905,11 @@ func (m *ActivityObject) contextValidatePartOf(ctx context.Context, formats strf
 func (m *ActivityObject) contextValidatePrev(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Prev != nil {
+
+		if swag.IsZero(m.Prev) { // not required
+			return nil
+		}
+
 		if err := m.Prev.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("prev")
@@ -1791,6 +1926,11 @@ func (m *ActivityObject) contextValidatePrev(ctx context.Context, formats strfmt
 func (m *ActivityObject) contextValidatePreview(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Preview != nil {
+
+		if swag.IsZero(m.Preview) { // not required
+			return nil
+		}
+
 		if err := m.Preview.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("preview")
@@ -1807,6 +1947,11 @@ func (m *ActivityObject) contextValidatePreview(ctx context.Context, formats str
 func (m *ActivityObject) contextValidateRelationship(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Relationship != nil {
+
+		if swag.IsZero(m.Relationship) { // not required
+			return nil
+		}
+
 		if err := m.Relationship.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationship")
@@ -1823,6 +1968,11 @@ func (m *ActivityObject) contextValidateRelationship(ctx context.Context, format
 func (m *ActivityObject) contextValidateReplies(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Replies != nil {
+
+		if swag.IsZero(m.Replies) { // not required
+			return nil
+		}
+
 		if err := m.Replies.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("replies")
@@ -1839,6 +1989,11 @@ func (m *ActivityObject) contextValidateReplies(ctx context.Context, formats str
 func (m *ActivityObject) contextValidateResult(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Result != nil {
+
+		if swag.IsZero(m.Result) { // not required
+			return nil
+		}
+
 		if err := m.Result.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("result")
@@ -1855,6 +2010,11 @@ func (m *ActivityObject) contextValidateResult(ctx context.Context, formats strf
 func (m *ActivityObject) contextValidateSubject(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Subject != nil {
+
+		if swag.IsZero(m.Subject) { // not required
+			return nil
+		}
+
 		if err := m.Subject.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("subject")
@@ -1871,6 +2031,11 @@ func (m *ActivityObject) contextValidateSubject(ctx context.Context, formats str
 func (m *ActivityObject) contextValidateTag(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Tag != nil {
+
+		if swag.IsZero(m.Tag) { // not required
+			return nil
+		}
+
 		if err := m.Tag.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("tag")
@@ -1887,6 +2052,11 @@ func (m *ActivityObject) contextValidateTag(ctx context.Context, formats strfmt.
 func (m *ActivityObject) contextValidateTarget(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Target != nil {
+
+		if swag.IsZero(m.Target) { // not required
+			return nil
+		}
+
 		if err := m.Target.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("target")
@@ -1903,6 +2073,11 @@ func (m *ActivityObject) contextValidateTarget(ctx context.Context, formats strf
 func (m *ActivityObject) contextValidateTo(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.To != nil {
+
+		if swag.IsZero(m.To) { // not required
+			return nil
+		}
+
 		if err := m.To.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("to")
@@ -1919,6 +2094,11 @@ func (m *ActivityObject) contextValidateTo(ctx context.Context, formats strfmt.R
 func (m *ActivityObject) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
+
+		if swag.IsZero(m.Type) { // not required
+			return nil
+		}
+
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("type")
@@ -1935,6 +2115,11 @@ func (m *ActivityObject) contextValidateType(ctx context.Context, formats strfmt
 func (m *ActivityObject) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.URL != nil {
+
+		if swag.IsZero(m.URL) { // not required
+			return nil
+		}
+
 		if err := m.URL.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("url")

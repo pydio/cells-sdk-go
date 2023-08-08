@@ -54,7 +54,7 @@ func (o *UserDeleteTasksReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /jobs/tasks/delete] UserDeleteTasks", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UserDeleteTasksOK) IsServerError() bool {
 // IsCode returns true when this user delete tasks o k response a status code equal to that given
 func (o *UserDeleteTasksOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the user delete tasks o k response
+func (o *UserDeleteTasksOK) Code() int {
+	return 200
 }
 
 func (o *UserDeleteTasksOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UserDeleteTasksUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the user delete tasks unauthorized response
+func (o *UserDeleteTasksUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UserDeleteTasksUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UserDeleteTasksForbidden) IsServerError() bool {
 // IsCode returns true when this user delete tasks forbidden response a status code equal to that given
 func (o *UserDeleteTasksForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the user delete tasks forbidden response
+func (o *UserDeleteTasksForbidden) Code() int {
+	return 403
 }
 
 func (o *UserDeleteTasksForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UserDeleteTasksNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the user delete tasks not found response
+func (o *UserDeleteTasksNotFound) Code() int {
+	return 404
+}
+
 func (o *UserDeleteTasksNotFound) Error() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UserDeleteTasksInternalServerError) IsServerError() bool {
 // IsCode returns true when this user delete tasks internal server error response a status code equal to that given
 func (o *UserDeleteTasksInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the user delete tasks internal server error response
+func (o *UserDeleteTasksInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UserDeleteTasksInternalServerError) Error() string {

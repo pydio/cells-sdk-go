@@ -54,7 +54,7 @@ func (o *GetRoleReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /role/{Uuid}] GetRole", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetRoleOK) IsServerError() bool {
 // IsCode returns true when this get role o k response a status code equal to that given
 func (o *GetRoleOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get role o k response
+func (o *GetRoleOK) Code() int {
+	return 200
 }
 
 func (o *GetRoleOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetRoleUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get role unauthorized response
+func (o *GetRoleUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetRoleUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetRoleForbidden) IsServerError() bool {
 // IsCode returns true when this get role forbidden response a status code equal to that given
 func (o *GetRoleForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get role forbidden response
+func (o *GetRoleForbidden) Code() int {
+	return 403
 }
 
 func (o *GetRoleForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetRoleNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get role not found response
+func (o *GetRoleNotFound) Code() int {
+	return 404
+}
+
 func (o *GetRoleNotFound) Error() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetRoleInternalServerError) IsServerError() bool {
 // IsCode returns true when this get role internal server error response a status code equal to that given
 func (o *GetRoleInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get role internal server error response
+func (o *GetRoleInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetRoleInternalServerError) Error() string {

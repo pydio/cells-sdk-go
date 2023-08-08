@@ -72,6 +72,11 @@ func (m *InstallGetDefaultsResponse) ContextValidate(ctx context.Context, format
 func (m *InstallGetDefaultsResponse) contextValidateConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Config != nil {
+
+		if swag.IsZero(m.Config) { // not required
+			return nil
+		}
+
 		if err := m.Config.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("config")

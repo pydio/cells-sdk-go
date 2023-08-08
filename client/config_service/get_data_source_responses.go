@@ -54,7 +54,7 @@ func (o *GetDataSourceReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/datasource/{Name}] GetDataSource", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetDataSourceOK) IsServerError() bool {
 // IsCode returns true when this get data source o k response a status code equal to that given
 func (o *GetDataSourceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get data source o k response
+func (o *GetDataSourceOK) Code() int {
+	return 200
 }
 
 func (o *GetDataSourceOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetDataSourceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get data source unauthorized response
+func (o *GetDataSourceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetDataSourceUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetDataSourceForbidden) IsServerError() bool {
 // IsCode returns true when this get data source forbidden response a status code equal to that given
 func (o *GetDataSourceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get data source forbidden response
+func (o *GetDataSourceForbidden) Code() int {
+	return 403
 }
 
 func (o *GetDataSourceForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetDataSourceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get data source not found response
+func (o *GetDataSourceNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDataSourceNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetDataSourceInternalServerError) IsServerError() bool {
 // IsCode returns true when this get data source internal server error response a status code equal to that given
 func (o *GetDataSourceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get data source internal server error response
+func (o *GetDataSourceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetDataSourceInternalServerError) Error() string {

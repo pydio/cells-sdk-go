@@ -85,6 +85,11 @@ func (m *RestDataSourceCollection) contextValidateDataSources(ctx context.Contex
 	for i := 0; i < len(m.DataSources); i++ {
 
 		if m.DataSources[i] != nil {
+
+			if swag.IsZero(m.DataSources[i]) { // not required
+				return nil
+			}
+
 			if err := m.DataSources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("DataSources" + "." + strconv.Itoa(i))

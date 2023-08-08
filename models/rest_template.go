@@ -119,6 +119,11 @@ func (m *RestTemplate) ContextValidate(ctx context.Context, formats strfmt.Regis
 func (m *RestTemplate) contextValidateNode(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Node != nil {
+
+		if swag.IsZero(m.Node) { // not required
+			return nil
+		}
+
 		if err := m.Node.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Node")
@@ -137,6 +142,11 @@ func (m *RestTemplate) contextValidatePolicies(ctx context.Context, formats strf
 	for i := 0; i < len(m.Policies); i++ {
 
 		if m.Policies[i] != nil {
+
+			if swag.IsZero(m.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))

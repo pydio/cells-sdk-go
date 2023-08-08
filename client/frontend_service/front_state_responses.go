@@ -54,7 +54,7 @@ func (o *FrontStateReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /frontend/state] FrontState", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontStateOK) IsServerError() bool {
 // IsCode returns true when this front state o k response a status code equal to that given
 func (o *FrontStateOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front state o k response
+func (o *FrontStateOK) Code() int {
+	return 200
 }
 
 func (o *FrontStateOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontStateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front state unauthorized response
+func (o *FrontStateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontStateUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontStateForbidden) IsServerError() bool {
 // IsCode returns true when this front state forbidden response a status code equal to that given
 func (o *FrontStateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front state forbidden response
+func (o *FrontStateForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontStateForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontStateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front state not found response
+func (o *FrontStateNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontStateNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/state][%d] frontStateNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontStateInternalServerError) IsServerError() bool {
 // IsCode returns true when this front state internal server error response a status code equal to that given
 func (o *FrontStateInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front state internal server error response
+func (o *FrontStateInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontStateInternalServerError) Error() string {

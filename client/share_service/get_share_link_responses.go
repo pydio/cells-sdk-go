@@ -54,7 +54,7 @@ func (o *GetShareLinkReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /share/link/{Uuid}] GetShareLink", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetShareLinkOK) IsServerError() bool {
 // IsCode returns true when this get share link o k response a status code equal to that given
 func (o *GetShareLinkOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get share link o k response
+func (o *GetShareLinkOK) Code() int {
+	return 200
 }
 
 func (o *GetShareLinkOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetShareLinkUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get share link unauthorized response
+func (o *GetShareLinkUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetShareLinkUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetShareLinkForbidden) IsServerError() bool {
 // IsCode returns true when this get share link forbidden response a status code equal to that given
 func (o *GetShareLinkForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get share link forbidden response
+func (o *GetShareLinkForbidden) Code() int {
+	return 403
 }
 
 func (o *GetShareLinkForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetShareLinkNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get share link not found response
+func (o *GetShareLinkNotFound) Code() int {
+	return 404
+}
+
 func (o *GetShareLinkNotFound) Error() string {
 	return fmt.Sprintf("[GET /share/link/{Uuid}][%d] getShareLinkNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetShareLinkInternalServerError) IsServerError() bool {
 // IsCode returns true when this get share link internal server error response a status code equal to that given
 func (o *GetShareLinkInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get share link internal server error response
+func (o *GetShareLinkInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetShareLinkInternalServerError) Error() string {

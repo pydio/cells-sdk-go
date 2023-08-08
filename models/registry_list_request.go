@@ -102,6 +102,11 @@ func (m *RegistryListRequest) ContextValidate(ctx context.Context, formats strfm
 func (m *RegistryListRequest) contextValidateAdjacentsOptions(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.AdjacentsOptions != nil {
+
+		if swag.IsZero(m.AdjacentsOptions) { // not required
+			return nil
+		}
+
 		if err := m.AdjacentsOptions.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("adjacentsOptions")
@@ -118,6 +123,11 @@ func (m *RegistryListRequest) contextValidateAdjacentsOptions(ctx context.Contex
 func (m *RegistryListRequest) contextValidateOptions(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Options != nil {
+
+		if swag.IsZero(m.Options) { // not required
+			return nil
+		}
+
 		if err := m.Options.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("options")

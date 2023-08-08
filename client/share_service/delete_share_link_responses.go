@@ -54,7 +54,7 @@ func (o *DeleteShareLinkReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /share/link/{Uuid}] DeleteShareLink", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteShareLinkOK) IsServerError() bool {
 // IsCode returns true when this delete share link o k response a status code equal to that given
 func (o *DeleteShareLinkOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete share link o k response
+func (o *DeleteShareLinkOK) Code() int {
+	return 200
 }
 
 func (o *DeleteShareLinkOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteShareLinkUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete share link unauthorized response
+func (o *DeleteShareLinkUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteShareLinkUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteShareLinkForbidden) IsServerError() bool {
 // IsCode returns true when this delete share link forbidden response a status code equal to that given
 func (o *DeleteShareLinkForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete share link forbidden response
+func (o *DeleteShareLinkForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteShareLinkForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteShareLinkNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete share link not found response
+func (o *DeleteShareLinkNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteShareLinkNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteShareLinkInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete share link internal server error response a status code equal to that given
 func (o *DeleteShareLinkInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete share link internal server error response
+func (o *DeleteShareLinkInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteShareLinkInternalServerError) Error() string {

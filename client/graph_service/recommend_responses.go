@@ -54,7 +54,7 @@ func (o *RecommendReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /graph/recommend] Recommend", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *RecommendOK) IsServerError() bool {
 // IsCode returns true when this recommend o k response a status code equal to that given
 func (o *RecommendOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the recommend o k response
+func (o *RecommendOK) Code() int {
+	return 200
 }
 
 func (o *RecommendOK) Error() string {
@@ -159,6 +164,11 @@ func (o *RecommendUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the recommend unauthorized response
+func (o *RecommendUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RecommendUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *RecommendForbidden) IsServerError() bool {
 // IsCode returns true when this recommend forbidden response a status code equal to that given
 func (o *RecommendForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the recommend forbidden response
+func (o *RecommendForbidden) Code() int {
+	return 403
 }
 
 func (o *RecommendForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *RecommendNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the recommend not found response
+func (o *RecommendNotFound) Code() int {
+	return 404
+}
+
 func (o *RecommendNotFound) Error() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *RecommendInternalServerError) IsServerError() bool {
 // IsCode returns true when this recommend internal server error response a status code equal to that given
 func (o *RecommendInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the recommend internal server error response
+func (o *RecommendInternalServerError) Code() int {
+	return 500
 }
 
 func (o *RecommendInternalServerError) Error() string {

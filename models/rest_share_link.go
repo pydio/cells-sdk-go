@@ -239,6 +239,11 @@ func (m *RestShareLink) contextValidatePermissions(ctx context.Context, formats 
 	for i := 0; i < len(m.Permissions); i++ {
 
 		if m.Permissions[i] != nil {
+
+			if swag.IsZero(m.Permissions[i]) { // not required
+				return nil
+			}
+
 			if err := m.Permissions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Permissions" + "." + strconv.Itoa(i))
@@ -259,6 +264,11 @@ func (m *RestShareLink) contextValidatePolicies(ctx context.Context, formats str
 	for i := 0; i < len(m.Policies); i++ {
 
 		if m.Policies[i] != nil {
+
+			if swag.IsZero(m.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
@@ -279,6 +289,11 @@ func (m *RestShareLink) contextValidateRootNodes(ctx context.Context, formats st
 	for i := 0; i < len(m.RootNodes); i++ {
 
 		if m.RootNodes[i] != nil {
+
+			if swag.IsZero(m.RootNodes[i]) { // not required
+				return nil
+			}
+
 			if err := m.RootNodes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RootNodes" + "." + strconv.Itoa(i))

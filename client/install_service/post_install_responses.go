@@ -54,7 +54,7 @@ func (o *PostInstallReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /install] PostInstall", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *PostInstallOK) IsServerError() bool {
 // IsCode returns true when this post install o k response a status code equal to that given
 func (o *PostInstallOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the post install o k response
+func (o *PostInstallOK) Code() int {
+	return 200
 }
 
 func (o *PostInstallOK) Error() string {
@@ -159,6 +164,11 @@ func (o *PostInstallUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the post install unauthorized response
+func (o *PostInstallUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PostInstallUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /install][%d] postInstallUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *PostInstallForbidden) IsServerError() bool {
 // IsCode returns true when this post install forbidden response a status code equal to that given
 func (o *PostInstallForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the post install forbidden response
+func (o *PostInstallForbidden) Code() int {
+	return 403
 }
 
 func (o *PostInstallForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *PostInstallNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the post install not found response
+func (o *PostInstallNotFound) Code() int {
+	return 404
+}
+
 func (o *PostInstallNotFound) Error() string {
 	return fmt.Sprintf("[POST /install][%d] postInstallNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *PostInstallInternalServerError) IsServerError() bool {
 // IsCode returns true when this post install internal server error response a status code equal to that given
 func (o *PostInstallInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the post install internal server error response
+func (o *PostInstallInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PostInstallInternalServerError) Error() string {

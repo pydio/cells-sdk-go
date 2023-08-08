@@ -54,7 +54,7 @@ func (o *ListRegistryReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/registry] ListRegistry", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListRegistryOK) IsServerError() bool {
 // IsCode returns true when this list registry o k response a status code equal to that given
 func (o *ListRegistryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list registry o k response
+func (o *ListRegistryOK) Code() int {
+	return 200
 }
 
 func (o *ListRegistryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListRegistryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list registry unauthorized response
+func (o *ListRegistryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListRegistryUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/registry][%d] listRegistryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListRegistryForbidden) IsServerError() bool {
 // IsCode returns true when this list registry forbidden response a status code equal to that given
 func (o *ListRegistryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list registry forbidden response
+func (o *ListRegistryForbidden) Code() int {
+	return 403
 }
 
 func (o *ListRegistryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListRegistryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list registry not found response
+func (o *ListRegistryNotFound) Code() int {
+	return 404
+}
+
 func (o *ListRegistryNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/registry][%d] listRegistryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListRegistryInternalServerError) IsServerError() bool {
 // IsCode returns true when this list registry internal server error response a status code equal to that given
 func (o *ListRegistryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list registry internal server error response
+func (o *ListRegistryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListRegistryInternalServerError) Error() string {

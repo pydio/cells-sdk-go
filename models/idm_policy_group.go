@@ -127,6 +127,11 @@ func (m *IdmPolicyGroup) contextValidatePolicies(ctx context.Context, formats st
 	for i := 0; i < len(m.Policies); i++ {
 
 		if m.Policies[i] != nil {
+
+			if swag.IsZero(m.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
@@ -145,6 +150,11 @@ func (m *IdmPolicyGroup) contextValidatePolicies(ctx context.Context, formats st
 func (m *IdmPolicyGroup) contextValidateResourceGroup(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ResourceGroup != nil {
+
+		if swag.IsZero(m.ResourceGroup) { // not required
+			return nil
+		}
+
 		if err := m.ResourceGroup.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourceGroup")

@@ -54,7 +54,7 @@ func (o *SearchWorkspacesReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /workspace] SearchWorkspaces", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SearchWorkspacesOK) IsServerError() bool {
 // IsCode returns true when this search workspaces o k response a status code equal to that given
 func (o *SearchWorkspacesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the search workspaces o k response
+func (o *SearchWorkspacesOK) Code() int {
+	return 200
 }
 
 func (o *SearchWorkspacesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SearchWorkspacesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search workspaces unauthorized response
+func (o *SearchWorkspacesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchWorkspacesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SearchWorkspacesForbidden) IsServerError() bool {
 // IsCode returns true when this search workspaces forbidden response a status code equal to that given
 func (o *SearchWorkspacesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search workspaces forbidden response
+func (o *SearchWorkspacesForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchWorkspacesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SearchWorkspacesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search workspaces not found response
+func (o *SearchWorkspacesNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchWorkspacesNotFound) Error() string {
 	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SearchWorkspacesInternalServerError) IsServerError() bool {
 // IsCode returns true when this search workspaces internal server error response a status code equal to that given
 func (o *SearchWorkspacesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the search workspaces internal server error response
+func (o *SearchWorkspacesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SearchWorkspacesInternalServerError) Error() string {

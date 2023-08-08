@@ -56,7 +56,7 @@ func (o *ApplyUpdateReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PATCH /update/{TargetVersion}] ApplyUpdate", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *ApplyUpdateOK) IsServerError() bool {
 // IsCode returns true when this apply update o k response a status code equal to that given
 func (o *ApplyUpdateOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the apply update o k response
+func (o *ApplyUpdateOK) Code() int {
+	return 200
 }
 
 func (o *ApplyUpdateOK) Error() string {
@@ -161,6 +166,11 @@ func (o *ApplyUpdateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the apply update unauthorized response
+func (o *ApplyUpdateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ApplyUpdateUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *ApplyUpdateForbidden) IsServerError() bool {
 // IsCode returns true when this apply update forbidden response a status code equal to that given
 func (o *ApplyUpdateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the apply update forbidden response
+func (o *ApplyUpdateForbidden) Code() int {
+	return 403
 }
 
 func (o *ApplyUpdateForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *ApplyUpdateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the apply update not found response
+func (o *ApplyUpdateNotFound) Code() int {
+	return 404
+}
+
 func (o *ApplyUpdateNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *ApplyUpdateInternalServerError) IsServerError() bool {
 // IsCode returns true when this apply update internal server error response a status code equal to that given
 func (o *ApplyUpdateInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the apply update internal server error response
+func (o *ApplyUpdateInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ApplyUpdateInternalServerError) Error() string {

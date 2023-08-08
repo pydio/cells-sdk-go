@@ -54,7 +54,7 @@ func (o *GetCellReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /share/cell/{Uuid}] GetCell", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetCellOK) IsServerError() bool {
 // IsCode returns true when this get cell o k response a status code equal to that given
 func (o *GetCellOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get cell o k response
+func (o *GetCellOK) Code() int {
+	return 200
 }
 
 func (o *GetCellOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetCellUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get cell unauthorized response
+func (o *GetCellUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetCellUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetCellForbidden) IsServerError() bool {
 // IsCode returns true when this get cell forbidden response a status code equal to that given
 func (o *GetCellForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get cell forbidden response
+func (o *GetCellForbidden) Code() int {
+	return 403
 }
 
 func (o *GetCellForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetCellNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get cell not found response
+func (o *GetCellNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCellNotFound) Error() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetCellInternalServerError) IsServerError() bool {
 // IsCode returns true when this get cell internal server error response a status code equal to that given
 func (o *GetCellInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get cell internal server error response
+func (o *GetCellInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetCellInternalServerError) Error() string {

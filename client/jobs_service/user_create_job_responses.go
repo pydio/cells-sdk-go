@@ -56,7 +56,7 @@ func (o *UserCreateJobReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /jobs/user/{JobName}] UserCreateJob", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *UserCreateJobOK) IsServerError() bool {
 // IsCode returns true when this user create job o k response a status code equal to that given
 func (o *UserCreateJobOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the user create job o k response
+func (o *UserCreateJobOK) Code() int {
+	return 200
 }
 
 func (o *UserCreateJobOK) Error() string {
@@ -161,6 +166,11 @@ func (o *UserCreateJobUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the user create job unauthorized response
+func (o *UserCreateJobUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UserCreateJobUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *UserCreateJobForbidden) IsServerError() bool {
 // IsCode returns true when this user create job forbidden response a status code equal to that given
 func (o *UserCreateJobForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the user create job forbidden response
+func (o *UserCreateJobForbidden) Code() int {
+	return 403
 }
 
 func (o *UserCreateJobForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *UserCreateJobNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the user create job not found response
+func (o *UserCreateJobNotFound) Code() int {
+	return 404
+}
+
 func (o *UserCreateJobNotFound) Error() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *UserCreateJobInternalServerError) IsServerError() bool {
 // IsCode returns true when this user create job internal server error response a status code equal to that given
 func (o *UserCreateJobInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the user create job internal server error response
+func (o *UserCreateJobInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UserCreateJobInternalServerError) Error() string {

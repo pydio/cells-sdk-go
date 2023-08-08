@@ -54,7 +54,7 @@ func (o *DeleteWorkspaceReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /workspace/{Slug}] DeleteWorkspace", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteWorkspaceOK) IsServerError() bool {
 // IsCode returns true when this delete workspace o k response a status code equal to that given
 func (o *DeleteWorkspaceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete workspace o k response
+func (o *DeleteWorkspaceOK) Code() int {
+	return 200
 }
 
 func (o *DeleteWorkspaceOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteWorkspaceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete workspace unauthorized response
+func (o *DeleteWorkspaceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteWorkspaceUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteWorkspaceForbidden) IsServerError() bool {
 // IsCode returns true when this delete workspace forbidden response a status code equal to that given
 func (o *DeleteWorkspaceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete workspace forbidden response
+func (o *DeleteWorkspaceForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteWorkspaceForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteWorkspaceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete workspace not found response
+func (o *DeleteWorkspaceNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteWorkspaceNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteWorkspaceInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete workspace internal server error response a status code equal to that given
 func (o *DeleteWorkspaceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete workspace internal server error response
+func (o *DeleteWorkspaceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteWorkspaceInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *DeleteUserMetaTagsReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /user-meta/tags/{Namespace}/{Tags}] DeleteUserMetaTags", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteUserMetaTagsOK) IsServerError() bool {
 // IsCode returns true when this delete user meta tags o k response a status code equal to that given
 func (o *DeleteUserMetaTagsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete user meta tags o k response
+func (o *DeleteUserMetaTagsOK) Code() int {
+	return 200
 }
 
 func (o *DeleteUserMetaTagsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteUserMetaTagsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete user meta tags unauthorized response
+func (o *DeleteUserMetaTagsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteUserMetaTagsUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteUserMetaTagsForbidden) IsServerError() bool {
 // IsCode returns true when this delete user meta tags forbidden response a status code equal to that given
 func (o *DeleteUserMetaTagsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete user meta tags forbidden response
+func (o *DeleteUserMetaTagsForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteUserMetaTagsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteUserMetaTagsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete user meta tags not found response
+func (o *DeleteUserMetaTagsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteUserMetaTagsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteUserMetaTagsInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete user meta tags internal server error response a status code equal to that given
 func (o *DeleteUserMetaTagsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete user meta tags internal server error response
+func (o *DeleteUserMetaTagsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteUserMetaTagsInternalServerError) Error() string {

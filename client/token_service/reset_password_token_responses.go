@@ -56,7 +56,7 @@ func (o *ResetPasswordTokenReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /auth/reset-password-token/{UserLogin}] ResetPasswordToken", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *ResetPasswordTokenOK) IsServerError() bool {
 // IsCode returns true when this reset password token o k response a status code equal to that given
 func (o *ResetPasswordTokenOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the reset password token o k response
+func (o *ResetPasswordTokenOK) Code() int {
+	return 200
 }
 
 func (o *ResetPasswordTokenOK) Error() string {
@@ -161,6 +166,11 @@ func (o *ResetPasswordTokenUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the reset password token unauthorized response
+func (o *ResetPasswordTokenUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ResetPasswordTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *ResetPasswordTokenForbidden) IsServerError() bool {
 // IsCode returns true when this reset password token forbidden response a status code equal to that given
 func (o *ResetPasswordTokenForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the reset password token forbidden response
+func (o *ResetPasswordTokenForbidden) Code() int {
+	return 403
 }
 
 func (o *ResetPasswordTokenForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *ResetPasswordTokenNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the reset password token not found response
+func (o *ResetPasswordTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *ResetPasswordTokenNotFound) Error() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *ResetPasswordTokenInternalServerError) IsServerError() bool {
 // IsCode returns true when this reset password token internal server error response a status code equal to that given
 func (o *ResetPasswordTokenInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the reset password token internal server error response
+func (o *ResetPasswordTokenInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ResetPasswordTokenInternalServerError) Error() string {

@@ -75,6 +75,11 @@ func (m *RestListStorageBucketsRequest) ContextValidate(ctx context.Context, for
 func (m *RestListStorageBucketsRequest) contextValidateDataSource(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.DataSource != nil {
+
+		if swag.IsZero(m.DataSource) { // not required
+			return nil
+		}
+
 		if err := m.DataSource.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSource")

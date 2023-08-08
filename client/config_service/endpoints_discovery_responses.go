@@ -54,7 +54,7 @@ func (o *EndpointsDiscoveryReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/discovery] EndpointsDiscovery", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *EndpointsDiscoveryOK) IsServerError() bool {
 // IsCode returns true when this endpoints discovery o k response a status code equal to that given
 func (o *EndpointsDiscoveryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the endpoints discovery o k response
+func (o *EndpointsDiscoveryOK) Code() int {
+	return 200
 }
 
 func (o *EndpointsDiscoveryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *EndpointsDiscoveryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the endpoints discovery unauthorized response
+func (o *EndpointsDiscoveryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *EndpointsDiscoveryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *EndpointsDiscoveryForbidden) IsServerError() bool {
 // IsCode returns true when this endpoints discovery forbidden response a status code equal to that given
 func (o *EndpointsDiscoveryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the endpoints discovery forbidden response
+func (o *EndpointsDiscoveryForbidden) Code() int {
+	return 403
 }
 
 func (o *EndpointsDiscoveryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *EndpointsDiscoveryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the endpoints discovery not found response
+func (o *EndpointsDiscoveryNotFound) Code() int {
+	return 404
+}
+
 func (o *EndpointsDiscoveryNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *EndpointsDiscoveryInternalServerError) IsServerError() bool {
 // IsCode returns true when this endpoints discovery internal server error response a status code equal to that given
 func (o *EndpointsDiscoveryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the endpoints discovery internal server error response
+func (o *EndpointsDiscoveryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *EndpointsDiscoveryInternalServerError) Error() string {

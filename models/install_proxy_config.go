@@ -147,6 +147,11 @@ func (m *InstallProxyConfig) ContextValidate(ctx context.Context, formats strfmt
 func (m *InstallProxyConfig) contextValidateCertificate(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Certificate != nil {
+
+		if swag.IsZero(m.Certificate) { // not required
+			return nil
+		}
+
 		if err := m.Certificate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Certificate")
@@ -163,6 +168,11 @@ func (m *InstallProxyConfig) contextValidateCertificate(ctx context.Context, for
 func (m *InstallProxyConfig) contextValidateLetsEncrypt(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.LetsEncrypt != nil {
+
+		if swag.IsZero(m.LetsEncrypt) { // not required
+			return nil
+		}
+
 		if err := m.LetsEncrypt.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LetsEncrypt")
@@ -179,6 +189,11 @@ func (m *InstallProxyConfig) contextValidateLetsEncrypt(ctx context.Context, for
 func (m *InstallProxyConfig) contextValidateSelfSigned(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.SelfSigned != nil {
+
+		if swag.IsZero(m.SelfSigned) { // not required
+			return nil
+		}
+
 		if err := m.SelfSigned.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("SelfSigned")

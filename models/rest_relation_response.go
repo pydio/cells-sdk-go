@@ -119,6 +119,11 @@ func (m *RestRelationResponse) contextValidateBelongsToTeams(ctx context.Context
 	for i := 0; i < len(m.BelongsToTeams); i++ {
 
 		if m.BelongsToTeams[i] != nil {
+
+			if swag.IsZero(m.BelongsToTeams[i]) { // not required
+				return nil
+			}
+
 			if err := m.BelongsToTeams[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BelongsToTeams" + "." + strconv.Itoa(i))
@@ -139,6 +144,11 @@ func (m *RestRelationResponse) contextValidateSharedCells(ctx context.Context, f
 	for i := 0; i < len(m.SharedCells); i++ {
 
 		if m.SharedCells[i] != nil {
+
+			if swag.IsZero(m.SharedCells[i]) { // not required
+				return nil
+			}
+
 			if err := m.SharedCells[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SharedCells" + "." + strconv.Itoa(i))

@@ -54,7 +54,7 @@ func (o *DeleteDataSourceReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /config/datasource/{Name}] DeleteDataSource", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteDataSourceOK) IsServerError() bool {
 // IsCode returns true when this delete data source o k response a status code equal to that given
 func (o *DeleteDataSourceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete data source o k response
+func (o *DeleteDataSourceOK) Code() int {
+	return 200
 }
 
 func (o *DeleteDataSourceOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteDataSourceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete data source unauthorized response
+func (o *DeleteDataSourceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteDataSourceUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteDataSourceForbidden) IsServerError() bool {
 // IsCode returns true when this delete data source forbidden response a status code equal to that given
 func (o *DeleteDataSourceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete data source forbidden response
+func (o *DeleteDataSourceForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteDataSourceForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteDataSourceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete data source not found response
+func (o *DeleteDataSourceNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteDataSourceNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteDataSourceInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete data source internal server error response a status code equal to that given
 func (o *DeleteDataSourceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete data source internal server error response
+func (o *DeleteDataSourceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteDataSourceInternalServerError) Error() string {

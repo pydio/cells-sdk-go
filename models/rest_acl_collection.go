@@ -85,6 +85,11 @@ func (m *RestACLCollection) contextValidateACLs(ctx context.Context, formats str
 	for i := 0; i < len(m.ACLs); i++ {
 
 		if m.ACLs[i] != nil {
+
+			if swag.IsZero(m.ACLs[i]) { // not required
+				return nil
+			}
+
 			if err := m.ACLs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ACLs" + "." + strconv.Itoa(i))

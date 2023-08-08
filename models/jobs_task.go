@@ -142,6 +142,11 @@ func (m *JobsTask) contextValidateActionsLogs(ctx context.Context, formats strfm
 	for i := 0; i < len(m.ActionsLogs); i++ {
 
 		if m.ActionsLogs[i] != nil {
+
+			if swag.IsZero(m.ActionsLogs[i]) { // not required
+				return nil
+			}
+
 			if err := m.ActionsLogs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ActionsLogs" + "." + strconv.Itoa(i))
@@ -160,6 +165,11 @@ func (m *JobsTask) contextValidateActionsLogs(ctx context.Context, formats strfm
 func (m *JobsTask) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Status != nil {
+
+		if swag.IsZero(m.Status) { // not required
+			return nil
+		}
+
 		if err := m.Status.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status")

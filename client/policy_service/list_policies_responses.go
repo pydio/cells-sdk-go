@@ -54,7 +54,7 @@ func (o *ListPoliciesReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /policy] ListPolicies", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListPoliciesOK) IsServerError() bool {
 // IsCode returns true when this list policies o k response a status code equal to that given
 func (o *ListPoliciesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list policies o k response
+func (o *ListPoliciesOK) Code() int {
+	return 200
 }
 
 func (o *ListPoliciesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListPoliciesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list policies unauthorized response
+func (o *ListPoliciesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListPoliciesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /policy][%d] listPoliciesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListPoliciesForbidden) IsServerError() bool {
 // IsCode returns true when this list policies forbidden response a status code equal to that given
 func (o *ListPoliciesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list policies forbidden response
+func (o *ListPoliciesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListPoliciesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListPoliciesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list policies not found response
+func (o *ListPoliciesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListPoliciesNotFound) Error() string {
 	return fmt.Sprintf("[POST /policy][%d] listPoliciesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListPoliciesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list policies internal server error response a status code equal to that given
 func (o *ListPoliciesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list policies internal server error response
+func (o *ListPoliciesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListPoliciesInternalServerError) Error() string {

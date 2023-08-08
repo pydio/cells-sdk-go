@@ -58,7 +58,7 @@ func (o *PutRolesReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /user/roles/{Login}] PutRoles", response, response.Code())
 	}
 }
 
@@ -99,6 +99,11 @@ func (o *PutRolesOK) IsServerError() bool {
 // IsCode returns true when this put roles o k response a status code equal to that given
 func (o *PutRolesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put roles o k response
+func (o *PutRolesOK) Code() int {
+	return 200
 }
 
 func (o *PutRolesOK) Error() string {
@@ -163,6 +168,11 @@ func (o *PutRolesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put roles unauthorized response
+func (o *PutRolesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized ", 401)
 }
@@ -213,6 +223,11 @@ func (o *PutRolesForbidden) IsServerError() bool {
 // IsCode returns true when this put roles forbidden response a status code equal to that given
 func (o *PutRolesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put roles forbidden response
+func (o *PutRolesForbidden) Code() int {
+	return 403
 }
 
 func (o *PutRolesForbidden) Error() string {
@@ -278,6 +293,11 @@ func (o *PutRolesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put roles not found response
+func (o *PutRolesNotFound) Code() int {
+	return 404
+}
+
 func (o *PutRolesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound  %+v", 404, o.Payload)
 }
@@ -339,6 +359,11 @@ func (o *PutRolesInternalServerError) IsServerError() bool {
 // IsCode returns true when this put roles internal server error response a status code equal to that given
 func (o *PutRolesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put roles internal server error response
+func (o *PutRolesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutRolesInternalServerError) Error() string {
@@ -498,6 +523,11 @@ func (o *PutRolesBody) contextValidatePolicies(ctx context.Context, formats strf
 	for i := 0; i < len(o.Policies); i++ {
 
 		if o.Policies[i] != nil {
+
+			if swag.IsZero(o.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
@@ -518,6 +548,11 @@ func (o *PutRolesBody) contextValidateRoles(ctx context.Context, formats strfmt.
 	for i := 0; i < len(o.Roles); i++ {
 
 		if o.Roles[i] != nil {
+
+			if swag.IsZero(o.Roles[i]) { // not required
+				return nil
+			}
+
 			if err := o.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Roles" + "." + strconv.Itoa(i))

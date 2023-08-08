@@ -54,7 +54,7 @@ func (o *FrontSessionReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /frontend/session] FrontSession", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontSessionOK) IsServerError() bool {
 // IsCode returns true when this front session o k response a status code equal to that given
 func (o *FrontSessionOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front session o k response
+func (o *FrontSessionOK) Code() int {
+	return 200
 }
 
 func (o *FrontSessionOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontSessionUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front session unauthorized response
+func (o *FrontSessionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontSessionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontSessionForbidden) IsServerError() bool {
 // IsCode returns true when this front session forbidden response a status code equal to that given
 func (o *FrontSessionForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front session forbidden response
+func (o *FrontSessionForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontSessionForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontSessionNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front session not found response
+func (o *FrontSessionNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontSessionNotFound) Error() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontSessionInternalServerError) IsServerError() bool {
 // IsCode returns true when this front session internal server error response a status code equal to that given
 func (o *FrontSessionInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front session internal server error response
+func (o *FrontSessionInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontSessionInternalServerError) Error() string {

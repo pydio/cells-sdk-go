@@ -23,6 +23,9 @@ type JobsNodesSelector struct {
 	// Select all files - ignore any other condition
 	All bool `json:"All,omitempty"`
 
+	// Clear previous selection
+	ClearInput bool `json:"ClearInput,omitempty"`
+
 	// Whether to trigger one action per node or one action
 	// with all nodes as selection
 	Collect bool `json:"Collect,omitempty"`
@@ -96,6 +99,11 @@ func (m *JobsNodesSelector) ContextValidate(ctx context.Context, formats strfmt.
 func (m *JobsNodesSelector) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")

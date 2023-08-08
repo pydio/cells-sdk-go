@@ -57,7 +57,7 @@ func (o *CreateStorageBucketReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /config/buckets/{BucketName}] CreateStorageBucket", response, response.Code())
 	}
 }
 
@@ -98,6 +98,11 @@ func (o *CreateStorageBucketOK) IsServerError() bool {
 // IsCode returns true when this create storage bucket o k response a status code equal to that given
 func (o *CreateStorageBucketOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the create storage bucket o k response
+func (o *CreateStorageBucketOK) Code() int {
+	return 200
 }
 
 func (o *CreateStorageBucketOK) Error() string {
@@ -162,6 +167,11 @@ func (o *CreateStorageBucketUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the create storage bucket unauthorized response
+func (o *CreateStorageBucketUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateStorageBucketUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized ", 401)
 }
@@ -212,6 +222,11 @@ func (o *CreateStorageBucketForbidden) IsServerError() bool {
 // IsCode returns true when this create storage bucket forbidden response a status code equal to that given
 func (o *CreateStorageBucketForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the create storage bucket forbidden response
+func (o *CreateStorageBucketForbidden) Code() int {
+	return 403
 }
 
 func (o *CreateStorageBucketForbidden) Error() string {
@@ -277,6 +292,11 @@ func (o *CreateStorageBucketNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the create storage bucket not found response
+func (o *CreateStorageBucketNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateStorageBucketNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketNotFound  %+v", 404, o.Payload)
 }
@@ -338,6 +358,11 @@ func (o *CreateStorageBucketInternalServerError) IsServerError() bool {
 // IsCode returns true when this create storage bucket internal server error response a status code equal to that given
 func (o *CreateStorageBucketInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the create storage bucket internal server error response
+func (o *CreateStorageBucketInternalServerError) Code() int {
+	return 500
 }
 
 func (o *CreateStorageBucketInternalServerError) Error() string {
@@ -424,6 +449,11 @@ func (o *CreateStorageBucketBody) ContextValidate(ctx context.Context, formats s
 func (o *CreateStorageBucketBody) contextValidateDataSource(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.DataSource != nil {
+
+		if swag.IsZero(o.DataSource) { // not required
+			return nil
+		}
+
 		if err := o.DataSource.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "DataSource")

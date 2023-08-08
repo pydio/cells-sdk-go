@@ -54,7 +54,7 @@ func (o *ListServicesReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/ctl] ListServices", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListServicesOK) IsServerError() bool {
 // IsCode returns true when this list services o k response a status code equal to that given
 func (o *ListServicesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list services o k response
+func (o *ListServicesOK) Code() int {
+	return 200
 }
 
 func (o *ListServicesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListServicesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list services unauthorized response
+func (o *ListServicesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListServicesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListServicesForbidden) IsServerError() bool {
 // IsCode returns true when this list services forbidden response a status code equal to that given
 func (o *ListServicesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list services forbidden response
+func (o *ListServicesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListServicesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListServicesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list services not found response
+func (o *ListServicesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListServicesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListServicesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list services internal server error response a status code equal to that given
 func (o *ListServicesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list services internal server error response
+func (o *ListServicesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListServicesInternalServerError) Error() string {

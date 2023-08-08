@@ -54,7 +54,7 @@ func (o *FrontEnrollAuthReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /frontend/enroll] FrontEnrollAuth", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontEnrollAuthOK) IsServerError() bool {
 // IsCode returns true when this front enroll auth o k response a status code equal to that given
 func (o *FrontEnrollAuthOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front enroll auth o k response
+func (o *FrontEnrollAuthOK) Code() int {
+	return 200
 }
 
 func (o *FrontEnrollAuthOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontEnrollAuthUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front enroll auth unauthorized response
+func (o *FrontEnrollAuthUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontEnrollAuthUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontEnrollAuthForbidden) IsServerError() bool {
 // IsCode returns true when this front enroll auth forbidden response a status code equal to that given
 func (o *FrontEnrollAuthForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front enroll auth forbidden response
+func (o *FrontEnrollAuthForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontEnrollAuthForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontEnrollAuthNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front enroll auth not found response
+func (o *FrontEnrollAuthNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontEnrollAuthNotFound) Error() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontEnrollAuthInternalServerError) IsServerError() bool {
 // IsCode returns true when this front enroll auth internal server error response a status code equal to that given
 func (o *FrontEnrollAuthInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front enroll auth internal server error response
+func (o *FrontEnrollAuthInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontEnrollAuthInternalServerError) Error() string {

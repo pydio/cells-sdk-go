@@ -54,7 +54,7 @@ func (o *InstallEventsReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /install/events] InstallEvents", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *InstallEventsOK) IsServerError() bool {
 // IsCode returns true when this install events o k response a status code equal to that given
 func (o *InstallEventsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the install events o k response
+func (o *InstallEventsOK) Code() int {
+	return 200
 }
 
 func (o *InstallEventsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *InstallEventsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the install events unauthorized response
+func (o *InstallEventsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *InstallEventsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /install/events][%d] installEventsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *InstallEventsForbidden) IsServerError() bool {
 // IsCode returns true when this install events forbidden response a status code equal to that given
 func (o *InstallEventsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the install events forbidden response
+func (o *InstallEventsForbidden) Code() int {
+	return 403
 }
 
 func (o *InstallEventsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *InstallEventsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the install events not found response
+func (o *InstallEventsNotFound) Code() int {
+	return 404
+}
+
 func (o *InstallEventsNotFound) Error() string {
 	return fmt.Sprintf("[GET /install/events][%d] installEventsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *InstallEventsInternalServerError) IsServerError() bool {
 // IsCode returns true when this install events internal server error response a status code equal to that given
 func (o *InstallEventsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the install events internal server error response
+func (o *InstallEventsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *InstallEventsInternalServerError) Error() string {

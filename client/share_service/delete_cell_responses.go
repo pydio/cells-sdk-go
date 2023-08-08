@@ -54,7 +54,7 @@ func (o *DeleteCellReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /share/cell/{Uuid}] DeleteCell", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteCellOK) IsServerError() bool {
 // IsCode returns true when this delete cell o k response a status code equal to that given
 func (o *DeleteCellOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete cell o k response
+func (o *DeleteCellOK) Code() int {
+	return 200
 }
 
 func (o *DeleteCellOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteCellUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete cell unauthorized response
+func (o *DeleteCellUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteCellUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteCellForbidden) IsServerError() bool {
 // IsCode returns true when this delete cell forbidden response a status code equal to that given
 func (o *DeleteCellForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete cell forbidden response
+func (o *DeleteCellForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteCellForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteCellNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete cell not found response
+func (o *DeleteCellNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteCellNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteCellInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete cell internal server error response a status code equal to that given
 func (o *DeleteCellInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete cell internal server error response
+func (o *DeleteCellInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteCellInternalServerError) Error() string {

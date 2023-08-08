@@ -54,7 +54,7 @@ func (o *SchedulerActionsDiscoveryReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/scheduler/actions] SchedulerActionsDiscovery", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SchedulerActionsDiscoveryOK) IsServerError() bool {
 // IsCode returns true when this scheduler actions discovery o k response a status code equal to that given
 func (o *SchedulerActionsDiscoveryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the scheduler actions discovery o k response
+func (o *SchedulerActionsDiscoveryOK) Code() int {
+	return 200
 }
 
 func (o *SchedulerActionsDiscoveryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SchedulerActionsDiscoveryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the scheduler actions discovery unauthorized response
+func (o *SchedulerActionsDiscoveryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SchedulerActionsDiscoveryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SchedulerActionsDiscoveryForbidden) IsServerError() bool {
 // IsCode returns true when this scheduler actions discovery forbidden response a status code equal to that given
 func (o *SchedulerActionsDiscoveryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the scheduler actions discovery forbidden response
+func (o *SchedulerActionsDiscoveryForbidden) Code() int {
+	return 403
 }
 
 func (o *SchedulerActionsDiscoveryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SchedulerActionsDiscoveryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the scheduler actions discovery not found response
+func (o *SchedulerActionsDiscoveryNotFound) Code() int {
+	return 404
+}
+
 func (o *SchedulerActionsDiscoveryNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SchedulerActionsDiscoveryInternalServerError) IsServerError() bool {
 // IsCode returns true when this scheduler actions discovery internal server error response a status code equal to that given
 func (o *SchedulerActionsDiscoveryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the scheduler actions discovery internal server error response
+func (o *SchedulerActionsDiscoveryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SchedulerActionsDiscoveryInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *UserListJobsReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /jobs/user] UserListJobs", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UserListJobsOK) IsServerError() bool {
 // IsCode returns true when this user list jobs o k response a status code equal to that given
 func (o *UserListJobsOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the user list jobs o k response
+func (o *UserListJobsOK) Code() int {
+	return 200
 }
 
 func (o *UserListJobsOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UserListJobsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the user list jobs unauthorized response
+func (o *UserListJobsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UserListJobsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UserListJobsForbidden) IsServerError() bool {
 // IsCode returns true when this user list jobs forbidden response a status code equal to that given
 func (o *UserListJobsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the user list jobs forbidden response
+func (o *UserListJobsForbidden) Code() int {
+	return 403
 }
 
 func (o *UserListJobsForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UserListJobsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the user list jobs not found response
+func (o *UserListJobsNotFound) Code() int {
+	return 404
+}
+
 func (o *UserListJobsNotFound) Error() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UserListJobsInternalServerError) IsServerError() bool {
 // IsCode returns true when this user list jobs internal server error response a status code equal to that given
 func (o *UserListJobsInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the user list jobs internal server error response
+func (o *UserListJobsInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UserListJobsInternalServerError) Error() string {

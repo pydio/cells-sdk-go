@@ -54,7 +54,7 @@ func (o *DeleteRoleReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /role/{Uuid}] DeleteRole", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteRoleOK) IsServerError() bool {
 // IsCode returns true when this delete role o k response a status code equal to that given
 func (o *DeleteRoleOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete role o k response
+func (o *DeleteRoleOK) Code() int {
+	return 200
 }
 
 func (o *DeleteRoleOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteRoleUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete role unauthorized response
+func (o *DeleteRoleUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteRoleUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteRoleForbidden) IsServerError() bool {
 // IsCode returns true when this delete role forbidden response a status code equal to that given
 func (o *DeleteRoleForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete role forbidden response
+func (o *DeleteRoleForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteRoleForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteRoleNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete role not found response
+func (o *DeleteRoleNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteRoleNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteRoleInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete role internal server error response a status code equal to that given
 func (o *DeleteRoleInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete role internal server error response
+func (o *DeleteRoleInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteRoleInternalServerError) Error() string {

@@ -57,7 +57,7 @@ func (o *PutDataSourceReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/datasource/{Name}] PutDataSource", response, response.Code())
 	}
 }
 
@@ -98,6 +98,11 @@ func (o *PutDataSourceOK) IsServerError() bool {
 // IsCode returns true when this put data source o k response a status code equal to that given
 func (o *PutDataSourceOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put data source o k response
+func (o *PutDataSourceOK) Code() int {
+	return 200
 }
 
 func (o *PutDataSourceOK) Error() string {
@@ -162,6 +167,11 @@ func (o *PutDataSourceUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put data source unauthorized response
+func (o *PutDataSourceUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutDataSourceUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized ", 401)
 }
@@ -212,6 +222,11 @@ func (o *PutDataSourceForbidden) IsServerError() bool {
 // IsCode returns true when this put data source forbidden response a status code equal to that given
 func (o *PutDataSourceForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put data source forbidden response
+func (o *PutDataSourceForbidden) Code() int {
+	return 403
 }
 
 func (o *PutDataSourceForbidden) Error() string {
@@ -277,6 +292,11 @@ func (o *PutDataSourceNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put data source not found response
+func (o *PutDataSourceNotFound) Code() int {
+	return 404
+}
+
 func (o *PutDataSourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound  %+v", 404, o.Payload)
 }
@@ -338,6 +358,11 @@ func (o *PutDataSourceInternalServerError) IsServerError() bool {
 // IsCode returns true when this put data source internal server error response a status code equal to that given
 func (o *PutDataSourceInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put data source internal server error response
+func (o *PutDataSourceInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutDataSourceInternalServerError) Error() string {
@@ -508,6 +533,11 @@ func (o *PutDataSourceBody) ContextValidate(ctx context.Context, formats strfmt.
 func (o *PutDataSourceBody) contextValidateEncryptionMode(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.EncryptionMode != nil {
+
+		if swag.IsZero(o.EncryptionMode) { // not required
+			return nil
+		}
+
 		if err := o.EncryptionMode.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "EncryptionMode")
@@ -524,6 +554,11 @@ func (o *PutDataSourceBody) contextValidateEncryptionMode(ctx context.Context, f
 func (o *PutDataSourceBody) contextValidateStorageType(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.StorageType != nil {
+
+		if swag.IsZero(o.StorageType) { // not required
+			return nil
+		}
+
 		if err := o.StorageType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "StorageType")

@@ -215,6 +215,11 @@ func (m *MailerMail) contextValidateCc(ctx context.Context, formats strfmt.Regis
 	for i := 0; i < len(m.Cc); i++ {
 
 		if m.Cc[i] != nil {
+
+			if swag.IsZero(m.Cc[i]) { // not required
+				return nil
+			}
+
 			if err := m.Cc[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Cc" + "." + strconv.Itoa(i))
@@ -233,6 +238,11 @@ func (m *MailerMail) contextValidateCc(ctx context.Context, formats strfmt.Regis
 func (m *MailerMail) contextValidateFrom(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.From != nil {
+
+		if swag.IsZero(m.From) { // not required
+			return nil
+		}
+
 		if err := m.From.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("From")
@@ -249,6 +259,11 @@ func (m *MailerMail) contextValidateFrom(ctx context.Context, formats strfmt.Reg
 func (m *MailerMail) contextValidateSender(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Sender != nil {
+
+		if swag.IsZero(m.Sender) { // not required
+			return nil
+		}
+
 		if err := m.Sender.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Sender")
@@ -267,6 +282,11 @@ func (m *MailerMail) contextValidateTo(ctx context.Context, formats strfmt.Regis
 	for i := 0; i < len(m.To); i++ {
 
 		if m.To[i] != nil {
+
+			if swag.IsZero(m.To[i]) { // not required
+				return nil
+			}
+
 			if err := m.To[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("To" + "." + strconv.Itoa(i))

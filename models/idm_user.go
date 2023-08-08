@@ -149,6 +149,11 @@ func (m *IdmUser) contextValidatePolicies(ctx context.Context, formats strfmt.Re
 	for i := 0; i < len(m.Policies); i++ {
 
 		if m.Policies[i] != nil {
+
+			if swag.IsZero(m.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
@@ -169,6 +174,11 @@ func (m *IdmUser) contextValidateRoles(ctx context.Context, formats strfmt.Regis
 	for i := 0; i < len(m.Roles); i++ {
 
 		if m.Roles[i] != nil {
+
+			if swag.IsZero(m.Roles[i]) { // not required
+				return nil
+			}
+
 			if err := m.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Roles" + "." + strconv.Itoa(i))

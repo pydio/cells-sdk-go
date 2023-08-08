@@ -134,6 +134,11 @@ func (m *RegistryOptions) contextValidateActions(ctx context.Context, formats st
 	for i := 0; i < len(m.Actions); i++ {
 
 		if m.Actions[i] != nil {
+
+			if swag.IsZero(m.Actions[i]) { // not required
+				return nil
+			}
+
 			if err := m.Actions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("actions" + "." + strconv.Itoa(i))
@@ -154,6 +159,11 @@ func (m *RegistryOptions) contextValidateTypes(ctx context.Context, formats strf
 	for i := 0; i < len(m.Types); i++ {
 
 		if m.Types[i] != nil {
+
+			if swag.IsZero(m.Types[i]) { // not required
+				return nil
+			}
+
 			if err := m.Types[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("types" + "." + strconv.Itoa(i))

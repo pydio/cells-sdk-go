@@ -54,7 +54,7 @@ func (o *ConfigFormsDiscoveryReader) ReadResponse(response runtime.ClientRespons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/discovery/forms/{ServiceName}] ConfigFormsDiscovery", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ConfigFormsDiscoveryOK) IsServerError() bool {
 // IsCode returns true when this config forms discovery o k response a status code equal to that given
 func (o *ConfigFormsDiscoveryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the config forms discovery o k response
+func (o *ConfigFormsDiscoveryOK) Code() int {
+	return 200
 }
 
 func (o *ConfigFormsDiscoveryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ConfigFormsDiscoveryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the config forms discovery unauthorized response
+func (o *ConfigFormsDiscoveryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ConfigFormsDiscoveryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ConfigFormsDiscoveryForbidden) IsServerError() bool {
 // IsCode returns true when this config forms discovery forbidden response a status code equal to that given
 func (o *ConfigFormsDiscoveryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the config forms discovery forbidden response
+func (o *ConfigFormsDiscoveryForbidden) Code() int {
+	return 403
 }
 
 func (o *ConfigFormsDiscoveryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ConfigFormsDiscoveryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the config forms discovery not found response
+func (o *ConfigFormsDiscoveryNotFound) Code() int {
+	return 404
+}
+
 func (o *ConfigFormsDiscoveryNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ConfigFormsDiscoveryInternalServerError) IsServerError() bool {
 // IsCode returns true when this config forms discovery internal server error response a status code equal to that given
 func (o *ConfigFormsDiscoveryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the config forms discovery internal server error response
+func (o *ConfigFormsDiscoveryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ConfigFormsDiscoveryInternalServerError) Error() string {

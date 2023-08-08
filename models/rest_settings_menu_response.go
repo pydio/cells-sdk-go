@@ -112,6 +112,11 @@ func (m *RestSettingsMenuResponse) contextValidateSections(ctx context.Context, 
 	for i := 0; i < len(m.Sections); i++ {
 
 		if m.Sections[i] != nil {
+
+			if swag.IsZero(m.Sections[i]) { // not required
+				return nil
+			}
+
 			if err := m.Sections[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Sections" + "." + strconv.Itoa(i))
@@ -130,6 +135,11 @@ func (m *RestSettingsMenuResponse) contextValidateSections(ctx context.Context, 
 func (m *RestSettingsMenuResponse) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Metadata != nil {
+
+		if swag.IsZero(m.Metadata) { // not required
+			return nil
+		}
+
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("__metadata__")

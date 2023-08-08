@@ -54,7 +54,7 @@ func (o *CreateNodesReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/create] CreateNodes", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *CreateNodesOK) IsServerError() bool {
 // IsCode returns true when this create nodes o k response a status code equal to that given
 func (o *CreateNodesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the create nodes o k response
+func (o *CreateNodesOK) Code() int {
+	return 200
 }
 
 func (o *CreateNodesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *CreateNodesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the create nodes unauthorized response
+func (o *CreateNodesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateNodesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/create][%d] createNodesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *CreateNodesForbidden) IsServerError() bool {
 // IsCode returns true when this create nodes forbidden response a status code equal to that given
 func (o *CreateNodesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the create nodes forbidden response
+func (o *CreateNodesForbidden) Code() int {
+	return 403
 }
 
 func (o *CreateNodesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *CreateNodesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the create nodes not found response
+func (o *CreateNodesNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateNodesNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/create][%d] createNodesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *CreateNodesInternalServerError) IsServerError() bool {
 // IsCode returns true when this create nodes internal server error response a status code equal to that given
 func (o *CreateNodesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the create nodes internal server error response
+func (o *CreateNodesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *CreateNodesInternalServerError) Error() string {

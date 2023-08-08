@@ -54,7 +54,7 @@ func (o *GetInstallReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /install] GetInstall", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetInstallOK) IsServerError() bool {
 // IsCode returns true when this get install o k response a status code equal to that given
 func (o *GetInstallOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get install o k response
+func (o *GetInstallOK) Code() int {
+	return 200
 }
 
 func (o *GetInstallOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetInstallUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get install unauthorized response
+func (o *GetInstallUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetInstallUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetInstallForbidden) IsServerError() bool {
 // IsCode returns true when this get install forbidden response a status code equal to that given
 func (o *GetInstallForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get install forbidden response
+func (o *GetInstallForbidden) Code() int {
+	return 403
 }
 
 func (o *GetInstallForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetInstallNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get install not found response
+func (o *GetInstallNotFound) Code() int {
+	return 404
+}
+
 func (o *GetInstallNotFound) Error() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetInstallInternalServerError) IsServerError() bool {
 // IsCode returns true when this get install internal server error response a status code equal to that given
 func (o *GetInstallInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get install internal server error response
+func (o *GetInstallInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetInstallInternalServerError) Error() string {

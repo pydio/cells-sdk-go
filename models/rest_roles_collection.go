@@ -85,6 +85,11 @@ func (m *RestRolesCollection) contextValidateRoles(ctx context.Context, formats 
 	for i := 0; i < len(m.Roles); i++ {
 
 		if m.Roles[i] != nil {
+
+			if swag.IsZero(m.Roles[i]) { // not required
+				return nil
+			}
+
 			if err := m.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Roles" + "." + strconv.Itoa(i))

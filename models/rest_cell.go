@@ -23,6 +23,9 @@ type RestCell struct {
 	// Access control for this Cell
 	ACLs map[string]RestCellACL `json:"ACLs,omitempty"`
 
+	// Timestamp after which the share is disabled
+	AccessEnd string `json:"AccessEnd,omitempty"`
+
 	// Long description of the Cell (max 1000 chars)
 	Description string `json:"Description,omitempty"`
 
@@ -184,6 +187,11 @@ func (m *RestCell) contextValidatePolicies(ctx context.Context, formats strfmt.R
 	for i := 0; i < len(m.Policies); i++ {
 
 		if m.Policies[i] != nil {
+
+			if swag.IsZero(m.Policies[i]) { // not required
+				return nil
+			}
+
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
@@ -204,6 +212,11 @@ func (m *RestCell) contextValidateRootNodes(ctx context.Context, formats strfmt.
 	for i := 0; i < len(m.RootNodes); i++ {
 
 		if m.RootNodes[i] != nil {
+
+			if swag.IsZero(m.RootNodes[i]) { // not required
+				return nil
+			}
+
 			if err := m.RootNodes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RootNodes" + "." + strconv.Itoa(i))

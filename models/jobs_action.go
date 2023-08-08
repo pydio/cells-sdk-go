@@ -502,6 +502,11 @@ func (m *JobsAction) ContextValidate(ctx context.Context, formats strfmt.Registr
 func (m *JobsAction) contextValidateActionOutputFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ActionOutputFilter != nil {
+
+		if swag.IsZero(m.ActionOutputFilter) { // not required
+			return nil
+		}
+
 		if err := m.ActionOutputFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ActionOutputFilter")
@@ -520,6 +525,11 @@ func (m *JobsAction) contextValidateChainedActions(ctx context.Context, formats 
 	for i := 0; i < len(m.ChainedActions); i++ {
 
 		if m.ChainedActions[i] != nil {
+
+			if swag.IsZero(m.ChainedActions[i]) { // not required
+				return nil
+			}
+
 			if err := m.ChainedActions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ChainedActions" + "." + strconv.Itoa(i))
@@ -538,6 +548,11 @@ func (m *JobsAction) contextValidateChainedActions(ctx context.Context, formats 
 func (m *JobsAction) contextValidateContextMetaFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ContextMetaFilter != nil {
+
+		if swag.IsZero(m.ContextMetaFilter) { // not required
+			return nil
+		}
+
 		if err := m.ContextMetaFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
@@ -554,6 +569,11 @@ func (m *JobsAction) contextValidateContextMetaFilter(ctx context.Context, forma
 func (m *JobsAction) contextValidateDataSourceFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.DataSourceFilter != nil {
+
+		if swag.IsZero(m.DataSourceFilter) { // not required
+			return nil
+		}
+
 		if err := m.DataSourceFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceFilter")
@@ -570,6 +590,11 @@ func (m *JobsAction) contextValidateDataSourceFilter(ctx context.Context, format
 func (m *JobsAction) contextValidateDataSourceSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.DataSourceSelector != nil {
+
+		if swag.IsZero(m.DataSourceSelector) { // not required
+			return nil
+		}
+
 		if err := m.DataSourceSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceSelector")
@@ -588,6 +613,11 @@ func (m *JobsAction) contextValidateFailedFilterActions(ctx context.Context, for
 	for i := 0; i < len(m.FailedFilterActions); i++ {
 
 		if m.FailedFilterActions[i] != nil {
+
+			if swag.IsZero(m.FailedFilterActions[i]) { // not required
+				return nil
+			}
+
 			if err := m.FailedFilterActions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("FailedFilterActions" + "." + strconv.Itoa(i))
@@ -606,6 +636,11 @@ func (m *JobsAction) contextValidateFailedFilterActions(ctx context.Context, for
 func (m *JobsAction) contextValidateIdmFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IdmFilter != nil {
+
+		if swag.IsZero(m.IdmFilter) { // not required
+			return nil
+		}
+
 		if err := m.IdmFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmFilter")
@@ -622,6 +657,11 @@ func (m *JobsAction) contextValidateIdmFilter(ctx context.Context, formats strfm
 func (m *JobsAction) contextValidateIdmSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IdmSelector != nil {
+
+		if swag.IsZero(m.IdmSelector) { // not required
+			return nil
+		}
+
 		if err := m.IdmSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmSelector")
@@ -638,6 +678,11 @@ func (m *JobsAction) contextValidateIdmSelector(ctx context.Context, formats str
 func (m *JobsAction) contextValidateMergeAction(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.MergeAction != nil {
+
+		if swag.IsZero(m.MergeAction) { // not required
+			return nil
+		}
+
 		if err := m.MergeAction.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("MergeAction")
@@ -654,6 +699,11 @@ func (m *JobsAction) contextValidateMergeAction(ctx context.Context, formats str
 func (m *JobsAction) contextValidateNodesFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.NodesFilter != nil {
+
+		if swag.IsZero(m.NodesFilter) { // not required
+			return nil
+		}
+
 		if err := m.NodesFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesFilter")
@@ -670,6 +720,11 @@ func (m *JobsAction) contextValidateNodesFilter(ctx context.Context, formats str
 func (m *JobsAction) contextValidateNodesSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.NodesSelector != nil {
+
+		if swag.IsZero(m.NodesSelector) { // not required
+			return nil
+		}
+
 		if err := m.NodesSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesSelector")
@@ -686,6 +741,11 @@ func (m *JobsAction) contextValidateNodesSelector(ctx context.Context, formats s
 func (m *JobsAction) contextValidateTriggerFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.TriggerFilter != nil {
+
+		if swag.IsZero(m.TriggerFilter) { // not required
+			return nil
+		}
+
 		if err := m.TriggerFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TriggerFilter")
@@ -702,6 +762,11 @@ func (m *JobsAction) contextValidateTriggerFilter(ctx context.Context, formats s
 func (m *JobsAction) contextValidateUsersFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.UsersFilter != nil {
+
+		if swag.IsZero(m.UsersFilter) { // not required
+			return nil
+		}
+
 		if err := m.UsersFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UsersFilter")
@@ -718,6 +783,11 @@ func (m *JobsAction) contextValidateUsersFilter(ctx context.Context, formats str
 func (m *JobsAction) contextValidateUsersSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.UsersSelector != nil {
+
+		if swag.IsZero(m.UsersSelector) { // not required
+			return nil
+		}
+
 		if err := m.UsersSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UsersSelector")

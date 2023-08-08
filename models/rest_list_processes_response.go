@@ -82,6 +82,11 @@ func (m *RestListProcessesResponse) contextValidateProcesses(ctx context.Context
 	for i := 0; i < len(m.Processes); i++ {
 
 		if m.Processes[i] != nil {
+
+			if swag.IsZero(m.Processes[i]) { // not required
+				return nil
+			}
+
 			if err := m.Processes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Processes" + "." + strconv.Itoa(i))

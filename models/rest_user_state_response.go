@@ -85,6 +85,11 @@ func (m *RestUserStateResponse) contextValidateWorkspaces(ctx context.Context, f
 	for i := 0; i < len(m.Workspaces); i++ {
 
 		if m.Workspaces[i] != nil {
+
+			if swag.IsZero(m.Workspaces[i]) { // not required
+				return nil
+			}
+
 			if err := m.Workspaces[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Workspaces" + "." + strconv.Itoa(i))

@@ -130,6 +130,11 @@ func (m *CtlService) contextValidateRunningPeers(ctx context.Context, formats st
 	for i := 0; i < len(m.RunningPeers); i++ {
 
 		if m.RunningPeers[i] != nil {
+
+			if swag.IsZero(m.RunningPeers[i]) { // not required
+				return nil
+			}
+
 			if err := m.RunningPeers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RunningPeers" + "." + strconv.Itoa(i))
@@ -148,6 +153,11 @@ func (m *CtlService) contextValidateRunningPeers(ctx context.Context, formats st
 func (m *CtlService) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Status != nil {
+
+		if swag.IsZero(m.Status) { // not required
+			return nil
+		}
+
 		if err := m.Status.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status")

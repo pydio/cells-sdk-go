@@ -78,6 +78,11 @@ func (m *RestControlServiceRequest) ContextValidate(ctx context.Context, formats
 func (m *RestControlServiceRequest) contextValidateCommand(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Command != nil {
+
+		if swag.IsZero(m.Command) { // not required
+			return nil
+		}
+
 		if err := m.Command.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Command")

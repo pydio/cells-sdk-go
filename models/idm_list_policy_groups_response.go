@@ -85,6 +85,11 @@ func (m *IdmListPolicyGroupsResponse) contextValidatePolicyGroups(ctx context.Co
 	for i := 0; i < len(m.PolicyGroups); i++ {
 
 		if m.PolicyGroups[i] != nil {
+
+			if swag.IsZero(m.PolicyGroups[i]) { // not required
+				return nil
+			}
+
 			if err := m.PolicyGroups[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("PolicyGroups" + "." + strconv.Itoa(i))

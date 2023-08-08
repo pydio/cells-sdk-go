@@ -54,7 +54,7 @@ func (o *SyslogReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /log/sys] Syslog", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *SyslogOK) IsServerError() bool {
 // IsCode returns true when this syslog o k response a status code equal to that given
 func (o *SyslogOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the syslog o k response
+func (o *SyslogOK) Code() int {
+	return 200
 }
 
 func (o *SyslogOK) Error() string {
@@ -159,6 +164,11 @@ func (o *SyslogUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the syslog unauthorized response
+func (o *SyslogUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SyslogUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *SyslogForbidden) IsServerError() bool {
 // IsCode returns true when this syslog forbidden response a status code equal to that given
 func (o *SyslogForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the syslog forbidden response
+func (o *SyslogForbidden) Code() int {
+	return 403
 }
 
 func (o *SyslogForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *SyslogNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the syslog not found response
+func (o *SyslogNotFound) Code() int {
+	return 404
+}
+
 func (o *SyslogNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *SyslogInternalServerError) IsServerError() bool {
 // IsCode returns true when this syslog internal server error response a status code equal to that given
 func (o *SyslogInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the syslog internal server error response
+func (o *SyslogInternalServerError) Code() int {
+	return 500
 }
 
 func (o *SyslogInternalServerError) Error() string {

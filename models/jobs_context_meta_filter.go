@@ -108,6 +108,11 @@ func (m *JobsContextMetaFilter) ContextValidate(ctx context.Context, formats str
 func (m *JobsContextMetaFilter) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
@@ -124,6 +129,11 @@ func (m *JobsContextMetaFilter) contextValidateQuery(ctx context.Context, format
 func (m *JobsContextMetaFilter) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
+
+		if swag.IsZero(m.Type) { // not required
+			return nil
+		}
+
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")

@@ -94,6 +94,11 @@ func (m *IdmACLSingleQuery) contextValidateActions(ctx context.Context, formats 
 	for i := 0; i < len(m.Actions); i++ {
 
 		if m.Actions[i] != nil {
+
+			if swag.IsZero(m.Actions[i]) { // not required
+				return nil
+			}
+
 			if err := m.Actions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Actions" + "." + strconv.Itoa(i))

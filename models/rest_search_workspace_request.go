@@ -152,6 +152,11 @@ func (m *RestSearchWorkspaceRequest) ContextValidate(ctx context.Context, format
 func (m *RestSearchWorkspaceRequest) contextValidateOperation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Operation != nil {
+
+		if swag.IsZero(m.Operation) { // not required
+			return nil
+		}
+
 		if err := m.Operation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Operation")
@@ -170,6 +175,11 @@ func (m *RestSearchWorkspaceRequest) contextValidateQueries(ctx context.Context,
 	for i := 0; i < len(m.Queries); i++ {
 
 		if m.Queries[i] != nil {
+
+			if swag.IsZero(m.Queries[i]) { // not required
+				return nil
+			}
+
 			if err := m.Queries[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Queries" + "." + strconv.Itoa(i))
@@ -188,6 +198,11 @@ func (m *RestSearchWorkspaceRequest) contextValidateQueries(ctx context.Context,
 func (m *RestSearchWorkspaceRequest) contextValidateResourcePolicyQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ResourcePolicyQuery != nil {
+
+		if swag.IsZero(m.ResourcePolicyQuery) { // not required
+			return nil
+		}
+
 		if err := m.ResourcePolicyQuery.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourcePolicyQuery")

@@ -91,6 +91,11 @@ func (m *RestSettingsSection) contextValidateCHILDREN(ctx context.Context, forma
 	for i := 0; i < len(m.CHILDREN); i++ {
 
 		if m.CHILDREN[i] != nil {
+
+			if swag.IsZero(m.CHILDREN[i]) { // not required
+				return nil
+			}
+
 			if err := m.CHILDREN[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("CHILDREN" + "." + strconv.Itoa(i))

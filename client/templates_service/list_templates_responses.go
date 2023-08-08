@@ -54,7 +54,7 @@ func (o *ListTemplatesReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /templates] ListTemplates", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListTemplatesOK) IsServerError() bool {
 // IsCode returns true when this list templates o k response a status code equal to that given
 func (o *ListTemplatesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list templates o k response
+func (o *ListTemplatesOK) Code() int {
+	return 200
 }
 
 func (o *ListTemplatesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListTemplatesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list templates unauthorized response
+func (o *ListTemplatesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListTemplatesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListTemplatesForbidden) IsServerError() bool {
 // IsCode returns true when this list templates forbidden response a status code equal to that given
 func (o *ListTemplatesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list templates forbidden response
+func (o *ListTemplatesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListTemplatesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListTemplatesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list templates not found response
+func (o *ListTemplatesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[GET /templates][%d] listTemplatesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListTemplatesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list templates internal server error response a status code equal to that given
 func (o *ListTemplatesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list templates internal server error response
+func (o *ListTemplatesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListTemplatesInternalServerError) Error() string {

@@ -223,6 +223,11 @@ func (m *InstallInstallConfig) contextValidateCheckResults(ctx context.Context, 
 	for i := 0; i < len(m.CheckResults); i++ {
 
 		if m.CheckResults[i] != nil {
+
+			if swag.IsZero(m.CheckResults[i]) { // not required
+				return nil
+			}
+
 			if err := m.CheckResults[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("CheckResults" + "." + strconv.Itoa(i))
@@ -241,6 +246,11 @@ func (m *InstallInstallConfig) contextValidateCheckResults(ctx context.Context, 
 func (m *InstallInstallConfig) contextValidateProxyConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ProxyConfig != nil {
+
+		if swag.IsZero(m.ProxyConfig) { // not required
+			return nil
+		}
+
 		if err := m.ProxyConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ProxyConfig")

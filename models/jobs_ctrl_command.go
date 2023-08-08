@@ -84,6 +84,11 @@ func (m *JobsCtrlCommand) ContextValidate(ctx context.Context, formats strfmt.Re
 func (m *JobsCtrlCommand) contextValidateCmd(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Cmd != nil {
+
+		if swag.IsZero(m.Cmd) { // not required
+			return nil
+		}
+
 		if err := m.Cmd.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Cmd")

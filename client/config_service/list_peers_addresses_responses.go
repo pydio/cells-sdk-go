@@ -54,7 +54,7 @@ func (o *ListPeersAddressesReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/peers] ListPeersAddresses", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListPeersAddressesOK) IsServerError() bool {
 // IsCode returns true when this list peers addresses o k response a status code equal to that given
 func (o *ListPeersAddressesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list peers addresses o k response
+func (o *ListPeersAddressesOK) Code() int {
+	return 200
 }
 
 func (o *ListPeersAddressesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListPeersAddressesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list peers addresses unauthorized response
+func (o *ListPeersAddressesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListPeersAddressesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListPeersAddressesForbidden) IsServerError() bool {
 // IsCode returns true when this list peers addresses forbidden response a status code equal to that given
 func (o *ListPeersAddressesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list peers addresses forbidden response
+func (o *ListPeersAddressesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListPeersAddressesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListPeersAddressesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list peers addresses not found response
+func (o *ListPeersAddressesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListPeersAddressesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListPeersAddressesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list peers addresses internal server error response a status code equal to that given
 func (o *ListPeersAddressesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list peers addresses internal server error response
+func (o *ListPeersAddressesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListPeersAddressesInternalServerError) Error() string {

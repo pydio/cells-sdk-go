@@ -54,7 +54,7 @@ func (o *GetAgreementReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /install/agreement] GetAgreement", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetAgreementOK) IsServerError() bool {
 // IsCode returns true when this get agreement o k response a status code equal to that given
 func (o *GetAgreementOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get agreement o k response
+func (o *GetAgreementOK) Code() int {
+	return 200
 }
 
 func (o *GetAgreementOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetAgreementUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get agreement unauthorized response
+func (o *GetAgreementUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetAgreementUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetAgreementForbidden) IsServerError() bool {
 // IsCode returns true when this get agreement forbidden response a status code equal to that given
 func (o *GetAgreementForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get agreement forbidden response
+func (o *GetAgreementForbidden) Code() int {
+	return 403
 }
 
 func (o *GetAgreementForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetAgreementNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get agreement not found response
+func (o *GetAgreementNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAgreementNotFound) Error() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetAgreementInternalServerError) IsServerError() bool {
 // IsCode returns true when this get agreement internal server error response a status code equal to that given
 func (o *GetAgreementInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get agreement internal server error response
+func (o *GetAgreementInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetAgreementInternalServerError) Error() string {

@@ -36,6 +36,12 @@ type TreeListNodesRequest struct {
 	// Send back all children of the node
 	Recursive bool `json:"Recursive,omitempty"`
 
+	// Sort descending (otherwise ascending)
+	SortDirDesc bool `json:"SortDirDesc,omitempty"`
+
+	// Remote Sort on specific field
+	SortField string `json:"SortField,omitempty"`
+
 	// Generic Details Flags
 	StatFlags []int64 `json:"StatFlags"`
 
@@ -123,6 +129,11 @@ func (m *TreeListNodesRequest) ContextValidate(ctx context.Context, formats strf
 func (m *TreeListNodesRequest) contextValidateFilterType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.FilterType != nil {
+
+		if swag.IsZero(m.FilterType) { // not required
+			return nil
+		}
+
 		if err := m.FilterType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("FilterType")
@@ -139,6 +150,11 @@ func (m *TreeListNodesRequest) contextValidateFilterType(ctx context.Context, fo
 func (m *TreeListNodesRequest) contextValidateNode(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Node != nil {
+
+		if swag.IsZero(m.Node) { // not required
+			return nil
+		}
+
 		if err := m.Node.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Node")

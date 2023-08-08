@@ -56,7 +56,7 @@ func (o *ListPeerFoldersReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/peers/{PeerAddress}] ListPeerFolders", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *ListPeerFoldersOK) IsServerError() bool {
 // IsCode returns true when this list peer folders o k response a status code equal to that given
 func (o *ListPeerFoldersOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list peer folders o k response
+func (o *ListPeerFoldersOK) Code() int {
+	return 200
 }
 
 func (o *ListPeerFoldersOK) Error() string {
@@ -161,6 +166,11 @@ func (o *ListPeerFoldersUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list peer folders unauthorized response
+func (o *ListPeerFoldersUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListPeerFoldersUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *ListPeerFoldersForbidden) IsServerError() bool {
 // IsCode returns true when this list peer folders forbidden response a status code equal to that given
 func (o *ListPeerFoldersForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list peer folders forbidden response
+func (o *ListPeerFoldersForbidden) Code() int {
+	return 403
 }
 
 func (o *ListPeerFoldersForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *ListPeerFoldersNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list peer folders not found response
+func (o *ListPeerFoldersNotFound) Code() int {
+	return 404
+}
+
 func (o *ListPeerFoldersNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *ListPeerFoldersInternalServerError) IsServerError() bool {
 // IsCode returns true when this list peer folders internal server error response a status code equal to that given
 func (o *ListPeerFoldersInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list peer folders internal server error response
+func (o *ListPeerFoldersInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListPeerFoldersInternalServerError) Error() string {

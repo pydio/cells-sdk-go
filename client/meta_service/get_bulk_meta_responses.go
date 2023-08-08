@@ -54,7 +54,7 @@ func (o *GetBulkMetaReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /meta/bulk/get] GetBulkMeta", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetBulkMetaOK) IsServerError() bool {
 // IsCode returns true when this get bulk meta o k response a status code equal to that given
 func (o *GetBulkMetaOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get bulk meta o k response
+func (o *GetBulkMetaOK) Code() int {
+	return 200
 }
 
 func (o *GetBulkMetaOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetBulkMetaUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get bulk meta unauthorized response
+func (o *GetBulkMetaUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetBulkMetaUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetBulkMetaForbidden) IsServerError() bool {
 // IsCode returns true when this get bulk meta forbidden response a status code equal to that given
 func (o *GetBulkMetaForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get bulk meta forbidden response
+func (o *GetBulkMetaForbidden) Code() int {
+	return 403
 }
 
 func (o *GetBulkMetaForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetBulkMetaNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get bulk meta not found response
+func (o *GetBulkMetaNotFound) Code() int {
+	return 404
+}
+
 func (o *GetBulkMetaNotFound) Error() string {
 	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetBulkMetaInternalServerError) IsServerError() bool {
 // IsCode returns true when this get bulk meta internal server error response a status code equal to that given
 func (o *GetBulkMetaInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get bulk meta internal server error response
+func (o *GetBulkMetaInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetBulkMetaInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *ExportEncryptionKeyReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /config/encryption/export] ExportEncryptionKey", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ExportEncryptionKeyOK) IsServerError() bool {
 // IsCode returns true when this export encryption key o k response a status code equal to that given
 func (o *ExportEncryptionKeyOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the export encryption key o k response
+func (o *ExportEncryptionKeyOK) Code() int {
+	return 200
 }
 
 func (o *ExportEncryptionKeyOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ExportEncryptionKeyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the export encryption key unauthorized response
+func (o *ExportEncryptionKeyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ExportEncryptionKeyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ExportEncryptionKeyForbidden) IsServerError() bool {
 // IsCode returns true when this export encryption key forbidden response a status code equal to that given
 func (o *ExportEncryptionKeyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the export encryption key forbidden response
+func (o *ExportEncryptionKeyForbidden) Code() int {
+	return 403
 }
 
 func (o *ExportEncryptionKeyForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ExportEncryptionKeyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the export encryption key not found response
+func (o *ExportEncryptionKeyNotFound) Code() int {
+	return 404
+}
+
 func (o *ExportEncryptionKeyNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ExportEncryptionKeyInternalServerError) IsServerError() bool {
 // IsCode returns true when this export encryption key internal server error response a status code equal to that given
 func (o *ExportEncryptionKeyInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the export encryption key internal server error response
+func (o *ExportEncryptionKeyInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ExportEncryptionKeyInternalServerError) Error() string {

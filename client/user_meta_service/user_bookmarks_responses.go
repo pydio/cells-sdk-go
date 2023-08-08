@@ -54,7 +54,7 @@ func (o *UserBookmarksReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /user-meta/bookmarks] UserBookmarks", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *UserBookmarksOK) IsServerError() bool {
 // IsCode returns true when this user bookmarks o k response a status code equal to that given
 func (o *UserBookmarksOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the user bookmarks o k response
+func (o *UserBookmarksOK) Code() int {
+	return 200
 }
 
 func (o *UserBookmarksOK) Error() string {
@@ -159,6 +164,11 @@ func (o *UserBookmarksUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the user bookmarks unauthorized response
+func (o *UserBookmarksUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UserBookmarksUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *UserBookmarksForbidden) IsServerError() bool {
 // IsCode returns true when this user bookmarks forbidden response a status code equal to that given
 func (o *UserBookmarksForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the user bookmarks forbidden response
+func (o *UserBookmarksForbidden) Code() int {
+	return 403
 }
 
 func (o *UserBookmarksForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *UserBookmarksNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the user bookmarks not found response
+func (o *UserBookmarksNotFound) Code() int {
+	return 404
+}
+
 func (o *UserBookmarksNotFound) Error() string {
 	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *UserBookmarksInternalServerError) IsServerError() bool {
 // IsCode returns true when this user bookmarks internal server error response a status code equal to that given
 func (o *UserBookmarksInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the user bookmarks internal server error response
+func (o *UserBookmarksInternalServerError) Code() int {
+	return 500
 }
 
 func (o *UserBookmarksInternalServerError) Error() string {

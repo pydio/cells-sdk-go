@@ -142,6 +142,11 @@ func (m *ListSharedResourcesResponseSharedResource) contextValidateCells(ctx con
 	for i := 0; i < len(m.Cells); i++ {
 
 		if m.Cells[i] != nil {
+
+			if swag.IsZero(m.Cells[i]) { // not required
+				return nil
+			}
+
 			if err := m.Cells[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Cells" + "." + strconv.Itoa(i))
@@ -160,6 +165,11 @@ func (m *ListSharedResourcesResponseSharedResource) contextValidateCells(ctx con
 func (m *ListSharedResourcesResponseSharedResource) contextValidateLink(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Link != nil {
+
+		if swag.IsZero(m.Link) { // not required
+			return nil
+		}
+
 		if err := m.Link.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Link")
@@ -176,6 +186,11 @@ func (m *ListSharedResourcesResponseSharedResource) contextValidateLink(ctx cont
 func (m *ListSharedResourcesResponseSharedResource) contextValidateNode(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Node != nil {
+
+		if swag.IsZero(m.Node) { // not required
+			return nil
+		}
+
 		if err := m.Node.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Node")

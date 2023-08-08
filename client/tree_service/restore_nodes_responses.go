@@ -54,7 +54,7 @@ func (o *RestoreNodesReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/restore] RestoreNodes", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *RestoreNodesOK) IsServerError() bool {
 // IsCode returns true when this restore nodes o k response a status code equal to that given
 func (o *RestoreNodesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the restore nodes o k response
+func (o *RestoreNodesOK) Code() int {
+	return 200
 }
 
 func (o *RestoreNodesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *RestoreNodesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the restore nodes unauthorized response
+func (o *RestoreNodesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RestoreNodesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/restore][%d] restoreNodesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *RestoreNodesForbidden) IsServerError() bool {
 // IsCode returns true when this restore nodes forbidden response a status code equal to that given
 func (o *RestoreNodesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the restore nodes forbidden response
+func (o *RestoreNodesForbidden) Code() int {
+	return 403
 }
 
 func (o *RestoreNodesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *RestoreNodesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the restore nodes not found response
+func (o *RestoreNodesNotFound) Code() int {
+	return 404
+}
+
 func (o *RestoreNodesNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/restore][%d] restoreNodesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *RestoreNodesInternalServerError) IsServerError() bool {
 // IsCode returns true when this restore nodes internal server error response a status code equal to that given
 func (o *RestoreNodesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the restore nodes internal server error response
+func (o *RestoreNodesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *RestoreNodesInternalServerError) Error() string {

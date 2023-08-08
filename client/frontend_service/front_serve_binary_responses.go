@@ -54,7 +54,7 @@ func (o *FrontServeBinaryReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /frontend/binaries/{BinaryType}/{Uuid}] FrontServeBinary", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontServeBinaryOK) IsServerError() bool {
 // IsCode returns true when this front serve binary o k response a status code equal to that given
 func (o *FrontServeBinaryOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front serve binary o k response
+func (o *FrontServeBinaryOK) Code() int {
+	return 200
 }
 
 func (o *FrontServeBinaryOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontServeBinaryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front serve binary unauthorized response
+func (o *FrontServeBinaryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontServeBinaryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontServeBinaryForbidden) IsServerError() bool {
 // IsCode returns true when this front serve binary forbidden response a status code equal to that given
 func (o *FrontServeBinaryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front serve binary forbidden response
+func (o *FrontServeBinaryForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontServeBinaryForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontServeBinaryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front serve binary not found response
+func (o *FrontServeBinaryNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontServeBinaryNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontServeBinaryInternalServerError) IsServerError() bool {
 // IsCode returns true when this front serve binary internal server error response a status code equal to that given
 func (o *FrontServeBinaryInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front serve binary internal server error response
+func (o *FrontServeBinaryInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontServeBinaryInternalServerError) Error() string {

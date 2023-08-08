@@ -54,7 +54,7 @@ func (o *ListVersioningPoliciesReader) ReadResponse(response runtime.ClientRespo
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/versioning] ListVersioningPolicies", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListVersioningPoliciesOK) IsServerError() bool {
 // IsCode returns true when this list versioning policies o k response a status code equal to that given
 func (o *ListVersioningPoliciesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list versioning policies o k response
+func (o *ListVersioningPoliciesOK) Code() int {
+	return 200
 }
 
 func (o *ListVersioningPoliciesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListVersioningPoliciesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list versioning policies unauthorized response
+func (o *ListVersioningPoliciesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListVersioningPoliciesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListVersioningPoliciesForbidden) IsServerError() bool {
 // IsCode returns true when this list versioning policies forbidden response a status code equal to that given
 func (o *ListVersioningPoliciesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list versioning policies forbidden response
+func (o *ListVersioningPoliciesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListVersioningPoliciesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListVersioningPoliciesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list versioning policies not found response
+func (o *ListVersioningPoliciesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListVersioningPoliciesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListVersioningPoliciesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list versioning policies internal server error response a status code equal to that given
 func (o *ListVersioningPoliciesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list versioning policies internal server error response
+func (o *ListVersioningPoliciesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListVersioningPoliciesInternalServerError) Error() string {

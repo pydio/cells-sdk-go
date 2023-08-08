@@ -54,7 +54,7 @@ func (o *CreateSelectionReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/selection] CreateSelection", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *CreateSelectionOK) IsServerError() bool {
 // IsCode returns true when this create selection o k response a status code equal to that given
 func (o *CreateSelectionOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the create selection o k response
+func (o *CreateSelectionOK) Code() int {
+	return 200
 }
 
 func (o *CreateSelectionOK) Error() string {
@@ -159,6 +164,11 @@ func (o *CreateSelectionUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the create selection unauthorized response
+func (o *CreateSelectionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateSelectionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *CreateSelectionForbidden) IsServerError() bool {
 // IsCode returns true when this create selection forbidden response a status code equal to that given
 func (o *CreateSelectionForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the create selection forbidden response
+func (o *CreateSelectionForbidden) Code() int {
+	return 403
 }
 
 func (o *CreateSelectionForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *CreateSelectionNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the create selection not found response
+func (o *CreateSelectionNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateSelectionNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *CreateSelectionInternalServerError) IsServerError() bool {
 // IsCode returns true when this create selection internal server error response a status code equal to that given
 func (o *CreateSelectionInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the create selection internal server error response
+func (o *CreateSelectionInternalServerError) Code() int {
+	return 500
 }
 
 func (o *CreateSelectionInternalServerError) Error() string {

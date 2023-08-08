@@ -54,7 +54,7 @@ func (o *GetConfigReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/{FullPath}] GetConfig", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GetConfigOK) IsServerError() bool {
 // IsCode returns true when this get config o k response a status code equal to that given
 func (o *GetConfigOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the get config o k response
+func (o *GetConfigOK) Code() int {
+	return 200
 }
 
 func (o *GetConfigOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GetConfigUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the get config unauthorized response
+func (o *GetConfigUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetConfigUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/{FullPath}][%d] getConfigUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GetConfigForbidden) IsServerError() bool {
 // IsCode returns true when this get config forbidden response a status code equal to that given
 func (o *GetConfigForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the get config forbidden response
+func (o *GetConfigForbidden) Code() int {
+	return 403
 }
 
 func (o *GetConfigForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GetConfigNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the get config not found response
+func (o *GetConfigNotFound) Code() int {
+	return 404
+}
+
 func (o *GetConfigNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/{FullPath}][%d] getConfigNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GetConfigInternalServerError) IsServerError() bool {
 // IsCode returns true when this get config internal server error response a status code equal to that given
 func (o *GetConfigInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the get config internal server error response
+func (o *GetConfigInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GetConfigInternalServerError) Error() string {

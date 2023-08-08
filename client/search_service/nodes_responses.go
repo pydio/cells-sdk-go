@@ -54,7 +54,7 @@ func (o *NodesReader) ReadResponse(response runtime.ClientResponse, consumer run
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /search/nodes] Nodes", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *NodesOK) IsServerError() bool {
 // IsCode returns true when this nodes o k response a status code equal to that given
 func (o *NodesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the nodes o k response
+func (o *NodesOK) Code() int {
+	return 200
 }
 
 func (o *NodesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *NodesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the nodes unauthorized response
+func (o *NodesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *NodesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *NodesForbidden) IsServerError() bool {
 // IsCode returns true when this nodes forbidden response a status code equal to that given
 func (o *NodesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the nodes forbidden response
+func (o *NodesForbidden) Code() int {
+	return 403
 }
 
 func (o *NodesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *NodesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the nodes not found response
+func (o *NodesNotFound) Code() int {
+	return 404
+}
+
 func (o *NodesNotFound) Error() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *NodesInternalServerError) IsServerError() bool {
 // IsCode returns true when this nodes internal server error response a status code equal to that given
 func (o *NodesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the nodes internal server error response
+func (o *NodesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *NodesInternalServerError) Error() string {

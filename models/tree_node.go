@@ -174,6 +174,11 @@ func (m *TreeNode) contextValidateAppearsIn(ctx context.Context, formats strfmt.
 	for i := 0; i < len(m.AppearsIn); i++ {
 
 		if m.AppearsIn[i] != nil {
+
+			if swag.IsZero(m.AppearsIn[i]) { // not required
+				return nil
+			}
+
 			if err := m.AppearsIn[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("AppearsIn" + "." + strconv.Itoa(i))
@@ -194,6 +199,11 @@ func (m *TreeNode) contextValidateCommits(ctx context.Context, formats strfmt.Re
 	for i := 0; i < len(m.Commits); i++ {
 
 		if m.Commits[i] != nil {
+
+			if swag.IsZero(m.Commits[i]) { // not required
+				return nil
+			}
+
 			if err := m.Commits[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Commits" + "." + strconv.Itoa(i))
@@ -212,6 +222,11 @@ func (m *TreeNode) contextValidateCommits(ctx context.Context, formats strfmt.Re
 func (m *TreeNode) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
+
+		if swag.IsZero(m.Type) { // not required
+			return nil
+		}
+
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")

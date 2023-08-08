@@ -54,7 +54,7 @@ func (o *PutShareLinkReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /share/link] PutShareLink", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *PutShareLinkOK) IsServerError() bool {
 // IsCode returns true when this put share link o k response a status code equal to that given
 func (o *PutShareLinkOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put share link o k response
+func (o *PutShareLinkOK) Code() int {
+	return 200
 }
 
 func (o *PutShareLinkOK) Error() string {
@@ -159,6 +164,11 @@ func (o *PutShareLinkUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put share link unauthorized response
+func (o *PutShareLinkUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutShareLinkUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *PutShareLinkForbidden) IsServerError() bool {
 // IsCode returns true when this put share link forbidden response a status code equal to that given
 func (o *PutShareLinkForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put share link forbidden response
+func (o *PutShareLinkForbidden) Code() int {
+	return 403
 }
 
 func (o *PutShareLinkForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *PutShareLinkNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put share link not found response
+func (o *PutShareLinkNotFound) Code() int {
+	return 404
+}
+
 func (o *PutShareLinkNotFound) Error() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *PutShareLinkInternalServerError) IsServerError() bool {
 // IsCode returns true when this put share link internal server error response a status code equal to that given
 func (o *PutShareLinkInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put share link internal server error response
+func (o *PutShareLinkInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutShareLinkInternalServerError) Error() string {

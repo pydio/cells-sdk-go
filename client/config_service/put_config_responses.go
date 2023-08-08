@@ -56,7 +56,7 @@ func (o *PutConfigReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /config/{FullPath}] PutConfig", response, response.Code())
 	}
 }
 
@@ -97,6 +97,11 @@ func (o *PutConfigOK) IsServerError() bool {
 // IsCode returns true when this put config o k response a status code equal to that given
 func (o *PutConfigOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the put config o k response
+func (o *PutConfigOK) Code() int {
+	return 200
 }
 
 func (o *PutConfigOK) Error() string {
@@ -161,6 +166,11 @@ func (o *PutConfigUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put config unauthorized response
+func (o *PutConfigUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutConfigUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized ", 401)
 }
@@ -211,6 +221,11 @@ func (o *PutConfigForbidden) IsServerError() bool {
 // IsCode returns true when this put config forbidden response a status code equal to that given
 func (o *PutConfigForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put config forbidden response
+func (o *PutConfigForbidden) Code() int {
+	return 403
 }
 
 func (o *PutConfigForbidden) Error() string {
@@ -276,6 +291,11 @@ func (o *PutConfigNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put config not found response
+func (o *PutConfigNotFound) Code() int {
+	return 404
+}
+
 func (o *PutConfigNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigNotFound  %+v", 404, o.Payload)
 }
@@ -337,6 +357,11 @@ func (o *PutConfigInternalServerError) IsServerError() bool {
 // IsCode returns true when this put config internal server error response a status code equal to that given
 func (o *PutConfigInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the put config internal server error response
+func (o *PutConfigInternalServerError) Code() int {
+	return 500
 }
 
 func (o *PutConfigInternalServerError) Error() string {

@@ -87,6 +87,11 @@ func (m *EncryptionKey) ContextValidate(ctx context.Context, formats strfmt.Regi
 func (m *EncryptionKey) contextValidateInfo(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Info != nil {
+
+		if swag.IsZero(m.Info) { // not required
+			return nil
+		}
+
 		if err := m.Info.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Info")

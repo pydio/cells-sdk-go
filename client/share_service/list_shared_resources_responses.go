@@ -54,7 +54,7 @@ func (o *ListSharedResourcesReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /share/resources] ListSharedResources", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListSharedResourcesOK) IsServerError() bool {
 // IsCode returns true when this list shared resources o k response a status code equal to that given
 func (o *ListSharedResourcesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list shared resources o k response
+func (o *ListSharedResourcesOK) Code() int {
+	return 200
 }
 
 func (o *ListSharedResourcesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListSharedResourcesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list shared resources unauthorized response
+func (o *ListSharedResourcesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListSharedResourcesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListSharedResourcesForbidden) IsServerError() bool {
 // IsCode returns true when this list shared resources forbidden response a status code equal to that given
 func (o *ListSharedResourcesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list shared resources forbidden response
+func (o *ListSharedResourcesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListSharedResourcesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListSharedResourcesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list shared resources not found response
+func (o *ListSharedResourcesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListSharedResourcesNotFound) Error() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListSharedResourcesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list shared resources internal server error response a status code equal to that given
 func (o *ListSharedResourcesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list shared resources internal server error response
+func (o *ListSharedResourcesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListSharedResourcesInternalServerError) Error() string {

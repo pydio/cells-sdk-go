@@ -82,6 +82,11 @@ func (m *RestLogMessageCollection) contextValidateLogs(ctx context.Context, form
 	for i := 0; i < len(m.Logs); i++ {
 
 		if m.Logs[i] != nil {
+
+			if swag.IsZero(m.Logs[i]) { // not required
+				return nil
+			}
+
 			if err := m.Logs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Logs" + "." + strconv.Itoa(i))

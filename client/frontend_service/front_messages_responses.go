@@ -54,7 +54,7 @@ func (o *FrontMessagesReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /frontend/messages/{Lang}] FrontMessages", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontMessagesOK) IsServerError() bool {
 // IsCode returns true when this front messages o k response a status code equal to that given
 func (o *FrontMessagesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front messages o k response
+func (o *FrontMessagesOK) Code() int {
+	return 200
 }
 
 func (o *FrontMessagesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontMessagesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front messages unauthorized response
+func (o *FrontMessagesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontMessagesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontMessagesForbidden) IsServerError() bool {
 // IsCode returns true when this front messages forbidden response a status code equal to that given
 func (o *FrontMessagesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front messages forbidden response
+func (o *FrontMessagesForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontMessagesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontMessagesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front messages not found response
+func (o *FrontMessagesNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontMessagesNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontMessagesInternalServerError) IsServerError() bool {
 // IsCode returns true when this front messages internal server error response a status code equal to that given
 func (o *FrontMessagesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front messages internal server error response
+func (o *FrontMessagesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontMessagesInternalServerError) Error() string {

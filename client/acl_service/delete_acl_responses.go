@@ -54,7 +54,7 @@ func (o *DeleteACLReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /acl/bulk/delete] DeleteAcl", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *DeleteACLOK) IsServerError() bool {
 // IsCode returns true when this delete Acl o k response a status code equal to that given
 func (o *DeleteACLOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the delete Acl o k response
+func (o *DeleteACLOK) Code() int {
+	return 200
 }
 
 func (o *DeleteACLOK) Error() string {
@@ -159,6 +164,11 @@ func (o *DeleteACLUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete Acl unauthorized response
+func (o *DeleteACLUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteACLUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *DeleteACLForbidden) IsServerError() bool {
 // IsCode returns true when this delete Acl forbidden response a status code equal to that given
 func (o *DeleteACLForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete Acl forbidden response
+func (o *DeleteACLForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteACLForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *DeleteACLNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete Acl not found response
+func (o *DeleteACLNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteACLNotFound) Error() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *DeleteACLInternalServerError) IsServerError() bool {
 // IsCode returns true when this delete Acl internal server error response a status code equal to that given
 func (o *DeleteACLInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the delete Acl internal server error response
+func (o *DeleteACLInternalServerError) Code() int {
+	return 500
 }
 
 func (o *DeleteACLInternalServerError) Error() string {

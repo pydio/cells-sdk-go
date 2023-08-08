@@ -149,6 +149,11 @@ func (m *ServiceQuery) ContextValidate(ctx context.Context, formats strfmt.Regis
 func (m *ServiceQuery) contextValidateOperation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Operation != nil {
+
+		if swag.IsZero(m.Operation) { // not required
+			return nil
+		}
+
 		if err := m.Operation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Operation")
@@ -165,6 +170,11 @@ func (m *ServiceQuery) contextValidateOperation(ctx context.Context, formats str
 func (m *ServiceQuery) contextValidateResourcePolicyQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ResourcePolicyQuery != nil {
+
+		if swag.IsZero(m.ResourcePolicyQuery) { // not required
+			return nil
+		}
+
 		if err := m.ResourcePolicyQuery.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourcePolicyQuery")
@@ -183,6 +193,11 @@ func (m *ServiceQuery) contextValidateSubQueries(ctx context.Context, formats st
 	for i := 0; i < len(m.SubQueries); i++ {
 
 		if m.SubQueries[i] != nil {
+
+			if swag.IsZero(m.SubQueries[i]) { // not required
+				return nil
+			}
+
 			if err := m.SubQueries[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SubQueries" + "." + strconv.Itoa(i))

@@ -54,7 +54,7 @@ func (o *FrontBootConfReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /frontend/bootconf] FrontBootConf", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *FrontBootConfOK) IsServerError() bool {
 // IsCode returns true when this front boot conf o k response a status code equal to that given
 func (o *FrontBootConfOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the front boot conf o k response
+func (o *FrontBootConfOK) Code() int {
+	return 200
 }
 
 func (o *FrontBootConfOK) Error() string {
@@ -159,6 +164,11 @@ func (o *FrontBootConfUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front boot conf unauthorized response
+func (o *FrontBootConfUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontBootConfUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *FrontBootConfForbidden) IsServerError() bool {
 // IsCode returns true when this front boot conf forbidden response a status code equal to that given
 func (o *FrontBootConfForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front boot conf forbidden response
+func (o *FrontBootConfForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontBootConfForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *FrontBootConfNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front boot conf not found response
+func (o *FrontBootConfNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontBootConfNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *FrontBootConfInternalServerError) IsServerError() bool {
 // IsCode returns true when this front boot conf internal server error response a status code equal to that given
 func (o *FrontBootConfInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the front boot conf internal server error response
+func (o *FrontBootConfInternalServerError) Code() int {
+	return 500
 }
 
 func (o *FrontBootConfInternalServerError) Error() string {

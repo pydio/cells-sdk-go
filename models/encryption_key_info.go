@@ -119,6 +119,11 @@ func (m *EncryptionKeyInfo) contextValidateExports(ctx context.Context, formats 
 	for i := 0; i < len(m.Exports); i++ {
 
 		if m.Exports[i] != nil {
+
+			if swag.IsZero(m.Exports[i]) { // not required
+				return nil
+			}
+
 			if err := m.Exports[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Exports" + "." + strconv.Itoa(i))
@@ -139,6 +144,11 @@ func (m *EncryptionKeyInfo) contextValidateImports(ctx context.Context, formats 
 	for i := 0; i < len(m.Imports); i++ {
 
 		if m.Imports[i] != nil {
+
+			if swag.IsZero(m.Imports[i]) { // not required
+				return nil
+			}
+
 			if err := m.Imports[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Imports" + "." + strconv.Itoa(i))

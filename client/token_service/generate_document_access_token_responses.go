@@ -54,7 +54,7 @@ func (o *GenerateDocumentAccessTokenReader) ReadResponse(response runtime.Client
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /auth/token/document] GenerateDocumentAccessToken", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *GenerateDocumentAccessTokenOK) IsServerError() bool {
 // IsCode returns true when this generate document access token o k response a status code equal to that given
 func (o *GenerateDocumentAccessTokenOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the generate document access token o k response
+func (o *GenerateDocumentAccessTokenOK) Code() int {
+	return 200
 }
 
 func (o *GenerateDocumentAccessTokenOK) Error() string {
@@ -159,6 +164,11 @@ func (o *GenerateDocumentAccessTokenUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the generate document access token unauthorized response
+func (o *GenerateDocumentAccessTokenUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GenerateDocumentAccessTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *GenerateDocumentAccessTokenForbidden) IsServerError() bool {
 // IsCode returns true when this generate document access token forbidden response a status code equal to that given
 func (o *GenerateDocumentAccessTokenForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the generate document access token forbidden response
+func (o *GenerateDocumentAccessTokenForbidden) Code() int {
+	return 403
 }
 
 func (o *GenerateDocumentAccessTokenForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *GenerateDocumentAccessTokenNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the generate document access token not found response
+func (o *GenerateDocumentAccessTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *GenerateDocumentAccessTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *GenerateDocumentAccessTokenInternalServerError) IsServerError() bool {
 // IsCode returns true when this generate document access token internal server error response a status code equal to that given
 func (o *GenerateDocumentAccessTokenInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the generate document access token internal server error response
+func (o *GenerateDocumentAccessTokenInternalServerError) Code() int {
+	return 500
 }
 
 func (o *GenerateDocumentAccessTokenInternalServerError) Error() string {

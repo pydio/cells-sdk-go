@@ -8192,6 +8192,10 @@
           "type": "boolean",
           "title": "Select all"
         },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
         "Collect": {
           "type": "boolean",
           "title": "Collect results"
@@ -8277,6 +8281,10 @@
           "type": "boolean",
           "title": "Load all objects"
         },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
         "Collect": {
           "type": "boolean",
           "title": "Pass a slice of objects to one action, or trigger all actions in parallel"
@@ -8331,6 +8339,10 @@
         "AutoClean": {
           "type": "boolean",
           "title": "Remove job automatically once it is finished (success only)"
+        },
+        "AutoRestart": {
+          "type": "boolean",
+          "title": "Start task as soon as server is started"
         },
         "AutoStart": {
           "type": "boolean",
@@ -8568,6 +8580,10 @@
           "type": "boolean",
           "title": "Select all files - ignore any other condition"
         },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
         "Collect": {
           "type": "boolean",
           "title": "Whether to trigger one action per node or one action\nwith all nodes as selection"
@@ -8707,6 +8723,10 @@
         "All": {
           "type": "boolean",
           "title": "Select all users"
+        },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
         },
         "Collect": {
           "type": "boolean",
@@ -9425,6 +9445,11 @@
             "$ref": "#/definitions/restCellAcl"
           }
         },
+        "AccessEnd": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp after which the share is disabled"
+        },
         "Description": {
           "type": "string",
           "title": "Long description of the Cell (max 1000 chars)"
@@ -9912,6 +9937,13 @@
           "type": "boolean",
           "title": "Whether to query all services for the metadata they can contribute to enrich the node"
         },
+        "Filters": {
+          "type": "object",
+          "title": "Children Filtering",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "Limit": {
           "type": "integer",
           "format": "int32",
@@ -9928,6 +9960,14 @@
           "type": "integer",
           "format": "int32",
           "title": "Start listing at a given position"
+        },
+        "SortDirDesc": {
+          "type": "boolean",
+          "title": "Sort descending (otherwise ascending)"
+        },
+        "SortField": {
+          "type": "string",
+          "title": "Remote Sort on specific field"
         },
         "Versions": {
           "type": "boolean",
@@ -11291,6 +11331,14 @@
         "Recursive": {
           "type": "boolean",
           "title": "Send back all children of the node"
+        },
+        "SortDirDesc": {
+          "type": "boolean",
+          "title": "Sort descending (otherwise ascending)"
+        },
+        "SortField": {
+          "type": "string",
+          "title": "Remote Sort on specific field"
         },
         "StatFlags": {
           "type": "array",

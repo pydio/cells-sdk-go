@@ -271,6 +271,11 @@ func (m *RegistryItem) contextValidateAdjacents(ctx context.Context, formats str
 	for i := 0; i < len(m.Adjacents); i++ {
 
 		if m.Adjacents[i] != nil {
+
+			if swag.IsZero(m.Adjacents[i]) { // not required
+				return nil
+			}
+
 			if err := m.Adjacents[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("adjacents" + "." + strconv.Itoa(i))
@@ -289,6 +294,11 @@ func (m *RegistryItem) contextValidateAdjacents(ctx context.Context, formats str
 func (m *RegistryItem) contextValidateDao(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Dao != nil {
+
+		if swag.IsZero(m.Dao) { // not required
+			return nil
+		}
+
 		if err := m.Dao.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("dao")
@@ -305,6 +315,11 @@ func (m *RegistryItem) contextValidateDao(ctx context.Context, formats strfmt.Re
 func (m *RegistryItem) contextValidateEdge(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Edge != nil {
+
+		if swag.IsZero(m.Edge) { // not required
+			return nil
+		}
+
 		if err := m.Edge.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("edge")
@@ -321,6 +336,11 @@ func (m *RegistryItem) contextValidateEdge(ctx context.Context, formats strfmt.R
 func (m *RegistryItem) contextValidateGeneric(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Generic != nil {
+
+		if swag.IsZero(m.Generic) { // not required
+			return nil
+		}
+
 		if err := m.Generic.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("generic")
@@ -337,6 +357,11 @@ func (m *RegistryItem) contextValidateGeneric(ctx context.Context, formats strfm
 func (m *RegistryItem) contextValidateNode(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Node != nil {
+
+		if swag.IsZero(m.Node) { // not required
+			return nil
+		}
+
 		if err := m.Node.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node")
@@ -353,6 +378,11 @@ func (m *RegistryItem) contextValidateNode(ctx context.Context, formats strfmt.R
 func (m *RegistryItem) contextValidateServer(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Server != nil {
+
+		if swag.IsZero(m.Server) { // not required
+			return nil
+		}
+
 		if err := m.Server.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("server")
@@ -369,6 +399,11 @@ func (m *RegistryItem) contextValidateServer(ctx context.Context, formats strfmt
 func (m *RegistryItem) contextValidateService(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Service != nil {
+
+		if swag.IsZero(m.Service) { // not required
+			return nil
+		}
+
 		if err := m.Service.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("service")

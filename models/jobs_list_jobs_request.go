@@ -90,6 +90,11 @@ func (m *JobsListJobsRequest) ContextValidate(ctx context.Context, formats strfm
 func (m *JobsListJobsRequest) contextValidateLoadTasks(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.LoadTasks != nil {
+
+		if swag.IsZero(m.LoadTasks) { // not required
+			return nil
+		}
+
 		if err := m.LoadTasks.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LoadTasks")

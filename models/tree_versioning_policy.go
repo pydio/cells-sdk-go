@@ -136,6 +136,11 @@ func (m *TreeVersioningPolicy) contextValidateKeepPeriods(ctx context.Context, f
 	for i := 0; i < len(m.KeepPeriods); i++ {
 
 		if m.KeepPeriods[i] != nil {
+
+			if swag.IsZero(m.KeepPeriods[i]) { // not required
+				return nil
+			}
+
 			if err := m.KeepPeriods[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("KeepPeriods" + "." + strconv.Itoa(i))
@@ -154,6 +159,11 @@ func (m *TreeVersioningPolicy) contextValidateKeepPeriods(ctx context.Context, f
 func (m *TreeVersioningPolicy) contextValidateNodeDeletedStrategy(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.NodeDeletedStrategy != nil {
+
+		if swag.IsZero(m.NodeDeletedStrategy) { // not required
+			return nil
+		}
+
 		if err := m.NodeDeletedStrategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeDeletedStrategy")

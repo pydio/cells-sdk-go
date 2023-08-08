@@ -85,6 +85,11 @@ func (m *UpdateUpdateResponse) contextValidateAvailableBinaries(ctx context.Cont
 	for i := 0; i < len(m.AvailableBinaries); i++ {
 
 		if m.AvailableBinaries[i] != nil {
+
+			if swag.IsZero(m.AvailableBinaries[i]) { // not required
+				return nil
+			}
+
 			if err := m.AvailableBinaries[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("AvailableBinaries" + "." + strconv.Itoa(i))

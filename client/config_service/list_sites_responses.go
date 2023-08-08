@@ -54,7 +54,7 @@ func (o *ListSitesReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /config/sites/{Filter}] ListSites", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *ListSitesOK) IsServerError() bool {
 // IsCode returns true when this list sites o k response a status code equal to that given
 func (o *ListSitesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the list sites o k response
+func (o *ListSitesOK) Code() int {
+	return 200
 }
 
 func (o *ListSitesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *ListSitesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list sites unauthorized response
+func (o *ListSitesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListSitesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *ListSitesForbidden) IsServerError() bool {
 // IsCode returns true when this list sites forbidden response a status code equal to that given
 func (o *ListSitesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list sites forbidden response
+func (o *ListSitesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListSitesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *ListSitesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list sites not found response
+func (o *ListSitesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListSitesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *ListSitesInternalServerError) IsServerError() bool {
 // IsCode returns true when this list sites internal server error response a status code equal to that given
 func (o *ListSitesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the list sites internal server error response
+func (o *ListSitesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *ListSitesInternalServerError) Error() string {

@@ -54,7 +54,7 @@ func (o *BulkStatNodesReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /tree/stats] BulkStatNodes", response, response.Code())
 	}
 }
 
@@ -95,6 +95,11 @@ func (o *BulkStatNodesOK) IsServerError() bool {
 // IsCode returns true when this bulk stat nodes o k response a status code equal to that given
 func (o *BulkStatNodesOK) IsCode(code int) bool {
 	return code == 200
+}
+
+// Code gets the status code for the bulk stat nodes o k response
+func (o *BulkStatNodesOK) Code() int {
+	return 200
 }
 
 func (o *BulkStatNodesOK) Error() string {
@@ -159,6 +164,11 @@ func (o *BulkStatNodesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the bulk stat nodes unauthorized response
+func (o *BulkStatNodesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *BulkStatNodesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized ", 401)
 }
@@ -209,6 +219,11 @@ func (o *BulkStatNodesForbidden) IsServerError() bool {
 // IsCode returns true when this bulk stat nodes forbidden response a status code equal to that given
 func (o *BulkStatNodesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the bulk stat nodes forbidden response
+func (o *BulkStatNodesForbidden) Code() int {
+	return 403
 }
 
 func (o *BulkStatNodesForbidden) Error() string {
@@ -274,6 +289,11 @@ func (o *BulkStatNodesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the bulk stat nodes not found response
+func (o *BulkStatNodesNotFound) Code() int {
+	return 404
+}
+
 func (o *BulkStatNodesNotFound) Error() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesNotFound  %+v", 404, o.Payload)
 }
@@ -335,6 +355,11 @@ func (o *BulkStatNodesInternalServerError) IsServerError() bool {
 // IsCode returns true when this bulk stat nodes internal server error response a status code equal to that given
 func (o *BulkStatNodesInternalServerError) IsCode(code int) bool {
 	return code == 500
+}
+
+// Code gets the status code for the bulk stat nodes internal server error response
+func (o *BulkStatNodesInternalServerError) Code() int {
+	return 500
 }
 
 func (o *BulkStatNodesInternalServerError) Error() string {
