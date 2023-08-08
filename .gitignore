@@ -1,4 +1,7 @@
 .project
 .idea
-v4/example/config.json
-v4/.vscode/launch.json
+.vscode
+
+target/
+
+example/config.json
