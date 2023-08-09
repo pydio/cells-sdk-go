@@ -3,7 +3,7 @@ module github.com/pydio/cells-sdk-go/v4
 go 1.18
 
 require (
-	github.com/aws/aws-sdk-go v1.44.318
+	github.com/aws/aws-sdk-go v1.44.319
 	github.com/go-openapi/errors v0.20.4
 	github.com/go-openapi/runtime v0.26.0
 	github.com/go-openapi/strfmt v0.21.7
