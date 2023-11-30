@@ -3,7 +3,6 @@
 package cells_sdk
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -39,14 +38,14 @@ type SdkConfig struct {
 
 // Retrieve simply returns the ID token that is currently held in the conf.
 func (s *SdkConfig) Retrieve() (string, error) {
-	fmt.Println("[Debug] Retrieving token: [", s.IdToken, "], Expires at:", time.Unix(int64(s.TokenExpiresAt), 0), "\n ")
+	// fmt.Println("[Debug] Retrieving token: [", s.IdToken, "], Expires at:", time.Unix(int64(s.TokenExpiresAt), 0), "\n ")
 	return s.IdToken, nil
 }
 
 // Expired checks if expiration time is in less than 10 seconds or already passed.
 func (s *SdkConfig) Expired() bool {
 	isExpired := time.Now().After(time.Unix(int64(s.TokenExpiresAt), 0).Add(-10 * time.Second))
-	fmt.Println("[Debug] Checking validity of [", s.IdToken, "], expired =", isExpired, "\n ")
+	// fmt.Println("[Debug] Checking validity of [", s.IdToken, "], expired =", isExpired, "\n ")
 	return isExpired
 }
 
