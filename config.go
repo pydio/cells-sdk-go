@@ -2,6 +2,11 @@
 // It also provides some patterns that ease implementation of Go programs that use the SDK.
 package cells_sdk
 
+import (
+	"fmt"
+	"time"
+)
+
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
 type SdkConfig struct {
 
@@ -28,6 +33,21 @@ type SdkConfig struct {
 
 	// Optional list of headers to override in requests, typically User-Agent
 	CustomHeaders map[string]string
+}
+
+// Make SdkConfig implement the TokenProvider interface
+
+// Retrieve simply returns the ID token that is currently held in the conf.
+func (s *SdkConfig) Retrieve() (string, error) {
+	fmt.Println("[Debug] Retrieving token: [", s.IdToken, "], Expires at:", time.Unix(int64(s.TokenExpiresAt), 0), "\n ")
+	return s.IdToken, nil
+}
+
+// Expired checks if expiration time is in less than 10 seconds or already passed.
+func (s *SdkConfig) Expired() bool {
+	isExpired := time.Now().After(time.Unix(int64(s.TokenExpiresAt), 0).Add(-10 * time.Second))
+	fmt.Println("[Debug] Checking validity of [", s.IdToken, "], expired =", isExpired, "\n ")
+	return isExpired
 }
 
 // S3Config stores connection parameters to a running Cells instance S3 gateway via the AWS SDK for Go.

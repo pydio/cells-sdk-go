@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -54,7 +53,7 @@ var addUserCmd = &cobra.Command{
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		// Connect to the pydio api via the sdkConfig
+		// Connect to the Pydio API via the sdkConfig
 		ctx, apiClient, err := rest.GetClient(DefaultConfig, false)
 		if err != nil {
 			log.Fatal(err)
@@ -70,8 +69,6 @@ var addUserCmd = &cobra.Command{
 		if newUserIsAdmin {
 			profile = ProfileAdmin
 		}
-
-		fmt.Println("####### About to create user " + newUserName)
 
 		// Create User
 		newUser := user_service.PutUserBody{
@@ -89,7 +86,7 @@ var addUserCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal("could not create user ", newUserName, ", aborting...\nCause:", err)
 		}
-		fmt.Println(" ### user put...")
+		// fmt.Println(" ### user put...")
 	},
 }
 

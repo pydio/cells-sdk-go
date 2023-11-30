@@ -46,7 +46,7 @@ func New(options ...interface{}) http.RoundTripper {
 
 func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (TokenProvider, error) {
 	if c.IdToken != "" {
-		return NewStaticTokenProvider(c.IdToken), nil
+		return c, nil // SdkConfig implements TokenProvider interface
 	} else {
 		tp, e := NewFrontSessionTokenProvider(c)
 		if e != nil {
