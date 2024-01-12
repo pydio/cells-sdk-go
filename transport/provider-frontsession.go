@@ -2,6 +2,7 @@ package transport
 
 import (
 	"context"
+	"log"
 	"net/url"
 	"time"
 
@@ -65,6 +66,8 @@ func (f *FrontSessionTokenProvider) Retrieve() (string, error) {
 	expiryDate := time.Unix(int64(resp.Payload.ExpireTime), 0).Add(-60 * time.Second)
 	f.token = token
 	f.expiryDate = expiryDate
+	log.Println("... Configured provider:", f)
+	log.Println("    Token: ", f.token, ", isExpired: ", f.Expired())
 	return f.token, nil
 }
 

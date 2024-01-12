@@ -21,35 +21,94 @@
 package s3
 
 import (
+	"context"
 	"log"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 
 	cells_sdk "github.com/pydio/cells-sdk-go/v4"
 	"github.com/pydio/cells-sdk-go/v4/transport"
 	http2 "github.com/pydio/cells-sdk-go/v4/transport/http"
 )
 
-// GetClient creates and configure a new S3 client at each request.
-func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, error) {
+// // GetClient creates and configure a new S3 client at each request.
+// func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, error) {
 
-	tp, e := transport.TokenProviderFromConfig(sdc)
-	if e != nil {
-		return nil, e
-	}
+// 	tp, e := transport.TokenProviderFromConfig(sdc)
+// 	if e != nil {
+// 		return nil, e
+// 	}
+// 	htCl := http2.GetClient(sdc)
+// 	conf := aws.NewConfig()
+// 	conf.WithCredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp)))
+// 	conf.WithHTTPClient(htCl)
+// 	conf.WithEndpoint(s3c.Endpoint)
+// 	conf.WithRegion(s3c.Region)
+// 	s3Session, err := session.NewSession(conf)
+// 	if err != nil {
+// 		log.Fatal("cannot initialise default S3 session: " + err.Error())
+// 	}
+// 	return s3.New(s3Session), nil
+
+// }
+
+func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {
 	htCl := http2.GetClient(sdc)
-	conf := aws.NewConfig()
-	conf.WithCredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp)))
-	conf.WithHTTPClient(htCl)
-	conf.WithEndpoint(s3c.Endpoint)
-	conf.WithRegion(s3c.Region)
-	s3Session, err := session.NewSession(conf)
+	tp, err := transport.TokenProviderFromConfig(sdc)
 	if err != nil {
-		log.Fatal("cannot initialise default S3 session: " + err.Error())
+		return nil, err
 	}
-	return s3.New(s3Session), nil
+	cfg, err := config.LoadDefaultConfig(
+		context.TODO(),
+		config.WithRegion(s3c.Region),
+		config.WithHTTPClient(htCl),
+		config.WithCredentialsProvider(AsS3CredentialsProvider(tp)),
+	)
+	if err != nil {
+		log.Fatal("cannot load default S3 session configuration:", err.Error())
+	}
 
+	if err != nil {
+		return nil, err
+	}
+	return s3.NewFromConfig(cfg,
+		func(o *s3.Options) {
+			o.BaseEndpoint = aws.String(s3c.Endpoint)
+		}), nil
 }
+
+// // LoadS3Config retrieves current S3 configuration to start a new client
+// func LoadS3Config(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (aws.Config, error) {
+// 	// tp, e := transport.TokenProviderFromConfig(sdc)
+// 	// if e != nil {
+// 	// 	return nil, e
+// 	// }
+// 	// htCl := http2.GetClient(sdc)
+
+// 	// conf := aws.NewContransportfig()
+// 	// conf.WithCredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp)))
+// 	// conf.WithHTTPClient(htCl)
+// 	// conf.WithEndpoint(s3c.Endpoint)
+// 	// conf.WithRegion(s3c.Region)
+
+// 	// s3Session, err := session.NewSession(conf)
+// 	// if err != nil {
+// 	// 	log.Fatal("cannot initialise default S3 session: " + err.Error())
+// 	// }
+
+// 	htCl := http2.GetClient(sdc)
+// 	cfg, err := config.LoadDefaultConfig(
+// 		context.TODO(),
+// 		config.WithRegion(s3c.Region),
+// 		// config.WithCtransportredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp))),
+// 		config.WithHTTPClient(htCl),
+// 		// config.WithEndpoint(s3c.Endpoint),
+// 	)
+// 	if err != nil {
+// 		log.Fatal("cannot load default S3 session configuration:", err.Error())
+// 	}
+// 	return cfg, nil
+
+// }
