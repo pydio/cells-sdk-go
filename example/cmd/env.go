@@ -98,15 +98,15 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 }
 
 func getS3ConfigFromSdkConfig(sConf cells_sdk.SdkConfig) cells_sdk.S3Config {
-	var c cells_sdk.S3Config
-	c.Bucket = "io"
-	c.ApiKey = "gateway"
-	c.ApiSecret = "gatewaysecret"
-	c.UsePydioSpecificHeader = false
-	c.IsDebug = false
-	c.Region = "us-east-1"
-	c.Endpoint = sConf.Url
-	return c
+	return cells_sdk.S3Config{
+		Bucket:                 "io",
+		ApiKey:                 "gateway",
+		ApiSecret:              "gatewaysecret",
+		UsePydioSpecificHeader: false,
+		IsDebug:                false,
+		Region:                 "us-east-1",
+		Endpoint:               sConf.Url,
+	}
 }
 
 func getS3ConfigFromEnv() (cells_sdk.S3Config, error) {
