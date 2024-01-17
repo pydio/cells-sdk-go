@@ -9,14 +9,13 @@ import (
 
 	cells_sdk "github.com/pydio/cells-sdk-go/v4"
 	"github.com/pydio/cells-sdk-go/v4/transport"
-	"github.com/pydio/cells-sdk-go/v4/transport/rest"
 )
 
-func NewCredentialsProvider(clientId string, sdc *cells_sdk.SdkConfig) aws.CredentialsProvider {
+func NewCredentialsProvider(store transport.ConfigStore, sdc *cells_sdk.SdkConfig) aws.CredentialsProvider {
 	if sdc.Password != "" && sdc.User != "" {
 		return &LegacyCredentialsProvider{sdc}
 	} else if sdc.RefreshToken != "" {
-		return &OAuthCredentialsProvider{clientId: clientId, config: sdc}
+		return &OAuthCredentialsProvider{store: store, config: sdc}
 	} else {
 		return &PatCredentialsProvider{sdc}
 	}
@@ -71,8 +70,8 @@ func (lcp *LegacyCredentialsProvider) Retrieve(ctx context.Context) (aws.Credent
 }
 
 type OAuthCredentialsProvider struct {
-	clientId string
-	config   *cells_sdk.SdkConfig
+	store  transport.ConfigStore
+	config *cells_sdk.SdkConfig
 }
 
 func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
@@ -88,7 +87,7 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 		Expires:         expiration,
 	}
 
-	refreshed, err := rest.RefreshIfRequired(ocp.clientId, ocp.config)
+	refreshed, err := ocp.store.RefreshIfRequired(ocp.config)
 	if err != nil {
 		return aws.Credentials{}, err
 	}

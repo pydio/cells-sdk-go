@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	cells_sdk "github.com/pydio/cells-sdk-go/v4"
+	"github.com/pydio/cells-sdk-go/v4/transport"
 	ts3 "github.com/pydio/cells-sdk-go/v4/transport/s3"
 	"github.com/spf13/cobra"
 )
@@ -16,6 +18,16 @@ import (
 var (
 	getPath string
 )
+
+type dummyConfigStore struct{}
+
+func (pcp *dummyConfigStore) RefreshIfRequired(*cells_sdk.SdkConfig) (bool, error) {
+	return false, nil
+}
+
+func newDummyStore() transport.ConfigStore {
+	return &dummyConfigStore{}
+}
 
 var getFile = &cobra.Command{
 	Use: "wget",
@@ -27,7 +39,7 @@ var getFile = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		s3Conf := getS3ConfigFromSdkConfig(*DefaultConfig)
-		client, e := ts3.GetClient("cells-client", DefaultConfig, &s3Conf)
+		client, e := ts3.GetClient(newDummyStore(), DefaultConfig, &s3Conf)
 		if e != nil {
 			log.Fatal(e)
 		}

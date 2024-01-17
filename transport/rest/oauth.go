@@ -81,13 +81,8 @@ func OAuthExchangeCode(clientId string, c *cells_sdk.SdkConfig, code, callbackUr
 	return nil
 }
 
-// RefreshIfRequired refreshes the token inside the given conf if required.
-func RefreshIfRequired(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, error) {
+func RefreshJwtToken(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, error) {
 
-	// No token to refresh
-	if sdkConfig.IdToken == "" || sdkConfig.RefreshToken == "" || sdkConfig.TokenExpiresAt == 0 {
-		return false, nil
-	}
 	// Not yet expired, ignore
 	if time.Unix(int64(sdkConfig.TokenExpiresAt), 0).After(time.Now().Add(60 * time.Second)) {
 		return false, nil
@@ -109,12 +104,13 @@ func RefreshIfRequired(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, e
 	if sdkConfig.SkipVerify {
 		client.Transport = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
 	}
+
 	res, err := client.Do(httpReq)
 	if err != nil {
-		return true, err
+		return false, err
 	} else if res.StatusCode != 200 {
 		bb, _ := io.ReadAll(res.Body)
-		return true, fmt.Errorf("received status code %d - %s", res.StatusCode, string(bb))
+		return false, fmt.Errorf("received status code %d - %s", res.StatusCode, string(bb))
 	}
 	defer res.Body.Close()
 	var respMap tokenResponse
@@ -125,5 +121,7 @@ func RefreshIfRequired(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, e
 	sdkConfig.IdToken = respMap.AccessToken
 	sdkConfig.RefreshToken = respMap.RefreshToken
 	sdkConfig.TokenExpiresAt = int(time.Now().Unix()) + respMap.ExpiresIn
+
+	// cells_sdk.Log("... Token for %s has been refreshed", sdkConfig.GetId())
 	return true, nil
 }

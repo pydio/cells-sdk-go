@@ -9,13 +9,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
 	cells_sdk "github.com/pydio/cells-sdk-go/v4"
+	"github.com/pydio/cells-sdk-go/v4/transport"
 	http2 "github.com/pydio/cells-sdk-go/v4/transport/http"
 )
 
-// func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config, options s3.Options) (*s3.Client, error) {
-func GetClient(clientId string, sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {
+func GetClient(store transport.ConfigStore, sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {
 
-	s3CredProv := NewCredentialsProvider(clientId, sdc)
+	s3CredProv := NewCredentialsProvider(store, sdc)
 
 	if sdc.UseTokenCache {
 		s3CredProv = aws.NewCredentialsCache(s3CredProv, func(options *aws.CredentialsCacheOptions) {
