@@ -9,6 +9,8 @@ import (
 const (
 	CellsApiResourcePath = "/a"
 	CellsS3SecretDefault = "gatewaysecret"
+
+	UserAgentKey = "User-Agent"
 )
 
 type Option func(t *http.Transport) *http.Transport
@@ -23,10 +25,9 @@ func New(options ...interface{}) http.RoundTripper {
 	// First go through Transport options
 	baseT := &http.Transport{}
 	for _, o := range options {
-		switch o.(type) {
+		switch typed := o.(type) {
 		case Option:
-			to := o.(Option)
-			baseT = to(baseT)
+			baseT = typed(baseT)
 		}
 	}
 
@@ -34,13 +35,11 @@ func New(options ...interface{}) http.RoundTripper {
 	var roundTrip http.RoundTripper
 	roundTrip = baseT
 	for _, o := range options {
-		switch o.(type) {
+		switch typed := o.(type) {
 		case RoundTripOption:
-			to := o.(RoundTripOption)
-			roundTrip = to(roundTrip)
+			roundTrip = typed(roundTrip)
 		}
 	}
-
 	return roundTrip
 }
 

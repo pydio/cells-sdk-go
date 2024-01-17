@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2019. Abstrium SAS <team (at) pydio.com>
- * This file is part of Pydio Cells.
- *
- * Pydio Cells is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Pydio Cells is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Pydio Cells.  If not, see <http://www.gnu.org/licenses/>.
- *
- * The latest code can be found at <https://pydio.com>.
- */
-
 package s3
 
 import (
@@ -29,9 +9,52 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
 	cells_sdk "github.com/pydio/cells-sdk-go/v4"
-	"github.com/pydio/cells-sdk-go/v4/transport"
 	http2 "github.com/pydio/cells-sdk-go/v4/transport/http"
 )
+
+// func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config, options s3.Options) (*s3.Client, error) {
+func GetClient(clientId string, sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {
+
+	s3CredProv := NewCredentialsProvider(clientId, sdc)
+
+	if sdc.UseTokenCache {
+		s3CredProv = aws.NewCredentialsCache(s3CredProv, func(options *aws.CredentialsCacheOptions) {
+			// configuration of credential expiry window and jitter.
+			options.ExpiryWindow = 10
+			options.ExpiryWindowJitterFrac = 0.2
+		})
+	}
+
+	httpClient := http2.GetClient(sdc)
+
+	cfg, err := config.LoadDefaultConfig(
+		context.TODO(),
+		config.WithRegion(s3c.Region),
+		config.WithHTTPClient(httpClient),
+		config.WithCredentialsProvider(s3CredProv),
+	)
+
+	if err != nil {
+		log.Fatal("cannot load default S3 session configuration:", err.Error())
+	}
+
+	fo := func(o *s3.Options) {
+		o.BaseEndpoint = aws.String(s3c.Endpoint)
+		//	o.S3DisableContentMD5Validation = aws.Bool(true)
+	}
+
+	// tmpCli := s3.NewFromConfig(cfg, {}options, )
+
+	// options = append(optFns,
+	// 	func(o *s3.Options) {
+	// 		o.BaseEndpoint = aws.String(s3c.Endpoint),
+	// 		o.S3DisableContentMD5Validation = aws.Bool(true),
+	// 	},
+	// 	// func(o *s3.Options) { o.S3DisableContentMD5Validation = aws.Bool(true) },
+	// )
+
+	return s3.NewFromConfig(cfg, fo), nil
+}
 
 // // GetClient creates and configure a new S3 client at each request.
 // func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, error) {
@@ -53,31 +76,6 @@ import (
 // 	return s3.New(s3Session), nil
 
 // }
-
-func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {
-	htCl := http2.GetClient(sdc)
-	tp, err := transport.TokenProviderFromConfig(sdc)
-	if err != nil {
-		return nil, err
-	}
-	cfg, err := config.LoadDefaultConfig(
-		context.TODO(),
-		config.WithRegion(s3c.Region),
-		config.WithHTTPClient(htCl),
-		config.WithCredentialsProvider(AsS3CredentialsProvider(tp)),
-	)
-	if err != nil {
-		log.Fatal("cannot load default S3 session configuration:", err.Error())
-	}
-
-	if err != nil {
-		return nil, err
-	}
-	return s3.NewFromConfig(cfg,
-		func(o *s3.Options) {
-			o.BaseEndpoint = aws.String(s3c.Endpoint)
-		}), nil
-}
 
 // // LoadS3Config retrieves current S3 configuration to start a new client
 // func LoadS3Config(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (aws.Config, error) {

@@ -2,7 +2,6 @@ package transport
 
 import (
 	"context"
-	"log"
 	"net/url"
 	"time"
 
@@ -26,6 +25,20 @@ type FrontSessionTokenProvider struct {
 }
 
 func NewFrontSessionTokenProvider(c *cells_sdk.SdkConfig) (TokenProvider, error) {
+	u, e := url.Parse(c.Url)
+	if e != nil {
+		return nil, e
+	}
+	return &FrontSessionTokenProvider{
+		url:           u,
+		user:          c.User,
+		password:      c.Password,
+		skipVerify:    c.SkipVerify,
+		customHeaders: c.CustomHeaders,
+	}, nil
+}
+
+func NewLegacyTokenProvider(c *cells_sdk.SdkConfig) (*FrontSessionTokenProvider, error) {
 	u, e := url.Parse(c.Url)
 	if e != nil {
 		return nil, e
@@ -63,16 +76,17 @@ func (f *FrontSessionTokenProvider) Retrieve() (string, error) {
 		return "", err
 	}
 	token := resp.Payload.JWT
-	expiryDate := time.Unix(int64(resp.Payload.ExpireTime), 0).Add(-60 * time.Second)
 	f.token = token
-	f.expiryDate = expiryDate
-	log.Println("... Configured provider:", f)
-	log.Println("    Token: ", f.token, ", isExpired: ", f.Expired())
+	f.expiryDate = time.Unix(int64(resp.Payload.ExpireTime), 0)
 	return f.token, nil
 }
 
 func (f *FrontSessionTokenProvider) Expired() bool {
 	return f.token == "" || f.expiryDate.Before(time.Now())
+}
+
+func (f *FrontSessionTokenProvider) ExpiresAt() time.Time {
+	return f.expiryDate
 }
 
 func LoadAccessToken(c *cells_sdk.SdkConfig) (string, error) {

@@ -27,7 +27,7 @@ var getFile = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		s3Conf := getS3ConfigFromSdkConfig(*DefaultConfig)
-		client, e := ts3.GetClient(DefaultConfig, &s3Conf)
+		client, e := ts3.GetClient("cells-client", DefaultConfig, &s3Conf)
 		if e != nil {
 			log.Fatal(e)
 		}
