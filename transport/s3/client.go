@@ -3,6 +3,8 @@ package s3
 import (
 	"context"
 	"log"
+	"net/http"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -25,7 +27,13 @@ func GetClient(store transport.ConfigStore, sdc *cells_sdk.SdkConfig, s3c *cells
 		})
 	}
 
-	httpClient := http2.GetClient(sdc)
+	var httpClient *http.Client
+	if s3c.RequestTimout > 0 {
+		// cells_sdk.Log("Using transport with custom timeout of %d seconds", s3c.RequestTimout)
+		httpClient = http2.GetClientWithTimeout(sdc, time.Duration(s3c.RequestTimout)*time.Second)
+	} else {
+		httpClient = http2.GetClient(sdc)
+	}
 
 	cfg, err := config.LoadDefaultConfig(
 		context.TODO(),
