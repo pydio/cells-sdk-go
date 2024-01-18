@@ -33,14 +33,14 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 		if err != nil {
 			return err
 		}
-		err = json.Unmarshal(s, &c)
+		err = json.Unmarshal(s, c)
 		if err != nil {
 			return err
 		}
 	}
 
 	// Stores the retrieved parameters in a public static singleton
-	DefaultConfig = &c
+	DefaultConfig = c
 
 	cs3, err := getS3ConfigFromEnv()
 	if err != nil {
@@ -50,7 +50,7 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 	if cs3.Bucket == "" && len(s3ConfigFilePath) > 0 {
 		s, err := os.ReadFile(s3ConfigFilePath[0])
 		if err == nil {
-			json.Unmarshal(s, &cs3)
+			json.Unmarshal(s, cs3)
 		}
 	}
 
@@ -65,9 +65,9 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 	return nil
 }
 
-func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
+func getSdkConfigFromEnv() (*cells_sdk.SdkConfig, error) {
 
-	var c cells_sdk.SdkConfig
+	var c *cells_sdk.SdkConfig
 
 	// check presence of Env variable
 	url := os.Getenv(KeyURL)
