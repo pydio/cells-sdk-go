@@ -51,16 +51,6 @@ func GetClient(store transport.ConfigStore, sdc *cells_sdk.SdkConfig, s3c *cells
 		//	o.S3DisableContentMD5Validation = aws.Bool(true)
 	}
 
-	// tmpCli := s3.NewFromConfig(cfg, {}options, )
-
-	// options = append(optFns,
-	// 	func(o *s3.Options) {
-	// 		o.BaseEndpoint = aws.String(s3c.Endpoint),
-	// 		o.S3DisableContentMD5Validation = aws.Bool(true),
-	// 	},
-	// 	// func(o *s3.Options) { o.S3DisableContentMD5Validation = aws.Bool(true) },
-	// )
-
 	return s3.NewFromConfig(cfg, fo), nil
 }
 

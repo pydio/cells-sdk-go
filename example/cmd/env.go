@@ -60,7 +60,7 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 	}
 
 	// Stores the retrieved parameters in a public static singleton
-	DefaultS3Config = &cs3
+	DefaultS3Config = cs3
 
 	return nil
 }
@@ -97,21 +97,15 @@ func getSdkConfigFromEnv() (cells_sdk.SdkConfig, error) {
 	return c, nil
 }
 
-func getS3ConfigFromSdkConfig(sConf cells_sdk.SdkConfig) cells_sdk.S3Config {
-	return cells_sdk.S3Config{
-		Bucket:                 "io",
-		ApiKey:                 "gateway",
-		ApiSecret:              "gatewaysecret",
-		UsePydioSpecificHeader: false,
-		IsDebug:                false,
-		Region:                 "us-east-1",
-		Endpoint:               sConf.Url,
-	}
+func getS3ConfigFromSdkConfig(sConf *cells_sdk.SdkConfig) *cells_sdk.S3Config {
+	conf := cells_sdk.NewS3Config()
+	conf.Endpoint = sConf.Url
+	return conf
 }
 
-func getS3ConfigFromEnv() (cells_sdk.S3Config, error) {
+func getS3ConfigFromEnv() (*cells_sdk.S3Config, error) {
 
-	var c cells_sdk.S3Config
+	var c *cells_sdk.S3Config
 
 	// check presence of Env variable
 	endpoint := os.Getenv(KeyS3Endpoint)

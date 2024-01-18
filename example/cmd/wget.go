@@ -8,6 +8,7 @@ import (
 	"path"
 	"path/filepath"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	cells_sdk "github.com/pydio/cells-sdk-go/v4"
 	"github.com/pydio/cells-sdk-go/v4/transport"
@@ -38,14 +39,14 @@ var getFile = &cobra.Command{
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		s3Conf := getS3ConfigFromSdkConfig(*DefaultConfig)
-		client, e := ts3.GetClient(newDummyStore(), DefaultConfig, &s3Conf)
+		s3Conf := getS3ConfigFromSdkConfig(DefaultConfig)
+		client, e := ts3.GetClient(newDummyStore(), DefaultConfig, s3Conf)
 		if e != nil {
 			log.Fatal(e)
 		}
 		output, e := client.GetObject(context.TODO(), &s3.GetObjectInput{
-			Bucket: &s3Conf.Bucket,
-			Key:    &getPath,
+			Bucket: aws.String(s3Conf.Bucket),
+			Key:    aws.String(getPath),
 		})
 		if e != nil {
 			log.Fatal(e)

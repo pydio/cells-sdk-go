@@ -92,6 +92,17 @@ type S3Config struct {
 	IsDebug bool `json:"isDebug"`
 }
 
+func NewS3Config() *S3Config {
+	return &S3Config{
+		Bucket:                 "io",
+		ApiSecret:              "gatewaysecret",
+		Region:                 "us-east-1",
+		RequestTimout:          -1,
+		UsePydioSpecificHeader: false,
+		IsDebug:                false,
+	}
+}
+
 // Log is a temporary hack to help while debugging.
 func Log(format string, a ...any) {
 	// TODO implement a real logger support
