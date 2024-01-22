@@ -17,7 +17,7 @@ var listBuckets = &cobra.Command{
 	Long: `Simply list root buckets for passed user.
 	
 	Example:
-	$ go run main.go list-buckets -u http://192.168.0.136:9000 -l admin -p your-password 
+	$ go run main.go list-buckets -u https://files.example.com -l admin -p your-password 
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 
@@ -28,7 +28,7 @@ var listBuckets = &cobra.Command{
 		}
 
 		// Adapt below and rather use this to test on local client.
-		// client := localMinioClient()
+		// client = localMinioClient()
 		doTest(cmd, client)
 	},
 }
@@ -48,6 +48,8 @@ func doTest(cmd *cobra.Command, client *aws_s3.S3) {
 
 // localMinioClient simply perform a comparative test on a local minio server
 func localMinioClient() *aws_s3.S3 {
+
+	// Note when enabling this, we must still call the command with url, login & pwd (unused) parameters. We do not want to fix this correctly for this debug branch.
 
 	localUrl := "http://192.168.0.136:9000"
 	localAccessKey := "nhlXm2iabssGndbuJ1ei"
