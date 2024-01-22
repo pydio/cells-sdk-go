@@ -6,3 +6,4 @@ target/
 
 example/config.json
 example/main
+config-s3.json
