@@ -18,7 +18,8 @@ func (c headerRoundTripper) RoundTrip(req *http.Request) (*http.Response, error)
 
 func WithCustomHeaders(h map[string]string) RoundTripOption {
 	return func(t http.RoundTripper) http.RoundTripper {
-		if h == nil || len(h) == 0 {
+		// if h == nil || len(h) == 0 {
+		if len(h) == 0 {
 			return t
 		}
 		return &headerRoundTripper{
