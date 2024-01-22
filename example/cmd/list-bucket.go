@@ -42,7 +42,7 @@ func doTest(cmd *cobra.Command, client *s3.Client) {
 	}
 	cmd.Printf("Found %d buckets:\n", len(o.Buckets))
 	for _, b := range o.Buckets {
-		cmd.Println("\t -", *b.Name, "-", b.CreationDate)
+		cmd.Println("\t-", *b.Name, "- created at:", b.CreationDate)
 	}
 }
 
