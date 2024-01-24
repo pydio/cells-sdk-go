@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // RelationReader is a Reader for the Relation structure.
@@ -137,6 +137,7 @@ RelationUnauthorized describes a response with status code 401, with default hea
 User is not authenticated
 */
 type RelationUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this relation unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *RelationUnauthorized) Code() int {
 }
 
 func (o *RelationUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized ", 401)
+	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *RelationUnauthorized) String() string {
-	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized ", 401)
+	return fmt.Sprintf("[GET /graph/relation/{UserId}][%d] relationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *RelationUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *RelationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewRelationForbidden() *RelationForbidden {
 /*
 RelationForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type RelationForbidden struct {
 	Payload *models.RestError

@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // SetMetaReader is a Reader for the SetMeta structure.
@@ -141,6 +141,7 @@ SetMetaUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type SetMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set meta unauthorized response has a 2xx status code
@@ -174,14 +175,25 @@ func (o *SetMetaUnauthorized) Code() int {
 }
 
 func (o *SetMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized ", 401)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *SetMetaUnauthorized) String() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized ", 401)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SetMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SetMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -194,7 +206,7 @@ func NewSetMetaForbidden() *SetMetaForbidden {
 /*
 SetMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SetMetaForbidden struct {
 	Payload *models.RestError

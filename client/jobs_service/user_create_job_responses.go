@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // UserCreateJobReader is a Reader for the UserCreateJob structure.
@@ -139,6 +139,7 @@ UserCreateJobUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type UserCreateJobUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user create job unauthorized response has a 2xx status code
@@ -172,14 +173,25 @@ func (o *UserCreateJobUnauthorized) Code() int {
 }
 
 func (o *UserCreateJobUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *UserCreateJobUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *UserCreateJobUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UserCreateJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +204,7 @@ func NewUserCreateJobForbidden() *UserCreateJobForbidden {
 /*
 UserCreateJobForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UserCreateJobForbidden struct {
 	Payload *models.RestError

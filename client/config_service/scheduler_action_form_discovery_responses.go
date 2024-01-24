@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // SchedulerActionFormDiscoveryReader is a Reader for the SchedulerActionFormDiscovery structure.
@@ -137,6 +137,7 @@ SchedulerActionFormDiscoveryUnauthorized describes a response with status code 4
 User is not authenticated
 */
 type SchedulerActionFormDiscoveryUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler action form discovery unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *SchedulerActionFormDiscoveryUnauthorized) Code() int {
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized ", 401)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized ", 401)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SchedulerActionFormDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewSchedulerActionFormDiscoveryForbidden() *SchedulerActionFormDiscoveryFor
 /*
 SchedulerActionFormDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SchedulerActionFormDiscoveryForbidden struct {
 	Payload *models.RestError

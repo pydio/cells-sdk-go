@@ -15,7 +15,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // NewCreateEncryptionKeyParams creates a new CreateEncryptionKeyParams object,

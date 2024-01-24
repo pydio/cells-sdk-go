@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // ListPeerFoldersReader is a Reader for the ListPeerFolders structure.
@@ -139,6 +139,7 @@ ListPeerFoldersUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type ListPeerFoldersUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peer folders unauthorized response has a 2xx status code
@@ -172,14 +173,25 @@ func (o *ListPeerFoldersUnauthorized) Code() int {
 }
 
 func (o *ListPeerFoldersUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized ", 401)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *ListPeerFoldersUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized ", 401)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *ListPeerFoldersUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListPeerFoldersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +204,7 @@ func NewListPeerFoldersForbidden() *ListPeerFoldersForbidden {
 /*
 ListPeerFoldersForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListPeerFoldersForbidden struct {
 	Payload *models.RestError

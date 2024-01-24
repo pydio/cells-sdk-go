@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // ApplyUpdateReader is a Reader for the ApplyUpdate structure.
@@ -139,6 +139,7 @@ ApplyUpdateUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type ApplyUpdateUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update unauthorized response has a 2xx status code
@@ -172,14 +173,25 @@ func (o *ApplyUpdateUnauthorized) Code() int {
 }
 
 func (o *ApplyUpdateUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *ApplyUpdateUnauthorized) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *ApplyUpdateUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ApplyUpdateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +204,7 @@ func NewApplyUpdateForbidden() *ApplyUpdateForbidden {
 /*
 ApplyUpdateForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ApplyUpdateForbidden struct {
 	Payload *models.RestError

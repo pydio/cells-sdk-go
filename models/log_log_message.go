@@ -77,6 +77,9 @@ type LogLogMessage struct {
 	// Span Info
 	SpanUUID string `json:"SpanUuid,omitempty"`
 
+	// transfer size
+	TransferSize string `json:"TransferSize,omitempty"`
+
 	// Generic zap fields
 	Ts int32 `json:"Ts,omitempty"`
 

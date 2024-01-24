@@ -17,7 +17,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // PutWorkspaceReader is a Reader for the PutWorkspace structure.
@@ -142,6 +142,7 @@ PutWorkspaceUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type PutWorkspaceUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put workspace unauthorized response has a 2xx status code
@@ -175,14 +176,25 @@ func (o *PutWorkspaceUnauthorized) Code() int {
 }
 
 func (o *PutWorkspaceUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *PutWorkspaceUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PutWorkspaceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutWorkspaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -195,7 +207,7 @@ func NewPutWorkspaceForbidden() *PutWorkspaceForbidden {
 /*
 PutWorkspaceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutWorkspaceForbidden struct {
 	Payload *models.RestError

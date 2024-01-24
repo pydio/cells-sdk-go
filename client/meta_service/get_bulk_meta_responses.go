@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // GetBulkMetaReader is a Reader for the GetBulkMeta structure.
@@ -137,6 +137,7 @@ GetBulkMetaUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type GetBulkMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get bulk meta unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *GetBulkMetaUnauthorized) Code() int {
 }
 
 func (o *GetBulkMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized ", 401)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *GetBulkMetaUnauthorized) String() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized ", 401)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetBulkMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetBulkMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewGetBulkMetaForbidden() *GetBulkMetaForbidden {
 /*
 GetBulkMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetBulkMetaForbidden struct {
 	Payload *models.RestError

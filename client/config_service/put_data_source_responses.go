@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // PutDataSourceReader is a Reader for the PutDataSource structure.
@@ -140,6 +140,7 @@ PutDataSourceUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type PutDataSourceUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put data source unauthorized response has a 2xx status code
@@ -173,14 +174,25 @@ func (o *PutDataSourceUnauthorized) Code() int {
 }
 
 func (o *PutDataSourceUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized ", 401)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *PutDataSourceUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized ", 401)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PutDataSourceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -193,7 +205,7 @@ func NewPutDataSourceForbidden() *PutDataSourceForbidden {
 /*
 PutDataSourceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutDataSourceForbidden struct {
 	Payload *models.RestError

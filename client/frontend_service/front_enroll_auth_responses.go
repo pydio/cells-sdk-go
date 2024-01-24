@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // FrontEnrollAuthReader is a Reader for the FrontEnrollAuth structure.
@@ -137,6 +137,7 @@ FrontEnrollAuthUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type FrontEnrollAuthUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front enroll auth unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *FrontEnrollAuthUnauthorized) Code() int {
 }
 
 func (o *FrontEnrollAuthUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized ", 401)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *FrontEnrollAuthUnauthorized) String() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized ", 401)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *FrontEnrollAuthUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *FrontEnrollAuthUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewFrontEnrollAuthForbidden() *FrontEnrollAuthForbidden {
 /*
 FrontEnrollAuthForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type FrontEnrollAuthForbidden struct {
 	Payload *models.RestError

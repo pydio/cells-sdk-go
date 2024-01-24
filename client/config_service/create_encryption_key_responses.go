@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // CreateEncryptionKeyReader is a Reader for the CreateEncryptionKey structure.
@@ -137,6 +137,7 @@ CreateEncryptionKeyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type CreateEncryptionKeyUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create encryption key unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *CreateEncryptionKeyUnauthorized) Code() int {
 }
 
 func (o *CreateEncryptionKeyUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized ", 401)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *CreateEncryptionKeyUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized ", 401)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *CreateEncryptionKeyUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *CreateEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewCreateEncryptionKeyForbidden() *CreateEncryptionKeyForbidden {
 /*
 CreateEncryptionKeyForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type CreateEncryptionKeyForbidden struct {
 	Payload *models.RestError

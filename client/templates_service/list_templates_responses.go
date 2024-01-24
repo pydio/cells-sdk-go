@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // ListTemplatesReader is a Reader for the ListTemplates structure.
@@ -137,6 +137,7 @@ ListTemplatesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListTemplatesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list templates unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *ListTemplatesUnauthorized) Code() int {
 }
 
 func (o *ListTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized ", 401)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *ListTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized ", 401)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *ListTemplatesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewListTemplatesForbidden() *ListTemplatesForbidden {
 /*
 ListTemplatesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListTemplatesForbidden struct {
 	Payload *models.RestError

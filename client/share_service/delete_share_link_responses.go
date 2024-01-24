@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // DeleteShareLinkReader is a Reader for the DeleteShareLink structure.
@@ -137,6 +137,7 @@ DeleteShareLinkUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type DeleteShareLinkUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete share link unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *DeleteShareLinkUnauthorized) Code() int {
 }
 
 func (o *DeleteShareLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized ", 401)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *DeleteShareLinkUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized ", 401)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteShareLinkUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewDeleteShareLinkForbidden() *DeleteShareLinkForbidden {
 /*
 DeleteShareLinkForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteShareLinkForbidden struct {
 	Payload *models.RestError

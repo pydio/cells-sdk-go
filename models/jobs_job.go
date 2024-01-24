@@ -72,6 +72,9 @@ type JobsJob struct {
 	// Collect chain of actions into a merged output
 	MergeAction *JobsAction `json:"MergeAction,omitempty"`
 
+	// Additional user-defined metadata, can be used for icon, documentation, pre-requisites, etc.
+	Metadata map[string]string `json:"Metadata,omitempty"`
+
 	// Timestamp for modification time
 	ModifiedAt int32 `json:"ModifiedAt,omitempty"`
 

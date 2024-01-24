@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // SendReader is a Reader for the Send structure.
@@ -137,6 +137,7 @@ SendUnauthorized describes a response with status code 401, with default header 
 User is not authenticated
 */
 type SendUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this send unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *SendUnauthorized) Code() int {
 }
 
 func (o *SendUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized ", 401)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *SendUnauthorized) String() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized ", 401)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SendUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewSendForbidden() *SendForbidden {
 /*
 SendForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SendForbidden struct {
 	Payload *models.RestError

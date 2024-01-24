@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // PutConfigReader is a Reader for the PutConfig structure.
@@ -139,6 +139,7 @@ PutConfigUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type PutConfigUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put config unauthorized response has a 2xx status code
@@ -172,14 +173,25 @@ func (o *PutConfigUnauthorized) Code() int {
 }
 
 func (o *PutConfigUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *PutConfigUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PutConfigUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutConfigUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +204,7 @@ func NewPutConfigForbidden() *PutConfigForbidden {
 /*
 PutConfigForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutConfigForbidden struct {
 	Payload *models.RestError

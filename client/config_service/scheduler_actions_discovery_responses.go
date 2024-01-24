@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // SchedulerActionsDiscoveryReader is a Reader for the SchedulerActionsDiscovery structure.
@@ -137,6 +137,7 @@ SchedulerActionsDiscoveryUnauthorized describes a response with status code 401,
 User is not authenticated
 */
 type SchedulerActionsDiscoveryUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler actions discovery unauthorized response has a 2xx status code
@@ -170,14 +171,25 @@ func (o *SchedulerActionsDiscoveryUnauthorized) Code() int {
 }
 
 func (o *SchedulerActionsDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized ", 401)
+	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *SchedulerActionsDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized ", 401)
+	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SchedulerActionsDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SchedulerActionsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +202,7 @@ func NewSchedulerActionsDiscoveryForbidden() *SchedulerActionsDiscoveryForbidden
 /*
 SchedulerActionsDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SchedulerActionsDiscoveryForbidden struct {
 	Payload *models.RestError
