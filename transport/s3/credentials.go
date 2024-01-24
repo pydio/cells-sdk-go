@@ -11,14 +11,18 @@ import (
 	"github.com/pydio/cells-sdk-go/v5/transport"
 )
 
-func NewCredentialsProvider(store transport.ConfigStore, sdc *cells_sdk.SdkConfig) aws.CredentialsProvider {
-	if sdc.Password != "" && sdc.User != "" {
-		return &LegacyCredentialsProvider{sdc}
-	} else if sdc.RefreshToken != "" {
-		return &OAuthCredentialsProvider{store: store, config: sdc}
-	} else {
-		return &PatCredentialsProvider{sdc}
+func NewCredentialsProvider(store transport.ConfigStore, sdc *cells_sdk.SdkConfig) (aws.CredentialsProvider, error) {
+	switch sdc.AuthType {
+	case cells_sdk.AuthTypeOAuth:
+		return &OAuthCredentialsProvider{store: store, config: sdc}, nil
+	case cells_sdk.AuthTypePat:
+		return &PatCredentialsProvider{sdc}, nil
+	case cells_sdk.AuthTypeClientAuth:
+		return &LegacyCredentialsProvider{sdc}, nil
+	default:
+		return nil, fmt.Errorf("unsupported auth type %s, we cannot create a relevant AWS provider")
 	}
+
 }
 
 type PatCredentialsProvider struct {

@@ -11,31 +11,47 @@ import (
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
 type SdkConfig struct {
 
+	// Auth type is a convenience flag to store the type of authentication used by this SDK config
+	// in v5, we support: PAT (Personal Access Token), OAuth2 (based on a JWT retrieved interreactively via OAuth credential flow) and Basic (login/password, less secured)
+	AuthType string `json:"authType,omitempty"`
+
 	// Url stores domain name or IP & port to the server.
 	Url string `json:"url"`
 	// Username (login) for the currenly configured Pydio Account
 	User string `json:"user"`
 
-	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow
+	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow.
 	IdToken string `json:"idToken,omitempty"`
 
 	// OIDC Code Flow additional info
-	RefreshToken   string `json:"refreshToken,omitempty"`
-	TokenExpiresAt int    `json:"tokenExpiresAt,omitempty"`
+	// RefreshToken holds the token to refresh your JWT. Warning: this token can be used only **once**, it is then blocked on the server side.
+	RefreshToken string `json:"refreshToken,omitempty"`
+	// TokenExpiresAt holds the expiration timestamp for the current JWT.
+	TokenExpiresAt int `json:"tokenExpiresAt,omitempty"`
 
-	// Password for client credential authentification (Legacy, less secure)
+	// Password for client credential authentification (Legacy, less secure).
 	Password string `json:"password,omitempty"`
 
-	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
+	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates.
 	SkipVerify bool `json:"skipVerify"`
 
 	// UseTokenCache flags wether we should rely on a local cache to avoid retrieving a new JWT token at each request.
 	// It is useful to *not* use the cache when running connection tests for instance.
 	UseTokenCache bool `json:"useTokenCache"`
 
-	// Optional list of headers to override in requests, typically User-Agent
+	// CustomHeaders holds an optional list of headers to be overriden in requests, e.g the User-Agent.
 	CustomHeaders map[string]string
 }
+
+const (
+	// Supported Auth types for v5+.
+	// AuthTypePat relies on a Personal Access Token generated on the server for a given user.
+	AuthTypePat = "PAT"
+	// AuthTypeClientAuth is the legacy authentication method, based on user password: this is less secured.
+	AuthTypeClientAuth = "Basic"
+	// AuthTypeOAuth uses OAuth2 credential retrieval flow.
+	AuthTypeOAuth = "OAuth2"
+)
 
 // Make SdkConfig implement the TokenProvider interface
 
