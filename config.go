@@ -46,11 +46,11 @@ type SdkConfig struct {
 const (
 	// Supported Auth types for v5+.
 	// AuthTypePat relies on a Personal Access Token generated on the server for a given user.
-	AuthTypePat = "PAT"
+	AuthTypePat = "pat"
 	// AuthTypeClientAuth is the legacy authentication method, based on user password: this is less secured.
-	AuthTypeClientAuth = "Basic"
+	AuthTypeClientAuth = "session"
 	// AuthTypeOAuth uses OAuth2 credential retrieval flow.
-	AuthTypeOAuth = "OAuth2"
+	AuthTypeOAuth = "oauth2"
 )
 
 // Make SdkConfig implement the TokenProvider interface

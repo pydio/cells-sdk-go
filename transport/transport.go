@@ -14,7 +14,32 @@ const (
 )
 
 type Option func(t *http.Transport) *http.Transport
+
 type RoundTripOption func(t http.RoundTripper) http.RoundTripper
+
+// New creates a new default http transport with the passed transport and roundtrip options.
+func New(options ...interface{}) http.RoundTripper {
+
+	// Creates a new default http transport and applies relevant transport options
+	newTransport := &http.Transport{}
+	for _, o := range options {
+		switch typed := o.(type) {
+		case Option:
+			newTransport = typed(newTransport)
+		}
+	}
+
+	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
+	var roundTrip http.RoundTripper
+	roundTrip = newTransport
+	for _, o := range options {
+		switch typed := o.(type) {
+		case RoundTripOption:
+			roundTrip = typed(roundTrip)
+		}
+	}
+	return roundTrip
+}
 
 type ConfigStore interface {
 	RefreshIfRequired(*cells_sdk.SdkConfig) (bool, error)
@@ -23,28 +48,6 @@ type ConfigStore interface {
 type TokenProvider interface {
 	Retrieve() (string, error)
 	Expired() bool
-}
-
-func New(options ...interface{}) http.RoundTripper {
-	// First go through Transport options
-	baseT := &http.Transport{}
-	for _, o := range options {
-		switch typed := o.(type) {
-		case Option:
-			baseT = typed(baseT)
-		}
-	}
-
-	// Now use transport as a RoundTripper and go through RoundTripOptions
-	var roundTrip http.RoundTripper
-	roundTrip = baseT
-	for _, o := range options {
-		switch typed := o.(type) {
-		case RoundTripOption:
-			roundTrip = typed(roundTrip)
-		}
-	}
-	return roundTrip
 }
 
 func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (TokenProvider, error) {
