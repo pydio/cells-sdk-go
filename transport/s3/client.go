@@ -10,9 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v4"
-	"github.com/pydio/cells-sdk-go/v4/transport"
-	http2 "github.com/pydio/cells-sdk-go/v4/transport/http"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	"github.com/pydio/cells-sdk-go/v5/transport"
+	http2 "github.com/pydio/cells-sdk-go/v5/transport/http"
 )
 
 func GetClient(store transport.ConfigStore, sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/pydio/cells-sdk-go/v4/example/cmd"
+	"github.com/pydio/cells-sdk-go/v5/example/cmd"
 )
 
 func main() {

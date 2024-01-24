@@ -7,8 +7,8 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v4"
-	"github.com/pydio/cells-sdk-go/v4/transport"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	"github.com/pydio/cells-sdk-go/v5/transport"
 )
 
 func NewCredentialsProvider(store transport.ConfigStore, sdc *cells_sdk.SdkConfig) aws.CredentialsProvider {

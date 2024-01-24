@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v4"
-	"github.com/pydio/cells-sdk-go/v4/transport"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	"github.com/pydio/cells-sdk-go/v5/transport"
 )
 
 // GetClient provides an option to rather use an HTTP client that ignores SSL certificate issues.

@@ -18,7 +18,7 @@ For more information, please visit our [developer guide](https://pydio.com/en/do
 The library is publicly available, simply:
 
 ```sh
-go get github.com/pydio/cells-sdk-go/v4 
+go get github.com/pydio/cells-sdk-go/v5 
 ```
 
 and import necessary sub packages in your code.
@@ -28,6 +28,13 @@ The `transport` package provides utilitary methods to ease the set up of a commu
 You can also have a look at the [Cells client repository](https://github.com/pydio/cells-client) to see more working examples.
 
 ## Migrate from older versions
+
+### From Cells v4.0
+
+For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
+
+If you are relying of some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you will have to update your code.
+You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
 
 ### From Cells v3
 

@@ -8,9 +8,9 @@ import (
 	"github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v4"
-	client2 "github.com/pydio/cells-sdk-go/v4/client"
-	"github.com/pydio/cells-sdk-go/v4/transport"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	client2 "github.com/pydio/cells-sdk-go/v5/client"
+	"github.com/pydio/cells-sdk-go/v5/transport"
 )
 
 func GetClient(sdkConfig *cells_sdk.SdkConfig, anon bool) (context.Context, *client2.PydioCellsRestAPI, error) {

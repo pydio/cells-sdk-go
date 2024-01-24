@@ -12,9 +12,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/spf13/cobra"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v4"
-	"github.com/pydio/cells-sdk-go/v4/transport"
-	ts3 "github.com/pydio/cells-sdk-go/v4/transport/s3"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	"github.com/pydio/cells-sdk-go/v5/transport"
+	ts3 "github.com/pydio/cells-sdk-go/v5/transport/s3"
 )
 
 var (

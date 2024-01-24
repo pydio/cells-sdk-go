@@ -3,7 +3,7 @@ package transport
 import (
 	"net/http"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v4"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 const (
