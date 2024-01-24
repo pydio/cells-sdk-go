@@ -17,7 +17,10 @@ import (
 
 func GetClient(store transport.ConfigStore, sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.Client, error) {
 
-	s3CredProv := NewCredentialsProvider(store, sdc)
+	s3CredProv, err := NewCredentialsProvider(store, sdc)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 
 	if sdc.UseTokenCache {
 		s3CredProv = aws.NewCredentialsCache(s3CredProv, func(options *aws.CredentialsCacheOptions) {
@@ -53,58 +56,3 @@ func GetClient(store transport.ConfigStore, sdc *cells_sdk.SdkConfig, s3c *cells
 
 	return s3.NewFromConfig(cfg, fo), nil
 }
-
-// // GetClient creates and configure a new S3 client at each request.
-// func GetClient(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (*s3.S3, error) {
-
-// 	tp, e := transport.TokenProviderFromConfig(sdc)
-// 	if e != nil {
-// 		return nil, e
-// 	}
-// 	htCl := http2.GetClient(sdc)
-// 	conf := aws.NewConfig()
-// 	conf.WithCredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp)))
-// 	conf.WithHTTPClient(htCl)
-// 	conf.WithEndpoint(s3c.Endpoint)
-// 	conf.WithRegion(s3c.Region)
-// 	s3Session, err := session.NewSession(conf)
-// 	if err != nil {
-// 		log.Fatal("cannot initialise default S3 session: " + err.Error())
-// 	}
-// 	return s3.New(s3Session), nil
-
-// }
-
-// // LoadS3Config retrieves current S3 configuration to start a new client
-// func LoadS3Config(sdc *cells_sdk.SdkConfig, s3c *cells_sdk.S3Config) (aws.Config, error) {
-// 	// tp, e := transport.TokenProviderFromConfig(sdc)
-// 	// if e != nil {
-// 	// 	return nil, e
-// 	// }
-// 	// htCl := http2.GetClient(sdc)
-
-// 	// conf := aws.NewContransportfig()
-// 	// conf.WithCredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp)))
-// 	// conf.WithHTTPClient(htCl)
-// 	// conf.WithEndpoint(s3c.Endpoint)
-// 	// conf.WithRegion(s3c.Region)
-
-// 	// s3Session, err := session.NewSession(conf)
-// 	// if err != nil {
-// 	// 	log.Fatal("cannot initialise default S3 session: " + err.Error())
-// 	// }
-
-// 	htCl := http2.GetClient(sdc)
-// 	cfg, err := config.LoadDefaultConfig(
-// 		context.TODO(),
-// 		config.WithRegion(s3c.Region),
-// 		// config.WithCtransportredentials(credentials.NewCredentials(AsS3CredentialsProvider(tp))),
-// 		config.WithHTTPClient(htCl),
-// 		// config.WithEndpoint(s3c.Endpoint),
-// 	)
-// 	if err != nil {
-// 		log.Fatal("cannot load default S3 session configuration:", err.Error())
-// 	}
-// 	return cfg, nil
-
-// }

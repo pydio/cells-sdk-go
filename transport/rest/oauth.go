@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,6 +10,7 @@ import (
 	"time"
 
 	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cells_http "github.com/pydio/cells-sdk-go/v5/transport/http"
 )
 
 type tokenResponse struct {
@@ -22,17 +22,12 @@ type tokenResponse struct {
 	StatusCode int `json:"status_code"`
 }
 
-// OAuthPrepareUrl makes a URL that can be opened in browser or copy/pasted by user
+// OAuthPrepareUrl creates an URL that can be opened in a browser or copy/pasted by the end user.
 func OAuthPrepareUrl(clientId, serverUrl, state string, browser bool) (redirectUrl string, callbackUrl string, e error) {
 
-	authU, _ := url.Parse(serverUrl)
-	authU.Path = "/oidc/oauth2/auth"
 	values := url.Values{}
 	values.Add("response_type", "code")
 	values.Add("client_id", clientId)
-	// if clientSecret != "" {
-	// 	values.Add("client_secret", clientSecret)
-	// }
 	values.Add("scope", "openid email profile pydio offline")
 	values.Add("state", state)
 	if browser {
@@ -41,30 +36,47 @@ func OAuthPrepareUrl(clientId, serverUrl, state string, browser bool) (redirectU
 		callbackUrl = serverUrl + "/oauth2/oob"
 	}
 	values.Add("redirect_uri", callbackUrl)
+
+	authU, e := url.Parse(serverUrl)
+	if e != nil {
+		return
+	}
 	authU.RawQuery = values.Encode()
-
+	authU.Path = "/oidc/oauth2/auth"
 	redirectUrl = authU.String()
-
 	return
 }
 
-// OAuthExchangeCode gets an OAuth code and retrieves an AccessToken/RefreshToken pair. It updates the passed Conf
-func OAuthExchangeCode(clientId string, c *cells_sdk.SdkConfig, code, callbackUrl string) error {
-	tokenU, _ := url.Parse(c.Url)
-	tokenU.Path = "/oidc/oauth2/token"
+// OAuthExchangeCode retrieves an AccessToken/RefreshToken pair using the passed OAuth exchange code.
+// It then updates the passed configuration.
+func OAuthExchangeCode(c *cells_sdk.SdkConfig, clientId, code, callbackUrl string) error {
+
 	values := url.Values{}
 	values.Add("grant_type", "authorization_code")
 	values.Add("code", code)
 	values.Add("redirect_uri", callbackUrl)
 	values.Add("client_id", clientId)
-	if c.SkipVerify {
-		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-	}
-	resp, err := http.Post(tokenU.String(), "application/x-www-form-urlencoded", strings.NewReader(values.Encode()))
+	// if c.SkipVerify {
+	// 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	// }
+
+	tokenU, err := url.Parse(c.Url)
 	if err != nil {
 		return err
 	}
-	b, _ := io.ReadAll(resp.Body)
+	tokenU.Path = "/oidc/oauth2/token"
+
+	httpClient := cells_http.GetClient(c)
+	resp, err := httpClient.Post(tokenU.String(), "application/x-www-form-urlencoded", strings.NewReader(values.Encode()))
+	if err != nil {
+		return err
+	}
+
+	b, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
 	var r tokenResponse
 	if err := json.Unmarshal(b, &r); err != nil {
 		return err
@@ -100,11 +112,7 @@ func RefreshJwtToken(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, err
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("Cache-Control", "no-cache")
 
-	client := http.DefaultClient
-	if sdkConfig.SkipVerify {
-		client.Transport = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
-	}
-
+	client := cells_http.GetClient(sdkConfig)
 	res, err := client.Do(httpReq)
 	if err != nil {
 		return false, err
