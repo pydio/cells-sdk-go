@@ -54,7 +54,7 @@ var addUserCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// Connect to the Pydio API via the sdkConfig
-		ctx, apiClient, err := rest.GetClient(DefaultConfig, false)
+		apiClient, err := rest.GetApiClient(DefaultConfig, false)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -81,7 +81,7 @@ var addUserCmd = &cobra.Command{
 		_, err = apiClient.UserService.PutUser(&user_service.PutUserParams{
 			Login:   newUserName,
 			Body:    newUser,
-			Context: ctx,
+			Context: cmd.Context(),
 		})
 		if err != nil {
 			log.Fatal("could not create user ", newUserName, ", aborting...\nCause:", err)

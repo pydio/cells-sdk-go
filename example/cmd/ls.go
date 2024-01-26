@@ -36,7 +36,7 @@ var listFiles = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// Connect to the pydio api via the sdkConfig
-		ctx, apiClient, err := rest.GetClient(DefaultConfig, false)
+		apiClient, err := rest.GetApiClient(DefaultConfig, false)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -45,7 +45,7 @@ var listFiles = &cobra.Command{
 			Body: &models.RestGetBulkMetaRequest{NodePaths: []string{
 				strings.TrimSuffix(lsPath, "/"),
 			}},
-			Context: ctx,
+			Context: cmd.Context(),
 		}
 
 		// Assign the files data retrieved above to the result variable
@@ -79,12 +79,12 @@ var listWorkspaces = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// Connect to the pydio api via the sdkConfig
-		ctx, apiClient, err := rest.GetClient(DefaultConfig, false)
+		apiClient, err := rest.GetApiClient(DefaultConfig, false)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		params := workspace_service.NewSearchWorkspacesParamsWithContext(ctx)
+		params := workspace_service.NewSearchWorkspacesParamsWithContext(cmd.Context())
 		queries := make([]*models.IdmWorkspaceSingleQuery, 1)
 		queries[0] = &models.IdmWorkspaceSingleQuery{Slug: lsWsSlug}
 		params.Body = &models.RestSearchWorkspaceRequest{
