@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"io"
 	"log"
 	"os"
@@ -41,12 +40,13 @@ var getFile = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		s3Conf := getS3ConfigFromSdkConfig(DefaultConfig)
-		client, e := ts3.GetClient(newDummyStore(), DefaultConfig, s3Conf)
+		cfg, e := ts3.LoadAwsConfig(cmd.Context(), newDummyStore(), DefaultConfig, s3Conf)
 		if e != nil {
 			log.Fatal(e)
 		}
+		client := ts3.NewClientFromConfig(cfg, s3Conf.Endpoint)
 
-		output, e := client.GetObject(context.TODO(), &s3.GetObjectInput{
+		output, e := client.GetObject(cmd.Context(), &s3.GetObjectInput{
 			Bucket: aws.String(s3Conf.Bucket),
 			Key:    aws.String(getPath),
 		})

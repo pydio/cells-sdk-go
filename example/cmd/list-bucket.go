@@ -12,6 +12,15 @@ import (
 	ts3 "github.com/pydio/cells-sdk-go/v5/transport/s3"
 )
 
+const (
+	// Adapt the below values to test locally, e.G with a local minio server.
+	testLocally    = false
+	localUrl       = "http://192.168.0.10:9000"
+	localRegion    = "us-east-1"
+	localAccessKey = "nhlXm3iabssGndbuJ1ei"
+	localSecret    = "WCdpoRppTv6UPrNvRGYUa5oTmBjh2rg6Er2APpTb"
+)
+
 var listBuckets = &cobra.Command{
 	Use: "list-buckets",
 	Long: `Simply list all accessible buckets
@@ -21,20 +30,23 @@ var listBuckets = &cobra.Command{
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		s3Conf := getS3ConfigFromSdkConfig(DefaultConfig)
-		client, e := ts3.GetClient(newDummyStore(), DefaultConfig, s3Conf)
+
+		cfg, e := ts3.LoadAwsConfig(cmd.Context(), newDummyStore(), DefaultConfig, s3Conf)
 		if e != nil {
 			log.Fatal(e)
 		}
-		// Adapt below and rather use this to test on local client.
-		// client = localMinioClient()
-		doTest(cmd, client)
+		client := ts3.NewClientFromConfig(cfg, s3Conf.Endpoint)
 
+		if testLocally {
+			client = localMinioClient(cmd.Context())
+		}
+		doTest(cmd, client)
 	},
 }
 
 func doTest(cmd *cobra.Command, client *s3.Client) {
 	o, e := client.ListBuckets(
-		context.TODO(),
+		cmd.Context(),
 		&s3.ListBucketsInput{},
 	)
 	if e != nil {
@@ -46,16 +58,13 @@ func doTest(cmd *cobra.Command, client *s3.Client) {
 	}
 }
 
-// localMinioClient simply perform a comparative test on a local minio server
-func localMinioClient() *s3.Client {
-
-	localUrl := "http://192.168.0.136:9000"
-	localAccessKey := "nhlXm2iabssGndbuJ1ei"
-	localSecret := "WCdpoRdBTv6UPrNvRGYUa5oTmBjh2rg6Er2APpTb"
+// localMinioClient simply perform a comparative test on a local minio server.
+// Adapt the hard-coded constants (see above) to fit with your test setup.
+func localMinioClient(ctx context.Context) *s3.Client {
 
 	cfg, err := config.LoadDefaultConfig(
-		context.TODO(),
-		config.WithRegion("us-east-1"),
+		ctx,
+		config.WithRegion(localRegion),
 		config.WithCredentialsProvider(&MyProvider{
 			AccessKey: localAccessKey,
 			Secret:    localSecret,
