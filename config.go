@@ -129,14 +129,14 @@ func NewS3Config() *S3Config {
 	}
 }
 
-// Log is a temporary hack to help while debugging.
-func Log(format string, a ...any) {
-	// TODO implement a real logger support
-	//   also in between Un-comment addtional strings
-	//   below to debug while having a progress bar (scp...)
-	// fmt.Println("")
-	// fmt.Println("")
-	fmt.Println(fmt.Sprintf(format, a...))
-	// fmt.Println("")
-	// fmt.Println("")
-}
+//// Log is a temporary hack to help while debugging.
+//func Log(format string, a ...any) {
+//	// TODO implement a real logger support
+//	//   also in between Un-comment addtional strings
+//	//   below to debug while having a progress bar (scp...)
+//	// fmt.Println("")
+//	// fmt.Println("")
+//	fmt.Println(fmt.Sprintf(format, a...))
+//	// fmt.Println("")
+//	// fmt.Println("")
+//}

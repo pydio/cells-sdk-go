@@ -11,17 +11,36 @@ import (
 	"github.com/pydio/cells-sdk-go/v5/transport"
 )
 
-func NewCredentialsProvider(sdc *cells_sdk.SdkConfig) (aws.CredentialsProvider, error) {
+func NewCredentialsProvider(sdc *cells_sdk.SdkConfig, options ...interface{}) (aws.CredentialsProvider, error) {
+
+	var provider cells_sdk.CellsCredentialsProvider
+
 	switch sdc.AuthType {
 	case cells_sdk.AuthTypeOAuth:
-		return &OAuthCredentialsProvider{config: sdc}, nil
+		provider = &OAuthCredentialsProvider{config: sdc}
+		break
 	case cells_sdk.AuthTypePat:
-		return &PatCredentialsProvider{sdc}, nil
+		provider = &PatCredentialsProvider{config: sdc}
+		break
 	case cells_sdk.AuthTypeClientAuth:
-		return &LegacyCredentialsProvider{sdc}, nil
+		provider = &LegacyCredentialsProvider{config: sdc}
+		break
 	default:
 		return nil, fmt.Errorf("unsupported auth type %s, we cannot create a relevant AWS provider", sdc.AuthType)
 	}
+
+	// Apply passed options if any of them is relevant here for this class, e.G to set CellsConfigStore.
+	for _, o := range options {
+		switch typed := o.(type) {
+		case cells_sdk.CredentialProviderOption:
+			provider = typed(provider)
+			// 	break
+			// default:
+			// 	fmt.Println("... NOT a Cred prov option")
+		}
+	}
+
+	return provider, nil
 }
 
 type PatCredentialsProvider struct {
@@ -43,8 +62,11 @@ func (pcp *PatCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials,
 	}, nil
 }
 
+func (pcp *PatCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {}
+
 type LegacyCredentialsProvider struct {
 	config *cells_sdk.SdkConfig
+	store  cells_sdk.ConfigStore
 }
 
 func (lcp *LegacyCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials, error) {
@@ -72,9 +94,11 @@ func (lcp *LegacyCredentialsProvider) Retrieve(_ context.Context) (aws.Credentia
 	return cred, nil
 }
 
+func (pcp *LegacyCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {}
+
 type OAuthCredentialsProvider struct {
-	store  cells_sdk.ConfigStore
 	config *cells_sdk.SdkConfig
+	store  cells_sdk.ConfigStore
 }
 
 func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
@@ -90,7 +114,9 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 		Expires:         expiration,
 	}
 
-	// FIXME
+	if ocp.store == nil {
+		return currCreds, fmt.Errorf("cannot retrieve OAuth credentials without a store")
+	}
 	refreshed, err := ocp.store.RefreshIfRequired(ocp.config)
 	if err != nil {
 		return aws.Credentials{}, err
@@ -104,7 +130,6 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 	return currCreds, nil
 }
 
-//func getStore(config *cells_sdk.SdkConfig) transport.ConfigStore {
-//	return config
-//
-//}
+func (ocp *OAuthCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {
+	ocp.store = store
+}

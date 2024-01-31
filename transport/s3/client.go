@@ -13,7 +13,7 @@ import (
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.
 func LoadConfig(ctx context.Context, sdc *cells_sdk.SdkConfig, options ...interface{}) (aws.Config, error) {
 
-	s3CredProv, err := NewCredentialsProvider(sdc)
+	s3CredProv, err := NewCredentialsProvider(sdc, options...)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -41,8 +41,6 @@ func LoadConfig(ctx context.Context, sdc *cells_sdk.SdkConfig, options ...interf
 			cfg = typed(cfg)
 		}
 	}
-	// cfg.Region = s3c.Region
-
 	return cfg, err
 }
 
