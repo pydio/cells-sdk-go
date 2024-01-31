@@ -1,10 +1,12 @@
-package transport
+package http
 
 import (
 	"net/http"
+
+	"github.com/pydio/cells-sdk-go/v5"
 )
 
-func WithBearer(provider TokenProvider) RoundTripOption {
+func WithBearer(provider cells_sdk.TokenProvider) cells_sdk.RoundTripOption {
 	return func(t http.RoundTripper) http.RoundTripper {
 		return &bearerRoundTripper{rt: t, tp: provider}
 	}
@@ -12,7 +14,7 @@ func WithBearer(provider TokenProvider) RoundTripOption {
 
 type bearerRoundTripper struct {
 	rt http.RoundTripper
-	tp TokenProvider
+	tp cells_sdk.TokenProvider
 }
 
 func (r *bearerRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {

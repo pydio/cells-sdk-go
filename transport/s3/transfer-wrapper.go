@@ -18,8 +18,8 @@ const bufferSizeInKB = 1024
 // bufferSize caches the size in bytes that is effectively used.
 const bufferSize = bufferSizeInKB * 1024
 
-// CallbackTransferProvider provide an access to the real transfer process when using the AWS S3 upload manager,
-// e.g to get more logs
+// CallbackTransferProvider provides access to the real transfer process when using the AWS S3 upload manager,
+// e.g. to get more logs
 type CallbackTransferProvider struct {
 	targetName string
 	fileSize   int64

@@ -34,7 +34,7 @@ var ExampleCmd = &cobra.Command{
 
 Pydio Cells comes with a powerful REST API that exposes various endpoints and enable management of a running Cells instance.
 As a convenience, the Pydio team also provide a ready to use SDK for the Go language that encapsulates the boiling code to wire things 
-and provides a few chosen utilitary methods to ease implemantation when using the SDK in various Go programs.
+and provides a few chosen useful methods to ease implementation when using the SDK in various Go programs.
 
 The children commands defined here show some basic examples of what can be achieved when combining the use of this SDK with 
 the powerful Cobra framework to easily implement small CLI client applications.
@@ -42,7 +42,6 @@ the powerful Cobra framework to easily implement small CLI client applications.
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 
 		if configFile == "" { // No config file is found, parsing from parameters
-
 			// Also insure all necessary parameters are defined
 			var msg string
 			if host == "" {
@@ -50,6 +49,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			}
 			if personalToken != "" {
 				DefaultConfig = &cells_sdk.SdkConfig{
+					AuthType:   cells_sdk.AuthTypePat,
 					Url:        host,
 					SkipVerify: skipVerify,
 					IdToken:    personalToken,
@@ -70,13 +70,12 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			}
 
 			DefaultConfig = &cells_sdk.SdkConfig{
+				AuthType:   cells_sdk.AuthTypeClientAuth,
 				Url:        host,
 				SkipVerify: skipVerify,
 				User:       user,
 				Password:   pwd,
-				IdToken:    personalToken,
 			}
-
 			return
 		}
 

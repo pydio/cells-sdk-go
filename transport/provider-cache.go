@@ -10,17 +10,17 @@ import (
 )
 
 var (
-	pCache     map[string]TokenProvider
+	pCache     map[string]cells_sdk.TokenProvider
 	pCacheLock sync.Mutex
 )
 
 func initCache() {
 	if pCache == nil {
-		pCache = make(map[string]TokenProvider)
+		pCache = make(map[string]cells_sdk.TokenProvider)
 	}
 }
 
-func WithProviderCache(provider TokenProvider, c *cells_sdk.SdkConfig) TokenProvider {
+func WithProviderCache(provider cells_sdk.TokenProvider, c *cells_sdk.SdkConfig) cells_sdk.TokenProvider {
 	initCache()
 	pCacheLock.Lock()
 	defer pCacheLock.Unlock()

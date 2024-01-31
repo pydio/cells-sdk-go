@@ -2,6 +2,7 @@ package rest
 
 import (
 	"context"
+	"github.com/pydio/cells-sdk-go/v5/transport/http"
 	"net/url"
 
 	"github.com/go-openapi/runtime"
@@ -14,7 +15,7 @@ import (
 )
 
 func GetApiClient(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (*client2.PydioCellsRestAPI, error) {
-	apiClient, err := GetApiTransport(sdkConfig, false)
+	apiClient, err := GetApiTransport(sdkConfig, anonymous)
 	if err != nil {
 		return nil, err
 	}
@@ -28,15 +29,15 @@ func GetApiTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (*client.Ru
 	}
 	tp := client.New(u.Host, transport.CellsApiResourcePath, []string{u.Scheme})
 	transportOptions := []interface{}{
-		transport.WithSkipVerify(sdkConfig.SkipVerify),
-		transport.WithCustomHeaders(sdkConfig.CustomHeaders),
+		http.WithSkipVerify(sdkConfig.SkipVerify),
+		http.WithCustomHeaders(sdkConfig.CustomHeaders),
 	}
 	if !anonymous {
 		tp, e := transport.TokenProviderFromConfig(sdkConfig)
 		if e != nil {
 			return nil, e
 		}
-		transportOptions = append(transportOptions, transport.WithBearer(tp))
+		transportOptions = append(transportOptions, http.WithBearer(tp))
 	}
 	tp.Transport = transport.New(transportOptions...)
 	return tp, nil
@@ -60,15 +61,15 @@ func GetClientTransport(sdkConfig *cells_sdk.SdkConfig, anonymous bool) (context
 	}
 	tp := client.New(u.Host, transport.CellsApiResourcePath, []string{u.Scheme})
 	transportOptions := []interface{}{
-		transport.WithSkipVerify(sdkConfig.SkipVerify),
-		transport.WithCustomHeaders(sdkConfig.CustomHeaders),
+		http.WithSkipVerify(sdkConfig.SkipVerify),
+		http.WithCustomHeaders(sdkConfig.CustomHeaders),
 	}
 	if !anonymous {
 		tp, e := transport.TokenProviderFromConfig(sdkConfig)
 		if e != nil {
 			return nil, nil, e
 		}
-		transportOptions = append(transportOptions, transport.WithBearer(tp))
+		transportOptions = append(transportOptions, http.WithBearer(tp))
 	}
 	tp.Context = context.Background()
 	tp.Transport = transport.New(transportOptions...)

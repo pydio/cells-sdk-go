@@ -3,6 +3,7 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
+	cells_http "github.com/pydio/cells-sdk-go/v5/transport"
 	"io"
 	"net/http"
 	"net/url"
@@ -10,7 +11,6 @@ import (
 	"time"
 
 	cells_sdk "github.com/pydio/cells-sdk-go/v5"
-	cells_http "github.com/pydio/cells-sdk-go/v5/transport/http"
 )
 
 type tokenResponse struct {
@@ -67,7 +67,7 @@ func OAuthExchangeCode(c *cells_sdk.SdkConfig, clientId, code, callbackUrl strin
 	}
 	tokenU.Path = "/oidc/oauth2/token"
 
-	httpClient := cells_http.GetClient(c)
+	httpClient := cells_http.NewHttpClient(c)
 	resp, err := httpClient.Post(tokenU.String(), "application/x-www-form-urlencoded", strings.NewReader(values.Encode()))
 	if err != nil {
 		return err
@@ -113,7 +113,7 @@ func RefreshJwtToken(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, err
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("Cache-Control", "no-cache")
 
-	client := cells_http.GetClient(sdkConfig)
+	client := cells_http.NewHttpClient(sdkConfig)
 	res, err := client.Do(httpReq)
 	if err != nil {
 		return false, err

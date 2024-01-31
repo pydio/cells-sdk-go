@@ -1,10 +1,12 @@
 package transport
 
+import "github.com/pydio/cells-sdk-go/v5"
+
 type StaticTokenProvider struct {
 	staticToken string
 }
 
-func NewStaticTokenProvider(token string) TokenProvider {
+func NewStaticTokenProvider(token string) cells_sdk.TokenProvider {
 	return &StaticTokenProvider{staticToken: token}
 }
 

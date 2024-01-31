@@ -2,6 +2,7 @@ package transport
 
 import (
 	"context"
+	"github.com/pydio/cells-sdk-go/v5/transport/http"
 	"net/url"
 	"time"
 
@@ -24,7 +25,7 @@ type FrontSessionTokenProvider struct {
 	expiryDate    time.Time
 }
 
-func NewFrontSessionTokenProvider(c *cells_sdk.SdkConfig) (TokenProvider, error) {
+func NewFrontSessionTokenProvider(c *cells_sdk.SdkConfig) (cells_sdk.TokenProvider, error) {
 	u, e := url.Parse(c.Url)
 	if e != nil {
 		return nil, e
@@ -60,8 +61,8 @@ func (f *FrontSessionTokenProvider) Retrieve() (string, error) {
 	runtime := openapi.New(f.url.Host, CellsApiResourcePath, []string{f.url.Scheme})
 	runtime.Context = ctx
 	runtime.Transport = New(
-		WithSkipVerify(f.skipVerify),
-		WithCustomHeaders(f.customHeaders),
+		http.WithSkipVerify(f.skipVerify),
+		http.WithCustomHeaders(f.customHeaders),
 	)
 
 	frontRequest := frontend_service.NewFrontSessionParams().WithBody(&models.RestFrontSessionRequest{

@@ -17,7 +17,7 @@ type SdkConfig struct {
 
 	// Url stores domain name or IP & port to the server.
 	Url string `json:"url"`
-	// Username (login) for the currenly configured Pydio Account
+	// Username (login) for the currently configured Pydio Account
 	User string `json:"user"`
 
 	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow.
@@ -43,14 +43,24 @@ type SdkConfig struct {
 	CustomHeaders map[string]string
 }
 
+// Supported Authentication types for v5+
 const (
-	// Supported Auth types for v5+.
 	// AuthTypePat relies on a Personal Access Token generated on the server for a given user.
 	AuthTypePat = "pat"
 	// AuthTypeClientAuth is the legacy authentication method, based on user password: this is less secured.
 	AuthTypeClientAuth = "session"
 	// AuthTypeOAuth uses OAuth2 credential retrieval flow.
 	AuthTypeOAuth = "oauth2"
+)
+
+// Default S3 parameters
+const (
+	DefaultS3Region    = "us-east-1"
+	DefaultS3Bucket    = "io"
+	DefaultS3ApiSecret = "gatewaysecret"
+	// DefaultS3RequestTimout = -1
+	//DefaultS3UsePydioSpecificHeader =  false
+	//DefaultS3IsDebug =                 false
 )
 
 // Make SdkConfig implement the TokenProvider interface

@@ -29,13 +29,11 @@ var listBuckets = &cobra.Command{
 	$ go run main.go list-buckets -u https://files.example.com -l admin -p your-password 
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		s3Conf := getS3ConfigFromSdkConfig(DefaultConfig)
-
-		cfg, e := ts3.LoadAwsConfig(cmd.Context(), newDummyStore(), DefaultConfig, s3Conf)
+		cfg, e := ts3.LoadConfig(cmd.Context(), DefaultConfig)
 		if e != nil {
 			log.Fatal(e)
 		}
-		client := ts3.NewClientFromConfig(cfg, s3Conf.Endpoint)
+		client := ts3.NewClientFromConfig(cfg, DefaultConfig.Url)
 
 		if testLocally {
 			client = localMinioClient(cmd.Context())
@@ -74,11 +72,13 @@ func localMinioClient(ctx context.Context) *s3.Client {
 		log.Fatal("cannot load default S3 session configuration:", err.Error())
 	}
 
-	fo := func(o *s3.Options) {
-		o.BaseEndpoint = aws.String(localUrl)
-	}
+	return ts3.NewClientFromConfig(cfg, localUrl)
 
-	return s3.NewFromConfig(cfg, fo)
+	//fo := func(o *s3.Options) {
+	//	o.BaseEndpoint = aws.String(localUrl)
+	//}
+	//
+	//return s3.NewFromConfig(cfg, fo)
 }
 
 type MyProvider struct {
@@ -86,7 +86,7 @@ type MyProvider struct {
 	Secret    string
 }
 
-func (m *MyProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
+func (m *MyProvider) Retrieve(_ context.Context) (aws.Credentials, error) {
 	return aws.Credentials{
 		AccessKeyID:     m.AccessKey,
 		SecretAccessKey: m.Secret,

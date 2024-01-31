@@ -8,23 +8,17 @@ import (
 
 const (
 	CellsApiResourcePath = "/a"
-	CellsS3SecretDefault = "gatewaysecret"
-
-	UserAgentKey = "User-Agent"
+	UserAgentKey         = "User-Agent"
 )
 
-type Option func(t *http.Transport) *http.Transport
-
-type RoundTripOption func(t http.RoundTripper) http.RoundTripper
-
-// New creates a new default http transport with the passed transport and roundtrip options.
+// New creates a new default http transport with the passed transport and round-trip options.
 func New(options ...interface{}) http.RoundTripper {
 
 	// Creates a new default http transport and applies relevant transport options
 	newTransport := &http.Transport{}
 	for _, o := range options {
 		switch typed := o.(type) {
-		case Option:
+		case cells_sdk.Option:
 			newTransport = typed(newTransport)
 		}
 	}
@@ -34,14 +28,14 @@ func New(options ...interface{}) http.RoundTripper {
 	roundTrip = newTransport
 	for _, o := range options {
 		switch typed := o.(type) {
-		case RoundTripOption:
+		case cells_sdk.RoundTripOption:
 			roundTrip = typed(roundTrip)
 		}
 	}
 	return roundTrip
 }
 
-func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (TokenProvider, error) {
+func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (cells_sdk.TokenProvider, error) {
 	if c.IdToken != "" {
 		return c, nil // SdkConfig implements TokenProvider interface
 	} else {
