@@ -23,6 +23,7 @@ type tokenResponse struct {
 }
 
 // OAuthPrepareUrl creates an URL that can be opened in a browser or copy/pasted by the end user.
+// TODO rather pass a registered callbackURL
 func OAuthPrepareUrl(clientId, serverUrl, state string, browser bool) (redirectUrl string, callbackUrl string, e error) {
 
 	values := url.Values{}

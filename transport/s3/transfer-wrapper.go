@@ -8,6 +8,9 @@ import (
 	"github.com/dustin/go-humanize"
 )
 
+// TODO rather use a percentage for the logs
+// TODO investigate to insure that we cannot avoid to handle a buffer at this level
+
 // bufferSizeInKB is the human friendly size to define
 // an optimum buffer size to wrap effective file transfers.
 const bufferSizeInKB = 1024
@@ -78,6 +81,7 @@ func (p *customWrapper) Seek(offset int64, whence int) (int64, error) {
 
 // Seek implements io.WriterTo interface.
 func (p *customWrapper) WriteTo(w io.Writer) (n int64, err error) {
+
 	for {
 		readBytes, readErr := p.dataSrc.Read(p.buffer[:])
 		if readBytes > 0 {
