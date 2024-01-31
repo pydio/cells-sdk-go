@@ -41,15 +41,6 @@ func New(options ...interface{}) http.RoundTripper {
 	return roundTrip
 }
 
-type ConfigStore interface {
-	RefreshIfRequired(*cells_sdk.SdkConfig) (bool, error)
-}
-
-type TokenProvider interface {
-	Retrieve() (string, error)
-	Expired() bool
-}
-
 func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (TokenProvider, error) {
 	if c.IdToken != "" {
 		return c, nil // SdkConfig implements TokenProvider interface
