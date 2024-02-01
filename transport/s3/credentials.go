@@ -18,13 +18,10 @@ func NewCredentialsProvider(sdc *cells_sdk.SdkConfig, options ...interface{}) (a
 	switch sdc.AuthType {
 	case cells_sdk.AuthTypeOAuth:
 		provider = &OAuthCredentialsProvider{config: sdc}
-		break
 	case cells_sdk.AuthTypePat:
 		provider = &PatCredentialsProvider{config: sdc}
-		break
 	case cells_sdk.AuthTypeClientAuth:
 		provider = &LegacyCredentialsProvider{config: sdc}
-		break
 	default:
 		return nil, fmt.Errorf("unsupported auth type %s, we cannot create a relevant AWS provider", sdc.AuthType)
 	}
@@ -34,9 +31,6 @@ func NewCredentialsProvider(sdc *cells_sdk.SdkConfig, options ...interface{}) (a
 		switch typed := o.(type) {
 		case cells_sdk.CredentialProviderOption:
 			provider = typed(provider)
-			// 	break
-			// default:
-			// 	fmt.Println("... NOT a Cred prov option")
 		}
 	}
 
@@ -94,7 +88,7 @@ func (lcp *LegacyCredentialsProvider) Retrieve(_ context.Context) (aws.Credentia
 	return cred, nil
 }
 
-func (pcp *LegacyCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {}
+func (lcp *LegacyCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {}
 
 type OAuthCredentialsProvider struct {
 	config *cells_sdk.SdkConfig
@@ -105,7 +99,7 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 
 	expiration := time.Unix(int64(ocp.config.TokenExpiresAt), 0)
 
-	currCreds := aws.Credentials{
+	currCredentials := aws.Credentials{
 		AccessKeyID:     ocp.config.IdToken,
 		SecretAccessKey: cells_sdk.DefaultS3ApiSecret,
 		SessionToken:    "", // TODO
@@ -115,19 +109,19 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 	}
 
 	if ocp.store == nil {
-		return currCreds, fmt.Errorf("cannot retrieve OAuth credentials without a store")
+		return currCredentials, fmt.Errorf("cannot retrieve OAuth credentials without a store")
 	}
 	refreshed, err := ocp.store.RefreshIfRequired(ocp.config)
 	if err != nil {
 		return aws.Credentials{}, err
 	}
 	if !refreshed {
-		return currCreds, nil
+		return currCredentials, nil
 	}
 
-	currCreds.AccessKeyID = ocp.config.IdToken
-	currCreds.Expires = time.Unix(int64(ocp.config.TokenExpiresAt), 0)
-	return currCreds, nil
+	currCredentials.AccessKeyID = ocp.config.IdToken
+	currCredentials.Expires = time.Unix(int64(ocp.config.TokenExpiresAt), 0)
+	return currCredentials, nil
 }
 
 func (ocp *OAuthCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {

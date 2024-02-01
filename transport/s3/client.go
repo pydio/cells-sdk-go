@@ -34,7 +34,7 @@ func LoadConfig(ctx context.Context, sdc *cells_sdk.SdkConfig, options ...interf
 		config.WithCredentialsProvider(s3CredProv),
 	)
 
-	// apply defined aws config options, e.G to set a custom region.
+	// Apply defined AWS config options, e.G. to set a custom region.
 	for _, o := range options {
 		switch typed := o.(type) {
 		case cells_sdk.AwsConfigOption:

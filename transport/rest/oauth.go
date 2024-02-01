@@ -14,9 +14,9 @@ import (
 )
 
 const (
-	// DefaultCallbackUrl is the default URL that is registered for cells-client in the Server out of the box
+	// DefaultCallbackUrl is the default URL that is registered for cells-client in the Server out of the box.
 	DefaultCallbackUrl = "http://localhost:3000/servers/callback"
-	// NoBrowserCallbackSuffix is the Uri that is used to display a code that can be copy/pasted by the end user
+	// NoBrowserCallbackSuffix is the Uri that is used to display a code that can be copy/pasted by the end user.
 	NoBrowserCallbackSuffix = "/oauth2/oob"
 )
 
@@ -29,8 +29,7 @@ type tokenResponse struct {
 	StatusCode int `json:"status_code"`
 }
 
-// OAuthPrepareUrl creates an URL that can be opened in a browser or copy/pasted by the end user.
-// TODO rather pass a registered callbackURL
+// OAuthPrepareUrl creates a URL that can be opened in a browser or copy/pasted by the end user.
 func OAuthPrepareUrl(clientId, serverUrl, state, callbackUrl string) (redirectUrl string, e error) {
 
 	values := url.Values{}

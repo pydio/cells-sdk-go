@@ -1,7 +1,6 @@
 package s3
 
 import (
-	"fmt"
 	"io"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -15,7 +14,6 @@ import (
 // to retrieve current credentials.
 func WithCellsConfigStore(store cells_sdk.ConfigStore) cells_sdk.CredentialProviderOption {
 	return func(provider cells_sdk.CellsCredentialsProvider) cells_sdk.CellsCredentialsProvider {
-		fmt.Println("... setting cells store")
 		provider.SetConfigStore(store)
 		return provider
 	}
