@@ -13,6 +13,13 @@ import (
 	cells_sdk "github.com/pydio/cells-sdk-go/v5"
 )
 
+const (
+	// DefaultCallbackUrl is the default URL that is registered for cells-client in the Server out of the box
+	DefaultCallbackUrl = "http://localhost:3000/servers/callback"
+	// NoBrowserCallbackSuffix is the Uri that is used to display a code that can be copy/pasted by the end user
+	NoBrowserCallbackSuffix = "/oauth2/oob"
+)
+
 type tokenResponse struct {
 	AccessToken  string `json:"access_token"`
 	ExpiresIn    int    `json:"expires_in"`
@@ -24,18 +31,13 @@ type tokenResponse struct {
 
 // OAuthPrepareUrl creates an URL that can be opened in a browser or copy/pasted by the end user.
 // TODO rather pass a registered callbackURL
-func OAuthPrepareUrl(clientId, serverUrl, state string, browser bool) (redirectUrl string, callbackUrl string, e error) {
+func OAuthPrepareUrl(clientId, serverUrl, state, callbackUrl string) (redirectUrl string, e error) {
 
 	values := url.Values{}
 	values.Add("response_type", "code")
 	values.Add("client_id", clientId)
 	values.Add("scope", "openid email profile pydio offline")
 	values.Add("state", state)
-	if browser {
-		callbackUrl = "http://localhost:3000/servers/callback"
-	} else {
-		callbackUrl = serverUrl + "/oauth2/oob"
-	}
 	values.Add("redirect_uri", callbackUrl)
 
 	authU, e := url.Parse(serverUrl)
