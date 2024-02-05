@@ -12,21 +12,20 @@ type TokenProvider interface {
 	Expired() bool
 }
 
-type CellsCredentialsProvider interface {
-	aws.CredentialsProvider
-	SetConfigStore(ConfigStore)
-}
-
-type ConfigStore interface {
+type ConfigRefresher interface {
 	RefreshIfRequired(context.Context, *SdkConfig) (bool, error)
 }
 
-type Option func(*http.Transport) *http.Transport
-
-type RoundTripOption func(http.RoundTripper) http.RoundTripper
+type ConfigRefresherConsumer interface {
+	SetConfigRefresher(ConfigRefresher)
+}
 
 type HttpClientOption func(*http.Client) *http.Client
 
+type TransportOption func(*http.Transport) *http.Transport
+
+type RoundTripOption func(http.RoundTripper) http.RoundTripper
+
 type AwsConfigOption func(aws.Config) aws.Config
 
-type CredentialProviderOption func(CellsCredentialsProvider) CellsCredentialsProvider
+type CredentialProviderOption func(aws.CredentialsProvider) aws.CredentialsProvider

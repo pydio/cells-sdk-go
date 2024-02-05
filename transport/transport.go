@@ -13,7 +13,7 @@ func New(options ...interface{}) http.RoundTripper {
 	newTransport := &http.Transport{}
 	for _, o := range options {
 		switch typed := o.(type) {
-		case cellssdk.Option:
+		case cellssdk.TransportOption:
 			newTransport = typed(newTransport)
 		}
 	}

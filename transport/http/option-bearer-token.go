@@ -1,7 +1,6 @@
 package http
 
 import (
-	"context"
 	"net/http"
 
 	cellssdk "github.com/pydio/cells-sdk-go/v5"
@@ -19,7 +18,7 @@ type bearerRoundTripper struct {
 }
 
 func (r *bearerRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	if token, er := r.tp.Retrieve(context.TODO()); er == nil {
+	if token, er := r.tp.Retrieve(req.Context()); er == nil {
 		req.Header.Set("Authorization", "Bearer "+token)
 		return r.rt.RoundTrip(req)
 	} else {

@@ -12,9 +12,11 @@ import (
 // WithCellsConfigStore is the entry point to provide an external store that exposes
 // a method to refresh and store credentials and become then the unique source of truth
 // to retrieve current credentials.
-func WithCellsConfigStore(store cellssdk.ConfigStore) cellssdk.CredentialProviderOption {
-	return func(provider cellssdk.CellsCredentialsProvider) cellssdk.CellsCredentialsProvider {
-		provider.SetConfigStore(store)
+func WithCellsConfigStore(store cellssdk.ConfigRefresher) cellssdk.CredentialProviderOption {
+	return func(provider aws.CredentialsProvider) aws.CredentialsProvider {
+		if cs, ok := provider.(cellssdk.ConfigRefresherConsumer); ok {
+			cs.SetConfigRefresher(store)
+		}
 		return provider
 	}
 }

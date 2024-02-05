@@ -2,6 +2,7 @@ package s3
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -13,7 +14,17 @@ import (
 )
 
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.
+// It returns an error if the passed option are not one of the supported type that are:
+// cellssdk.HttpClientOption, cellssdk.TransportOption, cellssdk.RoundTripOption, cellssdk.AwsConfigOption, cellssdk.CredentialProviderOption
 func LoadConfig(ctx context.Context, sdc *cellssdk.SdkConfig, options ...interface{}) (aws.Config, error) {
+
+	for _, o := range options {
+		switch o.(type) {
+		case cellssdk.HttpClientOption, cellssdk.TransportOption, cellssdk.RoundTripOption, cellssdk.AwsConfigOption, cellssdk.CredentialProviderOption:
+		default:
+			return aws.Config{}, fmt.Errorf("unsupported option type")
+		}
+	}
 
 	s3CredProv, err := NewCredentialsProvider(sdc, options...)
 	if err != nil {

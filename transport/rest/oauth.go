@@ -30,7 +30,7 @@ type tokenResponse struct {
 }
 
 // OAuthPrepareUrl creates a URL that can be opened in a browser or copy/pasted by the end user.
-func OAuthPrepareUrl(clientId, serverUrl, state, callbackUrl string) (redirectUrl string, e error) {
+func OAuthPrepareUrl(clientId, state, serverUrl, callbackUrl string) (preparedUrl string, e error) {
 
 	values := url.Values{}
 	values.Add("response_type", "code")
@@ -45,7 +45,7 @@ func OAuthPrepareUrl(clientId, serverUrl, state, callbackUrl string) (redirectUr
 	}
 	authU.RawQuery = values.Encode()
 	authU.Path = "/oidc/oauth2/auth"
-	redirectUrl = authU.String()
+	preparedUrl = authU.String()
 	return
 }
 
@@ -58,9 +58,6 @@ func OAuthExchangeCode(c *cellssdk.SdkConfig, clientId, code, callbackUrl string
 	values.Add("code", code)
 	values.Add("redirect_uri", callbackUrl)
 	values.Add("client_id", clientId)
-	// if c.SkipVerify {
-	// 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-	// }
 
 	tokenU, err := url.Parse(c.Url)
 	if err != nil {
@@ -137,6 +134,5 @@ func RefreshJwtToken(clientId string, sdkConfig *cellssdk.SdkConfig) (bool, erro
 	sdkConfig.RefreshToken = respMap.RefreshToken
 	sdkConfig.TokenExpiresAt = int(time.Now().Unix()) + respMap.ExpiresIn
 
-	// cells_sdk.Log("... Token for %s has been refreshed", sdkConfig.GetId())
 	return true, nil
 }
