@@ -34,7 +34,6 @@ var listBuckets = &cobra.Command{
 			log.Fatal(e)
 		}
 		client := ts3.NewClientFromConfig(cfg, DefaultConfig.Url)
-
 		if testLocally {
 			client = localMinioClient(cmd.Context())
 		}
@@ -73,12 +72,6 @@ func localMinioClient(ctx context.Context) *s3.Client {
 	}
 
 	return ts3.NewClientFromConfig(cfg, localUrl)
-
-	//fo := func(o *s3.Options) {
-	//	o.BaseEndpoint = aws.String(localUrl)
-	//}
-	//
-	//return s3.NewFromConfig(cfg, fo)
 }
 
 type MyProvider struct {

@@ -7,20 +7,20 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 	"github.com/pydio/cells-sdk-go/v5/transport"
 )
 
-func NewCredentialsProvider(sdc *cells_sdk.SdkConfig, options ...interface{}) (aws.CredentialsProvider, error) {
+func NewCredentialsProvider(sdc *cellssdk.SdkConfig, options ...interface{}) (aws.CredentialsProvider, error) {
 
-	var provider cells_sdk.CellsCredentialsProvider
+	var provider cellssdk.CellsCredentialsProvider
 
 	switch sdc.AuthType {
-	case cells_sdk.AuthTypeOAuth:
+	case cellssdk.AuthTypeOAuth:
 		provider = &OAuthCredentialsProvider{config: sdc}
-	case cells_sdk.AuthTypePat:
+	case cellssdk.AuthTypePat:
 		provider = &PatCredentialsProvider{config: sdc}
-	case cells_sdk.AuthTypeClientAuth:
+	case cellssdk.AuthTypeClientAuth:
 		provider = &LegacyCredentialsProvider{config: sdc}
 	default:
 		return nil, fmt.Errorf("unsupported auth type %s, we cannot create a relevant AWS provider", sdc.AuthType)
@@ -29,7 +29,7 @@ func NewCredentialsProvider(sdc *cells_sdk.SdkConfig, options ...interface{}) (a
 	// Apply passed options if any of them is relevant here for this class, e.G to set CellsConfigStore.
 	for _, o := range options {
 		switch typed := o.(type) {
-		case cells_sdk.CredentialProviderOption:
+		case cellssdk.CredentialProviderOption:
 			provider = typed(provider)
 		}
 	}
@@ -38,7 +38,7 @@ func NewCredentialsProvider(sdc *cells_sdk.SdkConfig, options ...interface{}) (a
 }
 
 type PatCredentialsProvider struct {
-	config *cells_sdk.SdkConfig
+	config *cellssdk.SdkConfig
 }
 
 func (pcp *PatCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials, error) {
@@ -49,21 +49,21 @@ func (pcp *PatCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials,
 
 	return aws.Credentials{
 		AccessKeyID:     pcp.config.IdToken,
-		SecretAccessKey: cells_sdk.DefaultS3ApiSecret,
+		SecretAccessKey: cellssdk.DefaultS3ApiSecret,
 		SessionToken:    "",
 		Source:          pcp.config.Url,
 		CanExpire:       false,
 	}, nil
 }
 
-func (pcp *PatCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {}
+func (pcp *PatCredentialsProvider) SetConfigStore(_ cellssdk.ConfigStore) {}
 
 type LegacyCredentialsProvider struct {
-	config *cells_sdk.SdkConfig
-	store  cells_sdk.ConfigStore
+	config *cellssdk.SdkConfig
+	store  cellssdk.ConfigStore
 }
 
-func (lcp *LegacyCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials, error) {
+func (lcp *LegacyCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
 
 	if lcp.config.User == "" || lcp.config.Password == "" {
 		return aws.Credentials{}, fmt.Errorf("cannot connect without login and password")
@@ -73,13 +73,13 @@ func (lcp *LegacyCredentialsProvider) Retrieve(_ context.Context) (aws.Credentia
 	if e != nil {
 		return aws.Credentials{}, e
 	}
-	token, e := tp.Retrieve()
+	token, e := tp.Retrieve(ctx)
 	if e != nil {
 		return aws.Credentials{}, fmt.Errorf("could not retrieve token from legacy credentials, cause: %s", e.Error())
 	}
 	cred := aws.Credentials{
 		AccessKeyID:     token,
-		SecretAccessKey: cells_sdk.DefaultS3ApiSecret,
+		SecretAccessKey: cellssdk.DefaultS3ApiSecret,
 		SessionToken:    "", // TODO
 		Source:          lcp.config.Url,
 		CanExpire:       true,
@@ -88,11 +88,11 @@ func (lcp *LegacyCredentialsProvider) Retrieve(_ context.Context) (aws.Credentia
 	return cred, nil
 }
 
-func (lcp *LegacyCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {}
+func (lcp *LegacyCredentialsProvider) SetConfigStore(_ cellssdk.ConfigStore) {}
 
 type OAuthCredentialsProvider struct {
-	config *cells_sdk.SdkConfig
-	store  cells_sdk.ConfigStore
+	config *cellssdk.SdkConfig
+	store  cellssdk.ConfigStore
 }
 
 func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
@@ -101,7 +101,7 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 
 	currCredentials := aws.Credentials{
 		AccessKeyID:     ocp.config.IdToken,
-		SecretAccessKey: cells_sdk.DefaultS3ApiSecret,
+		SecretAccessKey: cellssdk.DefaultS3ApiSecret,
 		SessionToken:    "", // TODO
 		Source:          ocp.config.Url,
 		CanExpire:       true,
@@ -111,7 +111,7 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 	if ocp.store == nil {
 		return currCredentials, fmt.Errorf("cannot retrieve OAuth credentials without a store")
 	}
-	refreshed, err := ocp.store.RefreshIfRequired(ocp.config)
+	refreshed, err := ocp.store.RefreshIfRequired(ctx, ocp.config)
 	if err != nil {
 		return aws.Credentials{}, err
 	}
@@ -124,6 +124,6 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 	return currCredentials, nil
 }
 
-func (ocp *OAuthCredentialsProvider) SetConfigStore(store cells_sdk.ConfigStore) {
+func (ocp *OAuthCredentialsProvider) SetConfigStore(store cellssdk.ConfigStore) {
 	ocp.store = store
 }

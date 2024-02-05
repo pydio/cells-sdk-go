@@ -3,14 +3,14 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
-	cells_http "github.com/pydio/cells-sdk-go/v5/transport"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellshttp "github.com/pydio/cells-sdk-go/v5/transport"
 )
 
 const (
@@ -51,7 +51,7 @@ func OAuthPrepareUrl(clientId, serverUrl, state, callbackUrl string) (redirectUr
 
 // OAuthExchangeCode retrieves an AccessToken/RefreshToken pair using the passed OAuth exchange code.
 // It then updates the passed configuration.
-func OAuthExchangeCode(c *cells_sdk.SdkConfig, clientId, code, callbackUrl string) error {
+func OAuthExchangeCode(c *cellssdk.SdkConfig, clientId, code, callbackUrl string) error {
 
 	values := url.Values{}
 	values.Add("grant_type", "authorization_code")
@@ -68,7 +68,7 @@ func OAuthExchangeCode(c *cells_sdk.SdkConfig, clientId, code, callbackUrl strin
 	}
 	tokenU.Path = "/oidc/oauth2/token"
 
-	httpClient := cells_http.NewHttpClient(c)
+	httpClient := cellshttp.NewHttpClient(c)
 	resp, err := httpClient.Post(tokenU.String(), "application/x-www-form-urlencoded", strings.NewReader(values.Encode()))
 	if err != nil {
 		return err
@@ -95,7 +95,7 @@ func OAuthExchangeCode(c *cells_sdk.SdkConfig, clientId, code, callbackUrl strin
 	return nil
 }
 
-func RefreshJwtToken(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, error) {
+func RefreshJwtToken(clientId string, sdkConfig *cellssdk.SdkConfig) (bool, error) {
 
 	// Not yet expired, ignore
 	if time.Unix(int64(sdkConfig.TokenExpiresAt), 0).After(time.Now().Add(60 * time.Second)) {
@@ -114,7 +114,7 @@ func RefreshJwtToken(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, err
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("Cache-Control", "no-cache")
 
-	client := cells_http.NewHttpClient(sdkConfig)
+	client := cellshttp.NewHttpClient(sdkConfig)
 	res, err := client.Do(httpReq)
 	if err != nil {
 		return false, err
@@ -122,7 +122,12 @@ func RefreshJwtToken(clientId string, sdkConfig *cells_sdk.SdkConfig) (bool, err
 		bb, _ := io.ReadAll(res.Body)
 		return false, fmt.Errorf("received status code %d - %s", res.StatusCode, string(bb))
 	}
-	defer res.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			fmt.Printf("Warning: could not close request body stream: %s", err.Error())
+		}
+	}(res.Body)
 	var respMap tokenResponse
 	err = json.NewDecoder(res.Body).Decode(&respMap)
 	if err != nil {

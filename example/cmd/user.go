@@ -40,7 +40,10 @@ var userCmd = &cobra.Command{
 	Use:   "user",
 	Short: "Set of sample commands to manage user via the API",
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		err := cmd.Usage()
+		if err != nil {
+			log.Fatalf("could not display usage helper: %s\n", err.Error())
+		}
 	},
 }
 

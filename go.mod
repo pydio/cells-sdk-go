@@ -8,12 +8,11 @@ require (
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.15.15
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.48.1
 	github.com/aws/smithy-go v1.19.0
-	github.com/dustin/go-humanize v1.0.1
 	github.com/go-openapi/errors v0.21.0
 	github.com/go-openapi/runtime v0.27.1
 	github.com/go-openapi/strfmt v0.22.0
 	github.com/go-openapi/swag v0.22.9
-	github.com/go-openapi/validate v0.22.6
+	github.com/go-openapi/validate v0.23.0
 	github.com/spf13/cobra v1.8.0
 )
 

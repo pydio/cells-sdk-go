@@ -3,7 +3,7 @@ package http
 import (
 	"net/http"
 
-	"github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 type headerRoundTripper struct {
@@ -18,7 +18,7 @@ func (c *headerRoundTripper) RoundTrip(req *http.Request) (*http.Response, error
 	return c.rt.RoundTrip(req)
 }
 
-func WithCustomHeaders(h map[string]string) cells_sdk.RoundTripOption {
+func WithCustomHeaders(h map[string]string) cellssdk.RoundTripOption {
 	return func(t http.RoundTripper) http.RoundTripper {
 		if len(h) == 0 {
 			return t

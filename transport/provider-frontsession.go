@@ -2,17 +2,17 @@ package transport
 
 import (
 	"context"
-	"github.com/pydio/cells-sdk-go/v5/transport/http"
 	"net/url"
 	"time"
 
 	openapi "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 	"github.com/pydio/cells-sdk-go/v5/client"
 	"github.com/pydio/cells-sdk-go/v5/client/frontend_service"
 	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v5/transport/http"
 )
 
 type FrontSessionTokenProvider struct {
@@ -25,7 +25,7 @@ type FrontSessionTokenProvider struct {
 	expiryDate    time.Time
 }
 
-func NewFrontSessionTokenProvider(c *cells_sdk.SdkConfig) (cells_sdk.TokenProvider, error) {
+func NewFrontSessionTokenProvider(c *cellssdk.SdkConfig) (cellssdk.TokenProvider, error) {
 	u, e := url.Parse(c.Url)
 	if e != nil {
 		return nil, e
@@ -39,7 +39,7 @@ func NewFrontSessionTokenProvider(c *cells_sdk.SdkConfig) (cells_sdk.TokenProvid
 	}, nil
 }
 
-func NewLegacyTokenProvider(c *cells_sdk.SdkConfig) (*FrontSessionTokenProvider, error) {
+func NewLegacyTokenProvider(c *cellssdk.SdkConfig) (*FrontSessionTokenProvider, error) {
 	u, e := url.Parse(c.Url)
 	if e != nil {
 		return nil, e
@@ -53,11 +53,10 @@ func NewLegacyTokenProvider(c *cells_sdk.SdkConfig) (*FrontSessionTokenProvider,
 	}, nil
 }
 
-func (f *FrontSessionTokenProvider) Retrieve() (string, error) {
+func (f *FrontSessionTokenProvider) Retrieve(ctx context.Context) (string, error) {
 	if !f.Expired() {
 		return f.token, nil
 	}
-	ctx := context.Background()
 	runtime := openapi.New(f.url.Host, CellsApiResourcePath, []string{f.url.Scheme})
 	runtime.Context = ctx
 	runtime.Transport = New(
@@ -90,10 +89,10 @@ func (f *FrontSessionTokenProvider) ExpiresAt() time.Time {
 	return f.expiryDate
 }
 
-func LoadAccessToken(c *cells_sdk.SdkConfig) (string, error) {
-	p, e := NewFrontSessionTokenProvider(c)
-	if e != nil {
-		return "", e
-	}
-	return p.Retrieve()
-}
+//func LoadAccessToken(c *cells_sdk.SdkConfig) (string, error) {
+//	p, e := NewFrontSessionTokenProvider(c)
+//	if e != nil {
+//		return "", e
+//	}
+//	return p.Retrieve(context.TODO())
+//}

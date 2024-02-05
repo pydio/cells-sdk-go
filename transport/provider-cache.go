@@ -6,21 +6,21 @@ import (
 	"fmt"
 	"sync"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 var (
-	pCache     map[string]cells_sdk.TokenProvider
+	pCache     map[string]cellssdk.TokenProvider
 	pCacheLock sync.Mutex
 )
 
 func initCache() {
 	if pCache == nil {
-		pCache = make(map[string]cells_sdk.TokenProvider)
+		pCache = make(map[string]cellssdk.TokenProvider)
 	}
 }
 
-func WithProviderCache(provider cells_sdk.TokenProvider, c *cells_sdk.SdkConfig) cells_sdk.TokenProvider {
+func WithProviderCache(provider cellssdk.TokenProvider, c *cellssdk.SdkConfig) cellssdk.TokenProvider {
 	initCache()
 	pCacheLock.Lock()
 	defer pCacheLock.Unlock()
@@ -33,7 +33,7 @@ func WithProviderCache(provider cells_sdk.TokenProvider, c *cells_sdk.SdkConfig)
 	}
 }
 
-func cacheKey(c *cells_sdk.SdkConfig) string {
+func cacheKey(c *cellssdk.SdkConfig) string {
 	var s string
 	if c.IdToken != "" {
 		s = fmt.Sprintf("%s-%s", c.Url, c.User)

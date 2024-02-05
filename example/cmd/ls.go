@@ -22,7 +22,10 @@ var lsCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "Set of sample commands to lists objects on the server via the API",
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		err := cmd.Usage()
+		if err != nil {
+			log.Fatalf("could not display usage helper: %s\n", err.Error())
+		}
 	},
 }
 

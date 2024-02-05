@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -11,23 +12,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/spf13/cobra"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 	ts3 "github.com/pydio/cells-sdk-go/v5/transport/s3"
 )
 
 var (
 	getPath string
 )
-
-type dummyConfigStore struct{}
-
-func (pcp *dummyConfigStore) RefreshIfRequired(*cells_sdk.SdkConfig) (bool, error) {
-	return false, nil
-}
-
-func newDummyStore() cells_sdk.ConfigStore {
-	return &dummyConfigStore{}
-}
 
 var getFile = &cobra.Command{
 	Use: "wget",
@@ -45,7 +36,7 @@ var getFile = &cobra.Command{
 		client := ts3.NewClientFromConfig(cfg, DefaultConfig.Url)
 
 		output, e := client.GetObject(cmd.Context(), &s3.GetObjectInput{
-			Bucket: aws.String(cells_sdk.DefaultS3Bucket),
+			Bucket: aws.String(cellssdk.DefaultS3Bucket),
 			Key:    aws.String(getPath),
 		})
 		if e != nil {
@@ -57,7 +48,12 @@ var getFile = &cobra.Command{
 		if e != nil {
 			log.Fatal(e)
 		}
-		defer target.Close()
+		defer func(target *os.File) {
+			err := target.Close()
+			if err != nil {
+				fmt.Println("[Warning] could not close file after error: ", err.Error())
+			}
+		}(target)
 		written, e := io.Copy(target, output.Body)
 		if e != nil {
 			log.Fatal(e)

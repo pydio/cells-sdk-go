@@ -3,6 +3,7 @@
 package cells_sdk
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"time"
@@ -66,7 +67,7 @@ const (
 // Make SdkConfig implement the TokenProvider interface
 
 // Retrieve simply returns the ID token that is currently held in the conf.
-func (s *SdkConfig) Retrieve() (string, error) {
+func (s *SdkConfig) Retrieve(_ context.Context) (string, error) {
 	// fmt.Println("[Debug] Retrieving token: [", s.IdToken, "], Expires at:", time.Unix(int64(s.TokenExpiresAt), 0), "\n ")
 	return s.IdToken, nil
 }
@@ -128,15 +129,3 @@ func NewS3Config() *S3Config {
 		IsDebug:                false,
 	}
 }
-
-//// Log is a temporary hack to help while debugging.
-//func Log(format string, a ...any) {
-//	// TODO implement a real logger support
-//	//   also in between Un-comment addtional strings
-//	//   below to debug while having a progress bar (scp...)
-//	// fmt.Println("")
-//	// fmt.Println("")
-//	fmt.Println(fmt.Sprintf(format, a...))
-//	// fmt.Println("")
-//	// fmt.Println("")
-//}

@@ -2,16 +2,18 @@ package s3
 
 import (
 	"context"
+	"log"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 	http2 "github.com/pydio/cells-sdk-go/v5/transport"
-	"log"
 )
 
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.
-func LoadConfig(ctx context.Context, sdc *cells_sdk.SdkConfig, options ...interface{}) (aws.Config, error) {
+func LoadConfig(ctx context.Context, sdc *cellssdk.SdkConfig, options ...interface{}) (aws.Config, error) {
 
 	s3CredProv, err := NewCredentialsProvider(sdc, options...)
 	if err != nil {
@@ -37,7 +39,7 @@ func LoadConfig(ctx context.Context, sdc *cells_sdk.SdkConfig, options ...interf
 	// Apply defined AWS config options, e.G. to set a custom region.
 	for _, o := range options {
 		switch typed := o.(type) {
-		case cells_sdk.AwsConfigOption:
+		case cellssdk.AwsConfigOption:
 			cfg = typed(cfg)
 		}
 	}

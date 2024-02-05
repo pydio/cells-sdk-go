@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 var (
@@ -24,7 +24,7 @@ var (
 )
 
 // ExampleCmd is the parent of all example commands defined in this package.
-// It takes care of the pre-configuration of the defaut connection to the SDK
+// It takes care of the pre-configuration of the default connection to the SDK
 // in its PersistentPreRun phase.
 var ExampleCmd = &cobra.Command{
 	Use:   os.Args[0],
@@ -48,8 +48,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 				msg += "- your host URL\n"
 			}
 			if personalToken != "" {
-				DefaultConfig = &cells_sdk.SdkConfig{
-					AuthType:   cells_sdk.AuthTypePat,
+				DefaultConfig = &cellssdk.SdkConfig{
+					AuthType:   cellssdk.AuthTypePat,
 					Url:        host,
 					SkipVerify: skipVerify,
 					IdToken:    personalToken,
@@ -69,8 +69,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 				os.Exit(1)
 			}
 
-			DefaultConfig = &cells_sdk.SdkConfig{
-				AuthType:   cells_sdk.AuthTypeClientAuth,
+			DefaultConfig = &cellssdk.SdkConfig{
+				AuthType:   cellssdk.AuthTypeClientAuth,
 				Url:        host,
 				SkipVerify: skipVerify,
 				User:       user,
@@ -84,7 +84,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			log.Fatal("cannot read config file:", e)
 		}
 
-		var c cells_sdk.SdkConfig
+		var c cellssdk.SdkConfig
 		if e = json.Unmarshal(data, &c); e != nil {
 			log.Fatalf("Cannot decode config content for file at %s, cause: %s\n", configFile, e.Error())
 		} else {
@@ -92,18 +92,19 @@ the powerful Cobra framework to easily implement small CLI client applications.
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		err := cmd.Usage()
+		if err != nil {
+			log.Fatalf("could not display usage helper: %s\n", err.Error())
+		}
 	},
 }
 
 func init() {
 	flags := ExampleCmd.PersistentFlags()
-
 	flags.StringVarP(&configFile, "config", "c", "", "Path to the configuration file")
 	flags.StringVarP(&host, "url", "u", "", "HTTP URL to server")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
 	flags.StringVarP(&personalToken, "token", "t", "", "Preset Access Token (replaces user/password)")
 	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")
-
 }

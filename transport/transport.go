@@ -3,7 +3,7 @@ package transport
 import (
 	"net/http"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 const (
@@ -18,7 +18,7 @@ func New(options ...interface{}) http.RoundTripper {
 	newTransport := &http.Transport{}
 	for _, o := range options {
 		switch typed := o.(type) {
-		case cells_sdk.Option:
+		case cellssdk.Option:
 			newTransport = typed(newTransport)
 		}
 	}
@@ -28,14 +28,14 @@ func New(options ...interface{}) http.RoundTripper {
 	roundTrip = newTransport
 	for _, o := range options {
 		switch typed := o.(type) {
-		case cells_sdk.RoundTripOption:
+		case cellssdk.RoundTripOption:
 			roundTrip = typed(roundTrip)
 		}
 	}
 	return roundTrip
 }
 
-func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (cells_sdk.TokenProvider, error) {
+func TokenProviderFromConfig(c *cellssdk.SdkConfig) (cellssdk.TokenProvider, error) {
 	if c.IdToken != "" {
 		return c, nil // SdkConfig implements TokenProvider interface
 	} else {

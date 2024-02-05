@@ -9,19 +9,18 @@ import (
 )
 
 var (
-	DefaultConfig   *cells_sdk.SdkConfig
-	DefaultS3Config *cells_sdk.S3Config
+	DefaultConfig *cells_sdk.SdkConfig
 
 	// Keys to retrieve configuration via environment variables
 	KeyURL, KeyUser, KeyPassword, KeySkipVerify = "TARGET_URL", "TARGET_USER", "TARGET_PASSWORD", "TARGET_SKIP_VERIFY"
 
 	// Keys to retrieve environment variables to configure connection to Pydio Cells S3 API
-	KeyS3Endpoint, KeyS3Region, KeyS3Bucket, KeyS3ApiKey, KeyS3ApiSecret, KeyS3UsePydioSpecificHeader, KeyS3IsDebug = "TARGET_S3_ENDPOINT", "TARGET_S3_REGION", "TARGET_S3_BUCKET", "TARGET_S3_API_KEY", "TARGET_S3_API_SECRET", "TARGET_S3_USE_PYDIO_SPECIFIC_HEADER", "TARGET_S3_IS_DEBUG"
+	// KeyS3Endpoint, KeyS3Region, KeyS3Bucket, KeyS3ApiKey, KeyS3ApiSecret, KeyS3UsePydioSpecificHeader, KeyS3IsDebug = "TARGET_S3_ENDPOINT", "TARGET_S3_REGION", "TARGET_S3_BUCKET", "TARGET_S3_API_KEY", "TARGET_S3_API_SECRET", "TARGET_S3_USE_PYDIO_SPECIFIC_HEADER", "TARGET_S3_IS_DEBUG"
 )
 
 // SetUpEnvironment retrieves parameters and stores them in the DefaultConfig of the SDK.
 // configFilePath and s3ConfigFilePath can be <nil> if the parameters are defined via env variables.
-func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
+func SetUpEnvironment(configFilePath string) error {
 
 	c, err := getSdkConfigFromEnv()
 	if err != nil {
@@ -42,25 +41,17 @@ func SetUpEnvironment(configFilePath string, s3ConfigFilePath ...string) error {
 	// Stores the retrieved parameters in a public static singleton
 	DefaultConfig = c
 
-	cs3, err := getS3ConfigFromEnv()
-	if err != nil {
-		return err
-	}
-
-	if cs3.Bucket == "" && len(s3ConfigFilePath) > 0 {
-		s, err := os.ReadFile(s3ConfigFilePath[0])
-		if err == nil {
-			json.Unmarshal(s, cs3)
-		}
-	}
-
-	// Build S3 config directly
-	if cs3.Bucket == "" {
-		cs3 = getS3ConfigFromSdkConfig(c)
-	}
-
-	// Stores the retrieved parameters in a public static singleton
-	DefaultS3Config = cs3
+	//cs3, err := getS3ConfigFromEnv()
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//if cs3.Bucket == "" && len(s3ConfigFilePath) > 0 {
+	//	s, err := os.ReadFile(s3ConfigFilePath[0])
+	//	if err == nil {
+	//		json.Unmarshal(s, cs3)
+	//	}
+	//}
 
 	return nil
 }
@@ -97,51 +88,51 @@ func getSdkConfigFromEnv() (*cells_sdk.SdkConfig, error) {
 	return c, nil
 }
 
-func getS3ConfigFromSdkConfig(sConf *cells_sdk.SdkConfig) *cells_sdk.S3Config {
-	conf := cells_sdk.NewS3Config()
-	conf.Endpoint = sConf.Url
-	return conf
-}
-
-func getS3ConfigFromEnv() (*cells_sdk.S3Config, error) {
-
-	var c *cells_sdk.S3Config
-
-	// check presence of Env variable
-	endpoint := os.Getenv(KeyS3Endpoint)
-	region := os.Getenv(KeyS3Region)
-	bucket := os.Getenv(KeyS3Bucket)
-	apiKey := os.Getenv(KeyS3ApiKey)
-	apiSecret := os.Getenv(KeyS3ApiSecret)
-	usePSHStr := os.Getenv(KeyS3UsePydioSpecificHeader)
-	if usePSHStr == "" {
-		usePSHStr = "false"
-	}
-	usePSH, err := strconv.ParseBool(usePSHStr)
-	if err != nil {
-		return c, err
-	}
-
-	isDebugStr := os.Getenv(KeyS3IsDebug)
-	if isDebugStr == "" {
-		isDebugStr = "false"
-	}
-	isDebug, err := strconv.ParseBool(isDebugStr)
-	if err != nil {
-		return c, err
-	}
-
-	if !(len(endpoint) > 0 && len(region) > 0 && len(bucket) > 0 && len(apiKey) > 0 && len(apiSecret) > 0) {
-		return c, nil
-	}
-
-	c.Endpoint = endpoint
-	c.Region = region
-	c.Bucket = bucket
-	c.ApiKey = apiKey
-	c.ApiSecret = apiSecret
-	c.UsePydioSpecificHeader = usePSH
-	c.IsDebug = isDebug
-
-	return c, nil
-}
+//func getS3ConfigFromSdkConfig(sConf *cells_sdk.SdkConfig) *cells_sdk.S3Config {
+//	conf := cells_sdk.NewS3Config()
+//	conf.Endpoint = sConf.Url
+//	return conf
+//}
+//
+//func getS3ConfigFromEnv() (*cells_sdk.S3Config, error) {
+//
+//	var c *cells_sdk.S3Config
+//
+//	// check presence of Env variable
+//	endpoint := os.Getenv(KeyS3Endpoint)
+//	region := os.Getenv(KeyS3Region)
+//	bucket := os.Getenv(KeyS3Bucket)
+//	apiKey := os.Getenv(KeyS3ApiKey)
+//	apiSecret := os.Getenv(KeyS3ApiSecret)
+//	usePSHStr := os.Getenv(KeyS3UsePydioSpecificHeader)
+//	if usePSHStr == "" {
+//		usePSHStr = "false"
+//	}
+//	usePSH, err := strconv.ParseBool(usePSHStr)
+//	if err != nil {
+//		return c, err
+//	}
+//
+//	isDebugStr := os.Getenv(KeyS3IsDebug)
+//	if isDebugStr == "" {
+//		isDebugStr = "false"
+//	}
+//	isDebug, err := strconv.ParseBool(isDebugStr)
+//	if err != nil {
+//		return c, err
+//	}
+//
+//	if !(len(endpoint) > 0 && len(region) > 0 && len(bucket) > 0 && len(apiKey) > 0 && len(apiSecret) > 0) {
+//		return c, nil
+//	}
+//
+//	c.Endpoint = endpoint
+//	c.Region = region
+//	c.Bucket = bucket
+//	c.ApiKey = apiKey
+//	c.ApiSecret = apiSecret
+//	c.UsePydioSpecificHeader = usePSH
+//	c.IsDebug = isDebug
+//
+//	return c, nil
+//}
