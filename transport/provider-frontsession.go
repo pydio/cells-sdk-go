@@ -57,7 +57,7 @@ func (f *FrontSessionTokenProvider) Retrieve(ctx context.Context) (string, error
 	if !f.Expired() {
 		return f.token, nil
 	}
-	runtime := openapi.New(f.url.Host, CellsApiResourcePath, []string{f.url.Scheme})
+	runtime := openapi.New(f.url.Host, cellssdk.CellsApiResourcePath, []string{f.url.Scheme})
 	runtime.Context = ctx
 	runtime.Transport = New(
 		http.WithSkipVerify(f.skipVerify),

@@ -25,7 +25,7 @@ func GetApiTransport(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*client.Run
 	if e != nil {
 		return nil, e
 	}
-	tp := client.New(u.Host, transport.CellsApiResourcePath, []string{u.Scheme})
+	tp := client.New(u.Host, cellssdk.CellsApiResourcePath, []string{u.Scheme})
 	transportOptions := []interface{}{
 		http.WithSkipVerify(sdkConfig.SkipVerify),
 		http.WithCustomHeaders(sdkConfig.CustomHeaders),

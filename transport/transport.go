@@ -6,11 +6,6 @@ import (
 	cellssdk "github.com/pydio/cells-sdk-go/v5"
 )
 
-const (
-	CellsApiResourcePath = "/a"
-	UserAgentKey         = "User-Agent"
-)
-
 // New creates a new default http transport with the passed transport and round-trip options.
 func New(options ...interface{}) http.RoundTripper {
 

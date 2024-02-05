@@ -9,40 +9,11 @@ import (
 	"time"
 )
 
-// SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
-type SdkConfig struct {
-
-	// Auth type is a convenience flag to store the type of authentication used by this SDK config
-	// in v5, we support: PAT (Personal Access Token), OAuth2 (based on a JWT retrieved interreactively via OAuth credential flow) and Basic (login/password, less secured)
-	AuthType string `json:"authType,omitempty"`
-
-	// Url stores domain name or IP & port to the server.
-	Url string `json:"url"`
-	// Username (login) for the currently configured Pydio Account
-	User string `json:"user"`
-
-	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow.
-	IdToken string `json:"idToken,omitempty"`
-
-	// OIDC Code Flow additional info
-	// RefreshToken holds the token to refresh your JWT. Warning: this token can be used only **once**, it is then blocked on the server side.
-	RefreshToken string `json:"refreshToken,omitempty"`
-	// TokenExpiresAt holds the expiration timestamp for the current JWT.
-	TokenExpiresAt int `json:"tokenExpiresAt,omitempty"`
-
-	// Password for client credential authentification (Legacy, less secure).
-	Password string `json:"password,omitempty"`
-
-	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates.
-	SkipVerify bool `json:"skipVerify"`
-
-	// UseTokenCache flags wether we should rely on a local cache to avoid retrieving a new JWT token at each request.
-	// It is useful to *not* use the cache when running connection tests for instance.
-	UseTokenCache bool `json:"useTokenCache"`
-
-	// CustomHeaders holds an optional list of headers to be overriden in requests, e.g the User-Agent.
-	CustomHeaders map[string]string
-}
+// Cells constants
+const (
+	CellsApiResourcePath = "/a"
+	UserAgentKey         = "User-Agent"
+)
 
 // Supported Authentication types for v5+
 const (
@@ -59,10 +30,42 @@ const (
 	DefaultS3Region    = "us-east-1"
 	DefaultS3Bucket    = "io"
 	DefaultS3ApiSecret = "gatewaysecret"
-	// DefaultS3RequestTimout = -1
-	//DefaultS3UsePydioSpecificHeader =  false
-	//DefaultS3IsDebug =                 false
 )
+
+// SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
+type SdkConfig struct {
+
+	// Auth type is a convenience flag to store the type of authentication used by this SDK config
+	// in v5, we support: PAT (Personal Access Token), OAuth2 (based on a JWT retrieved interactively via OAuth credential flow) and Basic (login/password, less secured)
+	AuthType string `json:"authType,omitempty"`
+
+	// Url stores domain name or IP & port to the server.
+	Url string `json:"url"`
+	// Username (login) for the currently configured Pydio Account
+	User string `json:"user"`
+
+	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow.
+	IdToken string `json:"idToken,omitempty"`
+
+	// OIDC Code Flow additional info
+	// RefreshToken holds the token to refresh your JWT. Warning: this token can be used only **once**, it is then blocked on the server side.
+	RefreshToken string `json:"refreshToken,omitempty"`
+	// TokenExpiresAt holds the expiration timestamp for the current JWT.
+	TokenExpiresAt int `json:"tokenExpiresAt,omitempty"`
+
+	// Password for client credential authentication (Legacy, less secure).
+	Password string `json:"password,omitempty"`
+
+	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates.
+	SkipVerify bool `json:"skipVerify"`
+
+	// UseTokenCache flags if we should rely on a local cache to avoid retrieving a new JWT token at each request.
+	// It is useful to *not* use the cache when running connection tests for instance.
+	UseTokenCache bool `json:"useTokenCache"`
+
+	// CustomHeaders holds an optional list of headers to be overridden in requests, e.g. the User-Agent.
+	CustomHeaders map[string]string
+}
 
 // Make SdkConfig implement the TokenProvider interface
 
