@@ -2,32 +2,34 @@ package cells_sdk
 
 import (
 	"context"
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"net/http"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
 )
 
 type ConfigStore interface {
-	RefreshIfRequired(*SdkConfig) (bool, error)
+	RefreshIfRequired(context.Context, *SdkConfig) (bool, error)
 }
 
 type CellsCredentialsProvider interface {
-	// Retrieve returns nil if it successfully retrieved the value.
-	// Error is returned if the value were not obtainable, or empty.
-	Retrieve(ctx context.Context) (aws.Credentials, error)
-	SetConfigStore(store ConfigStore)
+
+	// Retrieve returns valid AWS credentials or an error
+	// if the value were not obtainable, or empty.
+	Retrieve(context.Context) (aws.Credentials, error)
+	SetConfigStore(ConfigStore)
 }
 
 type TokenProvider interface {
-	Retrieve() (string, error)
+	Retrieve(context.Context) (string, error)
 	Expired() bool
 }
 
-type Option func(t *http.Transport) *http.Transport
+type Option func(*http.Transport) *http.Transport
 
-type RoundTripOption func(t http.RoundTripper) http.RoundTripper
+type RoundTripOption func(http.RoundTripper) http.RoundTripper
 
-type HttpClientOption func(client *http.Client) *http.Client
+type HttpClientOption func(*http.Client) *http.Client
 
-type AwsConfigOption func(config aws.Config) aws.Config
+type AwsConfigOption func(aws.Config) aws.Config
 
-type CredentialProviderOption func(provider CellsCredentialsProvider) CellsCredentialsProvider
+type CredentialProviderOption func(CellsCredentialsProvider) CellsCredentialsProvider
