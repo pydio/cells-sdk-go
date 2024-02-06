@@ -21,7 +21,7 @@ func (lcp *LegacyCredentialsProvider) Retrieve(ctx context.Context) (aws.Credent
 		return aws.Credentials{}, fmt.Errorf("cannot connect without login and password")
 	}
 
-	tp, e := transport.NewLegacyTokenProvider(lcp.config)
+	tp, e := transport.NewFrontSessionTokenProvider(lcp.config)
 	if e != nil {
 		return aws.Credentials{}, e
 	}

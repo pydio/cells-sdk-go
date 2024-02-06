@@ -39,20 +39,6 @@ func NewFrontSessionTokenProvider(c *cellssdk.SdkConfig) (cellssdk.TokenProvider
 	}, nil
 }
 
-func NewLegacyTokenProvider(c *cellssdk.SdkConfig) (*FrontSessionTokenProvider, error) {
-	u, e := url.Parse(c.Url)
-	if e != nil {
-		return nil, e
-	}
-	return &FrontSessionTokenProvider{
-		url:           u,
-		user:          c.User,
-		password:      c.Password,
-		skipVerify:    c.SkipVerify,
-		customHeaders: c.CustomHeaders,
-	}, nil
-}
-
 func (f *FrontSessionTokenProvider) Retrieve(ctx context.Context) (string, error) {
 	if !f.Expired() {
 		return f.token, nil
@@ -88,11 +74,3 @@ func (f *FrontSessionTokenProvider) Expired() bool {
 func (f *FrontSessionTokenProvider) ExpiresAt() time.Time {
 	return f.expiryDate
 }
-
-//func LoadAccessToken(c *cells_sdk.SdkConfig) (string, error) {
-//	p, e := NewFrontSessionTokenProvider(c)
-//	if e != nil {
-//		return "", e
-//	}
-//	return p.Retrieve(context.TODO())
-//}

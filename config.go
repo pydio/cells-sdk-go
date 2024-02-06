@@ -82,6 +82,10 @@ func (s *SdkConfig) Expired() bool {
 	return isExpired
 }
 
+func (s *SdkConfig) ExpiresAt() time.Time {
+	return time.Unix(int64(s.TokenExpiresAt), 0)
+}
+
 func (s *SdkConfig) GetId() string {
 	var port string
 	u, _ := url.Parse(s.Url)

@@ -3,6 +3,7 @@ package cells_sdk
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 )
@@ -10,6 +11,7 @@ import (
 type TokenProvider interface {
 	Retrieve(context.Context) (string, error)
 	Expired() bool
+	ExpiresAt() time.Time
 }
 
 type ConfigRefresher interface {
