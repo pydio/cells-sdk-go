@@ -4,9 +4,9 @@ go 1.20
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.25.0
-	github.com/aws/aws-sdk-go-v2/config v1.27.0
-	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.16.1
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.50.0
+	github.com/aws/aws-sdk-go-v2/config v1.27.1
+	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.16.3
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.50.2
 	github.com/aws/smithy-go v1.20.0
 	github.com/go-openapi/errors v0.21.0
 	github.com/go-openapi/runtime v0.27.1
@@ -19,7 +19,7 @@ require (
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.0 // indirect
-	github.com/aws/aws-sdk-go-v2/credentials v1.17.0 // indirect
+	github.com/aws/aws-sdk-go-v2/credentials v1.17.1 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.15.0 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.0 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.6.0 // indirect
@@ -29,9 +29,9 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.3.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sso v1.19.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.22.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sts v1.27.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sso v1.19.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.22.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sts v1.27.1 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/analysis v0.22.2 // indirect
