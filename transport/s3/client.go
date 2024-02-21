@@ -9,18 +9,18 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellsSdk "github.com/pydio/cells-sdk-go/v5"
 	http2 "github.com/pydio/cells-sdk-go/v5/transport"
 )
 
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.
 // It returns an error if the passed option are not one of the supported type that are:
-// cellssdk.HttpClientOption, cellssdk.TransportOption, cellssdk.RoundTripOption, cellssdk.AwsConfigOption, cellssdk.CredentialProviderOption
-func LoadConfig(ctx context.Context, sdc *cellssdk.SdkConfig, options ...interface{}) (aws.Config, error) {
+// cellsSdk.HttpClientOption, cellsSdk.TransportOption, cellsSdk.RoundTripOption, cellsSdk.AwsConfigOption, cellsSdk.CredentialProviderOption
+func LoadConfig(ctx context.Context, sdc *cellsSdk.SdkConfig, options ...interface{}) (aws.Config, error) {
 
 	for _, o := range options {
 		switch o.(type) {
-		case cellssdk.HttpClientOption, cellssdk.TransportOption, cellssdk.RoundTripOption, cellssdk.AwsConfigOption, cellssdk.CredentialProviderOption:
+		case cellsSdk.HttpClientOption, cellsSdk.TransportOption, cellsSdk.RoundTripOption, cellsSdk.AwsConfigOption, cellsSdk.CredentialProviderOption:
 		default:
 			return aws.Config{}, fmt.Errorf("unsupported option type")
 		}
@@ -50,10 +50,16 @@ func LoadConfig(ctx context.Context, sdc *cellssdk.SdkConfig, options ...interfa
 	// Apply defined AWS config options, e.G. to set a custom region.
 	for _, o := range options {
 		switch typed := o.(type) {
-		case cellssdk.AwsConfigOption:
+		case cellsSdk.AwsConfigOption:
 			cfg = typed(cfg)
 		}
 	}
+
+	// This can be overwritten by an AwsConfigOption that are applied just above
+	if cfg.Region == "" {
+		cfg.Region = cellsSdk.DefaultS3Region
+	}
+
 	return cfg, err
 }
 
