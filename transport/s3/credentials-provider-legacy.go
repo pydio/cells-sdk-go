@@ -12,7 +12,6 @@ import (
 
 type LegacyCredentialsProvider struct {
 	config *cellssdk.SdkConfig
-	store  cellssdk.ConfigRefresher
 }
 
 func (lcp *LegacyCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
