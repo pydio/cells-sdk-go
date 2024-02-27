@@ -141,7 +141,6 @@ SetRoleUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type SetRoleUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set role unauthorized response has a 2xx status code
@@ -175,25 +174,14 @@ func (o *SetRoleUnauthorized) Code() int {
 }
 
 func (o *SetRoleUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /role/{Uuid}][%d] setRoleUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /role/{Uuid}][%d] setRoleUnauthorized ", 401)
 }
 
 func (o *SetRoleUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /role/{Uuid}][%d] setRoleUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *SetRoleUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /role/{Uuid}][%d] setRoleUnauthorized ", 401)
 }
 
 func (o *SetRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -206,7 +194,7 @@ func NewSetRoleForbidden() *SetRoleForbidden {
 /*
 SetRoleForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type SetRoleForbidden struct {
 	Payload *models.RestError

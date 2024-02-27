@@ -137,7 +137,6 @@ UpdateSharePoliciesUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type UpdateSharePoliciesUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update share policies unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *UpdateSharePoliciesUnauthorized) Code() int {
 }
 
 func (o *UpdateSharePoliciesUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesUnauthorized ", 401)
 }
 
 func (o *UpdateSharePoliciesUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *UpdateSharePoliciesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesUnauthorized ", 401)
 }
 
 func (o *UpdateSharePoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewUpdateSharePoliciesForbidden() *UpdateSharePoliciesForbidden {
 /*
 UpdateSharePoliciesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type UpdateSharePoliciesForbidden struct {
 	Payload *models.RestError

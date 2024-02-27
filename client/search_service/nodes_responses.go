@@ -137,7 +137,6 @@ NodesUnauthorized describes a response with status code 401, with default header
 User is not authenticated
 */
 type NodesUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this nodes unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *NodesUnauthorized) Code() int {
 }
 
 func (o *NodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized ", 401)
 }
 
 func (o *NodesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *NodesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized ", 401)
 }
 
 func (o *NodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewNodesForbidden() *NodesForbidden {
 /*
 NodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type NodesForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ PutShareLinkUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type PutShareLinkUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put share link unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *PutShareLinkUnauthorized) Code() int {
 }
 
 func (o *PutShareLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkUnauthorized ", 401)
 }
 
 func (o *PutShareLinkUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PutShareLinkUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkUnauthorized ", 401)
 }
 
 func (o *PutShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewPutShareLinkForbidden() *PutShareLinkForbidden {
 /*
 PutShareLinkForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type PutShareLinkForbidden struct {
 	Payload *models.RestError

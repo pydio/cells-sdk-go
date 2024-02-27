@@ -13,35 +13,23 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TreeSearchRequest tree search request
+// JobsChatEventFilter jobs chat event filter
 //
-// swagger:model treeSearchRequest
-type TreeSearchRequest struct {
+// swagger:model jobsChatEventFilter
+type JobsChatEventFilter struct {
 
-	// Load node details
-	Details bool `json:"Details,omitempty"`
+	// Selector additional description
+	Description string `json:"Description,omitempty"`
 
-	// Start at given position
-	From int32 `json:"From,omitempty"`
+	// Selector custom label
+	Label string `json:"Label,omitempty"`
 
-	// The query object
-	Query *TreeQuery `json:"Query,omitempty"`
-
-	// Limit the number of results
-	Size int32 `json:"Size,omitempty"`
-
-	// Sort direction (asc by default)
-	SortDirDesc bool `json:"SortDirDesc,omitempty"`
-
-	// Sort result using a specific field
-	SortField string `json:"SortField,omitempty"`
-
-	// Generic Details Flags
-	StatFlags []int64 `json:"StatFlags"`
+	// Query used to compute output object or list of objects
+	Query *ServiceQuery `json:"Query,omitempty"`
 }
 
-// Validate validates this tree search request
-func (m *TreeSearchRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this jobs chat event filter
+func (m *JobsChatEventFilter) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateQuery(formats); err != nil {
@@ -54,7 +42,7 @@ func (m *TreeSearchRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *TreeSearchRequest) validateQuery(formats strfmt.Registry) error {
+func (m *JobsChatEventFilter) validateQuery(formats strfmt.Registry) error {
 	if swag.IsZero(m.Query) { // not required
 		return nil
 	}
@@ -73,8 +61,8 @@ func (m *TreeSearchRequest) validateQuery(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this tree search request based on the context it is used
-func (m *TreeSearchRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this jobs chat event filter based on the context it is used
+func (m *JobsChatEventFilter) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateQuery(ctx, formats); err != nil {
@@ -87,7 +75,7 @@ func (m *TreeSearchRequest) ContextValidate(ctx context.Context, formats strfmt.
 	return nil
 }
 
-func (m *TreeSearchRequest) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
+func (m *JobsChatEventFilter) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Query != nil {
 
@@ -109,7 +97,7 @@ func (m *TreeSearchRequest) contextValidateQuery(ctx context.Context, formats st
 }
 
 // MarshalBinary interface implementation
-func (m *TreeSearchRequest) MarshalBinary() ([]byte, error) {
+func (m *JobsChatEventFilter) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -117,8 +105,8 @@ func (m *TreeSearchRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TreeSearchRequest) UnmarshalBinary(b []byte) error {
-	var res TreeSearchRequest
+func (m *JobsChatEventFilter) UnmarshalBinary(b []byte) error {
+	var res JobsChatEventFilter
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

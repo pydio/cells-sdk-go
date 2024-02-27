@@ -137,7 +137,6 @@ FrontMessagesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type FrontMessagesUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front messages unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *FrontMessagesUnauthorized) Code() int {
 }
 
 func (o *FrontMessagesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized ", 401)
 }
 
 func (o *FrontMessagesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *FrontMessagesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized ", 401)
 }
 
 func (o *FrontMessagesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewFrontMessagesForbidden() *FrontMessagesForbidden {
 /*
 FrontMessagesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type FrontMessagesForbidden struct {
 	Payload *models.RestError

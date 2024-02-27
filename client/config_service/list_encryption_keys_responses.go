@@ -137,7 +137,6 @@ ListEncryptionKeysUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ListEncryptionKeysUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list encryption keys unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListEncryptionKeysUnauthorized) Code() int {
 }
 
 func (o *ListEncryptionKeysUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized ", 401)
 }
 
 func (o *ListEncryptionKeysUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListEncryptionKeysUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized ", 401)
 }
 
 func (o *ListEncryptionKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListEncryptionKeysForbidden() *ListEncryptionKeysForbidden {
 /*
 ListEncryptionKeysForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListEncryptionKeysForbidden struct {
 	Payload *models.RestError

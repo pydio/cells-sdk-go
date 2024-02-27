@@ -139,7 +139,6 @@ ResetPasswordTokenUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ResetPasswordTokenUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this reset password token unauthorized response has a 2xx status code
@@ -173,25 +172,14 @@ func (o *ResetPasswordTokenUnauthorized) Code() int {
 }
 
 func (o *ResetPasswordTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized ", 401)
 }
 
 func (o *ResetPasswordTokenUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ResetPasswordTokenUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized ", 401)
 }
 
 func (o *ResetPasswordTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -204,7 +192,7 @@ func NewResetPasswordTokenForbidden() *ResetPasswordTokenForbidden {
 /*
 ResetPasswordTokenForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ResetPasswordTokenForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ OpenAPIDiscoveryUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type OpenAPIDiscoveryUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this open Api discovery unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *OpenAPIDiscoveryUnauthorized) Code() int {
 }
 
 func (o *OpenAPIDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized ", 401)
 }
 
 func (o *OpenAPIDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *OpenAPIDiscoveryUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized ", 401)
 }
 
 func (o *OpenAPIDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewOpenAPIDiscoveryForbidden() *OpenAPIDiscoveryForbidden {
 /*
 OpenAPIDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type OpenAPIDiscoveryForbidden struct {
 	Payload *models.RestError

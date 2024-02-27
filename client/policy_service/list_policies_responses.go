@@ -137,7 +137,6 @@ ListPoliciesUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type ListPoliciesUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list policies unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListPoliciesUnauthorized) Code() int {
 }
 
 func (o *ListPoliciesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /policy][%d] listPoliciesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /policy][%d] listPoliciesUnauthorized ", 401)
 }
 
 func (o *ListPoliciesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /policy][%d] listPoliciesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListPoliciesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /policy][%d] listPoliciesUnauthorized ", 401)
 }
 
 func (o *ListPoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListPoliciesForbidden() *ListPoliciesForbidden {
 /*
 ListPoliciesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListPoliciesForbidden struct {
 	Payload *models.RestError

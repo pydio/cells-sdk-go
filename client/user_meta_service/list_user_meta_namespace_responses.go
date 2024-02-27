@@ -137,7 +137,6 @@ ListUserMetaNamespaceUnauthorized describes a response with status code 401, wit
 User is not authenticated
 */
 type ListUserMetaNamespaceUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta namespace unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListUserMetaNamespaceUnauthorized) Code() int {
 }
 
 func (o *ListUserMetaNamespaceUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized ", 401)
 }
 
 func (o *ListUserMetaNamespaceUnauthorized) String() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListUserMetaNamespaceUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized ", 401)
 }
 
 func (o *ListUserMetaNamespaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListUserMetaNamespaceForbidden() *ListUserMetaNamespaceForbidden {
 /*
 ListUserMetaNamespaceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListUserMetaNamespaceForbidden struct {
 	Payload *models.RestError

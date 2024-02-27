@@ -137,7 +137,6 @@ ImportEncryptionKeyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type ImportEncryptionKeyUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this import encryption key unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ImportEncryptionKeyUnauthorized) Code() int {
 }
 
 func (o *ImportEncryptionKeyUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized ", 401)
 }
 
 func (o *ImportEncryptionKeyUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ImportEncryptionKeyUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized ", 401)
 }
 
 func (o *ImportEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewImportEncryptionKeyForbidden() *ImportEncryptionKeyForbidden {
 /*
 ImportEncryptionKeyForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ImportEncryptionKeyForbidden struct {
 	Payload *models.RestError

@@ -39,6 +39,9 @@ type JobsIdmSelector struct {
 	// Serialized search query
 	Query *ServiceQuery `json:"Query,omitempty"`
 
+	// Handle ranges
+	Range *JobsSelectorRange `json:"Range,omitempty"`
+
 	// Optional Timeout for this selector
 	Timeout string `json:"Timeout,omitempty"`
 
@@ -51,6 +54,10 @@ func (m *JobsIdmSelector) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateQuery(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRange(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,6 +82,25 @@ func (m *JobsIdmSelector) validateQuery(formats strfmt.Registry) error {
 				return ve.ValidateName("Query")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Query")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsIdmSelector) validateRange(formats strfmt.Registry) error {
+	if swag.IsZero(m.Range) { // not required
+		return nil
+	}
+
+	if m.Range != nil {
+		if err := m.Range.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Range")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Range")
 			}
 			return err
 		}
@@ -110,6 +136,10 @@ func (m *JobsIdmSelector) ContextValidate(ctx context.Context, formats strfmt.Re
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRange(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -133,6 +163,27 @@ func (m *JobsIdmSelector) contextValidateQuery(ctx context.Context, formats strf
 				return ve.ValidateName("Query")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Query")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsIdmSelector) contextValidateRange(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Range != nil {
+
+		if swag.IsZero(m.Range) { // not required
+			return nil
+		}
+
+		if err := m.Range.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Range")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Range")
 			}
 			return err
 		}

@@ -137,7 +137,6 @@ ListUserMetaTagsUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type ListUserMetaTagsUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta tags unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListUserMetaTagsUnauthorized) Code() int {
 }
 
 func (o *ListUserMetaTagsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized ", 401)
 }
 
 func (o *ListUserMetaTagsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListUserMetaTagsUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized ", 401)
 }
 
 func (o *ListUserMetaTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListUserMetaTagsForbidden() *ListUserMetaTagsForbidden {
 /*
 ListUserMetaTagsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListUserMetaTagsForbidden struct {
 	Payload *models.RestError

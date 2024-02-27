@@ -137,7 +137,6 @@ GetCellUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetCellUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get cell unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *GetCellUnauthorized) Code() int {
 }
 
 func (o *GetCellUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized ", 401)
 }
 
 func (o *GetCellUnauthorized) String() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetCellUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized ", 401)
 }
 
 func (o *GetCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewGetCellForbidden() *GetCellForbidden {
 /*
 GetCellForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type GetCellForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ ListSharedResourcesUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type ListSharedResourcesUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list shared resources unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListSharedResourcesUnauthorized) Code() int {
 }
 
 func (o *ListSharedResourcesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized ", 401)
 }
 
 func (o *ListSharedResourcesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListSharedResourcesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized ", 401)
 }
 
 func (o *ListSharedResourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListSharedResourcesForbidden() *ListSharedResourcesForbidden {
 /*
 ListSharedResourcesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListSharedResourcesForbidden struct {
 	Payload *models.RestError

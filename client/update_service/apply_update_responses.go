@@ -139,7 +139,6 @@ ApplyUpdateUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type ApplyUpdateUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update unauthorized response has a 2xx status code
@@ -173,25 +172,14 @@ func (o *ApplyUpdateUnauthorized) Code() int {
 }
 
 func (o *ApplyUpdateUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
 }
 
 func (o *ApplyUpdateUnauthorized) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ApplyUpdateUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
 }
 
 func (o *ApplyUpdateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -204,7 +192,7 @@ func NewApplyUpdateForbidden() *ApplyUpdateForbidden {
 /*
 ApplyUpdateForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ApplyUpdateForbidden struct {
 	Payload *models.RestError

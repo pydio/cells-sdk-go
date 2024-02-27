@@ -137,7 +137,6 @@ GetAgreementUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type GetAgreementUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get agreement unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *GetAgreementUnauthorized) Code() int {
 }
 
 func (o *GetAgreementUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized ", 401)
 }
 
 func (o *GetAgreementUnauthorized) String() string {
-	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetAgreementUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized ", 401)
 }
 
 func (o *GetAgreementUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewGetAgreementForbidden() *GetAgreementForbidden {
 /*
 GetAgreementForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type GetAgreementForbidden struct {
 	Payload *models.RestError

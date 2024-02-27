@@ -139,7 +139,6 @@ CreatePeerFolderUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type CreatePeerFolderUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create peer folder unauthorized response has a 2xx status code
@@ -173,25 +172,14 @@ func (o *CreatePeerFolderUnauthorized) Code() int {
 }
 
 func (o *CreatePeerFolderUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/peers/{PeerAddress}][%d] createPeerFolderUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /config/peers/{PeerAddress}][%d] createPeerFolderUnauthorized ", 401)
 }
 
 func (o *CreatePeerFolderUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/peers/{PeerAddress}][%d] createPeerFolderUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *CreatePeerFolderUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /config/peers/{PeerAddress}][%d] createPeerFolderUnauthorized ", 401)
 }
 
 func (o *CreatePeerFolderUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -204,7 +192,7 @@ func NewCreatePeerFolderForbidden() *CreatePeerFolderForbidden {
 /*
 CreatePeerFolderForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type CreatePeerFolderForbidden struct {
 	Payload *models.RestError

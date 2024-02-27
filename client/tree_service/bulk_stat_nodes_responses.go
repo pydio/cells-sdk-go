@@ -137,7 +137,6 @@ BulkStatNodesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type BulkStatNodesUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this bulk stat nodes unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *BulkStatNodesUnauthorized) Code() int {
 }
 
 func (o *BulkStatNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized ", 401)
 }
 
 func (o *BulkStatNodesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *BulkStatNodesUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized ", 401)
 }
 
 func (o *BulkStatNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewBulkStatNodesForbidden() *BulkStatNodesForbidden {
 /*
 BulkStatNodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type BulkStatNodesForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ ListAdminTreeUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListAdminTreeUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list admin tree unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListAdminTreeUnauthorized) Code() int {
 }
 
 func (o *ListAdminTreeUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized ", 401)
 }
 
 func (o *ListAdminTreeUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListAdminTreeUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized ", 401)
 }
 
 func (o *ListAdminTreeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListAdminTreeForbidden() *ListAdminTreeForbidden {
 /*
 ListAdminTreeForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListAdminTreeForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ FrontStateUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type FrontStateUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front state unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *FrontStateUnauthorized) Code() int {
 }
 
 func (o *FrontStateUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized ", 401)
 }
 
 func (o *FrontStateUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *FrontStateUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized ", 401)
 }
 
 func (o *FrontStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewFrontStateForbidden() *FrontStateForbidden {
 /*
 FrontStateForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type FrontStateForbidden struct {
 	Payload *models.RestError

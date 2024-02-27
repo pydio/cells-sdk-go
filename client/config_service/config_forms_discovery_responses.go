@@ -137,7 +137,6 @@ ConfigFormsDiscoveryUnauthorized describes a response with status code 401, with
 User is not authenticated
 */
 type ConfigFormsDiscoveryUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this config forms discovery unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ConfigFormsDiscoveryUnauthorized) Code() int {
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized ", 401)
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ConfigFormsDiscoveryUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized ", 401)
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewConfigFormsDiscoveryForbidden() *ConfigFormsDiscoveryForbidden {
 /*
 ConfigFormsDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ConfigFormsDiscoveryForbidden struct {
 	Payload *models.RestError

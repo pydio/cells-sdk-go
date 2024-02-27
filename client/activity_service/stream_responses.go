@@ -137,7 +137,6 @@ StreamUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type StreamUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stream unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *StreamUnauthorized) Code() int {
 }
 
 func (o *StreamUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized ", 401)
 }
 
 func (o *StreamUnauthorized) String() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *StreamUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized ", 401)
 }
 
 func (o *StreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewStreamForbidden() *StreamForbidden {
 /*
 StreamForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type StreamForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ SettingsMenuUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type SettingsMenuUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this settings menu unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *SettingsMenuUnauthorized) Code() int {
 }
 
 func (o *SettingsMenuUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized ", 401)
 }
 
 func (o *SettingsMenuUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *SettingsMenuUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized ", 401)
 }
 
 func (o *SettingsMenuUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewSettingsMenuForbidden() *SettingsMenuForbidden {
 /*
 SettingsMenuForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type SettingsMenuForbidden struct {
 	Payload *models.RestError

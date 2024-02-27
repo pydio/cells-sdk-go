@@ -137,7 +137,6 @@ SearchSubscriptionsUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type SearchSubscriptionsUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search subscriptions unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *SearchSubscriptionsUnauthorized) Code() int {
 }
 
 func (o *SearchSubscriptionsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized ", 401)
 }
 
 func (o *SearchSubscriptionsUnauthorized) String() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *SearchSubscriptionsUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized ", 401)
 }
 
 func (o *SearchSubscriptionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewSearchSubscriptionsForbidden() *SearchSubscriptionsForbidden {
 /*
 SearchSubscriptionsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type SearchSubscriptionsForbidden struct {
 	Payload *models.RestError

@@ -140,7 +140,6 @@ CreateStorageBucketUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type CreateStorageBucketUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create storage bucket unauthorized response has a 2xx status code
@@ -174,25 +173,14 @@ func (o *CreateStorageBucketUnauthorized) Code() int {
 }
 
 func (o *CreateStorageBucketUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized ", 401)
 }
 
 func (o *CreateStorageBucketUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *CreateStorageBucketUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized ", 401)
 }
 
 func (o *CreateStorageBucketUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -205,7 +193,7 @@ func NewCreateStorageBucketForbidden() *CreateStorageBucketForbidden {
 /*
 CreateStorageBucketForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type CreateStorageBucketForbidden struct {
 	Payload *models.RestError

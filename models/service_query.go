@@ -31,6 +31,12 @@ type ServiceQuery struct {
 	// resource policy query
 	ResourcePolicyQuery *ServiceResourcePolicyQuery `json:"ResourcePolicyQuery,omitempty"`
 
+	// sort desc
+	SortDesc bool `json:"SortDesc,omitempty"`
+
+	// sort field
+	SortField string `json:"SortField,omitempty"`
+
 	// sub queries
 	SubQueries []*ProtobufAny `json:"SubQueries"`
 

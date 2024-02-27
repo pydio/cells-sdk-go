@@ -137,7 +137,6 @@ GetRoleUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetRoleUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get role unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *GetRoleUnauthorized) Code() int {
 }
 
 func (o *GetRoleUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized ", 401)
 }
 
 func (o *GetRoleUnauthorized) String() string {
-	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetRoleUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized ", 401)
 }
 
 func (o *GetRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewGetRoleForbidden() *GetRoleForbidden {
 /*
 GetRoleForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type GetRoleForbidden struct {
 	Payload *models.RestError

@@ -137,7 +137,6 @@ DeleteWorkspaceUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type DeleteWorkspaceUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete workspace unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *DeleteWorkspaceUnauthorized) Code() int {
 }
 
 func (o *DeleteWorkspaceUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceUnauthorized ", 401)
 }
 
 func (o *DeleteWorkspaceUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteWorkspaceUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /workspace/{Slug}][%d] deleteWorkspaceUnauthorized ", 401)
 }
 
 func (o *DeleteWorkspaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewDeleteWorkspaceForbidden() *DeleteWorkspaceForbidden {
 /*
 DeleteWorkspaceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type DeleteWorkspaceForbidden struct {
 	Payload *models.RestError

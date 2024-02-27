@@ -137,7 +137,6 @@ ListTasksLogsUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListTasksLogsUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list tasks logs unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *ListTasksLogsUnauthorized) Code() int {
 }
 
 func (o *ListTasksLogsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized ", 401)
 }
 
 func (o *ListTasksLogsUnauthorized) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListTasksLogsUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized ", 401)
 }
 
 func (o *ListTasksLogsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewListTasksLogsForbidden() *ListTasksLogsForbidden {
 /*
 ListTasksLogsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type ListTasksLogsForbidden struct {
 	Payload *models.RestError

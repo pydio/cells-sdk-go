@@ -137,7 +137,6 @@ DeleteUserUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteUserUnauthorized struct {
-	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user unauthorized response has a 2xx status code
@@ -171,25 +170,14 @@ func (o *DeleteUserUnauthorized) Code() int {
 }
 
 func (o *DeleteUserUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized ", 401)
 }
 
 func (o *DeleteUserUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteUserUnauthorized) GetPayload() *models.RestError {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized ", 401)
 }
 
 func (o *DeleteUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -202,7 +190,7 @@ func NewDeleteUserForbidden() *DeleteUserForbidden {
 /*
 DeleteUserForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this particular resource
+User has no permission to access this resource
 */
 type DeleteUserForbidden struct {
 	Payload *models.RestError
