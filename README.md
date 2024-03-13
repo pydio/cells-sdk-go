@@ -1,6 +1,5 @@
 # Cells SDK Go (v5)
 
-
 > **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients. 
 > Note also that the cells-sdk-go specific API (mainly package v5/transport) is still being refined and some methods will need migration between v4 and v5.  
 
