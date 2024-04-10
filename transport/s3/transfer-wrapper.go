@@ -45,24 +45,30 @@ func (m *CallbackTransferProvider) GetWriteTo(seeker io.ReadSeeker) (r manager.R
 	currIndex := m.partLaunched
 
 	// fmt.Printf("... Launching upload of part %d of %s for %s\n", m.partLaunched, humanize.Bytes(uint64(m.partSize)), m.targetName)
-	r = newCustomWrapper(seeker, m.partSize, currIndex)
+
+	wrapper := newCustomWrapper(seeker, m.partSize, currIndex)
 	cleanup = func() {
 		// TODO Perform necessary cleanup
-		fmt.Printf("Part #%d: 100%% transferred\n", currIndex)
-		fmt.Printf("... Cleaning up after transferring part %d/%d for %s\n", currIndex, m.partNumber, m.targetName)
+		if wrapper.partError != nil {
+			fmt.Printf("[Error] Part #%d could not be transfered: %s\n", currIndex, wrapper.partError.Error())
+		} else {
+			fmt.Printf("Part #%d: 100%% transferred\n", currIndex)
+			// fmt.Printf("... Cleaning up after transferring part %d/%d for %s\n", currIndex, m.partNumber, m.targetName)
+		}
 	}
-	return r, cleanup
+	return wrapper, cleanup
 }
 
 // customWrapper implements the ReadSeekerWriteToProvider interface.
 type customWrapper struct {
-	partId   int
-	buffer   [bufferSize]byte
-	dataSrc  io.ReadSeeker
-	readPos  int64
-	writePos int64
-	counter  int
-	partSize int64
+	partId    int
+	buffer    [bufferSize]byte
+	dataSrc   io.ReadSeeker
+	readPos   int64
+	writePos  int64
+	counter   int
+	partSize  int64
+	partError error
 }
 
 // newCustomWrapper creates a new instance.
@@ -75,7 +81,7 @@ func (p *customWrapper) Read(b []byte) (n int, err error) {
 	n, err = p.dataSrc.Read(b)
 	p.readPos += int64(n)
 	if p.readPos >= bufferSize {
-		if p.counter%10 == 0 {
+		if p.counter%10 == 0 && p.counter > 0 {
 			ratio := float32(p.counter*bufferSize) / float32(p.partSize) * 100
 			fmt.Printf("Part #%d: %d%% transferred\n", p.partId, int(ratio))
 		}
@@ -87,6 +93,8 @@ func (p *customWrapper) Read(b []byte) (n int, err error) {
 
 // Seek implements io.Seeker interface.
 func (p *customWrapper) Seek(offset int64, whence int) (int64, error) {
+	//fmt.Printf("########## Putting the reading head to the correct place: offset %d - whence %d", offset, whence)
+	p.counter = 0
 	return p.dataSrc.Seek(offset, whence)
 }
 
@@ -99,7 +107,11 @@ func (p *customWrapper) WriteTo(w io.Writer) (n int64, err error) {
 			writeBytes, writeErr := w.Write(p.buffer[:readBytes])
 			n += int64(writeBytes)
 			if writeErr != nil {
+				// fmt.Printf("############### Could not write: %s", writeErr.Error())
+				p.partError = writeErr
 				return n, writeErr
+			} else {
+				p.partError = nil
 			}
 			p.writePos += int64(writeBytes)
 			if p.writePos >= bufferSize {
@@ -109,6 +121,7 @@ func (p *customWrapper) WriteTo(w io.Writer) (n int64, err error) {
 		if readErr == io.EOF {
 			break
 		}
+		// fmt.Printf("############### Could not read: %s", readErr.Error())
 		if readErr != nil {
 			return n, readErr
 		}
