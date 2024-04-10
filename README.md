@@ -14,7 +14,7 @@ It provides:
 - a bunch of basic examples that use this SDK to perform simple actions on a running Cells server instance
 
 To use this SDK, your server should be running Pydio Cells 4.x or later.
-For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide)
+For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide).
 
 ## Usage
 
@@ -24,7 +24,7 @@ The library is publicly available, simply:
 go get github.com/pydio/cells-sdk-go/v5 
 ```
 
-and import necessary sub packages in your code.
+and import necessary sub-packages in your code.
 
 The `transport` package provides utilitary methods to ease the set up of a communication with your target Cells instance. You might find the commands that are in the `example` package useful to jump in.
 
