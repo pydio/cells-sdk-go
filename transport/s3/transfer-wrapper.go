@@ -43,6 +43,7 @@ func (m *CallbackTransferProvider) GetWriteTo(seeker io.ReadSeeker) (r manager.R
 	// Note that it does not need to be wrapped in a mutex because GetWriteTo is only called from the main thread from the AWS SDK.
 	m.partLaunched++
 	currIndex := m.partLaunched
+	fmt.Printf("Launching upload of part #%d\n", currIndex)
 
 	// fmt.Printf("... Launching upload of part %d of %s for %s\n", m.partLaunched, humanize.Bytes(uint64(m.partSize)), m.targetName)
 
@@ -52,7 +53,7 @@ func (m *CallbackTransferProvider) GetWriteTo(seeker io.ReadSeeker) (r manager.R
 		if wrapper.partError != nil {
 			fmt.Printf("[Error] Part #%d could not be transfered: %s\n", currIndex, wrapper.partError.Error())
 		} else {
-			fmt.Printf("Part #%d: 100%% transferred\n", currIndex)
+			// fmt.Printf("Part #%d: 100%% transferred\n", currIndex)
 			// fmt.Printf("... Cleaning up after transferring part %d/%d for %s\n", currIndex, m.partNumber, m.targetName)
 		}
 	}
@@ -88,26 +89,31 @@ func (p *customWrapper) Read(b []byte) (n int, err error) {
 		p.readPos -= bufferSize
 		p.counter++
 	}
+
+	if err != nil {
+		if err != io.EOF {
+			fmt.Println("Could not read:", err.Error())
+		} else {
+			fmt.Printf("Part #%d: 100%% transferred\n", p.partId)
+		}
+	}
 	return
 }
 
 // Seek implements io.Seeker interface.
 func (p *customWrapper) Seek(offset int64, whence int) (int64, error) {
-	//fmt.Printf("########## Putting the reading head to the correct place: offset %d - whence %d", offset, whence)
 	p.counter = 0
 	return p.dataSrc.Seek(offset, whence)
 }
 
 // WriteTo implements io.WriterTo interface.
 func (p *customWrapper) WriteTo(w io.Writer) (n int64, err error) {
-
 	for {
 		readBytes, readErr := p.dataSrc.Read(p.buffer[:])
 		if readBytes > 0 {
 			writeBytes, writeErr := w.Write(p.buffer[:readBytes])
 			n += int64(writeBytes)
 			if writeErr != nil {
-				// fmt.Printf("############### Could not write: %s", writeErr.Error())
 				p.partError = writeErr
 				return n, writeErr
 			} else {
@@ -121,7 +127,6 @@ func (p *customWrapper) WriteTo(w io.Writer) (n int64, err error) {
 		if readErr == io.EOF {
 			break
 		}
-		// fmt.Printf("############### Could not read: %s", readErr.Error())
 		if readErr != nil {
 			return n, readErr
 		}
