@@ -16,9 +16,23 @@ type OAuthCredentialsProvider struct {
 }
 
 func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
+	none := aws.Credentials{}
+	if ocp.store == nil {
+		return none, fmt.Errorf("cannot retrieve OAuth credentials without a store")
+	}
+	_, err := ocp.store.RefreshIfRequired(ctx, ocp.config)
+	if err != nil {
+		return none, err
+	}
+	if ocp.config.IdToken == "" {
+		return aws.Credentials{}, fmt.Errorf("id token cannot be empty at this stage")
+	}
 
-	expiration := time.Unix(int64(ocp.config.TokenExpiresAt), 0)
-
+	// We generally refresh the token 60 seconds before its expiration
+	// ==> underlying problem: call via AWS SDK fail when the token is refreshed in another thread
+	//     because the current idToken then becomes invalid.
+	//  This is not very resiliant and must be improved. TODO
+	expiration := time.Unix(int64(ocp.config.TokenExpiresAt), 0).Add(-65 * time.Second)
 	currCredentials := aws.Credentials{
 		AccessKeyID:     ocp.config.IdToken,
 		SecretAccessKey: cellssdk.DefaultS3ApiSecret,
@@ -27,20 +41,6 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 		CanExpire:       true,
 		Expires:         expiration,
 	}
-
-	if ocp.store == nil {
-		return currCredentials, fmt.Errorf("cannot retrieve OAuth credentials without a store")
-	}
-	refreshed, err := ocp.store.RefreshIfRequired(ctx, ocp.config)
-	if err != nil {
-		return aws.Credentials{}, err
-	}
-	if !refreshed {
-		return currCredentials, nil
-	}
-
-	currCredentials.AccessKeyID = ocp.config.IdToken
-	currCredentials.Expires = time.Unix(int64(ocp.config.TokenExpiresAt), 0)
 	return currCredentials, nil
 }
 
