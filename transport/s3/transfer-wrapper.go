@@ -22,17 +22,19 @@ type CallbackTransferProvider struct {
 	targetName   string
 	fileSize     int64
 	partSize     int64
-	partNumber   int
+	nbOfParts    int
 	partLaunched int
+	verbose      bool
 }
 
 // NewCallbackTransferProvider creates a new instance.
-func NewCallbackTransferProvider(fileName string, fileSize, partSize int64) *CallbackTransferProvider {
+func NewCallbackTransferProvider(fileName string, fileSize, partSize int64, nbOfParts int, verbose bool) *CallbackTransferProvider {
 	return &CallbackTransferProvider{
+		verbose:      verbose,
 		targetName:   fileName,
 		fileSize:     fileSize,
 		partSize:     partSize,
-		partNumber:   int(float32(fileSize)/float32(partSize)) + 1,
+		nbOfParts:    nbOfParts,
 		partLaunched: 0,
 	}
 }
@@ -43,11 +45,11 @@ func (m *CallbackTransferProvider) GetWriteTo(seeker io.ReadSeeker) (r manager.R
 	// Note that it does not need to be wrapped in a mutex because GetWriteTo is only called from the main thread from the AWS SDK.
 	m.partLaunched++
 	currIndex := m.partLaunched
-	fmt.Printf("Launching upload of part #%d\n", currIndex)
+	fmt.Printf("Initiating upload for part %d/%d\n", currIndex, m.nbOfParts)
 
 	// fmt.Printf("... Launching upload of part %d of %s for %s\n", m.partLaunched, humanize.Bytes(uint64(m.partSize)), m.targetName)
 
-	wrapper := newCustomWrapper(seeker, m.partSize, currIndex)
+	wrapper := newCustomWrapper(seeker, m.partSize, currIndex, m.nbOfParts, m.verbose)
 	cleanup = func() {
 		// TODO Perform necessary cleanup
 		if wrapper.partError != nil {
@@ -62,7 +64,9 @@ func (m *CallbackTransferProvider) GetWriteTo(seeker io.ReadSeeker) (r manager.R
 
 // customWrapper implements the ReadSeekerWriteToProvider interface.
 type customWrapper struct {
+	nbOfParts int
 	partId    int
+	verbose   bool
 	buffer    [bufferSize]byte
 	dataSrc   io.ReadSeeker
 	readPos   int64
@@ -73,8 +77,8 @@ type customWrapper struct {
 }
 
 // newCustomWrapper creates a new instance.
-func newCustomWrapper(src io.ReadSeeker, partSize int64, partId int) *customWrapper {
-	return &customWrapper{dataSrc: src, counter: 0, partId: partId, partSize: partSize}
+func newCustomWrapper(src io.ReadSeeker, partSize int64, partId, nbOfParts int, verbose bool) *customWrapper {
+	return &customWrapper{dataSrc: src, counter: 0, nbOfParts: nbOfParts, partId: partId, partSize: partSize, verbose: verbose}
 }
 
 // Read implements io.Reader interface.
@@ -82,9 +86,9 @@ func (p *customWrapper) Read(b []byte) (n int, err error) {
 	n, err = p.dataSrc.Read(b)
 	p.readPos += int64(n)
 	if p.readPos >= bufferSize {
-		if p.counter%10 == 0 && p.counter > 0 {
+		if p.verbose && p.counter%10 == 0 && p.counter > 0 {
 			ratio := float32(p.counter*bufferSize) / float32(p.partSize) * 100
-			fmt.Printf("Part #%d: %d%% transferred\n", p.partId, int(ratio))
+			fmt.Printf("Part %d/%d: %d%% transferred\n", p.partId, p.nbOfParts, int(ratio))
 		}
 		p.readPos -= bufferSize
 		p.counter++
@@ -94,7 +98,7 @@ func (p *customWrapper) Read(b []byte) (n int, err error) {
 		if err != io.EOF {
 			fmt.Println("Could not read:", err.Error())
 		} else {
-			fmt.Printf("Part #%d: 100%% transferred\n", p.partId)
+			fmt.Printf("Part %d/%d: done\n", p.partId, p.nbOfParts)
 		}
 	}
 	return
