@@ -36,8 +36,11 @@ type TreeNode struct {
 	// ------------------------------------
 	MetaStore map[string]string `json:"MetaStore,omitempty"`
 
-	// Permission mode, like 0777
+	// Permission mode, like 0777. Stored as string using custom ModeString field.
 	Mode int32 `json:"Mode,omitempty"`
+
+	// String representation of Mode
+	ModeString string `json:"ModeString,omitempty"`
 
 	// path
 	Path string `json:"Path,omitempty"`

@@ -3,44 +3,60 @@ package transport
 import (
 	"net/http"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cells_sdk "github.com/pydio/cells-sdk-go/v5"
 )
 
-// New creates a new default http transport with the passed transport and round-trip options.
+const (
+	CellsApiResourcePath = "/a"
+	CellsS3SecretDefault = "gatewaysecret"
+)
+
+type Option func(t *http.Transport) *http.Transport
+type RoundTripOption func(t http.RoundTripper) http.RoundTripper
+
+type TokenProvider interface {
+	Retrieve() (string, error)
+	Expired() bool
+}
+
 func New(options ...interface{}) http.RoundTripper {
-
-	// Creates a new default http transport and applies relevant transport options
-	newTransport := &http.Transport{}
+	// First go through Transport options
+	baseT := &http.Transport{}
 	for _, o := range options {
-		switch typed := o.(type) {
-		case cellssdk.TransportOption:
-			newTransport = typed(newTransport)
+		switch o.(type) {
+		case Option:
+			to := o.(Option)
+			baseT = to(baseT)
 		}
 	}
 
-	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
+	// Now use transport as a RoundTripper and go through RoundTripOptions
 	var roundTrip http.RoundTripper
-	roundTrip = newTransport
+	roundTrip = baseT
 	for _, o := range options {
-		switch typed := o.(type) {
-		case cellssdk.RoundTripOption:
-			roundTrip = typed(roundTrip)
+		switch o.(type) {
+		case RoundTripOption:
+			to := o.(RoundTripOption)
+			roundTrip = to(roundTrip)
 		}
 	}
+
 	return roundTrip
 }
 
-func TokenProviderFromConfig(c *cellssdk.SdkConfig) (cellssdk.TokenProvider, error) {
-	if c.IdToken != "" {
-		return c, nil // SdkConfig implements TokenProvider interface
-	} else {
-		tp, e := NewFrontSessionTokenProvider(c)
-		if e != nil {
-			return nil, e
-		}
-		if c.UseTokenCache {
-			tp = WithProviderCache(tp, c)
-		}
-		return tp, nil
-	}
+func TokenProviderFromConfig(c *cells_sdk.SdkConfig) (TokenProvider, error) {
+	// TODO we only support PAT for the time being
+	return c, nil // SdkConfig implements TokenProvider interface
+	//if c.IdToken != "" {
+	//	return c, nil // SdkConfig implements TokenProvider interface
+	//} else {
+	//	tp, e := NewFrontSessionTokenProvider(c)
+	//	if e != nil {
+	//		return nil, e
+	//	}
+	//	if c.UseTokenCache {
+	//		tp = WithProviderCache(tp, c)
+	//	}
+	//	return tp, nil
+	//}
 }

@@ -10,28 +10,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/client/acl_service"
-	"github.com/pydio/cells-sdk-go/v5/client/activity_service"
-	"github.com/pydio/cells-sdk-go/v5/client/admin_tree_service"
-	"github.com/pydio/cells-sdk-go/v5/client/config_service"
-	"github.com/pydio/cells-sdk-go/v5/client/frontend_service"
-	"github.com/pydio/cells-sdk-go/v5/client/graph_service"
-	"github.com/pydio/cells-sdk-go/v5/client/install_service"
-	"github.com/pydio/cells-sdk-go/v5/client/jobs_service"
-	"github.com/pydio/cells-sdk-go/v5/client/log_service"
-	"github.com/pydio/cells-sdk-go/v5/client/mailer_service"
-	"github.com/pydio/cells-sdk-go/v5/client/meta_service"
-	"github.com/pydio/cells-sdk-go/v5/client/policy_service"
-	"github.com/pydio/cells-sdk-go/v5/client/role_service"
-	"github.com/pydio/cells-sdk-go/v5/client/search_service"
-	"github.com/pydio/cells-sdk-go/v5/client/share_service"
-	"github.com/pydio/cells-sdk-go/v5/client/templates_service"
-	"github.com/pydio/cells-sdk-go/v5/client/token_service"
-	"github.com/pydio/cells-sdk-go/v5/client/tree_service"
-	"github.com/pydio/cells-sdk-go/v5/client/update_service"
-	"github.com/pydio/cells-sdk-go/v5/client/user_meta_service"
-	"github.com/pydio/cells-sdk-go/v5/client/user_service"
-	"github.com/pydio/cells-sdk-go/v5/client/workspace_service"
+	"github.com/pydio/cells-sdk-go/v5/client/node_service"
 )
 
 // Default pydio cells rest API HTTP client.
@@ -76,28 +55,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 
 	cli := new(PydioCellsRestAPI)
 	cli.Transport = transport
-	cli.ACLService = acl_service.New(transport, formats)
-	cli.ActivityService = activity_service.New(transport, formats)
-	cli.AdminTreeService = admin_tree_service.New(transport, formats)
-	cli.ConfigService = config_service.New(transport, formats)
-	cli.FrontendService = frontend_service.New(transport, formats)
-	cli.GraphService = graph_service.New(transport, formats)
-	cli.InstallService = install_service.New(transport, formats)
-	cli.JobsService = jobs_service.New(transport, formats)
-	cli.LogService = log_service.New(transport, formats)
-	cli.MailerService = mailer_service.New(transport, formats)
-	cli.MetaService = meta_service.New(transport, formats)
-	cli.PolicyService = policy_service.New(transport, formats)
-	cli.RoleService = role_service.New(transport, formats)
-	cli.SearchService = search_service.New(transport, formats)
-	cli.ShareService = share_service.New(transport, formats)
-	cli.TemplatesService = templates_service.New(transport, formats)
-	cli.TokenService = token_service.New(transport, formats)
-	cli.TreeService = tree_service.New(transport, formats)
-	cli.UpdateService = update_service.New(transport, formats)
-	cli.UserMetaService = user_meta_service.New(transport, formats)
-	cli.UserService = user_service.New(transport, formats)
-	cli.WorkspaceService = workspace_service.New(transport, formats)
+	cli.NodeService = node_service.New(transport, formats)
 	return cli
 }
 
@@ -142,49 +100,7 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // PydioCellsRestAPI is a client for pydio cells rest API
 type PydioCellsRestAPI struct {
-	ACLService acl_service.ClientService
-
-	ActivityService activity_service.ClientService
-
-	AdminTreeService admin_tree_service.ClientService
-
-	ConfigService config_service.ClientService
-
-	FrontendService frontend_service.ClientService
-
-	GraphService graph_service.ClientService
-
-	InstallService install_service.ClientService
-
-	JobsService jobs_service.ClientService
-
-	LogService log_service.ClientService
-
-	MailerService mailer_service.ClientService
-
-	MetaService meta_service.ClientService
-
-	PolicyService policy_service.ClientService
-
-	RoleService role_service.ClientService
-
-	SearchService search_service.ClientService
-
-	ShareService share_service.ClientService
-
-	TemplatesService templates_service.ClientService
-
-	TokenService token_service.ClientService
-
-	TreeService tree_service.ClientService
-
-	UpdateService update_service.ClientService
-
-	UserMetaService user_meta_service.ClientService
-
-	UserService user_service.ClientService
-
-	WorkspaceService workspace_service.ClientService
+	NodeService node_service.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -192,26 +108,5 @@ type PydioCellsRestAPI struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *PydioCellsRestAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-	c.ACLService.SetTransport(transport)
-	c.ActivityService.SetTransport(transport)
-	c.AdminTreeService.SetTransport(transport)
-	c.ConfigService.SetTransport(transport)
-	c.FrontendService.SetTransport(transport)
-	c.GraphService.SetTransport(transport)
-	c.InstallService.SetTransport(transport)
-	c.JobsService.SetTransport(transport)
-	c.LogService.SetTransport(transport)
-	c.MailerService.SetTransport(transport)
-	c.MetaService.SetTransport(transport)
-	c.PolicyService.SetTransport(transport)
-	c.RoleService.SetTransport(transport)
-	c.SearchService.SetTransport(transport)
-	c.ShareService.SetTransport(transport)
-	c.TemplatesService.SetTransport(transport)
-	c.TokenService.SetTransport(transport)
-	c.TreeService.SetTransport(transport)
-	c.UpdateService.SetTransport(transport)
-	c.UserMetaService.SetTransport(transport)
-	c.UserService.SetTransport(transport)
-	c.WorkspaceService.SetTransport(transport)
+	c.NodeService.SetTransport(transport)
 }
