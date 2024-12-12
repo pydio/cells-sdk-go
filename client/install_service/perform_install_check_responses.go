@@ -6,13 +6,14 @@ package install_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // PerformInstallCheckReader is a Reader for the PerformInstallCheck structure.
@@ -103,11 +104,13 @@ func (o *PerformInstallCheckOK) Code() int {
 }
 
 func (o *PerformInstallCheckOK) Error() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckOK %s", 200, payload)
 }
 
 func (o *PerformInstallCheckOK) String() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckOK %s", 200, payload)
 }
 
 func (o *PerformInstallCheckOK) GetPayload() *models.InstallPerformCheckResponse {
@@ -137,6 +140,7 @@ PerformInstallCheckUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type PerformInstallCheckUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform install check unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *PerformInstallCheckUnauthorized) Code() int {
 }
 
 func (o *PerformInstallCheckUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckUnauthorized %s", 401, payload)
 }
 
 func (o *PerformInstallCheckUnauthorized) String() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckUnauthorized %s", 401, payload)
+}
+
+func (o *PerformInstallCheckUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PerformInstallCheckUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewPerformInstallCheckForbidden() *PerformInstallCheckForbidden {
 /*
 PerformInstallCheckForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PerformInstallCheckForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *PerformInstallCheckForbidden) Code() int {
 }
 
 func (o *PerformInstallCheckForbidden) Error() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckForbidden %s", 403, payload)
 }
 
 func (o *PerformInstallCheckForbidden) String() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckForbidden %s", 403, payload)
 }
 
 func (o *PerformInstallCheckForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *PerformInstallCheckNotFound) Code() int {
 }
 
 func (o *PerformInstallCheckNotFound) Error() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckNotFound %s", 404, payload)
 }
 
 func (o *PerformInstallCheckNotFound) String() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckNotFound %s", 404, payload)
 }
 
 func (o *PerformInstallCheckNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *PerformInstallCheckInternalServerError) Code() int {
 }
 
 func (o *PerformInstallCheckInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckInternalServerError %s", 500, payload)
 }
 
 func (o *PerformInstallCheckInternalServerError) String() string {
-	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckInternalServerError %s", 500, payload)
 }
 
 func (o *PerformInstallCheckInternalServerError) GetPayload() *models.RestError {

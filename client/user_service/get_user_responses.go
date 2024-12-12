@@ -6,13 +6,14 @@ package user_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GetUserReader is a Reader for the GetUser structure.
@@ -103,11 +104,13 @@ func (o *GetUserOK) Code() int {
 }
 
 func (o *GetUserOK) Error() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserOK %s", 200, payload)
 }
 
 func (o *GetUserOK) String() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserOK %s", 200, payload)
 }
 
 func (o *GetUserOK) GetPayload() *models.IdmUser {
@@ -137,6 +140,7 @@ GetUserUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetUserUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get user unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *GetUserUnauthorized) Code() int {
 }
 
 func (o *GetUserUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserUnauthorized %s", 401, payload)
 }
 
 func (o *GetUserUnauthorized) String() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserUnauthorized %s", 401, payload)
+}
+
+func (o *GetUserUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewGetUserForbidden() *GetUserForbidden {
 /*
 GetUserForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetUserForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *GetUserForbidden) Code() int {
 }
 
 func (o *GetUserForbidden) Error() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserForbidden %s", 403, payload)
 }
 
 func (o *GetUserForbidden) String() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserForbidden %s", 403, payload)
 }
 
 func (o *GetUserForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *GetUserNotFound) Code() int {
 }
 
 func (o *GetUserNotFound) Error() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserNotFound %s", 404, payload)
 }
 
 func (o *GetUserNotFound) String() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserNotFound %s", 404, payload)
 }
 
 func (o *GetUserNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *GetUserInternalServerError) Code() int {
 }
 
 func (o *GetUserInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserInternalServerError %s", 500, payload)
 }
 
 func (o *GetUserInternalServerError) String() string {
-	return fmt.Sprintf("[GET /user/{Login}][%d] getUserInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user/{Login}][%d] getUserInternalServerError %s", 500, payload)
 }
 
 func (o *GetUserInternalServerError) GetPayload() *models.RestError {

@@ -10,28 +10,29 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/client/acl_service"
-	"github.com/pydio/cells-sdk-go/v5/client/activity_service"
-	"github.com/pydio/cells-sdk-go/v5/client/admin_tree_service"
-	"github.com/pydio/cells-sdk-go/v5/client/config_service"
-	"github.com/pydio/cells-sdk-go/v5/client/frontend_service"
-	"github.com/pydio/cells-sdk-go/v5/client/graph_service"
-	"github.com/pydio/cells-sdk-go/v5/client/install_service"
-	"github.com/pydio/cells-sdk-go/v5/client/jobs_service"
-	"github.com/pydio/cells-sdk-go/v5/client/log_service"
-	"github.com/pydio/cells-sdk-go/v5/client/mailer_service"
-	"github.com/pydio/cells-sdk-go/v5/client/meta_service"
-	"github.com/pydio/cells-sdk-go/v5/client/policy_service"
-	"github.com/pydio/cells-sdk-go/v5/client/role_service"
-	"github.com/pydio/cells-sdk-go/v5/client/search_service"
-	"github.com/pydio/cells-sdk-go/v5/client/share_service"
-	"github.com/pydio/cells-sdk-go/v5/client/templates_service"
-	"github.com/pydio/cells-sdk-go/v5/client/token_service"
-	"github.com/pydio/cells-sdk-go/v5/client/tree_service"
-	"github.com/pydio/cells-sdk-go/v5/client/update_service"
-	"github.com/pydio/cells-sdk-go/v5/client/user_meta_service"
-	"github.com/pydio/cells-sdk-go/v5/client/user_service"
-	"github.com/pydio/cells-sdk-go/v5/client/workspace_service"
+	"github.com/pydio/cells-sdk-go/v4/client/acl_service"
+	"github.com/pydio/cells-sdk-go/v4/client/activity_service"
+	"github.com/pydio/cells-sdk-go/v4/client/admin_tree_service"
+	"github.com/pydio/cells-sdk-go/v4/client/config_service"
+	"github.com/pydio/cells-sdk-go/v4/client/frontend_service"
+	"github.com/pydio/cells-sdk-go/v4/client/graph_service"
+	"github.com/pydio/cells-sdk-go/v4/client/health_service"
+	"github.com/pydio/cells-sdk-go/v4/client/install_service"
+	"github.com/pydio/cells-sdk-go/v4/client/jobs_service"
+	"github.com/pydio/cells-sdk-go/v4/client/log_service"
+	"github.com/pydio/cells-sdk-go/v4/client/mailer_service"
+	"github.com/pydio/cells-sdk-go/v4/client/meta_service"
+	"github.com/pydio/cells-sdk-go/v4/client/policy_service"
+	"github.com/pydio/cells-sdk-go/v4/client/role_service"
+	"github.com/pydio/cells-sdk-go/v4/client/search_service"
+	"github.com/pydio/cells-sdk-go/v4/client/share_service"
+	"github.com/pydio/cells-sdk-go/v4/client/templates_service"
+	"github.com/pydio/cells-sdk-go/v4/client/token_service"
+	"github.com/pydio/cells-sdk-go/v4/client/tree_service"
+	"github.com/pydio/cells-sdk-go/v4/client/update_service"
+	"github.com/pydio/cells-sdk-go/v4/client/user_meta_service"
+	"github.com/pydio/cells-sdk-go/v4/client/user_service"
+	"github.com/pydio/cells-sdk-go/v4/client/workspace_service"
 )
 
 // Default pydio cells rest API HTTP client.
@@ -82,6 +83,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.ConfigService = config_service.New(transport, formats)
 	cli.FrontendService = frontend_service.New(transport, formats)
 	cli.GraphService = graph_service.New(transport, formats)
+	cli.HealthService = health_service.New(transport, formats)
 	cli.InstallService = install_service.New(transport, formats)
 	cli.JobsService = jobs_service.New(transport, formats)
 	cli.LogService = log_service.New(transport, formats)
@@ -154,6 +156,8 @@ type PydioCellsRestAPI struct {
 
 	GraphService graph_service.ClientService
 
+	HealthService health_service.ClientService
+
 	InstallService install_service.ClientService
 
 	JobsService jobs_service.ClientService
@@ -198,6 +202,7 @@ func (c *PydioCellsRestAPI) SetTransport(transport runtime.ClientTransport) {
 	c.ConfigService.SetTransport(transport)
 	c.FrontendService.SetTransport(transport)
 	c.GraphService.SetTransport(transport)
+	c.HealthService.SetTransport(transport)
 	c.InstallService.SetTransport(transport)
 	c.JobsService.SetTransport(transport)
 	c.LogService.SetTransport(transport)

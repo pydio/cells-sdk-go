@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GetVersioningPolicyReader is a Reader for the GetVersioningPolicy structure.
@@ -103,11 +104,13 @@ func (o *GetVersioningPolicyOK) Code() int {
 }
 
 func (o *GetVersioningPolicyOK) Error() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyOK %s", 200, payload)
 }
 
 func (o *GetVersioningPolicyOK) String() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyOK %s", 200, payload)
 }
 
 func (o *GetVersioningPolicyOK) GetPayload() *models.TreeVersioningPolicy {
@@ -137,6 +140,7 @@ GetVersioningPolicyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type GetVersioningPolicyUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get versioning policy unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *GetVersioningPolicyUnauthorized) Code() int {
 }
 
 func (o *GetVersioningPolicyUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized %s", 401, payload)
 }
 
 func (o *GetVersioningPolicyUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized %s", 401, payload)
+}
+
+func (o *GetVersioningPolicyUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetVersioningPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewGetVersioningPolicyForbidden() *GetVersioningPolicyForbidden {
 /*
 GetVersioningPolicyForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetVersioningPolicyForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *GetVersioningPolicyForbidden) Code() int {
 }
 
 func (o *GetVersioningPolicyForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyForbidden %s", 403, payload)
 }
 
 func (o *GetVersioningPolicyForbidden) String() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyForbidden %s", 403, payload)
 }
 
 func (o *GetVersioningPolicyForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *GetVersioningPolicyNotFound) Code() int {
 }
 
 func (o *GetVersioningPolicyNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyNotFound %s", 404, payload)
 }
 
 func (o *GetVersioningPolicyNotFound) String() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyNotFound %s", 404, payload)
 }
 
 func (o *GetVersioningPolicyNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *GetVersioningPolicyInternalServerError) Code() int {
 }
 
 func (o *GetVersioningPolicyInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyInternalServerError %s", 500, payload)
 }
 
 func (o *GetVersioningPolicyInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyInternalServerError %s", 500, payload)
 }
 
 func (o *GetVersioningPolicyInternalServerError) GetPayload() *models.RestError {

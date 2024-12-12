@@ -6,13 +6,14 @@ package install_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // InstallEventsReader is a Reader for the InstallEvents structure.
@@ -103,11 +104,13 @@ func (o *InstallEventsOK) Code() int {
 }
 
 func (o *InstallEventsOK) Error() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsOK %s", 200, payload)
 }
 
 func (o *InstallEventsOK) String() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsOK %s", 200, payload)
 }
 
 func (o *InstallEventsOK) GetPayload() *models.InstallInstallEventsResponse {
@@ -137,6 +140,7 @@ InstallEventsUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type InstallEventsUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this install events unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *InstallEventsUnauthorized) Code() int {
 }
 
 func (o *InstallEventsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsUnauthorized %s", 401, payload)
 }
 
 func (o *InstallEventsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsUnauthorized %s", 401, payload)
+}
+
+func (o *InstallEventsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *InstallEventsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewInstallEventsForbidden() *InstallEventsForbidden {
 /*
 InstallEventsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type InstallEventsForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *InstallEventsForbidden) Code() int {
 }
 
 func (o *InstallEventsForbidden) Error() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsForbidden %s", 403, payload)
 }
 
 func (o *InstallEventsForbidden) String() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsForbidden %s", 403, payload)
 }
 
 func (o *InstallEventsForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *InstallEventsNotFound) Code() int {
 }
 
 func (o *InstallEventsNotFound) Error() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsNotFound %s", 404, payload)
 }
 
 func (o *InstallEventsNotFound) String() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsNotFound %s", 404, payload)
 }
 
 func (o *InstallEventsNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *InstallEventsInternalServerError) Code() int {
 }
 
 func (o *InstallEventsInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsInternalServerError %s", 500, payload)
 }
 
 func (o *InstallEventsInternalServerError) String() string {
-	return fmt.Sprintf("[GET /install/events][%d] installEventsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /install/events][%d] installEventsInternalServerError %s", 500, payload)
 }
 
 func (o *InstallEventsInternalServerError) GetPayload() *models.RestError {

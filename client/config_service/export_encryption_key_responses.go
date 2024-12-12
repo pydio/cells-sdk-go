@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ExportEncryptionKeyReader is a Reader for the ExportEncryptionKey structure.
@@ -103,11 +104,13 @@ func (o *ExportEncryptionKeyOK) Code() int {
 }
 
 func (o *ExportEncryptionKeyOK) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyOK %s", 200, payload)
 }
 
 func (o *ExportEncryptionKeyOK) String() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyOK %s", 200, payload)
 }
 
 func (o *ExportEncryptionKeyOK) GetPayload() *models.EncryptionAdminExportKeyResponse {
@@ -137,6 +140,7 @@ ExportEncryptionKeyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type ExportEncryptionKeyUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this export encryption key unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ExportEncryptionKeyUnauthorized) Code() int {
 }
 
 func (o *ExportEncryptionKeyUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized %s", 401, payload)
 }
 
 func (o *ExportEncryptionKeyUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyUnauthorized %s", 401, payload)
+}
+
+func (o *ExportEncryptionKeyUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ExportEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewExportEncryptionKeyForbidden() *ExportEncryptionKeyForbidden {
 /*
 ExportEncryptionKeyForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ExportEncryptionKeyForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ExportEncryptionKeyForbidden) Code() int {
 }
 
 func (o *ExportEncryptionKeyForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyForbidden %s", 403, payload)
 }
 
 func (o *ExportEncryptionKeyForbidden) String() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyForbidden %s", 403, payload)
 }
 
 func (o *ExportEncryptionKeyForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ExportEncryptionKeyNotFound) Code() int {
 }
 
 func (o *ExportEncryptionKeyNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyNotFound %s", 404, payload)
 }
 
 func (o *ExportEncryptionKeyNotFound) String() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyNotFound %s", 404, payload)
 }
 
 func (o *ExportEncryptionKeyNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ExportEncryptionKeyInternalServerError) Code() int {
 }
 
 func (o *ExportEncryptionKeyInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyInternalServerError %s", 500, payload)
 }
 
 func (o *ExportEncryptionKeyInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/export][%d] exportEncryptionKeyInternalServerError %s", 500, payload)
 }
 
 func (o *ExportEncryptionKeyInternalServerError) GetPayload() *models.RestError {

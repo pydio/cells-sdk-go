@@ -6,13 +6,14 @@ package admin_tree_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListAdminTreeReader is a Reader for the ListAdminTree structure.
@@ -103,11 +104,13 @@ func (o *ListAdminTreeOK) Code() int {
 }
 
 func (o *ListAdminTreeOK) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeOK %s", 200, payload)
 }
 
 func (o *ListAdminTreeOK) String() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeOK %s", 200, payload)
 }
 
 func (o *ListAdminTreeOK) GetPayload() *models.RestNodesCollection {
@@ -137,6 +140,7 @@ ListAdminTreeUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListAdminTreeUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list admin tree unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListAdminTreeUnauthorized) Code() int {
 }
 
 func (o *ListAdminTreeUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized %s", 401, payload)
 }
 
 func (o *ListAdminTreeUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeUnauthorized %s", 401, payload)
+}
+
+func (o *ListAdminTreeUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListAdminTreeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListAdminTreeForbidden() *ListAdminTreeForbidden {
 /*
 ListAdminTreeForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListAdminTreeForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListAdminTreeForbidden) Code() int {
 }
 
 func (o *ListAdminTreeForbidden) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeForbidden %s", 403, payload)
 }
 
 func (o *ListAdminTreeForbidden) String() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeForbidden %s", 403, payload)
 }
 
 func (o *ListAdminTreeForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListAdminTreeNotFound) Code() int {
 }
 
 func (o *ListAdminTreeNotFound) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeNotFound %s", 404, payload)
 }
 
 func (o *ListAdminTreeNotFound) String() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeNotFound %s", 404, payload)
 }
 
 func (o *ListAdminTreeNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListAdminTreeInternalServerError) Code() int {
 }
 
 func (o *ListAdminTreeInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeInternalServerError %s", 500, payload)
 }
 
 func (o *ListAdminTreeInternalServerError) String() string {
-	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/admin/list][%d] listAdminTreeInternalServerError %s", 500, payload)
 }
 
 func (o *ListAdminTreeInternalServerError) GetPayload() *models.RestError {

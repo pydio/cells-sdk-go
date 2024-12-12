@@ -6,13 +6,14 @@ package tree_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // DeleteNodesReader is a Reader for the DeleteNodes structure.
@@ -103,11 +104,13 @@ func (o *DeleteNodesOK) Code() int {
 }
 
 func (o *DeleteNodesOK) Error() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesOK %s", 200, payload)
 }
 
 func (o *DeleteNodesOK) String() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesOK %s", 200, payload)
 }
 
 func (o *DeleteNodesOK) GetPayload() *models.RestDeleteNodesResponse {
@@ -137,6 +140,7 @@ DeleteNodesUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type DeleteNodesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete nodes unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *DeleteNodesUnauthorized) Code() int {
 }
 
 func (o *DeleteNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized %s", 401, payload)
 }
 
 func (o *DeleteNodesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized %s", 401, payload)
+}
+
+func (o *DeleteNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewDeleteNodesForbidden() *DeleteNodesForbidden {
 /*
 DeleteNodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteNodesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *DeleteNodesForbidden) Code() int {
 }
 
 func (o *DeleteNodesForbidden) Error() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesForbidden %s", 403, payload)
 }
 
 func (o *DeleteNodesForbidden) String() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesForbidden %s", 403, payload)
 }
 
 func (o *DeleteNodesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *DeleteNodesNotFound) Code() int {
 }
 
 func (o *DeleteNodesNotFound) Error() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesNotFound %s", 404, payload)
 }
 
 func (o *DeleteNodesNotFound) String() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesNotFound %s", 404, payload)
 }
 
 func (o *DeleteNodesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *DeleteNodesInternalServerError) Code() int {
 }
 
 func (o *DeleteNodesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteNodesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteNodesInternalServerError) GetPayload() *models.RestError {

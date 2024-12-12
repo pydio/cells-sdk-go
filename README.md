@@ -1,7 +1,7 @@
-# Cells SDK Go (v5)
+# Cells SDK Go (v4)
 
 > **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients. 
-> Note also that the cells-sdk-go specific API (mainly package v5/transport) is still being refined and some methods will need migration between v4 and v5.  
+> Note also that the cells-sdk-go specific API (mainly package v4/transport) is still being refined and some methods will need migration between v4 and v4.1  
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 
@@ -21,7 +21,7 @@ For more information, please visit our [developer guide](https://pydio.com/en/do
 The library is publicly available, simply:
 
 ```sh
-go get github.com/pydio/cells-sdk-go/v5 
+go get github.com/pydio/cells-sdk-go/v4 
 ```
 
 and import necessary sub-packages in your code.
@@ -34,10 +34,10 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 ### From SDK v4
 
-For the v5, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
+For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
 
-If you are relying of some of the class defined in the `pydio/cells-sdk-go/v5/transport` package, you will have to update your code.
-You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v5/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
+If you are relying of some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you will have to update your code.
+You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
 
 ### From SDK v3
 

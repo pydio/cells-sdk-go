@@ -6,13 +6,14 @@ package workspace_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // SearchWorkspacesReader is a Reader for the SearchWorkspaces structure.
@@ -103,11 +104,13 @@ func (o *SearchWorkspacesOK) Code() int {
 }
 
 func (o *SearchWorkspacesOK) Error() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesOK %s", 200, payload)
 }
 
 func (o *SearchWorkspacesOK) String() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesOK %s", 200, payload)
 }
 
 func (o *SearchWorkspacesOK) GetPayload() *models.RestWorkspaceCollection {
@@ -137,6 +140,7 @@ SearchWorkspacesUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type SearchWorkspacesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search workspaces unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *SearchWorkspacesUnauthorized) Code() int {
 }
 
 func (o *SearchWorkspacesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesUnauthorized %s", 401, payload)
 }
 
 func (o *SearchWorkspacesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesUnauthorized %s", 401, payload)
+}
+
+func (o *SearchWorkspacesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SearchWorkspacesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewSearchWorkspacesForbidden() *SearchWorkspacesForbidden {
 /*
 SearchWorkspacesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SearchWorkspacesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *SearchWorkspacesForbidden) Code() int {
 }
 
 func (o *SearchWorkspacesForbidden) Error() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesForbidden %s", 403, payload)
 }
 
 func (o *SearchWorkspacesForbidden) String() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesForbidden %s", 403, payload)
 }
 
 func (o *SearchWorkspacesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *SearchWorkspacesNotFound) Code() int {
 }
 
 func (o *SearchWorkspacesNotFound) Error() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesNotFound %s", 404, payload)
 }
 
 func (o *SearchWorkspacesNotFound) String() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesNotFound %s", 404, payload)
 }
 
 func (o *SearchWorkspacesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *SearchWorkspacesInternalServerError) Code() int {
 }
 
 func (o *SearchWorkspacesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesInternalServerError %s", 500, payload)
 }
 
 func (o *SearchWorkspacesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspace][%d] searchWorkspacesInternalServerError %s", 500, payload)
 }
 
 func (o *SearchWorkspacesInternalServerError) GetPayload() *models.RestError {

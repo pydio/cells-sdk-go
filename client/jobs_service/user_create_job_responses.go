@@ -6,15 +6,14 @@ package jobs_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UserCreateJobReader is a Reader for the UserCreateJob structure.
@@ -105,11 +104,13 @@ func (o *UserCreateJobOK) Code() int {
 }
 
 func (o *UserCreateJobOK) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobOK %s", 200, payload)
 }
 
 func (o *UserCreateJobOK) String() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobOK %s", 200, payload)
 }
 
 func (o *UserCreateJobOK) GetPayload() *models.RestUserJobResponse {
@@ -139,6 +140,7 @@ UserCreateJobUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type UserCreateJobUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user create job unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *UserCreateJobUnauthorized) Code() int {
 }
 
 func (o *UserCreateJobUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized %s", 401, payload)
 }
 
 func (o *UserCreateJobUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized %s", 401, payload)
+}
+
+func (o *UserCreateJobUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UserCreateJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewUserCreateJobForbidden() *UserCreateJobForbidden {
 /*
 UserCreateJobForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UserCreateJobForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *UserCreateJobForbidden) Code() int {
 }
 
 func (o *UserCreateJobForbidden) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobForbidden %s", 403, payload)
 }
 
 func (o *UserCreateJobForbidden) String() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobForbidden %s", 403, payload)
 }
 
 func (o *UserCreateJobForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *UserCreateJobNotFound) Code() int {
 }
 
 func (o *UserCreateJobNotFound) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound %s", 404, payload)
 }
 
 func (o *UserCreateJobNotFound) String() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound %s", 404, payload)
 }
 
 func (o *UserCreateJobNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *UserCreateJobInternalServerError) Code() int {
 }
 
 func (o *UserCreateJobInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobInternalServerError %s", 500, payload)
 }
 
 func (o *UserCreateJobInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobInternalServerError %s", 500, payload)
 }
 
 func (o *UserCreateJobInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *UserCreateJobInternalServerError) readResponse(response runtime.ClientR
 		return err
 	}
 
-	return nil
-}
-
-/*
-UserCreateJobBody RestUserJobRequest
-swagger:model UserCreateJobBody
-*/
-type UserCreateJobBody struct {
-
-	// Json-encoded parameters for this job
-	JSONParameters string `json:"JsonParameters,omitempty"`
-}
-
-// Validate validates this user create job body
-func (o *UserCreateJobBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this user create job body based on context it is used
-func (o *UserCreateJobBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *UserCreateJobBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *UserCreateJobBody) UnmarshalBinary(b []byte) error {
-	var res UserCreateJobBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

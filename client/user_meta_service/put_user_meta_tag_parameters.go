@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewPutUserMetaTagParams creates a new PutUserMetaTagParams object,
@@ -68,7 +70,7 @@ type PutUserMetaTagParams struct {
 	Namespace string
 
 	// Body.
-	Body PutUserMetaTagBody
+	Body *models.RestPutUserMetaTagRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +137,13 @@ func (o *PutUserMetaTagParams) SetNamespace(namespace string) {
 }
 
 // WithBody adds the body to the put user meta tag params
-func (o *PutUserMetaTagParams) WithBody(body PutUserMetaTagBody) *PutUserMetaTagParams {
+func (o *PutUserMetaTagParams) WithBody(body *models.RestPutUserMetaTagRequest) *PutUserMetaTagParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put user meta tag params
-func (o *PutUserMetaTagParams) SetBody(body PutUserMetaTagBody) {
+func (o *PutUserMetaTagParams) SetBody(body *models.RestPutUserMetaTagRequest) {
 	o.Body = body
 }
 
@@ -157,8 +159,10 @@ func (o *PutUserMetaTagParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if err := r.SetPathParam("Namespace", o.Namespace); err != nil {
 		return err
 	}
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

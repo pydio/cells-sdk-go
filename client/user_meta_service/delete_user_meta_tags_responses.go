@@ -6,13 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // DeleteUserMetaTagsReader is a Reader for the DeleteUserMetaTags structure.
@@ -103,11 +104,13 @@ func (o *DeleteUserMetaTagsOK) Code() int {
 }
 
 func (o *DeleteUserMetaTagsOK) Error() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsOK %s", 200, payload)
 }
 
 func (o *DeleteUserMetaTagsOK) String() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsOK %s", 200, payload)
 }
 
 func (o *DeleteUserMetaTagsOK) GetPayload() *models.RestDeleteUserMetaTagsResponse {
@@ -137,6 +140,7 @@ DeleteUserMetaTagsUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type DeleteUserMetaTagsUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user meta tags unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *DeleteUserMetaTagsUnauthorized) Code() int {
 }
 
 func (o *DeleteUserMetaTagsUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsUnauthorized %s", 401, payload)
 }
 
 func (o *DeleteUserMetaTagsUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsUnauthorized %s", 401, payload)
+}
+
+func (o *DeleteUserMetaTagsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteUserMetaTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewDeleteUserMetaTagsForbidden() *DeleteUserMetaTagsForbidden {
 /*
 DeleteUserMetaTagsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteUserMetaTagsForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *DeleteUserMetaTagsForbidden) Code() int {
 }
 
 func (o *DeleteUserMetaTagsForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsForbidden %s", 403, payload)
 }
 
 func (o *DeleteUserMetaTagsForbidden) String() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsForbidden %s", 403, payload)
 }
 
 func (o *DeleteUserMetaTagsForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *DeleteUserMetaTagsNotFound) Code() int {
 }
 
 func (o *DeleteUserMetaTagsNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsNotFound %s", 404, payload)
 }
 
 func (o *DeleteUserMetaTagsNotFound) String() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsNotFound %s", 404, payload)
 }
 
 func (o *DeleteUserMetaTagsNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *DeleteUserMetaTagsInternalServerError) Code() int {
 }
 
 func (o *DeleteUserMetaTagsInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteUserMetaTagsInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteUserMetaTagsInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package jobs_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UserDeleteTasksReader is a Reader for the UserDeleteTasks structure.
@@ -103,11 +104,13 @@ func (o *UserDeleteTasksOK) Code() int {
 }
 
 func (o *UserDeleteTasksOK) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksOK %s", 200, payload)
 }
 
 func (o *UserDeleteTasksOK) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksOK %s", 200, payload)
 }
 
 func (o *UserDeleteTasksOK) GetPayload() *models.JobsDeleteTasksResponse {
@@ -137,6 +140,7 @@ UserDeleteTasksUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type UserDeleteTasksUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user delete tasks unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *UserDeleteTasksUnauthorized) Code() int {
 }
 
 func (o *UserDeleteTasksUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized %s", 401, payload)
 }
 
 func (o *UserDeleteTasksUnauthorized) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized %s", 401, payload)
+}
+
+func (o *UserDeleteTasksUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UserDeleteTasksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewUserDeleteTasksForbidden() *UserDeleteTasksForbidden {
 /*
 UserDeleteTasksForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UserDeleteTasksForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *UserDeleteTasksForbidden) Code() int {
 }
 
 func (o *UserDeleteTasksForbidden) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksForbidden %s", 403, payload)
 }
 
 func (o *UserDeleteTasksForbidden) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksForbidden %s", 403, payload)
 }
 
 func (o *UserDeleteTasksForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *UserDeleteTasksNotFound) Code() int {
 }
 
 func (o *UserDeleteTasksNotFound) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound %s", 404, payload)
 }
 
 func (o *UserDeleteTasksNotFound) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound %s", 404, payload)
 }
 
 func (o *UserDeleteTasksNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *UserDeleteTasksInternalServerError) Code() int {
 }
 
 func (o *UserDeleteTasksInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksInternalServerError %s", 500, payload)
 }
 
 func (o *UserDeleteTasksInternalServerError) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksInternalServerError %s", 500, payload)
 }
 
 func (o *UserDeleteTasksInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package frontend_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // FrontBootConfReader is a Reader for the FrontBootConf structure.
@@ -103,11 +104,13 @@ func (o *FrontBootConfOK) Code() int {
 }
 
 func (o *FrontBootConfOK) Error() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfOK %s", 200, payload)
 }
 
 func (o *FrontBootConfOK) String() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfOK %s", 200, payload)
 }
 
 func (o *FrontBootConfOK) GetPayload() *models.RestFrontBootConfResponse {
@@ -137,6 +140,7 @@ FrontBootConfUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type FrontBootConfUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front boot conf unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *FrontBootConfUnauthorized) Code() int {
 }
 
 func (o *FrontBootConfUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized %s", 401, payload)
 }
 
 func (o *FrontBootConfUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized %s", 401, payload)
+}
+
+func (o *FrontBootConfUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *FrontBootConfUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewFrontBootConfForbidden() *FrontBootConfForbidden {
 /*
 FrontBootConfForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type FrontBootConfForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *FrontBootConfForbidden) Code() int {
 }
 
 func (o *FrontBootConfForbidden) Error() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfForbidden %s", 403, payload)
 }
 
 func (o *FrontBootConfForbidden) String() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfForbidden %s", 403, payload)
 }
 
 func (o *FrontBootConfForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *FrontBootConfNotFound) Code() int {
 }
 
 func (o *FrontBootConfNotFound) Error() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound %s", 404, payload)
 }
 
 func (o *FrontBootConfNotFound) String() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound %s", 404, payload)
 }
 
 func (o *FrontBootConfNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *FrontBootConfInternalServerError) Code() int {
 }
 
 func (o *FrontBootConfInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfInternalServerError %s", 500, payload)
 }
 
 func (o *FrontBootConfInternalServerError) String() string {
-	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfInternalServerError %s", 500, payload)
 }
 
 func (o *FrontBootConfInternalServerError) GetPayload() *models.RestError {

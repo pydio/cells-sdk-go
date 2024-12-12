@@ -6,8 +6,8 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
-	"github.com/pydio/cells-sdk-go/v5/transport"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
+	"github.com/pydio/cells-sdk-go/v4/transport"
 )
 
 type LegacyCredentialsProvider struct {

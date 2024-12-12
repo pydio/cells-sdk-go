@@ -6,15 +6,14 @@ package meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // DeleteMetaReader is a Reader for the DeleteMeta structure.
@@ -105,11 +104,13 @@ func (o *DeleteMetaOK) Code() int {
 }
 
 func (o *DeleteMetaOK) Error() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaOK %s", 200, payload)
 }
 
 func (o *DeleteMetaOK) String() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaOK %s", 200, payload)
 }
 
 func (o *DeleteMetaOK) GetPayload() *models.TreeNode {
@@ -139,6 +140,7 @@ DeleteMetaUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete meta unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *DeleteMetaUnauthorized) Code() int {
 }
 
 func (o *DeleteMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaUnauthorized %s", 401, payload)
 }
 
 func (o *DeleteMetaUnauthorized) String() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaUnauthorized %s", 401, payload)
+}
+
+func (o *DeleteMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewDeleteMetaForbidden() *DeleteMetaForbidden {
 /*
 DeleteMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteMetaForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *DeleteMetaForbidden) Code() int {
 }
 
 func (o *DeleteMetaForbidden) Error() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaForbidden %s", 403, payload)
 }
 
 func (o *DeleteMetaForbidden) String() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaForbidden %s", 403, payload)
 }
 
 func (o *DeleteMetaForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *DeleteMetaNotFound) Code() int {
 }
 
 func (o *DeleteMetaNotFound) Error() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaNotFound %s", 404, payload)
 }
 
 func (o *DeleteMetaNotFound) String() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaNotFound %s", 404, payload)
 }
 
 func (o *DeleteMetaNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *DeleteMetaInternalServerError) Code() int {
 }
 
 func (o *DeleteMetaInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteMetaInternalServerError) String() string {
-	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteMetaInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *DeleteMetaInternalServerError) readResponse(response runtime.ClientResp
 		return err
 	}
 
-	return nil
-}
-
-/*
-DeleteMetaBody RestMetaNamespaceRequest
-swagger:model DeleteMetaBody
-*/
-type DeleteMetaBody struct {
-
-	// List of namespaces to load
-	Namespace []string `json:"Namespace"`
-}
-
-// Validate validates this delete meta body
-func (o *DeleteMetaBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this delete meta body based on context it is used
-func (o *DeleteMetaBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *DeleteMetaBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *DeleteMetaBody) UnmarshalBinary(b []byte) error {
-	var res DeleteMetaBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

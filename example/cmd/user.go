@@ -5,9 +5,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pydio/cells-sdk-go/v5/client/user_service"
-	"github.com/pydio/cells-sdk-go/v5/models"
-	"github.com/pydio/cells-sdk-go/v5/transport/rest"
+	"github.com/pydio/cells-sdk-go/v4/client/user_service"
+	"github.com/pydio/cells-sdk-go/v4/models"
+	"github.com/pydio/cells-sdk-go/v4/transport/rest"
 )
 
 var (
@@ -74,7 +74,7 @@ var addUserCmd = &cobra.Command{
 		}
 
 		// Create User
-		newUser := user_service.PutUserBody{
+		newUser := &models.UserServicePutUserBody{
 			GroupPath:  "/",
 			Password:   newUserPassword,
 			Policies:   policies,

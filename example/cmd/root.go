@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 var (

@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewResetPasswordTokenParams creates a new ResetPasswordTokenParams object,
@@ -68,7 +70,7 @@ type ResetPasswordTokenParams struct {
 	UserLogin string
 
 	// Body.
-	Body ResetPasswordTokenBody
+	Body *models.TokenServiceResetPasswordTokenBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +137,13 @@ func (o *ResetPasswordTokenParams) SetUserLogin(userLogin string) {
 }
 
 // WithBody adds the body to the reset password token params
-func (o *ResetPasswordTokenParams) WithBody(body ResetPasswordTokenBody) *ResetPasswordTokenParams {
+func (o *ResetPasswordTokenParams) WithBody(body *models.TokenServiceResetPasswordTokenBody) *ResetPasswordTokenParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the reset password token params
-func (o *ResetPasswordTokenParams) SetBody(body ResetPasswordTokenBody) {
+func (o *ResetPasswordTokenParams) SetBody(body *models.TokenServiceResetPasswordTokenBody) {
 	o.Body = body
 }
 
@@ -157,8 +159,10 @@ func (o *ResetPasswordTokenParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if err := r.SetPathParam("UserLogin", o.UserLogin); err != nil {
 		return err
 	}
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

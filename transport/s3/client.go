@@ -9,8 +9,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
-	cellsSdk "github.com/pydio/cells-sdk-go/v5"
-	http2 "github.com/pydio/cells-sdk-go/v5/transport"
+	cellsSdk "github.com/pydio/cells-sdk-go/v4"
+	http2 "github.com/pydio/cells-sdk-go/v4/transport"
 )
 
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.

@@ -6,13 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UserBookmarksReader is a Reader for the UserBookmarks structure.
@@ -103,11 +104,13 @@ func (o *UserBookmarksOK) Code() int {
 }
 
 func (o *UserBookmarksOK) Error() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksOK %s", 200, payload)
 }
 
 func (o *UserBookmarksOK) String() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksOK %s", 200, payload)
 }
 
 func (o *UserBookmarksOK) GetPayload() *models.RestBulkMetaResponse {
@@ -137,6 +140,7 @@ UserBookmarksUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type UserBookmarksUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user bookmarks unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *UserBookmarksUnauthorized) Code() int {
 }
 
 func (o *UserBookmarksUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksUnauthorized %s", 401, payload)
 }
 
 func (o *UserBookmarksUnauthorized) String() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksUnauthorized %s", 401, payload)
+}
+
+func (o *UserBookmarksUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UserBookmarksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewUserBookmarksForbidden() *UserBookmarksForbidden {
 /*
 UserBookmarksForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UserBookmarksForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *UserBookmarksForbidden) Code() int {
 }
 
 func (o *UserBookmarksForbidden) Error() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksForbidden %s", 403, payload)
 }
 
 func (o *UserBookmarksForbidden) String() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksForbidden %s", 403, payload)
 }
 
 func (o *UserBookmarksForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *UserBookmarksNotFound) Code() int {
 }
 
 func (o *UserBookmarksNotFound) Error() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksNotFound %s", 404, payload)
 }
 
 func (o *UserBookmarksNotFound) String() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksNotFound %s", 404, payload)
 }
 
 func (o *UserBookmarksNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *UserBookmarksInternalServerError) Code() int {
 }
 
 func (o *UserBookmarksInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksInternalServerError %s", 500, payload)
 }
 
 func (o *UserBookmarksInternalServerError) String() string {
-	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/bookmarks][%d] userBookmarksInternalServerError %s", 500, payload)
 }
 
 func (o *UserBookmarksInternalServerError) GetPayload() *models.RestError {

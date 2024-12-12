@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewDeleteMetaParams creates a new DeleteMetaParams object,
@@ -68,7 +70,7 @@ type DeleteMetaParams struct {
 	NodePath string
 
 	// Body.
-	Body DeleteMetaBody
+	Body *models.RestMetaNamespaceRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +137,13 @@ func (o *DeleteMetaParams) SetNodePath(nodePath string) {
 }
 
 // WithBody adds the body to the delete meta params
-func (o *DeleteMetaParams) WithBody(body DeleteMetaBody) *DeleteMetaParams {
+func (o *DeleteMetaParams) WithBody(body *models.RestMetaNamespaceRequest) *DeleteMetaParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the delete meta params
-func (o *DeleteMetaParams) SetBody(body DeleteMetaBody) {
+func (o *DeleteMetaParams) SetBody(body *models.RestMetaNamespaceRequest) {
 	o.Body = body
 }
 
@@ -157,8 +159,10 @@ func (o *DeleteMetaParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	if err := r.SetPathParam("NodePath", o.NodePath); err != nil {
 		return err
 	}
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

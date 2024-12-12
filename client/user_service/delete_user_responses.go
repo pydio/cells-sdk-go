@@ -6,13 +6,14 @@ package user_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // DeleteUserReader is a Reader for the DeleteUser structure.
@@ -103,11 +104,13 @@ func (o *DeleteUserOK) Code() int {
 }
 
 func (o *DeleteUserOK) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserOK %s", 200, payload)
 }
 
 func (o *DeleteUserOK) String() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserOK %s", 200, payload)
 }
 
 func (o *DeleteUserOK) GetPayload() *models.RestDeleteResponse {
@@ -137,6 +140,7 @@ DeleteUserUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteUserUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *DeleteUserUnauthorized) Code() int {
 }
 
 func (o *DeleteUserUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized %s", 401, payload)
 }
 
 func (o *DeleteUserUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized %s", 401, payload)
+}
+
+func (o *DeleteUserUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewDeleteUserForbidden() *DeleteUserForbidden {
 /*
 DeleteUserForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteUserForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *DeleteUserForbidden) Code() int {
 }
 
 func (o *DeleteUserForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserForbidden %s", 403, payload)
 }
 
 func (o *DeleteUserForbidden) String() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserForbidden %s", 403, payload)
 }
 
 func (o *DeleteUserForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *DeleteUserNotFound) Code() int {
 }
 
 func (o *DeleteUserNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound %s", 404, payload)
 }
 
 func (o *DeleteUserNotFound) String() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound %s", 404, payload)
 }
 
 func (o *DeleteUserNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *DeleteUserInternalServerError) Code() int {
 }
 
 func (o *DeleteUserInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteUserInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteUserInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package share_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // DeleteShareLinkReader is a Reader for the DeleteShareLink structure.
@@ -103,11 +104,13 @@ func (o *DeleteShareLinkOK) Code() int {
 }
 
 func (o *DeleteShareLinkOK) Error() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkOK %s", 200, payload)
 }
 
 func (o *DeleteShareLinkOK) String() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkOK %s", 200, payload)
 }
 
 func (o *DeleteShareLinkOK) GetPayload() *models.RestDeleteShareLinkResponse {
@@ -137,6 +140,7 @@ DeleteShareLinkUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type DeleteShareLinkUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete share link unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *DeleteShareLinkUnauthorized) Code() int {
 }
 
 func (o *DeleteShareLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized %s", 401, payload)
 }
 
 func (o *DeleteShareLinkUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized %s", 401, payload)
+}
+
+func (o *DeleteShareLinkUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewDeleteShareLinkForbidden() *DeleteShareLinkForbidden {
 /*
 DeleteShareLinkForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteShareLinkForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *DeleteShareLinkForbidden) Code() int {
 }
 
 func (o *DeleteShareLinkForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkForbidden %s", 403, payload)
 }
 
 func (o *DeleteShareLinkForbidden) String() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkForbidden %s", 403, payload)
 }
 
 func (o *DeleteShareLinkForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *DeleteShareLinkNotFound) Code() int {
 }
 
 func (o *DeleteShareLinkNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound %s", 404, payload)
 }
 
 func (o *DeleteShareLinkNotFound) String() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound %s", 404, payload)
 }
 
 func (o *DeleteShareLinkNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *DeleteShareLinkInternalServerError) Code() int {
 }
 
 func (o *DeleteShareLinkInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteShareLinkInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteShareLinkInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package share_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // PutCellReader is a Reader for the PutCell structure.
@@ -103,11 +104,13 @@ func (o *PutCellOK) Code() int {
 }
 
 func (o *PutCellOK) Error() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellOK %s", 200, payload)
 }
 
 func (o *PutCellOK) String() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellOK %s", 200, payload)
 }
 
 func (o *PutCellOK) GetPayload() *models.RestCell {
@@ -137,6 +140,7 @@ PutCellUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type PutCellUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put cell unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *PutCellUnauthorized) Code() int {
 }
 
 func (o *PutCellUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized %s", 401, payload)
 }
 
 func (o *PutCellUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized %s", 401, payload)
+}
+
+func (o *PutCellUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewPutCellForbidden() *PutCellForbidden {
 /*
 PutCellForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutCellForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *PutCellForbidden) Code() int {
 }
 
 func (o *PutCellForbidden) Error() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellForbidden %s", 403, payload)
 }
 
 func (o *PutCellForbidden) String() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellForbidden %s", 403, payload)
 }
 
 func (o *PutCellForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *PutCellNotFound) Code() int {
 }
 
 func (o *PutCellNotFound) Error() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound %s", 404, payload)
 }
 
 func (o *PutCellNotFound) String() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound %s", 404, payload)
 }
 
 func (o *PutCellNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *PutCellInternalServerError) Code() int {
 }
 
 func (o *PutCellInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellInternalServerError %s", 500, payload)
 }
 
 func (o *PutCellInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /share/cell][%d] putCellInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /share/cell][%d] putCellInternalServerError %s", 500, payload)
 }
 
 func (o *PutCellInternalServerError) GetPayload() *models.RestError {

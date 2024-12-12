@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListDataSourcesReader is a Reader for the ListDataSources structure.
@@ -103,11 +104,13 @@ func (o *ListDataSourcesOK) Code() int {
 }
 
 func (o *ListDataSourcesOK) Error() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesOK %s", 200, payload)
 }
 
 func (o *ListDataSourcesOK) String() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesOK %s", 200, payload)
 }
 
 func (o *ListDataSourcesOK) GetPayload() *models.RestDataSourceCollection {
@@ -137,6 +140,7 @@ ListDataSourcesUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type ListDataSourcesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list data sources unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListDataSourcesUnauthorized) Code() int {
 }
 
 func (o *ListDataSourcesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized %s", 401, payload)
 }
 
 func (o *ListDataSourcesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized %s", 401, payload)
+}
+
+func (o *ListDataSourcesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListDataSourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListDataSourcesForbidden() *ListDataSourcesForbidden {
 /*
 ListDataSourcesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListDataSourcesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListDataSourcesForbidden) Code() int {
 }
 
 func (o *ListDataSourcesForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesForbidden %s", 403, payload)
 }
 
 func (o *ListDataSourcesForbidden) String() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesForbidden %s", 403, payload)
 }
 
 func (o *ListDataSourcesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListDataSourcesNotFound) Code() int {
 }
 
 func (o *ListDataSourcesNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesNotFound %s", 404, payload)
 }
 
 func (o *ListDataSourcesNotFound) String() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesNotFound %s", 404, payload)
 }
 
 func (o *ListDataSourcesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListDataSourcesInternalServerError) Code() int {
 }
 
 func (o *ListDataSourcesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesInternalServerError %s", 500, payload)
 }
 
 func (o *ListDataSourcesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesInternalServerError %s", 500, payload)
 }
 
 func (o *ListDataSourcesInternalServerError) GetPayload() *models.RestError {

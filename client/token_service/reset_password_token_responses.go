@@ -6,15 +6,14 @@ package token_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ResetPasswordTokenReader is a Reader for the ResetPasswordToken structure.
@@ -105,11 +104,13 @@ func (o *ResetPasswordTokenOK) Code() int {
 }
 
 func (o *ResetPasswordTokenOK) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenOK %s", 200, payload)
 }
 
 func (o *ResetPasswordTokenOK) String() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenOK %s", 200, payload)
 }
 
 func (o *ResetPasswordTokenOK) GetPayload() *models.RestResetPasswordTokenResponse {
@@ -139,6 +140,7 @@ ResetPasswordTokenUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ResetPasswordTokenUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this reset password token unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *ResetPasswordTokenUnauthorized) Code() int {
 }
 
 func (o *ResetPasswordTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized %s", 401, payload)
 }
 
 func (o *ResetPasswordTokenUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized %s", 401, payload)
+}
+
+func (o *ResetPasswordTokenUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ResetPasswordTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewResetPasswordTokenForbidden() *ResetPasswordTokenForbidden {
 /*
 ResetPasswordTokenForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ResetPasswordTokenForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *ResetPasswordTokenForbidden) Code() int {
 }
 
 func (o *ResetPasswordTokenForbidden) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenForbidden %s", 403, payload)
 }
 
 func (o *ResetPasswordTokenForbidden) String() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenForbidden %s", 403, payload)
 }
 
 func (o *ResetPasswordTokenForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *ResetPasswordTokenNotFound) Code() int {
 }
 
 func (o *ResetPasswordTokenNotFound) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound %s", 404, payload)
 }
 
 func (o *ResetPasswordTokenNotFound) String() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound %s", 404, payload)
 }
 
 func (o *ResetPasswordTokenNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *ResetPasswordTokenInternalServerError) Code() int {
 }
 
 func (o *ResetPasswordTokenInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenInternalServerError %s", 500, payload)
 }
 
 func (o *ResetPasswordTokenInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenInternalServerError %s", 500, payload)
 }
 
 func (o *ResetPasswordTokenInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *ResetPasswordTokenInternalServerError) readResponse(response runtime.Cl
 		return err
 	}
 
-	return nil
-}
-
-/*
-ResetPasswordTokenBody reset password token body
-swagger:model ResetPasswordTokenBody
-*/
-type ResetPasswordTokenBody struct {
-
-	// create
-	Create bool `json:"Create,omitempty"`
-}
-
-// Validate validates this reset password token body
-func (o *ResetPasswordTokenBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this reset password token body based on context it is used
-func (o *ResetPasswordTokenBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *ResetPasswordTokenBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *ResetPasswordTokenBody) UnmarshalBinary(b []byte) error {
-	var res ResetPasswordTokenBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

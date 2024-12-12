@@ -6,16 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // PutDataSourceReader is a Reader for the PutDataSource structure.
@@ -106,11 +104,13 @@ func (o *PutDataSourceOK) Code() int {
 }
 
 func (o *PutDataSourceOK) Error() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceOK %s", 200, payload)
 }
 
 func (o *PutDataSourceOK) String() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceOK %s", 200, payload)
 }
 
 func (o *PutDataSourceOK) GetPayload() *models.ObjectDataSource {
@@ -140,6 +140,7 @@ PutDataSourceUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type PutDataSourceUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put data source unauthorized response has a 2xx status code
@@ -173,14 +174,27 @@ func (o *PutDataSourceUnauthorized) Code() int {
 }
 
 func (o *PutDataSourceUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized %s", 401, payload)
 }
 
 func (o *PutDataSourceUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized %s", 401, payload)
+}
+
+func (o *PutDataSourceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -193,7 +207,7 @@ func NewPutDataSourceForbidden() *PutDataSourceForbidden {
 /*
 PutDataSourceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutDataSourceForbidden struct {
 	Payload *models.RestError
@@ -230,11 +244,13 @@ func (o *PutDataSourceForbidden) Code() int {
 }
 
 func (o *PutDataSourceForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceForbidden %s", 403, payload)
 }
 
 func (o *PutDataSourceForbidden) String() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceForbidden %s", 403, payload)
 }
 
 func (o *PutDataSourceForbidden) GetPayload() *models.RestError {
@@ -298,11 +314,13 @@ func (o *PutDataSourceNotFound) Code() int {
 }
 
 func (o *PutDataSourceNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound %s", 404, payload)
 }
 
 func (o *PutDataSourceNotFound) String() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound %s", 404, payload)
 }
 
 func (o *PutDataSourceNotFound) GetPayload() *models.RestError {
@@ -366,11 +384,13 @@ func (o *PutDataSourceInternalServerError) Code() int {
 }
 
 func (o *PutDataSourceInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceInternalServerError %s", 500, payload)
 }
 
 func (o *PutDataSourceInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceInternalServerError %s", 500, payload)
 }
 
 func (o *PutDataSourceInternalServerError) GetPayload() *models.RestError {
@@ -386,206 +406,5 @@ func (o *PutDataSourceInternalServerError) readResponse(response runtime.ClientR
 		return err
 	}
 
-	return nil
-}
-
-/*
-PutDataSourceBody DataSource Object description
-swagger:model PutDataSourceBody
-*/
-type PutDataSourceBody struct {
-
-	// Corresponding objects service api key
-	APIKey string `json:"ApiKey,omitempty"`
-
-	// Corresponding objects service api secret
-	APISecret string `json:"ApiSecret,omitempty"`
-
-	// Data Source creation date
-	CreationDate int32 `json:"CreationDate,omitempty"`
-
-	// Whether this data source is disabled or running
-	Disabled bool `json:"Disabled,omitempty"`
-
-	// Encryption key used for encrypting data
-	EncryptionKey string `json:"EncryptionKey,omitempty"`
-
-	// Type of encryption applied before sending data to storage
-	EncryptionMode *models.ObjectEncryptionMode `json:"EncryptionMode,omitempty"`
-
-	// Store data in flat format (object-storage like)
-	FlatStorage bool `json:"FlatStorage,omitempty"`
-
-	// Data Source last synchronization date
-	LastSynchronizationDate int32 `json:"LastSynchronizationDate,omitempty"`
-
-	// Corresponding objects service base folder inside the bucket
-	ObjectsBaseFolder string `json:"ObjectsBaseFolder,omitempty"`
-
-	// Corresponding objects service bucket
-	ObjectsBucket string `json:"ObjectsBucket,omitempty"`
-
-	// Corresponding objects service host
-	ObjectsHost string `json:"ObjectsHost,omitempty"`
-
-	// Corresponding objects service port
-	ObjectsPort int32 `json:"ObjectsPort,omitempty"`
-
-	// Corresponding objects service connection type
-	ObjectsSecure bool `json:"ObjectsSecure,omitempty"`
-
-	// Corresponding objects service name (underlying s3 service)
-	ObjectsServiceName string `json:"ObjectsServiceName,omitempty"`
-
-	// Peer address of the data source
-	PeerAddress string `json:"PeerAddress,omitempty"`
-
-	// Do not trigger resync at start
-	SkipSyncOnRestart bool `json:"SkipSyncOnRestart,omitempty"`
-
-	// List of key values describing storage configuration
-	StorageConfiguration map[string]string `json:"StorageConfiguration,omitempty"`
-
-	// Type of underlying storage (LOCAL, S3, AZURE, GCS)
-	StorageType *models.ObjectStorageType `json:"StorageType,omitempty"`
-
-	// Versioning policy describes how files are kept in the versioning queue
-	VersioningPolicyName string `json:"VersioningPolicyName,omitempty"`
-
-	// Not implemented, whether to watch for underlying changes on the FS
-	Watch bool `json:"Watch,omitempty"`
-}
-
-// Validate validates this put data source body
-func (o *PutDataSourceBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateEncryptionMode(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateStorageType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutDataSourceBody) validateEncryptionMode(formats strfmt.Registry) error {
-	if swag.IsZero(o.EncryptionMode) { // not required
-		return nil
-	}
-
-	if o.EncryptionMode != nil {
-		if err := o.EncryptionMode.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("body" + "." + "EncryptionMode")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("body" + "." + "EncryptionMode")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *PutDataSourceBody) validateStorageType(formats strfmt.Registry) error {
-	if swag.IsZero(o.StorageType) { // not required
-		return nil
-	}
-
-	if o.StorageType != nil {
-		if err := o.StorageType.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("body" + "." + "StorageType")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("body" + "." + "StorageType")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this put data source body based on the context it is used
-func (o *PutDataSourceBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.contextValidateEncryptionMode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateStorageType(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutDataSourceBody) contextValidateEncryptionMode(ctx context.Context, formats strfmt.Registry) error {
-
-	if o.EncryptionMode != nil {
-
-		if swag.IsZero(o.EncryptionMode) { // not required
-			return nil
-		}
-
-		if err := o.EncryptionMode.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("body" + "." + "EncryptionMode")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("body" + "." + "EncryptionMode")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *PutDataSourceBody) contextValidateStorageType(ctx context.Context, formats strfmt.Registry) error {
-
-	if o.StorageType != nil {
-
-		if swag.IsZero(o.StorageType) { // not required
-			return nil
-		}
-
-		if err := o.StorageType.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("body" + "." + "StorageType")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("body" + "." + "StorageType")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PutDataSourceBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PutDataSourceBody) UnmarshalBinary(b []byte) error {
-	var res PutDataSourceBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

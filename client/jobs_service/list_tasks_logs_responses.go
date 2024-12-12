@@ -6,13 +6,14 @@ package jobs_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListTasksLogsReader is a Reader for the ListTasksLogs structure.
@@ -103,11 +104,13 @@ func (o *ListTasksLogsOK) Code() int {
 }
 
 func (o *ListTasksLogsOK) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsOK %s", 200, payload)
 }
 
 func (o *ListTasksLogsOK) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsOK %s", 200, payload)
 }
 
 func (o *ListTasksLogsOK) GetPayload() *models.RestLogMessageCollection {
@@ -137,6 +140,7 @@ ListTasksLogsUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListTasksLogsUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list tasks logs unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListTasksLogsUnauthorized) Code() int {
 }
 
 func (o *ListTasksLogsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized %s", 401, payload)
 }
 
 func (o *ListTasksLogsUnauthorized) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized %s", 401, payload)
+}
+
+func (o *ListTasksLogsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListTasksLogsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListTasksLogsForbidden() *ListTasksLogsForbidden {
 /*
 ListTasksLogsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListTasksLogsForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListTasksLogsForbidden) Code() int {
 }
 
 func (o *ListTasksLogsForbidden) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsForbidden %s", 403, payload)
 }
 
 func (o *ListTasksLogsForbidden) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsForbidden %s", 403, payload)
 }
 
 func (o *ListTasksLogsForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListTasksLogsNotFound) Code() int {
 }
 
 func (o *ListTasksLogsNotFound) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsNotFound %s", 404, payload)
 }
 
 func (o *ListTasksLogsNotFound) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsNotFound %s", 404, payload)
 }
 
 func (o *ListTasksLogsNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListTasksLogsInternalServerError) Code() int {
 }
 
 func (o *ListTasksLogsInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsInternalServerError %s", 500, payload)
 }
 
 func (o *ListTasksLogsInternalServerError) String() string {
-	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsInternalServerError %s", 500, payload)
 }
 
 func (o *ListTasksLogsInternalServerError) GetPayload() *models.RestError {

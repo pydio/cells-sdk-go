@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListRegistryReader is a Reader for the ListRegistry structure.
@@ -103,11 +104,13 @@ func (o *ListRegistryOK) Code() int {
 }
 
 func (o *ListRegistryOK) Error() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryOK %s", 200, payload)
 }
 
 func (o *ListRegistryOK) String() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryOK %s", 200, payload)
 }
 
 func (o *ListRegistryOK) GetPayload() *models.RegistryListResponse {
@@ -137,6 +140,7 @@ ListRegistryUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type ListRegistryUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list registry unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListRegistryUnauthorized) Code() int {
 }
 
 func (o *ListRegistryUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryUnauthorized %s", 401, payload)
 }
 
 func (o *ListRegistryUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryUnauthorized %s", 401, payload)
+}
+
+func (o *ListRegistryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListRegistryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListRegistryForbidden() *ListRegistryForbidden {
 /*
 ListRegistryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListRegistryForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListRegistryForbidden) Code() int {
 }
 
 func (o *ListRegistryForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryForbidden %s", 403, payload)
 }
 
 func (o *ListRegistryForbidden) String() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryForbidden %s", 403, payload)
 }
 
 func (o *ListRegistryForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListRegistryNotFound) Code() int {
 }
 
 func (o *ListRegistryNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryNotFound %s", 404, payload)
 }
 
 func (o *ListRegistryNotFound) String() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryNotFound %s", 404, payload)
 }
 
 func (o *ListRegistryNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListRegistryInternalServerError) Code() int {
 }
 
 func (o *ListRegistryInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryInternalServerError %s", 500, payload)
 }
 
 func (o *ListRegistryInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/registry][%d] listRegistryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/registry][%d] listRegistryInternalServerError %s", 500, payload)
 }
 
 func (o *ListRegistryInternalServerError) GetPayload() *models.RestError {

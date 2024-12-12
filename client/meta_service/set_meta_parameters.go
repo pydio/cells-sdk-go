@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewSetMetaParams creates a new SetMetaParams object,
@@ -65,7 +67,7 @@ type SetMetaParams struct {
 	NodePath string
 
 	// Body.
-	Body SetMetaBody
+	Body *models.RestMetaCollection
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,13 +134,13 @@ func (o *SetMetaParams) SetNodePath(nodePath string) {
 }
 
 // WithBody adds the body to the set meta params
-func (o *SetMetaParams) WithBody(body SetMetaBody) *SetMetaParams {
+func (o *SetMetaParams) WithBody(body *models.RestMetaCollection) *SetMetaParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the set meta params
-func (o *SetMetaParams) SetBody(body SetMetaBody) {
+func (o *SetMetaParams) SetBody(body *models.RestMetaCollection) {
 	o.Body = body
 }
 
@@ -154,8 +156,10 @@ func (o *SetMetaParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if err := r.SetPathParam("NodePath", o.NodePath); err != nil {
 		return err
 	}
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

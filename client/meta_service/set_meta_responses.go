@@ -6,17 +6,14 @@ package meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
-	"strconv"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // SetMetaReader is a Reader for the SetMeta structure.
@@ -107,11 +104,13 @@ func (o *SetMetaOK) Code() int {
 }
 
 func (o *SetMetaOK) Error() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaOK %s", 200, payload)
 }
 
 func (o *SetMetaOK) String() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaOK %s", 200, payload)
 }
 
 func (o *SetMetaOK) GetPayload() *models.TreeNode {
@@ -141,6 +140,7 @@ SetMetaUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type SetMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set meta unauthorized response has a 2xx status code
@@ -174,14 +174,27 @@ func (o *SetMetaUnauthorized) Code() int {
 }
 
 func (o *SetMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized %s", 401, payload)
 }
 
 func (o *SetMetaUnauthorized) String() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized %s", 401, payload)
+}
+
+func (o *SetMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SetMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -194,7 +207,7 @@ func NewSetMetaForbidden() *SetMetaForbidden {
 /*
 SetMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SetMetaForbidden struct {
 	Payload *models.RestError
@@ -231,11 +244,13 @@ func (o *SetMetaForbidden) Code() int {
 }
 
 func (o *SetMetaForbidden) Error() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaForbidden %s", 403, payload)
 }
 
 func (o *SetMetaForbidden) String() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaForbidden %s", 403, payload)
 }
 
 func (o *SetMetaForbidden) GetPayload() *models.RestError {
@@ -299,11 +314,13 @@ func (o *SetMetaNotFound) Code() int {
 }
 
 func (o *SetMetaNotFound) Error() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaNotFound %s", 404, payload)
 }
 
 func (o *SetMetaNotFound) String() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaNotFound %s", 404, payload)
 }
 
 func (o *SetMetaNotFound) GetPayload() *models.RestError {
@@ -367,11 +384,13 @@ func (o *SetMetaInternalServerError) Code() int {
 }
 
 func (o *SetMetaInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaInternalServerError %s", 500, payload)
 }
 
 func (o *SetMetaInternalServerError) String() string {
-	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaInternalServerError %s", 500, payload)
 }
 
 func (o *SetMetaInternalServerError) GetPayload() *models.RestError {
@@ -387,112 +406,5 @@ func (o *SetMetaInternalServerError) readResponse(response runtime.ClientRespons
 		return err
 	}
 
-	return nil
-}
-
-/*
-SetMetaBody RestMetaCollection
-swagger:model SetMetaBody
-*/
-type SetMetaBody struct {
-
-	// metadatas
-	Metadatas []*models.RestMetadata `json:"Metadatas"`
-}
-
-// Validate validates this set meta body
-func (o *SetMetaBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateMetadatas(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *SetMetaBody) validateMetadatas(formats strfmt.Registry) error {
-	if swag.IsZero(o.Metadatas) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(o.Metadatas); i++ {
-		if swag.IsZero(o.Metadatas[i]) { // not required
-			continue
-		}
-
-		if o.Metadatas[i] != nil {
-			if err := o.Metadatas[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("body" + "." + "Metadatas" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("body" + "." + "Metadatas" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this set meta body based on the context it is used
-func (o *SetMetaBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.contextValidateMetadatas(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *SetMetaBody) contextValidateMetadatas(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(o.Metadatas); i++ {
-
-		if o.Metadatas[i] != nil {
-
-			if swag.IsZero(o.Metadatas[i]) { // not required
-				return nil
-			}
-
-			if err := o.Metadatas[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("body" + "." + "Metadatas" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("body" + "." + "Metadatas" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *SetMetaBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *SetMetaBody) UnmarshalBinary(b []byte) error {
-	var res SetMetaBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

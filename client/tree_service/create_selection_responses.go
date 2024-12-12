@@ -6,13 +6,14 @@ package tree_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // CreateSelectionReader is a Reader for the CreateSelection structure.
@@ -103,11 +104,13 @@ func (o *CreateSelectionOK) Code() int {
 }
 
 func (o *CreateSelectionOK) Error() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionOK %s", 200, payload)
 }
 
 func (o *CreateSelectionOK) String() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionOK %s", 200, payload)
 }
 
 func (o *CreateSelectionOK) GetPayload() *models.RestCreateSelectionResponse {
@@ -137,6 +140,7 @@ CreateSelectionUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type CreateSelectionUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create selection unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *CreateSelectionUnauthorized) Code() int {
 }
 
 func (o *CreateSelectionUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized %s", 401, payload)
 }
 
 func (o *CreateSelectionUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized %s", 401, payload)
+}
+
+func (o *CreateSelectionUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *CreateSelectionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewCreateSelectionForbidden() *CreateSelectionForbidden {
 /*
 CreateSelectionForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type CreateSelectionForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *CreateSelectionForbidden) Code() int {
 }
 
 func (o *CreateSelectionForbidden) Error() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionForbidden %s", 403, payload)
 }
 
 func (o *CreateSelectionForbidden) String() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionForbidden %s", 403, payload)
 }
 
 func (o *CreateSelectionForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *CreateSelectionNotFound) Code() int {
 }
 
 func (o *CreateSelectionNotFound) Error() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound %s", 404, payload)
 }
 
 func (o *CreateSelectionNotFound) String() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound %s", 404, payload)
 }
 
 func (o *CreateSelectionNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *CreateSelectionInternalServerError) Code() int {
 }
 
 func (o *CreateSelectionInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionInternalServerError %s", 500, payload)
 }
 
 func (o *CreateSelectionInternalServerError) String() string {
-	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionInternalServerError %s", 500, payload)
 }
 
 func (o *CreateSelectionInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListUserMetaNamespaceReader is a Reader for the ListUserMetaNamespace structure.
@@ -103,11 +104,13 @@ func (o *ListUserMetaNamespaceOK) Code() int {
 }
 
 func (o *ListUserMetaNamespaceOK) Error() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceOK %s", 200, payload)
 }
 
 func (o *ListUserMetaNamespaceOK) String() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceOK %s", 200, payload)
 }
 
 func (o *ListUserMetaNamespaceOK) GetPayload() *models.RestUserMetaNamespaceCollection {
@@ -137,6 +140,7 @@ ListUserMetaNamespaceUnauthorized describes a response with status code 401, wit
 User is not authenticated
 */
 type ListUserMetaNamespaceUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta namespace unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListUserMetaNamespaceUnauthorized) Code() int {
 }
 
 func (o *ListUserMetaNamespaceUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized %s", 401, payload)
 }
 
 func (o *ListUserMetaNamespaceUnauthorized) String() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceUnauthorized %s", 401, payload)
+}
+
+func (o *ListUserMetaNamespaceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListUserMetaNamespaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListUserMetaNamespaceForbidden() *ListUserMetaNamespaceForbidden {
 /*
 ListUserMetaNamespaceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListUserMetaNamespaceForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListUserMetaNamespaceForbidden) Code() int {
 }
 
 func (o *ListUserMetaNamespaceForbidden) Error() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceForbidden %s", 403, payload)
 }
 
 func (o *ListUserMetaNamespaceForbidden) String() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceForbidden %s", 403, payload)
 }
 
 func (o *ListUserMetaNamespaceForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListUserMetaNamespaceNotFound) Code() int {
 }
 
 func (o *ListUserMetaNamespaceNotFound) Error() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceNotFound %s", 404, payload)
 }
 
 func (o *ListUserMetaNamespaceNotFound) String() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceNotFound %s", 404, payload)
 }
 
 func (o *ListUserMetaNamespaceNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListUserMetaNamespaceInternalServerError) Code() int {
 }
 
 func (o *ListUserMetaNamespaceInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceInternalServerError %s", 500, payload)
 }
 
 func (o *ListUserMetaNamespaceInternalServerError) String() string {
-	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/namespace][%d] listUserMetaNamespaceInternalServerError %s", 500, payload)
 }
 
 func (o *ListUserMetaNamespaceInternalServerError) GetPayload() *models.RestError {

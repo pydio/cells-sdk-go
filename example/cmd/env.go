@@ -5,11 +5,11 @@ import (
 	"os"
 	"strconv"
 
-	cells_sdk "github.com/pydio/cells-sdk-go/v5"
+	cellsSdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 var (
-	DefaultConfig *cells_sdk.SdkConfig
+	DefaultConfig *cellsSdk.SdkConfig
 
 	// Keys to retrieve configuration via environment variables
 	KeyURL, KeyUser, KeyPassword, KeySkipVerify = "TARGET_URL", "TARGET_USER", "TARGET_PASSWORD", "TARGET_SKIP_VERIFY"
@@ -56,9 +56,9 @@ func SetUpEnvironment(configFilePath string) error {
 	return nil
 }
 
-func getSdkConfigFromEnv() (*cells_sdk.SdkConfig, error) {
+func getSdkConfigFromEnv() (*cellsSdk.SdkConfig, error) {
 
-	var c *cells_sdk.SdkConfig
+	var c *cellsSdk.SdkConfig
 
 	// check presence of Env variable
 	url := os.Getenv(KeyURL)
@@ -88,15 +88,15 @@ func getSdkConfigFromEnv() (*cells_sdk.SdkConfig, error) {
 	return c, nil
 }
 
-//func getS3ConfigFromSdkConfig(sConf *cells_sdk.SdkConfig) *cells_sdk.S3Config {
-//	conf := cells_sdk.NewS3Config()
+//func getS3ConfigFromSdkConfig(sConf *cellsSdk.SdkConfig) *cellsSdk.S3Config {
+//	conf := cellsSdk.NewS3Config()
 //	conf.Endpoint = sConf.Url
 //	return conf
 //}
 //
-//func getS3ConfigFromEnv() (*cells_sdk.S3Config, error) {
+//func getS3ConfigFromEnv() (*cellsSdk.S3Config, error) {
 //
-//	var c *cells_sdk.S3Config
+//	var c *cellsSdk.S3Config
 //
 //	// check presence of Env variable
 //	endpoint := os.Getenv(KeyS3Endpoint)

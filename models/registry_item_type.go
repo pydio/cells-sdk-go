@@ -65,6 +65,9 @@ const (
 
 	// RegistryItemTypeSTATS captures enum value "STATS"
 	RegistryItemTypeSTATS RegistryItemType = "STATS"
+
+	// RegistryItemTypeSTORAGE captures enum value "STORAGE"
+	RegistryItemTypeSTORAGE RegistryItemType = "STORAGE"
 )
 
 // for schema
@@ -72,7 +75,7 @@ var registryItemTypeEnum []interface{}
 
 func init() {
 	var res []RegistryItemType
-	if err := json.Unmarshal([]byte(`["ALL","EDGE","NODE","SERVICE","SERVER","DAO","GENERIC","ADDRESS","TAG","PROCESS","ENDPOINT","STATS"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ALL","EDGE","NODE","SERVICE","SERVER","DAO","GENERIC","ADDRESS","TAG","PROCESS","ENDPOINT","STATS","STORAGE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

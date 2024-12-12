@@ -62,6 +62,14 @@ GetUserParams contains all the parameters to send to the API endpoint
 */
 type GetUserParams struct {
 
+	/* Attributes.
+
+	     A free list of attributes
+
+	This is a request variable of the map type. The query format is "map_name[key]=value", e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age["bob"]=18
+	*/
+	Attributes *string
+
 	/* GroupLabel.
 
 	   Label of the group, field is empty for users
@@ -171,6 +179,17 @@ func (o *GetUserParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAttributes adds the attributes to the get user params
+func (o *GetUserParams) WithAttributes(attributes *string) *GetUserParams {
+	o.SetAttributes(attributes)
+	return o
+}
+
+// SetAttributes adds the attributes to the get user params
+func (o *GetUserParams) SetAttributes(attributes *string) {
+	o.Attributes = attributes
+}
+
 // WithGroupLabel adds the groupLabel to the get user params
 func (o *GetUserParams) WithGroupLabel(groupLabel *string) *GetUserParams {
 	o.SetGroupLabel(groupLabel)
@@ -277,6 +296,23 @@ func (o *GetUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		return err
 	}
 	var res []error
+
+	if o.Attributes != nil {
+
+		// query param Attributes
+		var qrAttributes string
+
+		if o.Attributes != nil {
+			qrAttributes = *o.Attributes
+		}
+		qAttributes := qrAttributes
+		if qAttributes != "" {
+
+			if err := r.SetQueryParam("Attributes", qAttributes); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.GroupLabel != nil {
 

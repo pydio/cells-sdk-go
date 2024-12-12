@@ -6,13 +6,14 @@ package token_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GenerateDocumentAccessTokenReader is a Reader for the GenerateDocumentAccessToken structure.
@@ -103,11 +104,13 @@ func (o *GenerateDocumentAccessTokenOK) Code() int {
 }
 
 func (o *GenerateDocumentAccessTokenOK) Error() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenOK %s", 200, payload)
 }
 
 func (o *GenerateDocumentAccessTokenOK) String() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenOK %s", 200, payload)
 }
 
 func (o *GenerateDocumentAccessTokenOK) GetPayload() *models.RestDocumentAccessTokenResponse {
@@ -137,6 +140,7 @@ GenerateDocumentAccessTokenUnauthorized describes a response with status code 40
 User is not authenticated
 */
 type GenerateDocumentAccessTokenUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this generate document access token unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *GenerateDocumentAccessTokenUnauthorized) Code() int {
 }
 
 func (o *GenerateDocumentAccessTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenUnauthorized %s", 401, payload)
 }
 
 func (o *GenerateDocumentAccessTokenUnauthorized) String() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenUnauthorized %s", 401, payload)
+}
+
+func (o *GenerateDocumentAccessTokenUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GenerateDocumentAccessTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewGenerateDocumentAccessTokenForbidden() *GenerateDocumentAccessTokenForbi
 /*
 GenerateDocumentAccessTokenForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GenerateDocumentAccessTokenForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *GenerateDocumentAccessTokenForbidden) Code() int {
 }
 
 func (o *GenerateDocumentAccessTokenForbidden) Error() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenForbidden %s", 403, payload)
 }
 
 func (o *GenerateDocumentAccessTokenForbidden) String() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenForbidden %s", 403, payload)
 }
 
 func (o *GenerateDocumentAccessTokenForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *GenerateDocumentAccessTokenNotFound) Code() int {
 }
 
 func (o *GenerateDocumentAccessTokenNotFound) Error() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenNotFound %s", 404, payload)
 }
 
 func (o *GenerateDocumentAccessTokenNotFound) String() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenNotFound %s", 404, payload)
 }
 
 func (o *GenerateDocumentAccessTokenNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *GenerateDocumentAccessTokenInternalServerError) Code() int {
 }
 
 func (o *GenerateDocumentAccessTokenInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenInternalServerError %s", 500, payload)
 }
 
 func (o *GenerateDocumentAccessTokenInternalServerError) String() string {
-	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenInternalServerError %s", 500, payload)
 }
 
 func (o *GenerateDocumentAccessTokenInternalServerError) GetPayload() *models.RestError {

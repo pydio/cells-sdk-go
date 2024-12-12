@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sync"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 var (

@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListSitesReader is a Reader for the ListSites structure.
@@ -103,11 +104,13 @@ func (o *ListSitesOK) Code() int {
 }
 
 func (o *ListSitesOK) Error() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesOK %s", 200, payload)
 }
 
 func (o *ListSitesOK) String() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesOK %s", 200, payload)
 }
 
 func (o *ListSitesOK) GetPayload() *models.RestListSitesResponse {
@@ -137,6 +140,7 @@ ListSitesUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type ListSitesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list sites unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListSitesUnauthorized) Code() int {
 }
 
 func (o *ListSitesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesUnauthorized %s", 401, payload)
 }
 
 func (o *ListSitesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesUnauthorized %s", 401, payload)
+}
+
+func (o *ListSitesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListSitesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListSitesForbidden() *ListSitesForbidden {
 /*
 ListSitesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListSitesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListSitesForbidden) Code() int {
 }
 
 func (o *ListSitesForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesForbidden %s", 403, payload)
 }
 
 func (o *ListSitesForbidden) String() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesForbidden %s", 403, payload)
 }
 
 func (o *ListSitesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListSitesNotFound) Code() int {
 }
 
 func (o *ListSitesNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesNotFound %s", 404, payload)
 }
 
 func (o *ListSitesNotFound) String() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesNotFound %s", 404, payload)
 }
 
 func (o *ListSitesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListSitesInternalServerError) Code() int {
 }
 
 func (o *ListSitesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesInternalServerError %s", 500, payload)
 }
 
 func (o *ListSitesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites/{Filter}][%d] listSitesInternalServerError %s", 500, payload)
 }
 
 func (o *ListSitesInternalServerError) GetPayload() *models.RestError {

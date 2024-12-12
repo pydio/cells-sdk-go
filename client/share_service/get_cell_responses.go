@@ -6,13 +6,14 @@ package share_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GetCellReader is a Reader for the GetCell structure.
@@ -103,11 +104,13 @@ func (o *GetCellOK) Code() int {
 }
 
 func (o *GetCellOK) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellOK %s", 200, payload)
 }
 
 func (o *GetCellOK) String() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellOK %s", 200, payload)
 }
 
 func (o *GetCellOK) GetPayload() *models.RestCell {
@@ -137,6 +140,7 @@ GetCellUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetCellUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get cell unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *GetCellUnauthorized) Code() int {
 }
 
 func (o *GetCellUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized %s", 401, payload)
 }
 
 func (o *GetCellUnauthorized) String() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized %s", 401, payload)
+}
+
+func (o *GetCellUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewGetCellForbidden() *GetCellForbidden {
 /*
 GetCellForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetCellForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *GetCellForbidden) Code() int {
 }
 
 func (o *GetCellForbidden) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellForbidden %s", 403, payload)
 }
 
 func (o *GetCellForbidden) String() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellForbidden %s", 403, payload)
 }
 
 func (o *GetCellForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *GetCellNotFound) Code() int {
 }
 
 func (o *GetCellNotFound) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound %s", 404, payload)
 }
 
 func (o *GetCellNotFound) String() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound %s", 404, payload)
 }
 
 func (o *GetCellNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *GetCellInternalServerError) Code() int {
 }
 
 func (o *GetCellInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellInternalServerError %s", 500, payload)
 }
 
 func (o *GetCellInternalServerError) String() string {
-	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellInternalServerError %s", 500, payload)
 }
 
 func (o *GetCellInternalServerError) GetPayload() *models.RestError {

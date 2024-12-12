@@ -6,13 +6,14 @@ package share_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListSharedResourcesReader is a Reader for the ListSharedResources structure.
@@ -103,11 +104,13 @@ func (o *ListSharedResourcesOK) Code() int {
 }
 
 func (o *ListSharedResourcesOK) Error() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesOK %s", 200, payload)
 }
 
 func (o *ListSharedResourcesOK) String() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesOK %s", 200, payload)
 }
 
 func (o *ListSharedResourcesOK) GetPayload() *models.RestListSharedResourcesResponse {
@@ -137,6 +140,7 @@ ListSharedResourcesUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type ListSharedResourcesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list shared resources unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListSharedResourcesUnauthorized) Code() int {
 }
 
 func (o *ListSharedResourcesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized %s", 401, payload)
 }
 
 func (o *ListSharedResourcesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized %s", 401, payload)
+}
+
+func (o *ListSharedResourcesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListSharedResourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListSharedResourcesForbidden() *ListSharedResourcesForbidden {
 /*
 ListSharedResourcesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListSharedResourcesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListSharedResourcesForbidden) Code() int {
 }
 
 func (o *ListSharedResourcesForbidden) Error() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesForbidden %s", 403, payload)
 }
 
 func (o *ListSharedResourcesForbidden) String() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesForbidden %s", 403, payload)
 }
 
 func (o *ListSharedResourcesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListSharedResourcesNotFound) Code() int {
 }
 
 func (o *ListSharedResourcesNotFound) Error() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound %s", 404, payload)
 }
 
 func (o *ListSharedResourcesNotFound) String() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound %s", 404, payload)
 }
 
 func (o *ListSharedResourcesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListSharedResourcesInternalServerError) Code() int {
 }
 
 func (o *ListSharedResourcesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesInternalServerError %s", 500, payload)
 }
 
 func (o *ListSharedResourcesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesInternalServerError %s", 500, payload)
 }
 
 func (o *ListSharedResourcesInternalServerError) GetPayload() *models.RestError {

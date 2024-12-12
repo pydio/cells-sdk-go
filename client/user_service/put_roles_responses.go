@@ -6,17 +6,14 @@ package user_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
-	"strconv"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // PutRolesReader is a Reader for the PutRoles structure.
@@ -107,11 +104,13 @@ func (o *PutRolesOK) Code() int {
 }
 
 func (o *PutRolesOK) Error() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesOK %s", 200, payload)
 }
 
 func (o *PutRolesOK) String() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesOK %s", 200, payload)
 }
 
 func (o *PutRolesOK) GetPayload() *models.IdmUser {
@@ -141,6 +140,7 @@ PutRolesUnauthorized describes a response with status code 401, with default hea
 User is not authenticated
 */
 type PutRolesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put roles unauthorized response has a 2xx status code
@@ -174,14 +174,27 @@ func (o *PutRolesUnauthorized) Code() int {
 }
 
 func (o *PutRolesUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized %s", 401, payload)
 }
 
 func (o *PutRolesUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized %s", 401, payload)
+}
+
+func (o *PutRolesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -194,7 +207,7 @@ func NewPutRolesForbidden() *PutRolesForbidden {
 /*
 PutRolesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutRolesForbidden struct {
 	Payload *models.RestError
@@ -231,11 +244,13 @@ func (o *PutRolesForbidden) Code() int {
 }
 
 func (o *PutRolesForbidden) Error() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesForbidden %s", 403, payload)
 }
 
 func (o *PutRolesForbidden) String() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesForbidden %s", 403, payload)
 }
 
 func (o *PutRolesForbidden) GetPayload() *models.RestError {
@@ -299,11 +314,13 @@ func (o *PutRolesNotFound) Code() int {
 }
 
 func (o *PutRolesNotFound) Error() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound %s", 404, payload)
 }
 
 func (o *PutRolesNotFound) String() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound %s", 404, payload)
 }
 
 func (o *PutRolesNotFound) GetPayload() *models.RestError {
@@ -367,11 +384,13 @@ func (o *PutRolesInternalServerError) Code() int {
 }
 
 func (o *PutRolesInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesInternalServerError %s", 500, payload)
 }
 
 func (o *PutRolesInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesInternalServerError %s", 500, payload)
 }
 
 func (o *PutRolesInternalServerError) GetPayload() *models.RestError {
@@ -387,201 +406,5 @@ func (o *PutRolesInternalServerError) readResponse(response runtime.ClientRespon
 		return err
 	}
 
-	return nil
-}
-
-/*
-PutRolesBody User can represent either a User or a Group
-swagger:model PutRolesBody
-*/
-type PutRolesBody struct {
-
-	// A free list of attributes
-	Attributes map[string]string `json:"Attributes,omitempty"`
-
-	// Label of the group, field is empty for users
-	GroupLabel string `json:"GroupLabel,omitempty"`
-
-	// Path to the parent group
-	GroupPath string `json:"GroupPath,omitempty"`
-
-	// Whether this object is a group or a user
-	IsGroup bool `json:"IsGroup,omitempty"`
-
-	// Last successful connection timestamp
-	LastConnected int32 `json:"LastConnected,omitempty"`
-
-	// OldPassword must be set when a user updates her own password
-	OldPassword string `json:"OldPassword,omitempty"`
-
-	// Password can be passed to be updated (but never read back), field is empty for groups
-	Password string `json:"Password,omitempty"`
-
-	// Policies securing access to this user
-	Policies []*models.ServiceResourcePolicy `json:"Policies"`
-
-	// Context-resolved to quickly check if user is editable or not.
-	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
-
-	// List of roles applied to this user or group
-	Roles []*models.IdmRole `json:"Roles"`
-
-	// User unique identifier
-	UUID string `json:"Uuid,omitempty"`
-}
-
-// Validate validates this put roles body
-func (o *PutRolesBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validatePolicies(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateRoles(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutRolesBody) validatePolicies(formats strfmt.Registry) error {
-	if swag.IsZero(o.Policies) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(o.Policies); i++ {
-		if swag.IsZero(o.Policies[i]) { // not required
-			continue
-		}
-
-		if o.Policies[i] != nil {
-			if err := o.Policies[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (o *PutRolesBody) validateRoles(formats strfmt.Registry) error {
-	if swag.IsZero(o.Roles) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(o.Roles); i++ {
-		if swag.IsZero(o.Roles[i]) { // not required
-			continue
-		}
-
-		if o.Roles[i] != nil {
-			if err := o.Roles[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("body" + "." + "Roles" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("body" + "." + "Roles" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this put roles body based on the context it is used
-func (o *PutRolesBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.contextValidatePolicies(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateRoles(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutRolesBody) contextValidatePolicies(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(o.Policies); i++ {
-
-		if o.Policies[i] != nil {
-
-			if swag.IsZero(o.Policies[i]) { // not required
-				return nil
-			}
-
-			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (o *PutRolesBody) contextValidateRoles(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(o.Roles); i++ {
-
-		if o.Roles[i] != nil {
-
-			if swag.IsZero(o.Roles[i]) { // not required
-				return nil
-			}
-
-			if err := o.Roles[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("body" + "." + "Roles" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("body" + "." + "Roles" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PutRolesBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PutRolesBody) UnmarshalBinary(b []byte) error {
-	var res PutRolesBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

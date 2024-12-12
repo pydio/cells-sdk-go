@@ -6,13 +6,14 @@ package tree_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // CreateNodesReader is a Reader for the CreateNodes structure.
@@ -103,11 +104,13 @@ func (o *CreateNodesOK) Code() int {
 }
 
 func (o *CreateNodesOK) Error() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesOK %s", 200, payload)
 }
 
 func (o *CreateNodesOK) String() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesOK %s", 200, payload)
 }
 
 func (o *CreateNodesOK) GetPayload() *models.RestNodesCollection {
@@ -137,6 +140,7 @@ CreateNodesUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type CreateNodesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create nodes unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *CreateNodesUnauthorized) Code() int {
 }
 
 func (o *CreateNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesUnauthorized %s", 401, payload)
 }
 
 func (o *CreateNodesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesUnauthorized %s", 401, payload)
+}
+
+func (o *CreateNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *CreateNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewCreateNodesForbidden() *CreateNodesForbidden {
 /*
 CreateNodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type CreateNodesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *CreateNodesForbidden) Code() int {
 }
 
 func (o *CreateNodesForbidden) Error() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesForbidden %s", 403, payload)
 }
 
 func (o *CreateNodesForbidden) String() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesForbidden %s", 403, payload)
 }
 
 func (o *CreateNodesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *CreateNodesNotFound) Code() int {
 }
 
 func (o *CreateNodesNotFound) Error() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesNotFound %s", 404, payload)
 }
 
 func (o *CreateNodesNotFound) String() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesNotFound %s", 404, payload)
 }
 
 func (o *CreateNodesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *CreateNodesInternalServerError) Code() int {
 }
 
 func (o *CreateNodesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesInternalServerError %s", 500, payload)
 }
 
 func (o *CreateNodesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /tree/create][%d] createNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/create][%d] createNodesInternalServerError %s", 500, payload)
 }
 
 func (o *CreateNodesInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // CreateEncryptionKeyReader is a Reader for the CreateEncryptionKey structure.
@@ -103,11 +104,13 @@ func (o *CreateEncryptionKeyOK) Code() int {
 }
 
 func (o *CreateEncryptionKeyOK) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyOK %s", 200, payload)
 }
 
 func (o *CreateEncryptionKeyOK) String() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyOK %s", 200, payload)
 }
 
 func (o *CreateEncryptionKeyOK) GetPayload() *models.EncryptionAdminCreateKeyResponse {
@@ -137,6 +140,7 @@ CreateEncryptionKeyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type CreateEncryptionKeyUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create encryption key unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *CreateEncryptionKeyUnauthorized) Code() int {
 }
 
 func (o *CreateEncryptionKeyUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized %s", 401, payload)
 }
 
 func (o *CreateEncryptionKeyUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyUnauthorized %s", 401, payload)
+}
+
+func (o *CreateEncryptionKeyUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *CreateEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewCreateEncryptionKeyForbidden() *CreateEncryptionKeyForbidden {
 /*
 CreateEncryptionKeyForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type CreateEncryptionKeyForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *CreateEncryptionKeyForbidden) Code() int {
 }
 
 func (o *CreateEncryptionKeyForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyForbidden %s", 403, payload)
 }
 
 func (o *CreateEncryptionKeyForbidden) String() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyForbidden %s", 403, payload)
 }
 
 func (o *CreateEncryptionKeyForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *CreateEncryptionKeyNotFound) Code() int {
 }
 
 func (o *CreateEncryptionKeyNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyNotFound %s", 404, payload)
 }
 
 func (o *CreateEncryptionKeyNotFound) String() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyNotFound %s", 404, payload)
 }
 
 func (o *CreateEncryptionKeyNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *CreateEncryptionKeyInternalServerError) Code() int {
 }
 
 func (o *CreateEncryptionKeyInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyInternalServerError %s", 500, payload)
 }
 
 func (o *CreateEncryptionKeyInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/encryption/create][%d] createEncryptionKeyInternalServerError %s", 500, payload)
 }
 
 func (o *CreateEncryptionKeyInternalServerError) GetPayload() *models.RestError {

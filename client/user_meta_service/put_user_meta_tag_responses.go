@@ -6,15 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // PutUserMetaTagReader is a Reader for the PutUserMetaTag structure.
@@ -105,11 +104,13 @@ func (o *PutUserMetaTagOK) Code() int {
 }
 
 func (o *PutUserMetaTagOK) Error() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagOK %s", 200, payload)
 }
 
 func (o *PutUserMetaTagOK) String() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagOK %s", 200, payload)
 }
 
 func (o *PutUserMetaTagOK) GetPayload() *models.RestPutUserMetaTagResponse {
@@ -139,6 +140,7 @@ PutUserMetaTagUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type PutUserMetaTagUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put user meta tag unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *PutUserMetaTagUnauthorized) Code() int {
 }
 
 func (o *PutUserMetaTagUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagUnauthorized %s", 401, payload)
 }
 
 func (o *PutUserMetaTagUnauthorized) String() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagUnauthorized %s", 401, payload)
+}
+
+func (o *PutUserMetaTagUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutUserMetaTagUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewPutUserMetaTagForbidden() *PutUserMetaTagForbidden {
 /*
 PutUserMetaTagForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutUserMetaTagForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *PutUserMetaTagForbidden) Code() int {
 }
 
 func (o *PutUserMetaTagForbidden) Error() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagForbidden %s", 403, payload)
 }
 
 func (o *PutUserMetaTagForbidden) String() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagForbidden %s", 403, payload)
 }
 
 func (o *PutUserMetaTagForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *PutUserMetaTagNotFound) Code() int {
 }
 
 func (o *PutUserMetaTagNotFound) Error() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagNotFound %s", 404, payload)
 }
 
 func (o *PutUserMetaTagNotFound) String() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagNotFound %s", 404, payload)
 }
 
 func (o *PutUserMetaTagNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *PutUserMetaTagInternalServerError) Code() int {
 }
 
 func (o *PutUserMetaTagInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagInternalServerError %s", 500, payload)
 }
 
 func (o *PutUserMetaTagInternalServerError) String() string {
-	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagInternalServerError %s", 500, payload)
 }
 
 func (o *PutUserMetaTagInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *PutUserMetaTagInternalServerError) readResponse(response runtime.Client
 		return err
 	}
 
-	return nil
-}
-
-/*
-PutUserMetaTagBody RestPutUserMetaTagRequest
-swagger:model PutUserMetaTagBody
-*/
-type PutUserMetaTagBody struct {
-
-	// New tag value
-	Tag string `json:"Tag,omitempty"`
-}
-
-// Validate validates this put user meta tag body
-func (o *PutUserMetaTagBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this put user meta tag body based on context it is used
-func (o *PutUserMetaTagBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PutUserMetaTagBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PutUserMetaTagBody) UnmarshalBinary(b []byte) error {
-	var res PutUserMetaTagBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

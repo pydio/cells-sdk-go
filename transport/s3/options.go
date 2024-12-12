@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
 	"github.com/aws/smithy-go/logging"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 // WithCellsConfigStore is the entry point to provide an external store that exposes

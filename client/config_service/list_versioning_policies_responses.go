@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListVersioningPoliciesReader is a Reader for the ListVersioningPolicies structure.
@@ -103,11 +104,13 @@ func (o *ListVersioningPoliciesOK) Code() int {
 }
 
 func (o *ListVersioningPoliciesOK) Error() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesOK %s", 200, payload)
 }
 
 func (o *ListVersioningPoliciesOK) String() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesOK %s", 200, payload)
 }
 
 func (o *ListVersioningPoliciesOK) GetPayload() *models.RestVersioningPolicyCollection {
@@ -137,6 +140,7 @@ ListVersioningPoliciesUnauthorized describes a response with status code 401, wi
 User is not authenticated
 */
 type ListVersioningPoliciesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list versioning policies unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListVersioningPoliciesUnauthorized) Code() int {
 }
 
 func (o *ListVersioningPoliciesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized %s", 401, payload)
 }
 
 func (o *ListVersioningPoliciesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized %s", 401, payload)
+}
+
+func (o *ListVersioningPoliciesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListVersioningPoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListVersioningPoliciesForbidden() *ListVersioningPoliciesForbidden {
 /*
 ListVersioningPoliciesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListVersioningPoliciesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListVersioningPoliciesForbidden) Code() int {
 }
 
 func (o *ListVersioningPoliciesForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesForbidden %s", 403, payload)
 }
 
 func (o *ListVersioningPoliciesForbidden) String() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesForbidden %s", 403, payload)
 }
 
 func (o *ListVersioningPoliciesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListVersioningPoliciesNotFound) Code() int {
 }
 
 func (o *ListVersioningPoliciesNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound %s", 404, payload)
 }
 
 func (o *ListVersioningPoliciesNotFound) String() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound %s", 404, payload)
 }
 
 func (o *ListVersioningPoliciesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListVersioningPoliciesInternalServerError) Code() int {
 }
 
 func (o *ListVersioningPoliciesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesInternalServerError %s", 500, payload)
 }
 
 func (o *ListVersioningPoliciesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesInternalServerError %s", 500, payload)
 }
 
 func (o *ListVersioningPoliciesInternalServerError) GetPayload() *models.RestError {

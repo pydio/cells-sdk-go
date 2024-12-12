@@ -3,8 +3,8 @@ package transport
 import (
 	"net/http"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
-	http2 "github.com/pydio/cells-sdk-go/v5/transport/http"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
+	http2 "github.com/pydio/cells-sdk-go/v4/transport/http"
 )
 
 // NewHttpClient creates a custom HTTP client that has correct TLS skip verify flag and

@@ -6,13 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UpdateUserMetaReader is a Reader for the UpdateUserMeta structure.
@@ -103,11 +104,13 @@ func (o *UpdateUserMetaOK) Code() int {
 }
 
 func (o *UpdateUserMetaOK) Error() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaOK %s", 200, payload)
 }
 
 func (o *UpdateUserMetaOK) String() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaOK %s", 200, payload)
 }
 
 func (o *UpdateUserMetaOK) GetPayload() *models.IdmUpdateUserMetaResponse {
@@ -137,6 +140,7 @@ UpdateUserMetaUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type UpdateUserMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update user meta unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *UpdateUserMetaUnauthorized) Code() int {
 }
 
 func (o *UpdateUserMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized %s", 401, payload)
 }
 
 func (o *UpdateUserMetaUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized %s", 401, payload)
+}
+
+func (o *UpdateUserMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UpdateUserMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewUpdateUserMetaForbidden() *UpdateUserMetaForbidden {
 /*
 UpdateUserMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UpdateUserMetaForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *UpdateUserMetaForbidden) Code() int {
 }
 
 func (o *UpdateUserMetaForbidden) Error() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaForbidden %s", 403, payload)
 }
 
 func (o *UpdateUserMetaForbidden) String() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaForbidden %s", 403, payload)
 }
 
 func (o *UpdateUserMetaForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *UpdateUserMetaNotFound) Code() int {
 }
 
 func (o *UpdateUserMetaNotFound) Error() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound %s", 404, payload)
 }
 
 func (o *UpdateUserMetaNotFound) String() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound %s", 404, payload)
 }
 
 func (o *UpdateUserMetaNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *UpdateUserMetaInternalServerError) Code() int {
 }
 
 func (o *UpdateUserMetaInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaInternalServerError %s", 500, payload)
 }
 
 func (o *UpdateUserMetaInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaInternalServerError %s", 500, payload)
 }
 
 func (o *UpdateUserMetaInternalServerError) GetPayload() *models.RestError {

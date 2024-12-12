@@ -6,13 +6,14 @@ package activity_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // StreamReader is a Reader for the Stream structure.
@@ -103,11 +104,13 @@ func (o *StreamOK) Code() int {
 }
 
 func (o *StreamOK) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamOK %s", 200, payload)
 }
 
 func (o *StreamOK) String() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamOK %s", 200, payload)
 }
 
 func (o *StreamOK) GetPayload() *models.ActivityObject {
@@ -137,6 +140,7 @@ StreamUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type StreamUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stream unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *StreamUnauthorized) Code() int {
 }
 
 func (o *StreamUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized %s", 401, payload)
 }
 
 func (o *StreamUnauthorized) String() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized %s", 401, payload)
+}
+
+func (o *StreamUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *StreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewStreamForbidden() *StreamForbidden {
 /*
 StreamForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type StreamForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *StreamForbidden) Code() int {
 }
 
 func (o *StreamForbidden) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamForbidden %s", 403, payload)
 }
 
 func (o *StreamForbidden) String() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamForbidden %s", 403, payload)
 }
 
 func (o *StreamForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *StreamNotFound) Code() int {
 }
 
 func (o *StreamNotFound) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamNotFound %s", 404, payload)
 }
 
 func (o *StreamNotFound) String() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamNotFound %s", 404, payload)
 }
 
 func (o *StreamNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *StreamInternalServerError) Code() int {
 }
 
 func (o *StreamInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamInternalServerError %s", 500, payload)
 }
 
 func (o *StreamInternalServerError) String() string {
-	return fmt.Sprintf("[POST /activity/stream][%d] streamInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/stream][%d] streamInternalServerError %s", 500, payload)
 }
 
 func (o *StreamInternalServerError) GetPayload() *models.RestError {

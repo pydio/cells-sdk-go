@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListVirtualNodesReader is a Reader for the ListVirtualNodes structure.
@@ -103,11 +104,13 @@ func (o *ListVirtualNodesOK) Code() int {
 }
 
 func (o *ListVirtualNodesOK) Error() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesOK %s", 200, payload)
 }
 
 func (o *ListVirtualNodesOK) String() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesOK %s", 200, payload)
 }
 
 func (o *ListVirtualNodesOK) GetPayload() *models.RestNodesCollection {
@@ -137,6 +140,7 @@ ListVirtualNodesUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type ListVirtualNodesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list virtual nodes unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListVirtualNodesUnauthorized) Code() int {
 }
 
 func (o *ListVirtualNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized %s", 401, payload)
 }
 
 func (o *ListVirtualNodesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized %s", 401, payload)
+}
+
+func (o *ListVirtualNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListVirtualNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListVirtualNodesForbidden() *ListVirtualNodesForbidden {
 /*
 ListVirtualNodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListVirtualNodesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListVirtualNodesForbidden) Code() int {
 }
 
 func (o *ListVirtualNodesForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesForbidden %s", 403, payload)
 }
 
 func (o *ListVirtualNodesForbidden) String() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesForbidden %s", 403, payload)
 }
 
 func (o *ListVirtualNodesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListVirtualNodesNotFound) Code() int {
 }
 
 func (o *ListVirtualNodesNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound %s", 404, payload)
 }
 
 func (o *ListVirtualNodesNotFound) String() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound %s", 404, payload)
 }
 
 func (o *ListVirtualNodesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListVirtualNodesInternalServerError) Code() int {
 }
 
 func (o *ListVirtualNodesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesInternalServerError %s", 500, payload)
 }
 
 func (o *ListVirtualNodesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesInternalServerError %s", 500, payload)
 }
 
 func (o *ListVirtualNodesInternalServerError) GetPayload() *models.RestError {

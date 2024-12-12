@@ -6,13 +6,14 @@ package mailer_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // SendReader is a Reader for the Send structure.
@@ -103,11 +104,13 @@ func (o *SendOK) Code() int {
 }
 
 func (o *SendOK) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendOK %s", 200, payload)
 }
 
 func (o *SendOK) String() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendOK %s", 200, payload)
 }
 
 func (o *SendOK) GetPayload() *models.MailerSendMailResponse {
@@ -137,6 +140,7 @@ SendUnauthorized describes a response with status code 401, with default header 
 User is not authenticated
 */
 type SendUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this send unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *SendUnauthorized) Code() int {
 }
 
 func (o *SendUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized %s", 401, payload)
 }
 
 func (o *SendUnauthorized) String() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized %s", 401, payload)
+}
+
+func (o *SendUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SendUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewSendForbidden() *SendForbidden {
 /*
 SendForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SendForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *SendForbidden) Code() int {
 }
 
 func (o *SendForbidden) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendForbidden %s", 403, payload)
 }
 
 func (o *SendForbidden) String() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendForbidden %s", 403, payload)
 }
 
 func (o *SendForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *SendNotFound) Code() int {
 }
 
 func (o *SendNotFound) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendNotFound %s", 404, payload)
 }
 
 func (o *SendNotFound) String() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendNotFound %s", 404, payload)
 }
 
 func (o *SendNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *SendInternalServerError) Code() int {
 }
 
 func (o *SendInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendInternalServerError %s", 500, payload)
 }
 
 func (o *SendInternalServerError) String() string {
-	return fmt.Sprintf("[POST /mailer/send][%d] sendInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /mailer/send][%d] sendInternalServerError %s", 500, payload)
 }
 
 func (o *SendInternalServerError) GetPayload() *models.RestError {

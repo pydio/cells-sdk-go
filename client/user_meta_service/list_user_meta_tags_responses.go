@@ -6,13 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListUserMetaTagsReader is a Reader for the ListUserMetaTags structure.
@@ -103,11 +104,13 @@ func (o *ListUserMetaTagsOK) Code() int {
 }
 
 func (o *ListUserMetaTagsOK) Error() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsOK %s", 200, payload)
 }
 
 func (o *ListUserMetaTagsOK) String() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsOK %s", 200, payload)
 }
 
 func (o *ListUserMetaTagsOK) GetPayload() *models.RestListUserMetaTagsResponse {
@@ -137,6 +140,7 @@ ListUserMetaTagsUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type ListUserMetaTagsUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta tags unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListUserMetaTagsUnauthorized) Code() int {
 }
 
 func (o *ListUserMetaTagsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized %s", 401, payload)
 }
 
 func (o *ListUserMetaTagsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized %s", 401, payload)
+}
+
+func (o *ListUserMetaTagsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListUserMetaTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListUserMetaTagsForbidden() *ListUserMetaTagsForbidden {
 /*
 ListUserMetaTagsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListUserMetaTagsForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListUserMetaTagsForbidden) Code() int {
 }
 
 func (o *ListUserMetaTagsForbidden) Error() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsForbidden %s", 403, payload)
 }
 
 func (o *ListUserMetaTagsForbidden) String() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsForbidden %s", 403, payload)
 }
 
 func (o *ListUserMetaTagsForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListUserMetaTagsNotFound) Code() int {
 }
 
 func (o *ListUserMetaTagsNotFound) Error() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound %s", 404, payload)
 }
 
 func (o *ListUserMetaTagsNotFound) String() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound %s", 404, payload)
 }
 
 func (o *ListUserMetaTagsNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListUserMetaTagsInternalServerError) Code() int {
 }
 
 func (o *ListUserMetaTagsInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsInternalServerError %s", 500, payload)
 }
 
 func (o *ListUserMetaTagsInternalServerError) String() string {
-	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsInternalServerError %s", 500, payload)
 }
 
 func (o *ListUserMetaTagsInternalServerError) GetPayload() *models.RestError {

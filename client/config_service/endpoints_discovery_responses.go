@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // EndpointsDiscoveryReader is a Reader for the EndpointsDiscovery structure.
@@ -103,11 +104,13 @@ func (o *EndpointsDiscoveryOK) Code() int {
 }
 
 func (o *EndpointsDiscoveryOK) Error() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryOK %s", 200, payload)
 }
 
 func (o *EndpointsDiscoveryOK) String() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryOK %s", 200, payload)
 }
 
 func (o *EndpointsDiscoveryOK) GetPayload() *models.RestDiscoveryResponse {
@@ -137,6 +140,7 @@ EndpointsDiscoveryUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type EndpointsDiscoveryUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this endpoints discovery unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *EndpointsDiscoveryUnauthorized) Code() int {
 }
 
 func (o *EndpointsDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized %s", 401, payload)
 }
 
 func (o *EndpointsDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized %s", 401, payload)
+}
+
+func (o *EndpointsDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *EndpointsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewEndpointsDiscoveryForbidden() *EndpointsDiscoveryForbidden {
 /*
 EndpointsDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type EndpointsDiscoveryForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *EndpointsDiscoveryForbidden) Code() int {
 }
 
 func (o *EndpointsDiscoveryForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryForbidden %s", 403, payload)
 }
 
 func (o *EndpointsDiscoveryForbidden) String() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryForbidden %s", 403, payload)
 }
 
 func (o *EndpointsDiscoveryForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *EndpointsDiscoveryNotFound) Code() int {
 }
 
 func (o *EndpointsDiscoveryNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound %s", 404, payload)
 }
 
 func (o *EndpointsDiscoveryNotFound) String() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound %s", 404, payload)
 }
 
 func (o *EndpointsDiscoveryNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *EndpointsDiscoveryInternalServerError) Code() int {
 }
 
 func (o *EndpointsDiscoveryInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryInternalServerError %s", 500, payload)
 }
 
 func (o *EndpointsDiscoveryInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryInternalServerError %s", 500, payload)
 }
 
 func (o *EndpointsDiscoveryInternalServerError) GetPayload() *models.RestError {

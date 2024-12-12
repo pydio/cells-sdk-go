@@ -6,13 +6,14 @@ package update_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UpdateRequiredReader is a Reader for the UpdateRequired structure.
@@ -103,11 +104,13 @@ func (o *UpdateRequiredOK) Code() int {
 }
 
 func (o *UpdateRequiredOK) Error() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredOK %s", 200, payload)
 }
 
 func (o *UpdateRequiredOK) String() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredOK %s", 200, payload)
 }
 
 func (o *UpdateRequiredOK) GetPayload() *models.UpdateUpdateResponse {
@@ -137,6 +140,7 @@ UpdateRequiredUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type UpdateRequiredUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update required unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *UpdateRequiredUnauthorized) Code() int {
 }
 
 func (o *UpdateRequiredUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredUnauthorized %s", 401, payload)
 }
 
 func (o *UpdateRequiredUnauthorized) String() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredUnauthorized %s", 401, payload)
+}
+
+func (o *UpdateRequiredUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UpdateRequiredUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewUpdateRequiredForbidden() *UpdateRequiredForbidden {
 /*
 UpdateRequiredForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UpdateRequiredForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *UpdateRequiredForbidden) Code() int {
 }
 
 func (o *UpdateRequiredForbidden) Error() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredForbidden %s", 403, payload)
 }
 
 func (o *UpdateRequiredForbidden) String() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredForbidden %s", 403, payload)
 }
 
 func (o *UpdateRequiredForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *UpdateRequiredNotFound) Code() int {
 }
 
 func (o *UpdateRequiredNotFound) Error() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredNotFound %s", 404, payload)
 }
 
 func (o *UpdateRequiredNotFound) String() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredNotFound %s", 404, payload)
 }
 
 func (o *UpdateRequiredNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *UpdateRequiredInternalServerError) Code() int {
 }
 
 func (o *UpdateRequiredInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredInternalServerError %s", 500, payload)
 }
 
 func (o *UpdateRequiredInternalServerError) String() string {
-	return fmt.Sprintf("[POST /update][%d] updateRequiredInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /update][%d] updateRequiredInternalServerError %s", 500, payload)
 }
 
 func (o *UpdateRequiredInternalServerError) GetPayload() *models.RestError {

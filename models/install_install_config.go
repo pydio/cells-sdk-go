@@ -22,6 +22,9 @@ type InstallInstallConfig struct {
 	// check results
 	CheckResults []*InstallCheckResult `json:"CheckResults"`
 
+	// custom configs
+	CustomConfigs map[string]string `json:"CustomConfigs,omitempty"`
+
 	// Additional Documents DSN data
 	DocumentsDSN string `json:"DocumentsDSN,omitempty"`
 

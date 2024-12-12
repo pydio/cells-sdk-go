@@ -3,7 +3,7 @@ package http
 import (
 	"net/http"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 type headerRoundTripper struct {

@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListPeersAddressesReader is a Reader for the ListPeersAddresses structure.
@@ -103,11 +104,13 @@ func (o *ListPeersAddressesOK) Code() int {
 }
 
 func (o *ListPeersAddressesOK) Error() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesOK %s", 200, payload)
 }
 
 func (o *ListPeersAddressesOK) String() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesOK %s", 200, payload)
 }
 
 func (o *ListPeersAddressesOK) GetPayload() *models.RestListPeersAddressesResponse {
@@ -137,6 +140,7 @@ ListPeersAddressesUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ListPeersAddressesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peers addresses unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListPeersAddressesUnauthorized) Code() int {
 }
 
 func (o *ListPeersAddressesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesUnauthorized %s", 401, payload)
 }
 
 func (o *ListPeersAddressesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesUnauthorized %s", 401, payload)
+}
+
+func (o *ListPeersAddressesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListPeersAddressesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListPeersAddressesForbidden() *ListPeersAddressesForbidden {
 /*
 ListPeersAddressesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListPeersAddressesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListPeersAddressesForbidden) Code() int {
 }
 
 func (o *ListPeersAddressesForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesForbidden %s", 403, payload)
 }
 
 func (o *ListPeersAddressesForbidden) String() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesForbidden %s", 403, payload)
 }
 
 func (o *ListPeersAddressesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListPeersAddressesNotFound) Code() int {
 }
 
 func (o *ListPeersAddressesNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesNotFound %s", 404, payload)
 }
 
 func (o *ListPeersAddressesNotFound) String() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesNotFound %s", 404, payload)
 }
 
 func (o *ListPeersAddressesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListPeersAddressesInternalServerError) Code() int {
 }
 
 func (o *ListPeersAddressesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesInternalServerError %s", 500, payload)
 }
 
 func (o *ListPeersAddressesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesInternalServerError %s", 500, payload)
 }
 
 func (o *ListPeersAddressesInternalServerError) GetPayload() *models.RestError {

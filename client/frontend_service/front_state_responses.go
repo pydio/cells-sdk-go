@@ -6,13 +6,14 @@ package frontend_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // FrontStateReader is a Reader for the FrontState structure.
@@ -103,11 +104,13 @@ func (o *FrontStateOK) Code() int {
 }
 
 func (o *FrontStateOK) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateOK %s", 200, payload)
 }
 
 func (o *FrontStateOK) String() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateOK %s", 200, payload)
 }
 
 func (o *FrontStateOK) GetPayload() *models.RestFrontStateResponse {
@@ -137,6 +140,7 @@ FrontStateUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type FrontStateUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front state unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *FrontStateUnauthorized) Code() int {
 }
 
 func (o *FrontStateUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized %s", 401, payload)
 }
 
 func (o *FrontStateUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateUnauthorized %s", 401, payload)
+}
+
+func (o *FrontStateUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *FrontStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewFrontStateForbidden() *FrontStateForbidden {
 /*
 FrontStateForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type FrontStateForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *FrontStateForbidden) Code() int {
 }
 
 func (o *FrontStateForbidden) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateForbidden %s", 403, payload)
 }
 
 func (o *FrontStateForbidden) String() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateForbidden %s", 403, payload)
 }
 
 func (o *FrontStateForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *FrontStateNotFound) Code() int {
 }
 
 func (o *FrontStateNotFound) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateNotFound %s", 404, payload)
 }
 
 func (o *FrontStateNotFound) String() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateNotFound %s", 404, payload)
 }
 
 func (o *FrontStateNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *FrontStateInternalServerError) Code() int {
 }
 
 func (o *FrontStateInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateInternalServerError %s", 500, payload)
 }
 
 func (o *FrontStateInternalServerError) String() string {
-	return fmt.Sprintf("[GET /frontend/state][%d] frontStateInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/state][%d] frontStateInternalServerError %s", 500, payload)
 }
 
 func (o *FrontStateInternalServerError) GetPayload() *models.RestError {

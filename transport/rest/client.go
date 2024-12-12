@@ -6,10 +6,10 @@ import (
 	"github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
-	sdkclient "github.com/pydio/cells-sdk-go/v5/client"
-	"github.com/pydio/cells-sdk-go/v5/transport"
-	"github.com/pydio/cells-sdk-go/v5/transport/http"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
+	sdkclient "github.com/pydio/cells-sdk-go/v4/client"
+	"github.com/pydio/cells-sdk-go/v4/transport"
+	"github.com/pydio/cells-sdk-go/v4/transport/http"
 )
 
 func GetApiClient(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*sdkclient.PydioCellsRestAPI, error) {

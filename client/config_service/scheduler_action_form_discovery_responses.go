@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // SchedulerActionFormDiscoveryReader is a Reader for the SchedulerActionFormDiscovery structure.
@@ -103,11 +104,13 @@ func (o *SchedulerActionFormDiscoveryOK) Code() int {
 }
 
 func (o *SchedulerActionFormDiscoveryOK) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryOK %s", 200, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryOK) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryOK %s", 200, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryOK) GetPayload() *models.RestSchedulerActionFormResponse {
@@ -137,6 +140,7 @@ SchedulerActionFormDiscoveryUnauthorized describes a response with status code 4
 User is not authenticated
 */
 type SchedulerActionFormDiscoveryUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler action form discovery unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *SchedulerActionFormDiscoveryUnauthorized) Code() int {
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized %s", 401, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized %s", 401, payload)
+}
+
+func (o *SchedulerActionFormDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewSchedulerActionFormDiscoveryForbidden() *SchedulerActionFormDiscoveryFor
 /*
 SchedulerActionFormDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SchedulerActionFormDiscoveryForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *SchedulerActionFormDiscoveryForbidden) Code() int {
 }
 
 func (o *SchedulerActionFormDiscoveryForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryForbidden %s", 403, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryForbidden) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryForbidden %s", 403, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *SchedulerActionFormDiscoveryNotFound) Code() int {
 }
 
 func (o *SchedulerActionFormDiscoveryNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryNotFound %s", 404, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryNotFound) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryNotFound %s", 404, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *SchedulerActionFormDiscoveryInternalServerError) Code() int {
 }
 
 func (o *SchedulerActionFormDiscoveryInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryInternalServerError %s", 500, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryInternalServerError %s", 500, payload)
 }
 
 func (o *SchedulerActionFormDiscoveryInternalServerError) GetPayload() *models.RestError {

@@ -6,16 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // CreateStorageBucketReader is a Reader for the CreateStorageBucket structure.
@@ -106,11 +104,13 @@ func (o *CreateStorageBucketOK) Code() int {
 }
 
 func (o *CreateStorageBucketOK) Error() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketOK %s", 200, payload)
 }
 
 func (o *CreateStorageBucketOK) String() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketOK %s", 200, payload)
 }
 
 func (o *CreateStorageBucketOK) GetPayload() *models.RestCreateStorageBucketResponse {
@@ -140,6 +140,7 @@ CreateStorageBucketUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type CreateStorageBucketUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create storage bucket unauthorized response has a 2xx status code
@@ -173,14 +174,27 @@ func (o *CreateStorageBucketUnauthorized) Code() int {
 }
 
 func (o *CreateStorageBucketUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized %s", 401, payload)
 }
 
 func (o *CreateStorageBucketUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized %s", 401, payload)
+}
+
+func (o *CreateStorageBucketUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *CreateStorageBucketUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -193,7 +207,7 @@ func NewCreateStorageBucketForbidden() *CreateStorageBucketForbidden {
 /*
 CreateStorageBucketForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type CreateStorageBucketForbidden struct {
 	Payload *models.RestError
@@ -230,11 +244,13 @@ func (o *CreateStorageBucketForbidden) Code() int {
 }
 
 func (o *CreateStorageBucketForbidden) Error() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketForbidden %s", 403, payload)
 }
 
 func (o *CreateStorageBucketForbidden) String() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketForbidden %s", 403, payload)
 }
 
 func (o *CreateStorageBucketForbidden) GetPayload() *models.RestError {
@@ -298,11 +314,13 @@ func (o *CreateStorageBucketNotFound) Code() int {
 }
 
 func (o *CreateStorageBucketNotFound) Error() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketNotFound %s", 404, payload)
 }
 
 func (o *CreateStorageBucketNotFound) String() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketNotFound %s", 404, payload)
 }
 
 func (o *CreateStorageBucketNotFound) GetPayload() *models.RestError {
@@ -366,11 +384,13 @@ func (o *CreateStorageBucketInternalServerError) Code() int {
 }
 
 func (o *CreateStorageBucketInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketInternalServerError %s", 500, payload)
 }
 
 func (o *CreateStorageBucketInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketInternalServerError %s", 500, payload)
 }
 
 func (o *CreateStorageBucketInternalServerError) GetPayload() *models.RestError {
@@ -386,101 +406,5 @@ func (o *CreateStorageBucketInternalServerError) readResponse(response runtime.C
 		return err
 	}
 
-	return nil
-}
-
-/*
-CreateStorageBucketBody RestCreateStorageBucketRequest
-swagger:model CreateStorageBucketBody
-*/
-type CreateStorageBucketBody struct {
-
-	// data source
-	DataSource *models.ObjectDataSource `json:"DataSource,omitempty"`
-}
-
-// Validate validates this create storage bucket body
-func (o *CreateStorageBucketBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDataSource(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *CreateStorageBucketBody) validateDataSource(formats strfmt.Registry) error {
-	if swag.IsZero(o.DataSource) { // not required
-		return nil
-	}
-
-	if o.DataSource != nil {
-		if err := o.DataSource.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("body" + "." + "DataSource")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("body" + "." + "DataSource")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this create storage bucket body based on the context it is used
-func (o *CreateStorageBucketBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.contextValidateDataSource(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *CreateStorageBucketBody) contextValidateDataSource(ctx context.Context, formats strfmt.Registry) error {
-
-	if o.DataSource != nil {
-
-		if swag.IsZero(o.DataSource) { // not required
-			return nil
-		}
-
-		if err := o.DataSource.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("body" + "." + "DataSource")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("body" + "." + "DataSource")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *CreateStorageBucketBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *CreateStorageBucketBody) UnmarshalBinary(b []byte) error {
-	var res CreateStorageBucketBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

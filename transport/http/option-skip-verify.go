@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"net/http"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 func WithSkipVerify(skip bool) cellssdk.TransportOption {

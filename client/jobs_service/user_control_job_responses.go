@@ -6,13 +6,14 @@ package jobs_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UserControlJobReader is a Reader for the UserControlJob structure.
@@ -103,11 +104,13 @@ func (o *UserControlJobOK) Code() int {
 }
 
 func (o *UserControlJobOK) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobOK %s", 200, payload)
 }
 
 func (o *UserControlJobOK) String() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobOK %s", 200, payload)
 }
 
 func (o *UserControlJobOK) GetPayload() *models.JobsCtrlCommandResponse {
@@ -137,6 +140,7 @@ UserControlJobUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type UserControlJobUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user control job unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *UserControlJobUnauthorized) Code() int {
 }
 
 func (o *UserControlJobUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobUnauthorized %s", 401, payload)
 }
 
 func (o *UserControlJobUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobUnauthorized %s", 401, payload)
+}
+
+func (o *UserControlJobUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UserControlJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewUserControlJobForbidden() *UserControlJobForbidden {
 /*
 UserControlJobForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UserControlJobForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *UserControlJobForbidden) Code() int {
 }
 
 func (o *UserControlJobForbidden) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobForbidden %s", 403, payload)
 }
 
 func (o *UserControlJobForbidden) String() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobForbidden %s", 403, payload)
 }
 
 func (o *UserControlJobForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *UserControlJobNotFound) Code() int {
 }
 
 func (o *UserControlJobNotFound) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobNotFound %s", 404, payload)
 }
 
 func (o *UserControlJobNotFound) String() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobNotFound %s", 404, payload)
 }
 
 func (o *UserControlJobNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *UserControlJobInternalServerError) Code() int {
 }
 
 func (o *UserControlJobInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobInternalServerError %s", 500, payload)
 }
 
 func (o *UserControlJobInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /jobs/user][%d] userControlJobInternalServerError %s", 500, payload)
 }
 
 func (o *UserControlJobInternalServerError) GetPayload() *models.RestError {

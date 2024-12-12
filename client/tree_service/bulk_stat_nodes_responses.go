@@ -6,13 +6,14 @@ package tree_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // BulkStatNodesReader is a Reader for the BulkStatNodes structure.
@@ -103,11 +104,13 @@ func (o *BulkStatNodesOK) Code() int {
 }
 
 func (o *BulkStatNodesOK) Error() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesOK %s", 200, payload)
 }
 
 func (o *BulkStatNodesOK) String() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesOK %s", 200, payload)
 }
 
 func (o *BulkStatNodesOK) GetPayload() *models.RestBulkMetaResponse {
@@ -137,6 +140,7 @@ BulkStatNodesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type BulkStatNodesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this bulk stat nodes unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *BulkStatNodesUnauthorized) Code() int {
 }
 
 func (o *BulkStatNodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized %s", 401, payload)
 }
 
 func (o *BulkStatNodesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized %s", 401, payload)
+}
+
+func (o *BulkStatNodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *BulkStatNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewBulkStatNodesForbidden() *BulkStatNodesForbidden {
 /*
 BulkStatNodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type BulkStatNodesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *BulkStatNodesForbidden) Code() int {
 }
 
 func (o *BulkStatNodesForbidden) Error() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesForbidden %s", 403, payload)
 }
 
 func (o *BulkStatNodesForbidden) String() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesForbidden %s", 403, payload)
 }
 
 func (o *BulkStatNodesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *BulkStatNodesNotFound) Code() int {
 }
 
 func (o *BulkStatNodesNotFound) Error() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesNotFound %s", 404, payload)
 }
 
 func (o *BulkStatNodesNotFound) String() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesNotFound %s", 404, payload)
 }
 
 func (o *BulkStatNodesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *BulkStatNodesInternalServerError) Code() int {
 }
 
 func (o *BulkStatNodesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesInternalServerError %s", 500, payload)
 }
 
 func (o *BulkStatNodesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesInternalServerError %s", 500, payload)
 }
 
 func (o *BulkStatNodesInternalServerError) GetPayload() *models.RestError {

@@ -3,7 +3,7 @@ package transport
 import (
 	"net/http"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
 // New creates a new default http transport with the passed transport and round-trip options.

@@ -6,13 +6,14 @@ package meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GetBulkMetaReader is a Reader for the GetBulkMeta structure.
@@ -103,11 +104,13 @@ func (o *GetBulkMetaOK) Code() int {
 }
 
 func (o *GetBulkMetaOK) Error() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaOK %s", 200, payload)
 }
 
 func (o *GetBulkMetaOK) String() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaOK %s", 200, payload)
 }
 
 func (o *GetBulkMetaOK) GetPayload() *models.RestBulkMetaResponse {
@@ -137,6 +140,7 @@ GetBulkMetaUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type GetBulkMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get bulk meta unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *GetBulkMetaUnauthorized) Code() int {
 }
 
 func (o *GetBulkMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized %s", 401, payload)
 }
 
 func (o *GetBulkMetaUnauthorized) String() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaUnauthorized %s", 401, payload)
+}
+
+func (o *GetBulkMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetBulkMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewGetBulkMetaForbidden() *GetBulkMetaForbidden {
 /*
 GetBulkMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetBulkMetaForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *GetBulkMetaForbidden) Code() int {
 }
 
 func (o *GetBulkMetaForbidden) Error() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaForbidden %s", 403, payload)
 }
 
 func (o *GetBulkMetaForbidden) String() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaForbidden %s", 403, payload)
 }
 
 func (o *GetBulkMetaForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *GetBulkMetaNotFound) Code() int {
 }
 
 func (o *GetBulkMetaNotFound) Error() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaNotFound %s", 404, payload)
 }
 
 func (o *GetBulkMetaNotFound) String() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaNotFound %s", 404, payload)
 }
 
 func (o *GetBulkMetaNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *GetBulkMetaInternalServerError) Code() int {
 }
 
 func (o *GetBulkMetaInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaInternalServerError %s", 500, payload)
 }
 
 func (o *GetBulkMetaInternalServerError) String() string {
-	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/bulk/get][%d] getBulkMetaInternalServerError %s", 500, payload)
 }
 
 func (o *GetBulkMetaInternalServerError) GetPayload() *models.RestError {

@@ -6,13 +6,14 @@ package graph_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // UserStateReader is a Reader for the UserState structure.
@@ -103,11 +104,13 @@ func (o *UserStateOK) Code() int {
 }
 
 func (o *UserStateOK) Error() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateOK %s", 200, payload)
 }
 
 func (o *UserStateOK) String() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateOK %s", 200, payload)
 }
 
 func (o *UserStateOK) GetPayload() *models.RestUserStateResponse {
@@ -137,6 +140,7 @@ UserStateUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type UserStateUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user state unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *UserStateUnauthorized) Code() int {
 }
 
 func (o *UserStateUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized %s", 401, payload)
 }
 
 func (o *UserStateUnauthorized) String() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized %s", 401, payload)
+}
+
+func (o *UserStateUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *UserStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewUserStateForbidden() *UserStateForbidden {
 /*
 UserStateForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type UserStateForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *UserStateForbidden) Code() int {
 }
 
 func (o *UserStateForbidden) Error() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateForbidden %s", 403, payload)
 }
 
 func (o *UserStateForbidden) String() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateForbidden %s", 403, payload)
 }
 
 func (o *UserStateForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *UserStateNotFound) Code() int {
 }
 
 func (o *UserStateNotFound) Error() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound %s", 404, payload)
 }
 
 func (o *UserStateNotFound) String() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound %s", 404, payload)
 }
 
 func (o *UserStateNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *UserStateInternalServerError) Code() int {
 }
 
 func (o *UserStateInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateInternalServerError %s", 500, payload)
 }
 
 func (o *UserStateInternalServerError) String() string {
-	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateInternalServerError %s", 500, payload)
 }
 
 func (o *UserStateInternalServerError) GetPayload() *models.RestError {

@@ -6,15 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // PutConfigReader is a Reader for the PutConfig structure.
@@ -105,11 +104,13 @@ func (o *PutConfigOK) Code() int {
 }
 
 func (o *PutConfigOK) Error() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigOK %s", 200, payload)
 }
 
 func (o *PutConfigOK) String() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigOK %s", 200, payload)
 }
 
 func (o *PutConfigOK) GetPayload() *models.RestConfiguration {
@@ -139,6 +140,7 @@ PutConfigUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type PutConfigUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put config unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *PutConfigUnauthorized) Code() int {
 }
 
 func (o *PutConfigUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized %s", 401, payload)
 }
 
 func (o *PutConfigUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigUnauthorized %s", 401, payload)
+}
+
+func (o *PutConfigUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *PutConfigUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewPutConfigForbidden() *PutConfigForbidden {
 /*
 PutConfigForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type PutConfigForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *PutConfigForbidden) Code() int {
 }
 
 func (o *PutConfigForbidden) Error() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigForbidden %s", 403, payload)
 }
 
 func (o *PutConfigForbidden) String() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigForbidden %s", 403, payload)
 }
 
 func (o *PutConfigForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *PutConfigNotFound) Code() int {
 }
 
 func (o *PutConfigNotFound) Error() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigNotFound %s", 404, payload)
 }
 
 func (o *PutConfigNotFound) String() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigNotFound %s", 404, payload)
 }
 
 func (o *PutConfigNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *PutConfigInternalServerError) Code() int {
 }
 
 func (o *PutConfigInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigInternalServerError %s", 500, payload)
 }
 
 func (o *PutConfigInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/{FullPath}][%d] putConfigInternalServerError %s", 500, payload)
 }
 
 func (o *PutConfigInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *PutConfigInternalServerError) readResponse(response runtime.ClientRespo
 		return err
 	}
 
-	return nil
-}
-
-/*
-PutConfigBody Configuration message. Data is an Json representation of any value
-swagger:model PutConfigBody
-*/
-type PutConfigBody struct {
-
-	// JSON-encoded data to store
-	Data string `json:"Data,omitempty"`
-}
-
-// Validate validates this put config body
-func (o *PutConfigBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this put config body based on context it is used
-func (o *PutConfigBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PutConfigBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PutConfigBody) UnmarshalBinary(b []byte) error {
-	var res PutConfigBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

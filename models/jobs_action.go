@@ -34,9 +34,6 @@ type JobsAction struct {
 	// in parallel
 	ChainedActions []*JobsAction `json:"ChainedActions"`
 
-	// Filter values from ChatEvent
-	ChatEventFilter *JobsChatEventFilter `json:"ChatEventFilter,omitempty"`
-
 	// Metadata policy-based filter
 	ContextMetaFilter *JobsContextMetaFilter `json:"ContextMetaFilter,omitempty"`
 
@@ -105,10 +102,6 @@ func (m *JobsAction) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateChainedActions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateChatEventFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -214,25 +207,6 @@ func (m *JobsAction) validateChainedActions(formats strfmt.Registry) error {
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *JobsAction) validateChatEventFilter(formats strfmt.Registry) error {
-	if swag.IsZero(m.ChatEventFilter) { // not required
-		return nil
-	}
-
-	if m.ChatEventFilter != nil {
-		if err := m.ChatEventFilter.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ChatEventFilter")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("ChatEventFilter")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -523,10 +497,6 @@ func (m *JobsAction) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateChatEventFilter(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateContextMetaFilter(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -630,27 +600,6 @@ func (m *JobsAction) contextValidateChainedActions(ctx context.Context, formats 
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *JobsAction) contextValidateChatEventFilter(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ChatEventFilter != nil {
-
-		if swag.IsZero(m.ChatEventFilter) { // not required
-			return nil
-		}
-
-		if err := m.ChatEventFilter.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ChatEventFilter")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("ChatEventFilter")
-			}
-			return err
-		}
 	}
 
 	return nil

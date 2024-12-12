@@ -6,13 +6,14 @@ package role_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // DeleteRoleReader is a Reader for the DeleteRole structure.
@@ -103,11 +104,13 @@ func (o *DeleteRoleOK) Code() int {
 }
 
 func (o *DeleteRoleOK) Error() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleOK %s", 200, payload)
 }
 
 func (o *DeleteRoleOK) String() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleOK %s", 200, payload)
 }
 
 func (o *DeleteRoleOK) GetPayload() *models.IdmRole {
@@ -137,6 +140,7 @@ DeleteRoleUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteRoleUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete role unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *DeleteRoleUnauthorized) Code() int {
 }
 
 func (o *DeleteRoleUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleUnauthorized %s", 401, payload)
 }
 
 func (o *DeleteRoleUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleUnauthorized %s", 401, payload)
+}
+
+func (o *DeleteRoleUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *DeleteRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewDeleteRoleForbidden() *DeleteRoleForbidden {
 /*
 DeleteRoleForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type DeleteRoleForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *DeleteRoleForbidden) Code() int {
 }
 
 func (o *DeleteRoleForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleForbidden %s", 403, payload)
 }
 
 func (o *DeleteRoleForbidden) String() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleForbidden %s", 403, payload)
 }
 
 func (o *DeleteRoleForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *DeleteRoleNotFound) Code() int {
 }
 
 func (o *DeleteRoleNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleNotFound %s", 404, payload)
 }
 
 func (o *DeleteRoleNotFound) String() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleNotFound %s", 404, payload)
 }
 
 func (o *DeleteRoleNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *DeleteRoleInternalServerError) Code() int {
 }
 
 func (o *DeleteRoleInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteRoleInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleInternalServerError %s", 500, payload)
 }
 
 func (o *DeleteRoleInternalServerError) GetPayload() *models.RestError {

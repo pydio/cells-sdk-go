@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewCreateStorageBucketParams creates a new CreateStorageBucketParams object,
@@ -65,7 +67,7 @@ type CreateStorageBucketParams struct {
 	BucketName string
 
 	// Body.
-	Body CreateStorageBucketBody
+	Body *models.RestCreateStorageBucketRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,13 +134,13 @@ func (o *CreateStorageBucketParams) SetBucketName(bucketName string) {
 }
 
 // WithBody adds the body to the create storage bucket params
-func (o *CreateStorageBucketParams) WithBody(body CreateStorageBucketBody) *CreateStorageBucketParams {
+func (o *CreateStorageBucketParams) WithBody(body *models.RestCreateStorageBucketRequest) *CreateStorageBucketParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the create storage bucket params
-func (o *CreateStorageBucketParams) SetBody(body CreateStorageBucketBody) {
+func (o *CreateStorageBucketParams) SetBody(body *models.RestCreateStorageBucketRequest) {
 	o.Body = body
 }
 
@@ -154,8 +156,10 @@ func (o *CreateStorageBucketParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if err := r.SetPathParam("BucketName", o.BucketName); err != nil {
 		return err
 	}
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

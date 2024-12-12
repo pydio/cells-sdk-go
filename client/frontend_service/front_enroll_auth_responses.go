@@ -6,13 +6,14 @@ package frontend_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // FrontEnrollAuthReader is a Reader for the FrontEnrollAuth structure.
@@ -103,11 +104,13 @@ func (o *FrontEnrollAuthOK) Code() int {
 }
 
 func (o *FrontEnrollAuthOK) Error() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthOK %s", 200, payload)
 }
 
 func (o *FrontEnrollAuthOK) String() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthOK %s", 200, payload)
 }
 
 func (o *FrontEnrollAuthOK) GetPayload() *models.RestFrontEnrollAuthResponse {
@@ -137,6 +140,7 @@ FrontEnrollAuthUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type FrontEnrollAuthUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front enroll auth unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *FrontEnrollAuthUnauthorized) Code() int {
 }
 
 func (o *FrontEnrollAuthUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized %s", 401, payload)
 }
 
 func (o *FrontEnrollAuthUnauthorized) String() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized %s", 401, payload)
+}
+
+func (o *FrontEnrollAuthUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *FrontEnrollAuthUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewFrontEnrollAuthForbidden() *FrontEnrollAuthForbidden {
 /*
 FrontEnrollAuthForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type FrontEnrollAuthForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *FrontEnrollAuthForbidden) Code() int {
 }
 
 func (o *FrontEnrollAuthForbidden) Error() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthForbidden %s", 403, payload)
 }
 
 func (o *FrontEnrollAuthForbidden) String() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthForbidden %s", 403, payload)
 }
 
 func (o *FrontEnrollAuthForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *FrontEnrollAuthNotFound) Code() int {
 }
 
 func (o *FrontEnrollAuthNotFound) Error() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthNotFound %s", 404, payload)
 }
 
 func (o *FrontEnrollAuthNotFound) String() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthNotFound %s", 404, payload)
 }
 
 func (o *FrontEnrollAuthNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *FrontEnrollAuthInternalServerError) Code() int {
 }
 
 func (o *FrontEnrollAuthInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthInternalServerError %s", 500, payload)
 }
 
 func (o *FrontEnrollAuthInternalServerError) String() string {
-	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthInternalServerError %s", 500, payload)
 }
 
 func (o *FrontEnrollAuthInternalServerError) GetPayload() *models.RestError {

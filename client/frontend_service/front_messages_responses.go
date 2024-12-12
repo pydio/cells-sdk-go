@@ -6,13 +6,14 @@ package frontend_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // FrontMessagesReader is a Reader for the FrontMessages structure.
@@ -103,11 +104,13 @@ func (o *FrontMessagesOK) Code() int {
 }
 
 func (o *FrontMessagesOK) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesOK %s", 200, payload)
 }
 
 func (o *FrontMessagesOK) String() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesOK %s", 200, payload)
 }
 
 func (o *FrontMessagesOK) GetPayload() *models.RestFrontMessagesResponse {
@@ -137,6 +140,7 @@ FrontMessagesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type FrontMessagesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front messages unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *FrontMessagesUnauthorized) Code() int {
 }
 
 func (o *FrontMessagesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized %s", 401, payload)
 }
 
 func (o *FrontMessagesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized %s", 401, payload)
+}
+
+func (o *FrontMessagesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *FrontMessagesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewFrontMessagesForbidden() *FrontMessagesForbidden {
 /*
 FrontMessagesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type FrontMessagesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *FrontMessagesForbidden) Code() int {
 }
 
 func (o *FrontMessagesForbidden) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesForbidden %s", 403, payload)
 }
 
 func (o *FrontMessagesForbidden) String() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesForbidden %s", 403, payload)
 }
 
 func (o *FrontMessagesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *FrontMessagesNotFound) Code() int {
 }
 
 func (o *FrontMessagesNotFound) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound %s", 404, payload)
 }
 
 func (o *FrontMessagesNotFound) String() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound %s", 404, payload)
 }
 
 func (o *FrontMessagesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *FrontMessagesInternalServerError) Code() int {
 }
 
 func (o *FrontMessagesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesInternalServerError %s", 500, payload)
 }
 
 func (o *FrontMessagesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesInternalServerError %s", 500, payload)
 }
 
 func (o *FrontMessagesInternalServerError) GetPayload() *models.RestError {

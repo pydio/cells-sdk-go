@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListProcessesReader is a Reader for the ListProcesses structure.
@@ -103,11 +104,13 @@ func (o *ListProcessesOK) Code() int {
 }
 
 func (o *ListProcessesOK) Error() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesOK %s", 200, payload)
 }
 
 func (o *ListProcessesOK) String() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesOK %s", 200, payload)
 }
 
 func (o *ListProcessesOK) GetPayload() *models.RestListProcessesResponse {
@@ -137,6 +140,7 @@ ListProcessesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListProcessesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list processes unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListProcessesUnauthorized) Code() int {
 }
 
 func (o *ListProcessesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized %s", 401, payload)
 }
 
 func (o *ListProcessesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized %s", 401, payload)
+}
+
+func (o *ListProcessesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListProcessesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListProcessesForbidden() *ListProcessesForbidden {
 /*
 ListProcessesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListProcessesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListProcessesForbidden) Code() int {
 }
 
 func (o *ListProcessesForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesForbidden %s", 403, payload)
 }
 
 func (o *ListProcessesForbidden) String() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesForbidden %s", 403, payload)
 }
 
 func (o *ListProcessesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListProcessesNotFound) Code() int {
 }
 
 func (o *ListProcessesNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound %s", 404, payload)
 }
 
 func (o *ListProcessesNotFound) String() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound %s", 404, payload)
 }
 
 func (o *ListProcessesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListProcessesInternalServerError) Code() int {
 }
 
 func (o *ListProcessesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesInternalServerError %s", 500, payload)
 }
 
 func (o *ListProcessesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/processes][%d] listProcessesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/processes][%d] listProcessesInternalServerError %s", 500, payload)
 }
 
 func (o *ListProcessesInternalServerError) GetPayload() *models.RestError {

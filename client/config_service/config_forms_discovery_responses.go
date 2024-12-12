@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ConfigFormsDiscoveryReader is a Reader for the ConfigFormsDiscovery structure.
@@ -103,11 +104,13 @@ func (o *ConfigFormsDiscoveryOK) Code() int {
 }
 
 func (o *ConfigFormsDiscoveryOK) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryOK %s", 200, payload)
 }
 
 func (o *ConfigFormsDiscoveryOK) String() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryOK %s", 200, payload)
 }
 
 func (o *ConfigFormsDiscoveryOK) GetPayload() *models.RestDiscoveryResponse {
@@ -137,6 +140,7 @@ ConfigFormsDiscoveryUnauthorized describes a response with status code 401, with
 User is not authenticated
 */
 type ConfigFormsDiscoveryUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this config forms discovery unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ConfigFormsDiscoveryUnauthorized) Code() int {
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized %s", 401, payload)
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized %s", 401, payload)
+}
+
+func (o *ConfigFormsDiscoveryUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewConfigFormsDiscoveryForbidden() *ConfigFormsDiscoveryForbidden {
 /*
 ConfigFormsDiscoveryForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ConfigFormsDiscoveryForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ConfigFormsDiscoveryForbidden) Code() int {
 }
 
 func (o *ConfigFormsDiscoveryForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryForbidden %s", 403, payload)
 }
 
 func (o *ConfigFormsDiscoveryForbidden) String() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryForbidden %s", 403, payload)
 }
 
 func (o *ConfigFormsDiscoveryForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ConfigFormsDiscoveryNotFound) Code() int {
 }
 
 func (o *ConfigFormsDiscoveryNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound %s", 404, payload)
 }
 
 func (o *ConfigFormsDiscoveryNotFound) String() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound %s", 404, payload)
 }
 
 func (o *ConfigFormsDiscoveryNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ConfigFormsDiscoveryInternalServerError) Code() int {
 }
 
 func (o *ConfigFormsDiscoveryInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryInternalServerError %s", 500, payload)
 }
 
 func (o *ConfigFormsDiscoveryInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryInternalServerError %s", 500, payload)
 }
 
 func (o *ConfigFormsDiscoveryInternalServerError) GetPayload() *models.RestError {

@@ -6,15 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListPeerFoldersReader is a Reader for the ListPeerFolders structure.
@@ -105,11 +104,13 @@ func (o *ListPeerFoldersOK) Code() int {
 }
 
 func (o *ListPeerFoldersOK) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersOK %s", 200, payload)
 }
 
 func (o *ListPeerFoldersOK) String() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersOK %s", 200, payload)
 }
 
 func (o *ListPeerFoldersOK) GetPayload() *models.RestNodesCollection {
@@ -139,6 +140,7 @@ ListPeerFoldersUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type ListPeerFoldersUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peer folders unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *ListPeerFoldersUnauthorized) Code() int {
 }
 
 func (o *ListPeerFoldersUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized %s", 401, payload)
 }
 
 func (o *ListPeerFoldersUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersUnauthorized %s", 401, payload)
+}
+
+func (o *ListPeerFoldersUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListPeerFoldersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewListPeerFoldersForbidden() *ListPeerFoldersForbidden {
 /*
 ListPeerFoldersForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListPeerFoldersForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *ListPeerFoldersForbidden) Code() int {
 }
 
 func (o *ListPeerFoldersForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersForbidden %s", 403, payload)
 }
 
 func (o *ListPeerFoldersForbidden) String() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersForbidden %s", 403, payload)
 }
 
 func (o *ListPeerFoldersForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *ListPeerFoldersNotFound) Code() int {
 }
 
 func (o *ListPeerFoldersNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersNotFound %s", 404, payload)
 }
 
 func (o *ListPeerFoldersNotFound) String() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersNotFound %s", 404, payload)
 }
 
 func (o *ListPeerFoldersNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *ListPeerFoldersInternalServerError) Code() int {
 }
 
 func (o *ListPeerFoldersInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersInternalServerError %s", 500, payload)
 }
 
 func (o *ListPeerFoldersInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/peers/{PeerAddress}][%d] listPeerFoldersInternalServerError %s", 500, payload)
 }
 
 func (o *ListPeerFoldersInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *ListPeerFoldersInternalServerError) readResponse(response runtime.Clien
 		return err
 	}
 
-	return nil
-}
-
-/*
-ListPeerFoldersBody RestListPeerFoldersRequest
-swagger:model ListPeerFoldersBody
-*/
-type ListPeerFoldersBody struct {
-
-	// Path to the parent folder for listing
-	Path string `json:"Path,omitempty"`
-}
-
-// Validate validates this list peer folders body
-func (o *ListPeerFoldersBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this list peer folders body based on context it is used
-func (o *ListPeerFoldersBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *ListPeerFoldersBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *ListPeerFoldersBody) UnmarshalBinary(b []byte) error {
-	var res ListPeerFoldersBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

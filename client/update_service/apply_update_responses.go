@@ -6,15 +6,14 @@ package update_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ApplyUpdateReader is a Reader for the ApplyUpdate structure.
@@ -105,11 +104,13 @@ func (o *ApplyUpdateOK) Code() int {
 }
 
 func (o *ApplyUpdateOK) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateOK %s", 200, payload)
 }
 
 func (o *ApplyUpdateOK) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateOK %s", 200, payload)
 }
 
 func (o *ApplyUpdateOK) GetPayload() *models.UpdateApplyUpdateResponse {
@@ -139,6 +140,7 @@ ApplyUpdateUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type ApplyUpdateUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *ApplyUpdateUnauthorized) Code() int {
 }
 
 func (o *ApplyUpdateUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized %s", 401, payload)
 }
 
 func (o *ApplyUpdateUnauthorized) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized %s", 401, payload)
+}
+
+func (o *ApplyUpdateUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ApplyUpdateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewApplyUpdateForbidden() *ApplyUpdateForbidden {
 /*
 ApplyUpdateForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ApplyUpdateForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *ApplyUpdateForbidden) Code() int {
 }
 
 func (o *ApplyUpdateForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateForbidden %s", 403, payload)
 }
 
 func (o *ApplyUpdateForbidden) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateForbidden %s", 403, payload)
 }
 
 func (o *ApplyUpdateForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *ApplyUpdateNotFound) Code() int {
 }
 
 func (o *ApplyUpdateNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound %s", 404, payload)
 }
 
 func (o *ApplyUpdateNotFound) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound %s", 404, payload)
 }
 
 func (o *ApplyUpdateNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *ApplyUpdateInternalServerError) Code() int {
 }
 
 func (o *ApplyUpdateInternalServerError) Error() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateInternalServerError %s", 500, payload)
 }
 
 func (o *ApplyUpdateInternalServerError) String() string {
-	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateInternalServerError %s", 500, payload)
 }
 
 func (o *ApplyUpdateInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *ApplyUpdateInternalServerError) readResponse(response runtime.ClientRes
 		return err
 	}
 
-	return nil
-}
-
-/*
-ApplyUpdateBody UpdateApplyUpdateRequest
-swagger:model ApplyUpdateBody
-*/
-type ApplyUpdateBody struct {
-
-	// Name of the package if it's not the same as the current binary
-	PackageName string `json:"PackageName,omitempty"`
-}
-
-// Validate validates this apply update body
-func (o *ApplyUpdateBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this apply update body based on context it is used
-func (o *ApplyUpdateBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *ApplyUpdateBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *ApplyUpdateBody) UnmarshalBinary(b []byte) error {
-	var res ApplyUpdateBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

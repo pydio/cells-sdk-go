@@ -6,13 +6,14 @@ package search_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NodesReader is a Reader for the Nodes structure.
@@ -103,11 +104,13 @@ func (o *NodesOK) Code() int {
 }
 
 func (o *NodesOK) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesOK %s", 200, payload)
 }
 
 func (o *NodesOK) String() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesOK %s", 200, payload)
 }
 
 func (o *NodesOK) GetPayload() *models.RestSearchResults {
@@ -137,6 +140,7 @@ NodesUnauthorized describes a response with status code 401, with default header
 User is not authenticated
 */
 type NodesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this nodes unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *NodesUnauthorized) Code() int {
 }
 
 func (o *NodesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized %s", 401, payload)
 }
 
 func (o *NodesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized %s", 401, payload)
+}
+
+func (o *NodesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *NodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewNodesForbidden() *NodesForbidden {
 /*
 NodesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type NodesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *NodesForbidden) Code() int {
 }
 
 func (o *NodesForbidden) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesForbidden %s", 403, payload)
 }
 
 func (o *NodesForbidden) String() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesForbidden %s", 403, payload)
 }
 
 func (o *NodesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *NodesNotFound) Code() int {
 }
 
 func (o *NodesNotFound) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound %s", 404, payload)
 }
 
 func (o *NodesNotFound) String() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound %s", 404, payload)
 }
 
 func (o *NodesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *NodesInternalServerError) Code() int {
 }
 
 func (o *NodesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesInternalServerError %s", 500, payload)
 }
 
 func (o *NodesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /search/nodes][%d] nodesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /search/nodes][%d] nodesInternalServerError %s", 500, payload)
 }
 
 func (o *NodesInternalServerError) GetPayload() *models.RestError {

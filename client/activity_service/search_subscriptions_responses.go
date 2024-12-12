@@ -6,13 +6,14 @@ package activity_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // SearchSubscriptionsReader is a Reader for the SearchSubscriptions structure.
@@ -103,11 +104,13 @@ func (o *SearchSubscriptionsOK) Code() int {
 }
 
 func (o *SearchSubscriptionsOK) Error() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsOK %s", 200, payload)
 }
 
 func (o *SearchSubscriptionsOK) String() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsOK %s", 200, payload)
 }
 
 func (o *SearchSubscriptionsOK) GetPayload() *models.RestSubscriptionsCollection {
@@ -137,6 +140,7 @@ SearchSubscriptionsUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type SearchSubscriptionsUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search subscriptions unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *SearchSubscriptionsUnauthorized) Code() int {
 }
 
 func (o *SearchSubscriptionsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized %s", 401, payload)
 }
 
 func (o *SearchSubscriptionsUnauthorized) String() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized %s", 401, payload)
+}
+
+func (o *SearchSubscriptionsUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *SearchSubscriptionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewSearchSubscriptionsForbidden() *SearchSubscriptionsForbidden {
 /*
 SearchSubscriptionsForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type SearchSubscriptionsForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *SearchSubscriptionsForbidden) Code() int {
 }
 
 func (o *SearchSubscriptionsForbidden) Error() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsForbidden %s", 403, payload)
 }
 
 func (o *SearchSubscriptionsForbidden) String() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsForbidden %s", 403, payload)
 }
 
 func (o *SearchSubscriptionsForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *SearchSubscriptionsNotFound) Code() int {
 }
 
 func (o *SearchSubscriptionsNotFound) Error() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound %s", 404, payload)
 }
 
 func (o *SearchSubscriptionsNotFound) String() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound %s", 404, payload)
 }
 
 func (o *SearchSubscriptionsNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *SearchSubscriptionsInternalServerError) Code() int {
 }
 
 func (o *SearchSubscriptionsInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsInternalServerError %s", 500, payload)
 }
 
 func (o *SearchSubscriptionsInternalServerError) String() string {
-	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsInternalServerError %s", 500, payload)
 }
 
 func (o *SearchSubscriptionsInternalServerError) GetPayload() *models.RestError {

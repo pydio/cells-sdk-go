@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewPutDataSourceParams creates a new PutDataSourceParams object,
@@ -68,7 +70,7 @@ type PutDataSourceParams struct {
 	Name string
 
 	// Body.
-	Body PutDataSourceBody
+	Body *models.ConfigServicePutDataSourceBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +137,13 @@ func (o *PutDataSourceParams) SetName(name string) {
 }
 
 // WithBody adds the body to the put data source params
-func (o *PutDataSourceParams) WithBody(body PutDataSourceBody) *PutDataSourceParams {
+func (o *PutDataSourceParams) WithBody(body *models.ConfigServicePutDataSourceBody) *PutDataSourceParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put data source params
-func (o *PutDataSourceParams) SetBody(body PutDataSourceBody) {
+func (o *PutDataSourceParams) SetBody(body *models.ConfigServicePutDataSourceBody) {
 	o.Body = body
 }
 
@@ -157,8 +159,10 @@ func (o *PutDataSourceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	if err := r.SetPathParam("Name", o.Name); err != nil {
 		return err
 	}
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

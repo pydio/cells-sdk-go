@@ -12,8 +12,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/spf13/cobra"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
-	ts3 "github.com/pydio/cells-sdk-go/v5/transport/s3"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
+	ts3 "github.com/pydio/cells-sdk-go/v4/transport/s3"
 )
 
 var (

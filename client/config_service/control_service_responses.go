@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ControlServiceReader is a Reader for the ControlService structure.
@@ -103,11 +104,13 @@ func (o *ControlServiceOK) Code() int {
 }
 
 func (o *ControlServiceOK) Error() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceOK %s", 200, payload)
 }
 
 func (o *ControlServiceOK) String() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceOK %s", 200, payload)
 }
 
 func (o *ControlServiceOK) GetPayload() *models.CtlService {
@@ -137,6 +140,7 @@ ControlServiceUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type ControlServiceUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this control service unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ControlServiceUnauthorized) Code() int {
 }
 
 func (o *ControlServiceUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceUnauthorized %s", 401, payload)
 }
 
 func (o *ControlServiceUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceUnauthorized %s", 401, payload)
+}
+
+func (o *ControlServiceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ControlServiceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewControlServiceForbidden() *ControlServiceForbidden {
 /*
 ControlServiceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ControlServiceForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ControlServiceForbidden) Code() int {
 }
 
 func (o *ControlServiceForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceForbidden %s", 403, payload)
 }
 
 func (o *ControlServiceForbidden) String() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceForbidden %s", 403, payload)
 }
 
 func (o *ControlServiceForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ControlServiceNotFound) Code() int {
 }
 
 func (o *ControlServiceNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceNotFound %s", 404, payload)
 }
 
 func (o *ControlServiceNotFound) String() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceNotFound %s", 404, payload)
 }
 
 func (o *ControlServiceNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ControlServiceInternalServerError) Code() int {
 }
 
 func (o *ControlServiceInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceInternalServerError %s", 500, payload)
 }
 
 func (o *ControlServiceInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceInternalServerError %s", 500, payload)
 }
 
 func (o *ControlServiceInternalServerError) GetPayload() *models.RestError {

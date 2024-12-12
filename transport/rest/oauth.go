@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5"
-	cellshttp "github.com/pydio/cells-sdk-go/v5/transport"
+	cellssdk "github.com/pydio/cells-sdk-go/v4"
+	cellshttp "github.com/pydio/cells-sdk-go/v4/transport"
 )
 
 const (

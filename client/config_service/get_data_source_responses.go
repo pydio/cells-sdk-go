@@ -6,13 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GetDataSourceReader is a Reader for the GetDataSource structure.
@@ -103,11 +104,13 @@ func (o *GetDataSourceOK) Code() int {
 }
 
 func (o *GetDataSourceOK) Error() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceOK %s", 200, payload)
 }
 
 func (o *GetDataSourceOK) String() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceOK %s", 200, payload)
 }
 
 func (o *GetDataSourceOK) GetPayload() *models.ObjectDataSource {
@@ -137,6 +140,7 @@ GetDataSourceUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type GetDataSourceUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get data source unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *GetDataSourceUnauthorized) Code() int {
 }
 
 func (o *GetDataSourceUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized %s", 401, payload)
 }
 
 func (o *GetDataSourceUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized %s", 401, payload)
+}
+
+func (o *GetDataSourceUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewGetDataSourceForbidden() *GetDataSourceForbidden {
 /*
 GetDataSourceForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetDataSourceForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *GetDataSourceForbidden) Code() int {
 }
 
 func (o *GetDataSourceForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceForbidden %s", 403, payload)
 }
 
 func (o *GetDataSourceForbidden) String() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceForbidden %s", 403, payload)
 }
 
 func (o *GetDataSourceForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *GetDataSourceNotFound) Code() int {
 }
 
 func (o *GetDataSourceNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound %s", 404, payload)
 }
 
 func (o *GetDataSourceNotFound) String() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound %s", 404, payload)
 }
 
 func (o *GetDataSourceNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *GetDataSourceInternalServerError) Code() int {
 }
 
 func (o *GetDataSourceInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceInternalServerError %s", 500, payload)
 }
 
 func (o *GetDataSourceInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceInternalServerError %s", 500, payload)
 }
 
 func (o *GetDataSourceInternalServerError) GetPayload() *models.RestError {

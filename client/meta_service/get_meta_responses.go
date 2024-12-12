@@ -6,15 +6,14 @@ package meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // GetMetaReader is a Reader for the GetMeta structure.
@@ -105,11 +104,13 @@ func (o *GetMetaOK) Code() int {
 }
 
 func (o *GetMetaOK) Error() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaOK %s", 200, payload)
 }
 
 func (o *GetMetaOK) String() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaOK %s", 200, payload)
 }
 
 func (o *GetMetaOK) GetPayload() *models.TreeNode {
@@ -139,6 +140,7 @@ GetMetaUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetMetaUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get meta unauthorized response has a 2xx status code
@@ -172,14 +174,27 @@ func (o *GetMetaUnauthorized) Code() int {
 }
 
 func (o *GetMetaUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaUnauthorized %s", 401, payload)
 }
 
 func (o *GetMetaUnauthorized) String() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaUnauthorized %s", 401, payload)
+}
+
+func (o *GetMetaUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *GetMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -192,7 +207,7 @@ func NewGetMetaForbidden() *GetMetaForbidden {
 /*
 GetMetaForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type GetMetaForbidden struct {
 	Payload *models.RestError
@@ -229,11 +244,13 @@ func (o *GetMetaForbidden) Code() int {
 }
 
 func (o *GetMetaForbidden) Error() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaForbidden %s", 403, payload)
 }
 
 func (o *GetMetaForbidden) String() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaForbidden %s", 403, payload)
 }
 
 func (o *GetMetaForbidden) GetPayload() *models.RestError {
@@ -297,11 +314,13 @@ func (o *GetMetaNotFound) Code() int {
 }
 
 func (o *GetMetaNotFound) Error() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaNotFound %s", 404, payload)
 }
 
 func (o *GetMetaNotFound) String() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaNotFound %s", 404, payload)
 }
 
 func (o *GetMetaNotFound) GetPayload() *models.RestError {
@@ -365,11 +384,13 @@ func (o *GetMetaInternalServerError) Code() int {
 }
 
 func (o *GetMetaInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaInternalServerError %s", 500, payload)
 }
 
 func (o *GetMetaInternalServerError) String() string {
-	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /meta/get/{NodePath}][%d] getMetaInternalServerError %s", 500, payload)
 }
 
 func (o *GetMetaInternalServerError) GetPayload() *models.RestError {
@@ -385,43 +406,5 @@ func (o *GetMetaInternalServerError) readResponse(response runtime.ClientRespons
 		return err
 	}
 
-	return nil
-}
-
-/*
-GetMetaBody RestMetaNamespaceRequest
-swagger:model GetMetaBody
-*/
-type GetMetaBody struct {
-
-	// List of namespaces to load
-	Namespace []string `json:"Namespace"`
-}
-
-// Validate validates this get meta body
-func (o *GetMetaBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this get meta body based on context it is used
-func (o *GetMetaBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetMetaBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetMetaBody) UnmarshalBinary(b []byte) error {
-	var res GetMetaBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

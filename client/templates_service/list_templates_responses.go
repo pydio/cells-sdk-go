@@ -6,13 +6,14 @@ package templates_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v5/models"
+	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // ListTemplatesReader is a Reader for the ListTemplates structure.
@@ -103,11 +104,13 @@ func (o *ListTemplatesOK) Code() int {
 }
 
 func (o *ListTemplatesOK) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesOK %s", 200, payload)
 }
 
 func (o *ListTemplatesOK) String() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesOK %s", 200, payload)
 }
 
 func (o *ListTemplatesOK) GetPayload() *models.RestListTemplatesResponse {
@@ -137,6 +140,7 @@ ListTemplatesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListTemplatesUnauthorized struct {
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list templates unauthorized response has a 2xx status code
@@ -170,14 +174,27 @@ func (o *ListTemplatesUnauthorized) Code() int {
 }
 
 func (o *ListTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized %s", 401, payload)
 }
 
 func (o *ListTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized ", 401)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesUnauthorized %s", 401, payload)
+}
+
+func (o *ListTemplatesUnauthorized) GetPayload() *models.RestError {
+	return o.Payload
 }
 
 func (o *ListTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -190,7 +207,7 @@ func NewListTemplatesForbidden() *ListTemplatesForbidden {
 /*
 ListTemplatesForbidden describes a response with status code 403, with default header values.
 
-User has no permission to access this resource
+User has no permission to access this particular resource
 */
 type ListTemplatesForbidden struct {
 	Payload *models.RestError
@@ -227,11 +244,13 @@ func (o *ListTemplatesForbidden) Code() int {
 }
 
 func (o *ListTemplatesForbidden) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesForbidden %s", 403, payload)
 }
 
 func (o *ListTemplatesForbidden) String() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesForbidden %s", 403, payload)
 }
 
 func (o *ListTemplatesForbidden) GetPayload() *models.RestError {
@@ -295,11 +314,13 @@ func (o *ListTemplatesNotFound) Code() int {
 }
 
 func (o *ListTemplatesNotFound) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesNotFound %s", 404, payload)
 }
 
 func (o *ListTemplatesNotFound) String() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesNotFound %s", 404, payload)
 }
 
 func (o *ListTemplatesNotFound) GetPayload() *models.RestError {
@@ -363,11 +384,13 @@ func (o *ListTemplatesInternalServerError) Code() int {
 }
 
 func (o *ListTemplatesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesInternalServerError %s", 500, payload)
 }
 
 func (o *ListTemplatesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /templates][%d] listTemplatesInternalServerError  %+v", 500, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates][%d] listTemplatesInternalServerError %s", 500, payload)
 }
 
 func (o *ListTemplatesInternalServerError) GetPayload() *models.RestError {
