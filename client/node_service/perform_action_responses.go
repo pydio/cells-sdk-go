@@ -55,7 +55,7 @@ func (o *PerformActionReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[POST /node/action/{Name}] PerformAction", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /n/action/{Name}] PerformAction", response, response.Code())
 	}
 }
 
@@ -70,7 +70,7 @@ PerformActionOK describes a response with status code 200, with default header v
 A successful response.
 */
 type PerformActionOK struct {
-	Payload *models.RestActionResponse
+	Payload *models.RestPerformActionResponse
 }
 
 // IsSuccess returns true when this perform action o k response has a 2xx status code
@@ -105,21 +105,21 @@ func (o *PerformActionOK) Code() int {
 
 func (o *PerformActionOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionOK %s", 200, payload)
 }
 
 func (o *PerformActionOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionOK %s", 200, payload)
 }
 
-func (o *PerformActionOK) GetPayload() *models.RestActionResponse {
+func (o *PerformActionOK) GetPayload() *models.RestPerformActionResponse {
 	return o.Payload
 }
 
 func (o *PerformActionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestActionResponse)
+	o.Payload = new(models.RestPerformActionResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -175,12 +175,12 @@ func (o *PerformActionUnauthorized) Code() int {
 
 func (o *PerformActionUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionUnauthorized %s", 401, payload)
 }
 
 func (o *PerformActionUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionUnauthorized %s", 401, payload)
 }
 
 func (o *PerformActionUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *PerformActionForbidden) Code() int {
 
 func (o *PerformActionForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionForbidden %s", 403, payload)
 }
 
 func (o *PerformActionForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionForbidden %s", 403, payload)
 }
 
 func (o *PerformActionForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *PerformActionNotFound) Code() int {
 
 func (o *PerformActionNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionNotFound %s", 404, payload)
 }
 
 func (o *PerformActionNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionNotFound %s", 404, payload)
 }
 
 func (o *PerformActionNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *PerformActionInternalServerError) Code() int {
 
 func (o *PerformActionInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionInternalServerError %s", 500, payload)
 }
 
 func (o *PerformActionInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/action/{Name}][%d] performActionInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionInternalServerError %s", 500, payload)
 }
 
 func (o *PerformActionInternalServerError) GetPayload() *models.RestError {

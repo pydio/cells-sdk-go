@@ -55,7 +55,7 @@ func (o *LookupReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[POST /node] Lookup", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /n/nodes] Lookup", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *LookupOK) Code() int {
 
 func (o *LookupOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupOK %s", 200, payload)
 }
 
 func (o *LookupOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupOK %s", 200, payload)
 }
 
 func (o *LookupOK) GetPayload() *models.RestNodeCollection {
@@ -175,12 +175,12 @@ func (o *LookupUnauthorized) Code() int {
 
 func (o *LookupUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupUnauthorized %s", 401, payload)
 }
 
 func (o *LookupUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupUnauthorized %s", 401, payload)
 }
 
 func (o *LookupUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *LookupForbidden) Code() int {
 
 func (o *LookupForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupForbidden %s", 403, payload)
 }
 
 func (o *LookupForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupForbidden %s", 403, payload)
 }
 
 func (o *LookupForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *LookupNotFound) Code() int {
 
 func (o *LookupNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupNotFound %s", 404, payload)
 }
 
 func (o *LookupNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupNotFound %s", 404, payload)
 }
 
 func (o *LookupNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *LookupInternalServerError) Code() int {
 
 func (o *LookupInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupInternalServerError %s", 500, payload)
 }
 
 func (o *LookupInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node][%d] lookupInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/nodes][%d] lookupInternalServerError %s", 500, payload)
 }
 
 func (o *LookupInternalServerError) GetPayload() *models.RestError {

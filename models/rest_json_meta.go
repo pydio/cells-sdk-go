@@ -8,24 +8,59 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestJSONMeta rest Json meta
+// RestJSONMeta Open definition for a key/value metadata, value stored in json
 //
 // swagger:model restJsonMeta
 type RestJSONMeta struct {
 
 	// namespace
-	Namespace string `json:"Namespace,omitempty"`
+	// Required: true
+	Namespace *string `json:"Namespace"`
 
 	// value
-	Value string `json:"Value,omitempty"`
+	// Required: true
+	Value *string `json:"Value"`
 }
 
 // Validate validates this rest Json meta
 func (m *RestJSONMeta) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNamespace(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestJSONMeta) validateNamespace(formats strfmt.Registry) error {
+
+	if err := validate.Required("Namespace", "body", m.Namespace); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RestJSONMeta) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("Value", "body", m.Value); err != nil {
+		return err
+	}
+
 	return nil
 }
 

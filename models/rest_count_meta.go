@@ -8,24 +8,60 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestCountMeta rest count meta
+// RestCountMeta Open definition for a key/value metadata, value is a number
+// Using int32 to avoid json strings (for int64)
 //
 // swagger:model restCountMeta
 type RestCountMeta struct {
 
 	// namespace
-	Namespace string `json:"Namespace,omitempty"`
+	// Required: true
+	Namespace *string `json:"Namespace"`
 
 	// value
-	Value int32 `json:"Value,omitempty"`
+	// Required: true
+	Value *int32 `json:"Value"`
 }
 
 // Validate validates this rest count meta
 func (m *RestCountMeta) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNamespace(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestCountMeta) validateNamespace(formats strfmt.Registry) error {
+
+	if err := validate.Required("Namespace", "body", m.Namespace); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RestCountMeta) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("Value", "body", m.Value); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -55,7 +55,7 @@ func (o *GetPublicLinkReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[GET /node/link/{Uuid}] GetPublicLink", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /n/link/{LinkUuid}] GetPublicLink", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *GetPublicLinkOK) Code() int {
 
 func (o *GetPublicLinkOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkOK %s", 200, payload)
 }
 
 func (o *GetPublicLinkOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkOK %s", 200, payload)
 }
 
 func (o *GetPublicLinkOK) GetPayload() *models.RestShareLink {
@@ -175,12 +175,12 @@ func (o *GetPublicLinkUnauthorized) Code() int {
 
 func (o *GetPublicLinkUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkUnauthorized %s", 401, payload)
 }
 
 func (o *GetPublicLinkUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkUnauthorized %s", 401, payload)
 }
 
 func (o *GetPublicLinkUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *GetPublicLinkForbidden) Code() int {
 
 func (o *GetPublicLinkForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkForbidden %s", 403, payload)
 }
 
 func (o *GetPublicLinkForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkForbidden %s", 403, payload)
 }
 
 func (o *GetPublicLinkForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *GetPublicLinkNotFound) Code() int {
 
 func (o *GetPublicLinkNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkNotFound %s", 404, payload)
 }
 
 func (o *GetPublicLinkNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkNotFound %s", 404, payload)
 }
 
 func (o *GetPublicLinkNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *GetPublicLinkInternalServerError) Code() int {
 
 func (o *GetPublicLinkInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkInternalServerError %s", 500, payload)
 }
 
 func (o *GetPublicLinkInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/link/{Uuid}][%d] getPublicLinkInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkInternalServerError %s", 500, payload)
 }
 
 func (o *GetPublicLinkInternalServerError) GetPayload() *models.RestError {

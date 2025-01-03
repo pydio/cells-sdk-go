@@ -55,7 +55,7 @@ func (o *UpdatePublicLinkReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[PATCH /node/link/{Uuid}] UpdatePublicLink", response, response.Code())
+		return nil, runtime.NewAPIError("[PATCH /n/link/{LinkUuid}] UpdatePublicLink", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *UpdatePublicLinkOK) Code() int {
 
 func (o *UpdatePublicLinkOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkOK %s", 200, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkOK %s", 200, payload)
 }
 
 func (o *UpdatePublicLinkOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkOK %s", 200, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkOK %s", 200, payload)
 }
 
 func (o *UpdatePublicLinkOK) GetPayload() *models.RestShareLink {
@@ -175,12 +175,12 @@ func (o *UpdatePublicLinkUnauthorized) Code() int {
 
 func (o *UpdatePublicLinkUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkUnauthorized %s", 401, payload)
 }
 
 func (o *UpdatePublicLinkUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkUnauthorized %s", 401, payload)
 }
 
 func (o *UpdatePublicLinkUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *UpdatePublicLinkForbidden) Code() int {
 
 func (o *UpdatePublicLinkForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkForbidden %s", 403, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkForbidden %s", 403, payload)
 }
 
 func (o *UpdatePublicLinkForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkForbidden %s", 403, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkForbidden %s", 403, payload)
 }
 
 func (o *UpdatePublicLinkForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *UpdatePublicLinkNotFound) Code() int {
 
 func (o *UpdatePublicLinkNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkNotFound %s", 404, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkNotFound %s", 404, payload)
 }
 
 func (o *UpdatePublicLinkNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkNotFound %s", 404, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkNotFound %s", 404, payload)
 }
 
 func (o *UpdatePublicLinkNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *UpdatePublicLinkInternalServerError) Code() int {
 
 func (o *UpdatePublicLinkInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkInternalServerError %s", 500, payload)
 }
 
 func (o *UpdatePublicLinkInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /node/link/{Uuid}][%d] updatePublicLinkInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[PATCH /n/link/{LinkUuid}][%d] updatePublicLinkInternalServerError %s", 500, payload)
 }
 
 func (o *UpdatePublicLinkInternalServerError) GetPayload() *models.RestError {

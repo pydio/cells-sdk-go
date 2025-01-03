@@ -60,9 +60,6 @@ type ActivityObject struct {
 	// content
 	Content *ActivityObject `json:"content,omitempty"`
 
-	// context
-	Context *ActivityObject `json:"context,omitempty"`
-
 	// current
 	Current *ActivityObject `json:"current,omitempty"`
 
@@ -126,7 +123,7 @@ type ActivityObject struct {
 	// longitude
 	Longitude float32 `json:"longitude,omitempty"`
 
-	// markdown
+	// Object objectContext = 5;
 	Markdown string `json:"markdown,omitempty"`
 
 	// media type
@@ -255,10 +252,6 @@ func (m *ActivityObject) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateContent(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContext(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -575,25 +568,6 @@ func (m *ActivityObject) validateContent(formats strfmt.Registry) error {
 				return ve.ValidateName("content")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("content")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ActivityObject) validateContext(formats strfmt.Registry) error {
-	if swag.IsZero(m.Context) { // not required
-		return nil
-	}
-
-	if m.Context != nil {
-		if err := m.Context.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("context")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("context")
 			}
 			return err
 		}
@@ -1234,10 +1208,6 @@ func (m *ActivityObject) ContextValidate(ctx context.Context, formats strfmt.Reg
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateContext(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateCurrent(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -1533,27 +1503,6 @@ func (m *ActivityObject) contextValidateContent(ctx context.Context, formats str
 				return ve.ValidateName("content")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("content")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ActivityObject) contextValidateContext(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Context != nil {
-
-		if swag.IsZero(m.Context) { // not required
-			return nil
-		}
-
-		if err := m.Context.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("context")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("context")
 			}
 			return err
 		}

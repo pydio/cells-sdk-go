@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestLockInfo rest lock info
+// RestLockInfo Info about content locking
 //
 // swagger:model restLockInfo
 type RestLockInfo struct {

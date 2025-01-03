@@ -55,7 +55,7 @@ func (o *GetByUUIDReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[GET /node/u/{Uuid}] GetByUuid", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /n/node/{Uuid}] GetByUuid", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *GetByUUIDOK) Code() int {
 
 func (o *GetByUUIDOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidOK %s", 200, payload)
 }
 
 func (o *GetByUUIDOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidOK %s", 200, payload)
 }
 
 func (o *GetByUUIDOK) GetPayload() *models.RestNode {
@@ -175,12 +175,12 @@ func (o *GetByUUIDUnauthorized) Code() int {
 
 func (o *GetByUUIDUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidUnauthorized %s", 401, payload)
 }
 
 func (o *GetByUUIDUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidUnauthorized %s", 401, payload)
 }
 
 func (o *GetByUUIDUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *GetByUUIDForbidden) Code() int {
 
 func (o *GetByUUIDForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidForbidden %s", 403, payload)
 }
 
 func (o *GetByUUIDForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidForbidden %s", 403, payload)
 }
 
 func (o *GetByUUIDForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *GetByUUIDNotFound) Code() int {
 
 func (o *GetByUUIDNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidNotFound %s", 404, payload)
 }
 
 func (o *GetByUUIDNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidNotFound %s", 404, payload)
 }
 
 func (o *GetByUUIDNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *GetByUUIDInternalServerError) Code() int {
 
 func (o *GetByUUIDInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidInternalServerError %s", 500, payload)
 }
 
 func (o *GetByUUIDInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/u/{Uuid}][%d] getByUuidInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidInternalServerError %s", 500, payload)
 }
 
 func (o *GetByUUIDInternalServerError) GetPayload() *models.RestError {

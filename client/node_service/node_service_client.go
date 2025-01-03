@@ -56,54 +56,67 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ControlActionJob(params *ControlActionJobParams, opts ...ClientOption) (*ControlActionJobOK, error)
+	BackgroundActionInfo(params *BackgroundActionInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*BackgroundActionInfoOK, error)
 
-	Create(params *CreateParams, opts ...ClientOption) (*CreateOK, error)
+	BatchUpdateMeta(params *BatchUpdateMetaParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*BatchUpdateMetaOK, error)
 
-	CreatePublicLink(params *CreatePublicLinkParams, opts ...ClientOption) (*CreatePublicLinkOK, error)
+	ControlBackgroundAction(params *ControlBackgroundActionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ControlBackgroundActionOK, error)
 
-	CreateSelection(params *CreateSelectionParams, opts ...ClientOption) (*CreateSelectionOK, error)
+	Create(params *CreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOK, error)
 
-	DeletePublicLink(params *DeletePublicLinkParams, opts ...ClientOption) (*DeletePublicLinkOK, error)
+	CreatePublicLink(params *CreatePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePublicLinkOK, error)
 
-	GetActionJob(params *GetActionJobParams, opts ...ClientOption) (*GetActionJobOK, error)
+	CreateSelection(params *CreateSelectionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSelectionOK, error)
 
-	GetByPath(params *GetByPathParams, opts ...ClientOption) (*GetByPathOK, error)
+	DeletePublicLink(params *DeletePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePublicLinkOK, error)
 
-	GetByUUID(params *GetByUUIDParams, opts ...ClientOption) (*GetByUUIDOK, error)
+	GetByUUID(params *GetByUUIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetByUUIDOK, error)
 
-	GetPublicLink(params *GetPublicLinkParams, opts ...ClientOption) (*GetPublicLinkOK, error)
+	GetPublicLink(params *GetPublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPublicLinkOK, error)
 
-	ListVersions(params *ListVersionsParams, opts ...ClientOption) (*ListVersionsOK, error)
+	ListNamespaceValues(params *ListNamespaceValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNamespaceValuesOK, error)
 
-	Lookup(params *LookupParams, opts ...ClientOption) (*LookupOK, error)
+	ListNamespaces(params *ListNamespacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNamespacesOK, error)
 
-	PerformAction(params *PerformActionParams, opts ...ClientOption) (*PerformActionOK, error)
+	ListVersions(params *ListVersionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListVersionsOK, error)
 
-	Templates(params *TemplatesParams, opts ...ClientOption) (*TemplatesOK, error)
+	Lookup(params *LookupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LookupOK, error)
 
-	UpdatePublicLink(params *UpdatePublicLinkParams, opts ...ClientOption) (*UpdatePublicLinkOK, error)
+	PatchNode(params *PatchNodeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchNodeOK, error)
+
+	PerformAction(params *PerformActionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PerformActionOK, error)
+
+	SearchMeta(params *SearchMetaParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchMetaOK, error)
+
+	Templates(params *TemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TemplatesOK, error)
+
+	UpdateNamespaceValues(params *UpdateNamespaceValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNamespaceValuesOK, error)
+
+	UpdatePublicLink(params *UpdatePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePublicLinkOK, error)
+
+	UserBookmarks(params *UserBookmarksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UserBookmarksOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-ControlActionJob sends control commands to a background job
+BackgroundActionInfo retrieves information about an action running in background
 */
-func (a *Client) ControlActionJob(params *ControlActionJobParams, opts ...ClientOption) (*ControlActionJobOK, error) {
+func (a *Client) BackgroundActionInfo(params *BackgroundActionInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*BackgroundActionInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewControlActionJobParams()
+		params = NewBackgroundActionInfoParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "ControlActionJob",
-		Method:             "PATCH",
-		PathPattern:        "/node/action/{Name}/{JobUuid}",
+		ID:                 "BackgroundActionInfo",
+		Method:             "GET",
+		PathPattern:        "/n/action/{Name}/{JobUuid}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
-		Reader:             &ControlActionJobReader{formats: a.formats},
+		Reader:             &BackgroundActionInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -115,20 +128,98 @@ func (a *Client) ControlActionJob(params *ControlActionJobParams, opts ...Client
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ControlActionJobOK)
+	success, ok := result.(*BackgroundActionInfoOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ControlActionJob: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for BackgroundActionInfo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+BatchUpdateMeta updates delete user meta in batch passed user metas must contain a node Uuid
+*/
+func (a *Client) BatchUpdateMeta(params *BatchUpdateMetaParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*BatchUpdateMetaOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewBatchUpdateMetaParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "BatchUpdateMeta",
+		Method:             "PATCH",
+		PathPattern:        "/n/meta/batch",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &BatchUpdateMetaReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*BatchUpdateMetaOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for BatchUpdateMeta: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+ControlBackgroundAction sends control commands to a background job
+*/
+func (a *Client) ControlBackgroundAction(params *ControlBackgroundActionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ControlBackgroundActionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewControlBackgroundActionParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ControlBackgroundAction",
+		Method:             "PATCH",
+		PathPattern:        "/n/action/{Name}/{JobUuid}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ControlBackgroundActionReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ControlBackgroundActionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ControlBackgroundAction: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
 Create creates one or many files empty or hydrated from a template Uuid or folders
 */
-func (a *Client) Create(params *CreateParams, opts ...ClientOption) (*CreateOK, error) {
+func (a *Client) Create(params *CreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateParams()
@@ -136,12 +227,13 @@ func (a *Client) Create(params *CreateParams, opts ...ClientOption) (*CreateOK, 
 	op := &runtime.ClientOperation{
 		ID:                 "Create",
 		Method:             "POST",
-		PathPattern:        "/node/create",
+		PathPattern:        "/n/nodes/create",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &CreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -166,7 +258,7 @@ func (a *Client) Create(params *CreateParams, opts ...ClientOption) (*CreateOK, 
 /*
 CreatePublicLink creates a public link on a given node
 */
-func (a *Client) CreatePublicLink(params *CreatePublicLinkParams, opts ...ClientOption) (*CreatePublicLinkOK, error) {
+func (a *Client) CreatePublicLink(params *CreatePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePublicLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreatePublicLinkParams()
@@ -174,12 +266,13 @@ func (a *Client) CreatePublicLink(params *CreatePublicLinkParams, opts ...Client
 	op := &runtime.ClientOperation{
 		ID:                 "CreatePublicLink",
 		Method:             "POST",
-		PathPattern:        "/node/link",
+		PathPattern:        "/n/node/{Uuid}/link",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &CreatePublicLinkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -204,7 +297,7 @@ func (a *Client) CreatePublicLink(params *CreatePublicLinkParams, opts ...Client
 /*
 CreateSelection creates and persist a temporary selection of nodes that can be used by other actions
 */
-func (a *Client) CreateSelection(params *CreateSelectionParams, opts ...ClientOption) (*CreateSelectionOK, error) {
+func (a *Client) CreateSelection(params *CreateSelectionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSelectionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateSelectionParams()
@@ -212,12 +305,13 @@ func (a *Client) CreateSelection(params *CreateSelectionParams, opts ...ClientOp
 	op := &runtime.ClientOperation{
 		ID:                 "CreateSelection",
 		Method:             "POST",
-		PathPattern:        "/node/selection",
+		PathPattern:        "/n/selection",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &CreateSelectionReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -242,7 +336,7 @@ func (a *Client) CreateSelection(params *CreateSelectionParams, opts ...ClientOp
 /*
 DeletePublicLink removes a public link
 */
-func (a *Client) DeletePublicLink(params *DeletePublicLinkParams, opts ...ClientOption) (*DeletePublicLinkOK, error) {
+func (a *Client) DeletePublicLink(params *DeletePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePublicLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeletePublicLinkParams()
@@ -250,12 +344,13 @@ func (a *Client) DeletePublicLink(params *DeletePublicLinkParams, opts ...Client
 	op := &runtime.ClientOperation{
 		ID:                 "DeletePublicLink",
 		Method:             "DELETE",
-		PathPattern:        "/node/link/{Uuid}",
+		PathPattern:        "/n/link/{LinkUuid}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &DeletePublicLinkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -278,85 +373,9 @@ func (a *Client) DeletePublicLink(params *DeletePublicLinkParams, opts ...Client
 }
 
 /*
-GetActionJob retrieves information about an action running in background
-*/
-func (a *Client) GetActionJob(params *GetActionJobParams, opts ...ClientOption) (*GetActionJobOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetActionJobParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetActionJob",
-		Method:             "GET",
-		PathPattern:        "/node/action/{Name}/{JobUuid}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https", "wss"},
-		Params:             params,
-		Reader:             &GetActionJobReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetActionJobOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetActionJob: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-GetByPath loads a node by its path
-*/
-func (a *Client) GetByPath(params *GetByPathParams, opts ...ClientOption) (*GetByPathOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetByPathParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetByPath",
-		Method:             "GET",
-		PathPattern:        "/node/p/{Path}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https", "wss"},
-		Params:             params,
-		Reader:             &GetByPathReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetByPathOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetByPath: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
 GetByUUID loads a node by its Uuid
 */
-func (a *Client) GetByUUID(params *GetByUUIDParams, opts ...ClientOption) (*GetByUUIDOK, error) {
+func (a *Client) GetByUUID(params *GetByUUIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetByUUIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetByUUIDParams()
@@ -364,12 +383,13 @@ func (a *Client) GetByUUID(params *GetByUUIDParams, opts ...ClientOption) (*GetB
 	op := &runtime.ClientOperation{
 		ID:                 "GetByUuid",
 		Method:             "GET",
-		PathPattern:        "/node/u/{Uuid}",
+		PathPattern:        "/n/node/{Uuid}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &GetByUUIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -394,7 +414,7 @@ func (a *Client) GetByUUID(params *GetByUUIDParams, opts ...ClientOption) (*GetB
 /*
 GetPublicLink loads public link information by Uuid
 */
-func (a *Client) GetPublicLink(params *GetPublicLinkParams, opts ...ClientOption) (*GetPublicLinkOK, error) {
+func (a *Client) GetPublicLink(params *GetPublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPublicLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPublicLinkParams()
@@ -402,12 +422,13 @@ func (a *Client) GetPublicLink(params *GetPublicLinkParams, opts ...ClientOption
 	op := &runtime.ClientOperation{
 		ID:                 "GetPublicLink",
 		Method:             "GET",
-		PathPattern:        "/node/link/{Uuid}",
+		PathPattern:        "/n/link/{LinkUuid}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &GetPublicLinkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -430,9 +451,87 @@ func (a *Client) GetPublicLink(params *GetPublicLinkParams, opts ...ClientOption
 }
 
 /*
+ListNamespaceValues lists values for a given namespace
+*/
+func (a *Client) ListNamespaceValues(params *ListNamespaceValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNamespaceValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListNamespaceValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ListNamespaceValues",
+		Method:             "GET",
+		PathPattern:        "/n/meta/namespace/{Namespace}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListNamespaceValuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListNamespaceValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ListNamespaceValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+ListNamespaces lists defined meta namespaces
+*/
+func (a *Client) ListNamespaces(params *ListNamespacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNamespacesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListNamespacesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ListNamespaces",
+		Method:             "GET",
+		PathPattern:        "/n/meta/namespace",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListNamespacesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListNamespacesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ListNamespaces: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 ListVersions lists all known versions of a node
 */
-func (a *Client) ListVersions(params *ListVersionsParams, opts ...ClientOption) (*ListVersionsOK, error) {
+func (a *Client) ListVersions(params *ListVersionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListVersionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListVersionsParams()
@@ -440,12 +539,13 @@ func (a *Client) ListVersions(params *ListVersionsParams, opts ...ClientOption) 
 	op := &runtime.ClientOperation{
 		ID:                 "ListVersions",
 		Method:             "GET",
-		PathPattern:        "/node/v/{Uuid}",
+		PathPattern:        "/n/node/{Uuid}/versions",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &ListVersionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -470,7 +570,7 @@ func (a *Client) ListVersions(params *ListVersionsParams, opts ...ClientOption) 
 /*
 Lookup generics request to either list using locators or search using query for nodes
 */
-func (a *Client) Lookup(params *LookupParams, opts ...ClientOption) (*LookupOK, error) {
+func (a *Client) Lookup(params *LookupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LookupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewLookupParams()
@@ -478,12 +578,13 @@ func (a *Client) Lookup(params *LookupParams, opts ...ClientOption) (*LookupOK, 
 	op := &runtime.ClientOperation{
 		ID:                 "Lookup",
 		Method:             "POST",
-		PathPattern:        "/node",
+		PathPattern:        "/n/nodes",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &LookupReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -506,9 +607,48 @@ func (a *Client) Lookup(params *LookupParams, opts ...ClientOption) (*LookupOK, 
 }
 
 /*
+PatchNode patches node is used to update a node specific meta it is used for reserved meta as well bookmarks content lock
+*/
+func (a *Client) PatchNode(params *PatchNodeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchNodeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchNodeParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "PatchNode",
+		Method:             "PATCH",
+		PathPattern:        "/n/node/{Uuid}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &PatchNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PatchNodeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchNode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 PerformAction triggers an action on the tree returns a job info describing a background task
 */
-func (a *Client) PerformAction(params *PerformActionParams, opts ...ClientOption) (*PerformActionOK, error) {
+func (a *Client) PerformAction(params *PerformActionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PerformActionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPerformActionParams()
@@ -516,12 +656,13 @@ func (a *Client) PerformAction(params *PerformActionParams, opts ...ClientOption
 	op := &runtime.ClientOperation{
 		ID:                 "PerformAction",
 		Method:             "POST",
-		PathPattern:        "/node/action/{Name}",
+		PathPattern:        "/n/action/{Name}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &PerformActionReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -544,9 +685,48 @@ func (a *Client) PerformAction(params *PerformActionParams, opts ...ClientOption
 }
 
 /*
+SearchMeta searches a list of meta by node Id or by user id and by namespace
+*/
+func (a *Client) SearchMeta(params *SearchMetaParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchMetaOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSearchMetaParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "SearchMeta",
+		Method:             "POST",
+		PathPattern:        "/n/meta/find",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &SearchMetaReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SearchMetaOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for SearchMeta: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 Templates lists available templates for hydrating empty files
 */
-func (a *Client) Templates(params *TemplatesParams, opts ...ClientOption) (*TemplatesOK, error) {
+func (a *Client) Templates(params *TemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TemplatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewTemplatesParams()
@@ -554,12 +734,13 @@ func (a *Client) Templates(params *TemplatesParams, opts ...ClientOption) (*Temp
 	op := &runtime.ClientOperation{
 		ID:                 "Templates",
 		Method:             "GET",
-		PathPattern:        "/node/templates",
+		PathPattern:        "/n/templates",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &TemplatesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -582,9 +763,48 @@ func (a *Client) Templates(params *TemplatesParams, opts ...ClientOption) (*Temp
 }
 
 /*
+UpdateNamespaceValues adds delete a values for a given namespace
+*/
+func (a *Client) UpdateNamespaceValues(params *UpdateNamespaceValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNamespaceValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateNamespaceValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "UpdateNamespaceValues",
+		Method:             "PATCH",
+		PathPattern:        "/n/meta/namespace/{Namespace}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &UpdateNamespaceValuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateNamespaceValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for UpdateNamespaceValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 UpdatePublicLink updates public link settings
 */
-func (a *Client) UpdatePublicLink(params *UpdatePublicLinkParams, opts ...ClientOption) (*UpdatePublicLinkOK, error) {
+func (a *Client) UpdatePublicLink(params *UpdatePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePublicLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdatePublicLinkParams()
@@ -592,12 +812,13 @@ func (a *Client) UpdatePublicLink(params *UpdatePublicLinkParams, opts ...Client
 	op := &runtime.ClientOperation{
 		ID:                 "UpdatePublicLink",
 		Method:             "PATCH",
-		PathPattern:        "/node/link/{Uuid}",
+		PathPattern:        "/n/link/{LinkUuid}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
 		Params:             params,
 		Reader:             &UpdatePublicLinkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
@@ -616,6 +837,45 @@ func (a *Client) UpdatePublicLink(params *UpdatePublicLinkParams, opts ...Client
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for UpdatePublicLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UserBookmarks specials API for bookmarks will load user meta and the associated nodes and return as a node list
+*/
+func (a *Client) UserBookmarks(params *UserBookmarksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UserBookmarksOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUserBookmarksParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "UserBookmarks",
+		Method:             "GET",
+		PathPattern:        "/n/nodes/bookmarks",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &UserBookmarksReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UserBookmarksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for UserBookmarks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

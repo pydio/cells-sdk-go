@@ -7,14 +7,15 @@ package models
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
-// RestLookupRequest rest lookup request
+// RestLookupRequest Request for list/search. Accepts either
+// - a list of Locators (using path/* will list a folder's first level children) to retrieve stats about nodes
+// - a Query to search nodes in a more flexible way
 //
 // swagger:model restLookupRequest
 type RestLookupRequest struct {
@@ -23,7 +24,7 @@ type RestLookupRequest struct {
 	Limit string `json:"Limit,omitempty"`
 
 	// locators
-	Locators []*RestNodeLocator `json:"Locators"`
+	Locators *RestNodeLocators `json:"Locators,omitempty"`
 
 	// offset
 	Offset string `json:"Offset,omitempty"`
@@ -64,22 +65,15 @@ func (m *RestLookupRequest) validateLocators(formats strfmt.Registry) error {
 		return nil
 	}
 
-	for i := 0; i < len(m.Locators); i++ {
-		if swag.IsZero(m.Locators[i]) { // not required
-			continue
-		}
-
-		if m.Locators[i] != nil {
-			if err := m.Locators[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Locators" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("Locators" + "." + strconv.Itoa(i))
-				}
-				return err
+	if m.Locators != nil {
+		if err := m.Locators.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Locators")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Locators")
 			}
+			return err
 		}
-
 	}
 
 	return nil
@@ -124,24 +118,20 @@ func (m *RestLookupRequest) ContextValidate(ctx context.Context, formats strfmt.
 
 func (m *RestLookupRequest) contextValidateLocators(ctx context.Context, formats strfmt.Registry) error {
 
-	for i := 0; i < len(m.Locators); i++ {
+	if m.Locators != nil {
 
-		if m.Locators[i] != nil {
-
-			if swag.IsZero(m.Locators[i]) { // not required
-				return nil
-			}
-
-			if err := m.Locators[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Locators" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("Locators" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if swag.IsZero(m.Locators) { // not required
+			return nil
 		}
 
+		if err := m.Locators.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Locators")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Locators")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RestMode rest mode
+// RestMode Special permission modes for Nodes
 //
 // swagger:model restMode
 type RestMode string

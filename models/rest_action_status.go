@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RestActionStatus rest action status
+// RestActionStatus Used in an PerformActionResponse - currently always Background
 //
 // swagger:model restActionStatus
 type RestActionStatus string

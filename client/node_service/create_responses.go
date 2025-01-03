@@ -55,7 +55,7 @@ func (o *CreateReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[POST /node/create] Create", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /n/nodes/create] Create", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *CreateOK) Code() int {
 
 func (o *CreateOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createOK %s", 200, payload)
 }
 
 func (o *CreateOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createOK %s", 200, payload)
 }
 
 func (o *CreateOK) GetPayload() *models.RestNodeCollection {
@@ -175,12 +175,12 @@ func (o *CreateUnauthorized) Code() int {
 
 func (o *CreateUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createUnauthorized %s", 401, payload)
 }
 
 func (o *CreateUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createUnauthorized %s", 401, payload)
 }
 
 func (o *CreateUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *CreateForbidden) Code() int {
 
 func (o *CreateForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createForbidden %s", 403, payload)
 }
 
 func (o *CreateForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createForbidden %s", 403, payload)
 }
 
 func (o *CreateForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *CreateNotFound) Code() int {
 
 func (o *CreateNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createNotFound %s", 404, payload)
 }
 
 func (o *CreateNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createNotFound %s", 404, payload)
 }
 
 func (o *CreateNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *CreateInternalServerError) Code() int {
 
 func (o *CreateInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createInternalServerError %s", 500, payload)
 }
 
 func (o *CreateInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/create][%d] createInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/nodes/create][%d] createInternalServerError %s", 500, payload)
 }
 
 func (o *CreateInternalServerError) GetPayload() *models.RestError {

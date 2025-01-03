@@ -12,14 +12,16 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestCreateRequest rest create request
+// RestCreateRequest Request for creating nodes
 //
 // swagger:model restCreateRequest
 type RestCreateRequest struct {
 
 	// inputs
+	// Required: true
 	Inputs []*RestIncomingNode `json:"Inputs"`
 
 	// recursive
@@ -41,8 +43,9 @@ func (m *RestCreateRequest) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RestCreateRequest) validateInputs(formats strfmt.Registry) error {
-	if swag.IsZero(m.Inputs) { // not required
-		return nil
+
+	if err := validate.Required("Inputs", "body", m.Inputs); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Inputs); i++ {

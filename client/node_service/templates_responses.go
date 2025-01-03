@@ -55,7 +55,7 @@ func (o *TemplatesReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[GET /node/templates] Templates", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /n/templates] Templates", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *TemplatesOK) Code() int {
 
 func (o *TemplatesOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesOK %s", 200, payload)
 }
 
 func (o *TemplatesOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesOK %s", 200, payload)
 }
 
 func (o *TemplatesOK) GetPayload() *models.RestListTemplatesResponse {
@@ -175,12 +175,12 @@ func (o *TemplatesUnauthorized) Code() int {
 
 func (o *TemplatesUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesUnauthorized %s", 401, payload)
 }
 
 func (o *TemplatesUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesUnauthorized %s", 401, payload)
 }
 
 func (o *TemplatesUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *TemplatesForbidden) Code() int {
 
 func (o *TemplatesForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesForbidden %s", 403, payload)
 }
 
 func (o *TemplatesForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesForbidden %s", 403, payload)
 }
 
 func (o *TemplatesForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *TemplatesNotFound) Code() int {
 
 func (o *TemplatesNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesNotFound %s", 404, payload)
 }
 
 func (o *TemplatesNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesNotFound %s", 404, payload)
 }
 
 func (o *TemplatesNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *TemplatesInternalServerError) Code() int {
 
 func (o *TemplatesInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesInternalServerError %s", 500, payload)
 }
 
 func (o *TemplatesInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/templates][%d] templatesInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/templates][%d] templatesInternalServerError %s", 500, payload)
 }
 
 func (o *TemplatesInternalServerError) GetPayload() *models.RestError {

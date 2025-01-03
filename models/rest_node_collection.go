@@ -12,9 +12,10 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestNodeCollection rest node collection
+// RestNodeCollection List of nodes, as returned by list/search operations. Facets and Pagination may be empty
 //
 // swagger:model restNodeCollection
 type RestNodeCollection struct {
@@ -23,6 +24,7 @@ type RestNodeCollection struct {
 	Facets []*TreeSearchFacet `json:"Facets"`
 
 	// nodes
+	// Required: true
 	Nodes []*RestNode `json:"Nodes"`
 
 	// pagination
@@ -78,8 +80,9 @@ func (m *RestNodeCollection) validateFacets(formats strfmt.Registry) error {
 }
 
 func (m *RestNodeCollection) validateNodes(formats strfmt.Registry) error {
-	if swag.IsZero(m.Nodes) { // not required
-		return nil
+
+	if err := validate.Required("Nodes", "body", m.Nodes); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Nodes); i++ {

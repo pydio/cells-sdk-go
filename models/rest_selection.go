@@ -12,17 +12,20 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestSelection rest selection
+// RestSelection Request to create a selection from a list of nodes.
 //
 // swagger:model restSelection
 type RestSelection struct {
 
 	// nodes
+	// Required: true
 	Nodes []*RestNode `json:"Nodes"`
 
 	// Uuid
+	// Read Only: true
 	UUID string `json:"Uuid,omitempty"`
 }
 
@@ -41,8 +44,9 @@ func (m *RestSelection) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RestSelection) validateNodes(formats strfmt.Registry) error {
-	if swag.IsZero(m.Nodes) { // not required
-		return nil
+
+	if err := validate.Required("Nodes", "body", m.Nodes); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Nodes); i++ {
@@ -74,6 +78,10 @@ func (m *RestSelection) ContextValidate(ctx context.Context, formats strfmt.Regi
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateUUID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -100,6 +108,15 @@ func (m *RestSelection) contextValidateNodes(ctx context.Context, formats strfmt
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RestSelection) contextValidateUUID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "Uuid", "body", string(m.UUID)); err != nil {
+		return err
 	}
 
 	return nil

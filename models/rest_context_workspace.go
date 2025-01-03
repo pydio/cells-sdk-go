@@ -11,9 +11,12 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestContextWorkspace rest context workspace
+// RestContextWorkspace ContextWorkspace
+//
+// # Current workspace information, maybe published on the root node of a workspace
 //
 // swagger:model restContextWorkspace
 type RestContextWorkspace struct {
@@ -46,13 +49,15 @@ type RestContextWorkspace struct {
 	SkipRecycle bool `json:"SkipRecycle,omitempty"`
 
 	// slug
-	Slug string `json:"Slug,omitempty"`
+	// Required: true
+	Slug *string `json:"Slug"`
 
 	// syncable
 	Syncable bool `json:"Syncable,omitempty"`
 
 	// Uuid
-	UUID string `json:"Uuid,omitempty"`
+	// Required: true
+	UUID *string `json:"Uuid"`
 }
 
 // Validate validates this rest context workspace
@@ -60,6 +65,14 @@ func (m *RestContextWorkspace) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateScope(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSlug(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUUID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,6 +96,24 @@ func (m *RestContextWorkspace) validateScope(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestContextWorkspace) validateSlug(formats strfmt.Registry) error {
+
+	if err := validate.Required("Slug", "body", m.Slug); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RestContextWorkspace) validateUUID(formats strfmt.Registry) error {
+
+	if err := validate.Required("Uuid", "body", m.UUID); err != nil {
+		return err
 	}
 
 	return nil

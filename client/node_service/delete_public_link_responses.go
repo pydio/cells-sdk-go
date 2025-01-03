@@ -55,7 +55,7 @@ func (o *DeletePublicLinkReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[DELETE /node/link/{Uuid}] DeletePublicLink", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /n/link/{LinkUuid}] DeletePublicLink", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *DeletePublicLinkOK) Code() int {
 
 func (o *DeletePublicLinkOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkOK %s", 200, payload)
 }
 
 func (o *DeletePublicLinkOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkOK %s", 200, payload)
 }
 
 func (o *DeletePublicLinkOK) GetPayload() *models.RestPublicLinkDeleteSuccess {
@@ -175,12 +175,12 @@ func (o *DeletePublicLinkUnauthorized) Code() int {
 
 func (o *DeletePublicLinkUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkUnauthorized %s", 401, payload)
 }
 
 func (o *DeletePublicLinkUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkUnauthorized %s", 401, payload)
 }
 
 func (o *DeletePublicLinkUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *DeletePublicLinkForbidden) Code() int {
 
 func (o *DeletePublicLinkForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkForbidden %s", 403, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkForbidden %s", 403, payload)
 }
 
 func (o *DeletePublicLinkForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkForbidden %s", 403, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkForbidden %s", 403, payload)
 }
 
 func (o *DeletePublicLinkForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *DeletePublicLinkNotFound) Code() int {
 
 func (o *DeletePublicLinkNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkNotFound %s", 404, payload)
 }
 
 func (o *DeletePublicLinkNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkNotFound %s", 404, payload)
 }
 
 func (o *DeletePublicLinkNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *DeletePublicLinkInternalServerError) Code() int {
 
 func (o *DeletePublicLinkInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkInternalServerError %s", 500, payload)
 }
 
 func (o *DeletePublicLinkInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /node/link/{Uuid}][%d] deletePublicLinkInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkInternalServerError %s", 500, payload)
 }
 
 func (o *DeletePublicLinkInternalServerError) GetPayload() *models.RestError {

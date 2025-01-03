@@ -11,9 +11,10 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestIncomingNode rest incoming node
+// RestIncomingNode Lightweight node representation for creation, exposing a NodeLocator and additional data
 //
 // swagger:model restIncomingNode
 type RestIncomingNode struct {
@@ -22,13 +23,15 @@ type RestIncomingNode struct {
 	ContentType string `json:"ContentType,omitempty"`
 
 	// locator
-	Locator *RestNodeLocator `json:"Locator,omitempty"`
+	// Required: true
+	Locator *RestNodeLocator `json:"Locator"`
 
 	// template Uuid
 	TemplateUUID string `json:"TemplateUuid,omitempty"`
 
 	// type
-	Type *TreeNodeType `json:"Type,omitempty"`
+	// Required: true
+	Type *TreeNodeType `json:"Type"`
 }
 
 // Validate validates this rest incoming node
@@ -50,8 +53,9 @@ func (m *RestIncomingNode) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RestIncomingNode) validateLocator(formats strfmt.Registry) error {
-	if swag.IsZero(m.Locator) { // not required
-		return nil
+
+	if err := validate.Required("Locator", "body", m.Locator); err != nil {
+		return err
 	}
 
 	if m.Locator != nil {
@@ -69,8 +73,13 @@ func (m *RestIncomingNode) validateLocator(formats strfmt.Registry) error {
 }
 
 func (m *RestIncomingNode) validateType(formats strfmt.Registry) error {
-	if swag.IsZero(m.Type) { // not required
-		return nil
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
 	}
 
 	if m.Type != nil {
@@ -109,10 +118,6 @@ func (m *RestIncomingNode) contextValidateLocator(ctx context.Context, formats s
 
 	if m.Locator != nil {
 
-		if swag.IsZero(m.Locator) { // not required
-			return nil
-		}
-
 		if err := m.Locator.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Locator")
@@ -129,10 +134,6 @@ func (m *RestIncomingNode) contextValidateLocator(ctx context.Context, formats s
 func (m *RestIncomingNode) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Type != nil {
-
-		if swag.IsZero(m.Type) { // not required
-			return nil
-		}
 
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

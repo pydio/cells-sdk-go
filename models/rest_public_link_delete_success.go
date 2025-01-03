@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestPublicLinkDeleteSuccess rest public link delete success
+// RestPublicLinkDeleteSuccess Response to public link deletion
 //
 // swagger:model restPublicLinkDeleteSuccess
 type RestPublicLinkDeleteSuccess struct {

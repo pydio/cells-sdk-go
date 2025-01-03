@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RestUserActionType rest user action type
+// RestUserActionType Authorized actions that user can trigger
 //
 // swagger:model restUserActionType
 type RestUserActionType string

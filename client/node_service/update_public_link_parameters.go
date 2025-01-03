@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v5/models"
 )
@@ -64,35 +63,11 @@ UpdatePublicLinkParams contains all the parameters to send to the API endpoint
 */
 type UpdatePublicLinkParams struct {
 
-	/* CreatePassword.
+	// LinkUUID.
+	LinkUUID string
 
-	   Set if switching from no password to password
-	*/
-	CreatePassword *string
-
-	// Link.
-	Link *models.RestShareLink
-
-	/* PasswordEnabled.
-
-	   Whether it has Password enabled
-	*/
-	PasswordEnabled *bool
-
-	/* UpdateCustomHash.
-
-	   Change the ShareLink Hash with a custom value
-	*/
-	UpdateCustomHash *string
-
-	/* UpdatePassword.
-
-	   Set if updating an existing password
-	*/
-	UpdatePassword *string
-
-	// UUID.
-	UUID string
+	// PublicLinkRequest.
+	PublicLinkRequest *models.RestPublicLinkRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -147,70 +122,26 @@ func (o *UpdatePublicLinkParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCreatePassword adds the createPassword to the update public link params
-func (o *UpdatePublicLinkParams) WithCreatePassword(createPassword *string) *UpdatePublicLinkParams {
-	o.SetCreatePassword(createPassword)
+// WithLinkUUID adds the linkUUID to the update public link params
+func (o *UpdatePublicLinkParams) WithLinkUUID(linkUUID string) *UpdatePublicLinkParams {
+	o.SetLinkUUID(linkUUID)
 	return o
 }
 
-// SetCreatePassword adds the createPassword to the update public link params
-func (o *UpdatePublicLinkParams) SetCreatePassword(createPassword *string) {
-	o.CreatePassword = createPassword
+// SetLinkUUID adds the linkUuid to the update public link params
+func (o *UpdatePublicLinkParams) SetLinkUUID(linkUUID string) {
+	o.LinkUUID = linkUUID
 }
 
-// WithLink adds the link to the update public link params
-func (o *UpdatePublicLinkParams) WithLink(link *models.RestShareLink) *UpdatePublicLinkParams {
-	o.SetLink(link)
+// WithPublicLinkRequest adds the publicLinkRequest to the update public link params
+func (o *UpdatePublicLinkParams) WithPublicLinkRequest(publicLinkRequest *models.RestPublicLinkRequest) *UpdatePublicLinkParams {
+	o.SetPublicLinkRequest(publicLinkRequest)
 	return o
 }
 
-// SetLink adds the link to the update public link params
-func (o *UpdatePublicLinkParams) SetLink(link *models.RestShareLink) {
-	o.Link = link
-}
-
-// WithPasswordEnabled adds the passwordEnabled to the update public link params
-func (o *UpdatePublicLinkParams) WithPasswordEnabled(passwordEnabled *bool) *UpdatePublicLinkParams {
-	o.SetPasswordEnabled(passwordEnabled)
-	return o
-}
-
-// SetPasswordEnabled adds the passwordEnabled to the update public link params
-func (o *UpdatePublicLinkParams) SetPasswordEnabled(passwordEnabled *bool) {
-	o.PasswordEnabled = passwordEnabled
-}
-
-// WithUpdateCustomHash adds the updateCustomHash to the update public link params
-func (o *UpdatePublicLinkParams) WithUpdateCustomHash(updateCustomHash *string) *UpdatePublicLinkParams {
-	o.SetUpdateCustomHash(updateCustomHash)
-	return o
-}
-
-// SetUpdateCustomHash adds the updateCustomHash to the update public link params
-func (o *UpdatePublicLinkParams) SetUpdateCustomHash(updateCustomHash *string) {
-	o.UpdateCustomHash = updateCustomHash
-}
-
-// WithUpdatePassword adds the updatePassword to the update public link params
-func (o *UpdatePublicLinkParams) WithUpdatePassword(updatePassword *string) *UpdatePublicLinkParams {
-	o.SetUpdatePassword(updatePassword)
-	return o
-}
-
-// SetUpdatePassword adds the updatePassword to the update public link params
-func (o *UpdatePublicLinkParams) SetUpdatePassword(updatePassword *string) {
-	o.UpdatePassword = updatePassword
-}
-
-// WithUUID adds the uuid to the update public link params
-func (o *UpdatePublicLinkParams) WithUUID(uuid string) *UpdatePublicLinkParams {
-	o.SetUUID(uuid)
-	return o
-}
-
-// SetUUID adds the uuid to the update public link params
-func (o *UpdatePublicLinkParams) SetUUID(uuid string) {
-	o.UUID = uuid
+// SetPublicLinkRequest adds the publicLinkRequest to the update public link params
+func (o *UpdatePublicLinkParams) SetPublicLinkRequest(publicLinkRequest *models.RestPublicLinkRequest) {
+	o.PublicLinkRequest = publicLinkRequest
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -221,82 +152,14 @@ func (o *UpdatePublicLinkParams) WriteToRequest(r runtime.ClientRequest, reg str
 	}
 	var res []error
 
-	if o.CreatePassword != nil {
-
-		// query param CreatePassword
-		var qrCreatePassword string
-
-		if o.CreatePassword != nil {
-			qrCreatePassword = *o.CreatePassword
-		}
-		qCreatePassword := qrCreatePassword
-		if qCreatePassword != "" {
-
-			if err := r.SetQueryParam("CreatePassword", qCreatePassword); err != nil {
-				return err
-			}
-		}
+	// path param LinkUuid
+	if err := r.SetPathParam("LinkUuid", o.LinkUUID); err != nil {
+		return err
 	}
-	if o.Link != nil {
-		if err := r.SetBodyParam(o.Link); err != nil {
+	if o.PublicLinkRequest != nil {
+		if err := r.SetBodyParam(o.PublicLinkRequest); err != nil {
 			return err
 		}
-	}
-
-	if o.PasswordEnabled != nil {
-
-		// query param PasswordEnabled
-		var qrPasswordEnabled bool
-
-		if o.PasswordEnabled != nil {
-			qrPasswordEnabled = *o.PasswordEnabled
-		}
-		qPasswordEnabled := swag.FormatBool(qrPasswordEnabled)
-		if qPasswordEnabled != "" {
-
-			if err := r.SetQueryParam("PasswordEnabled", qPasswordEnabled); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.UpdateCustomHash != nil {
-
-		// query param UpdateCustomHash
-		var qrUpdateCustomHash string
-
-		if o.UpdateCustomHash != nil {
-			qrUpdateCustomHash = *o.UpdateCustomHash
-		}
-		qUpdateCustomHash := qrUpdateCustomHash
-		if qUpdateCustomHash != "" {
-
-			if err := r.SetQueryParam("UpdateCustomHash", qUpdateCustomHash); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.UpdatePassword != nil {
-
-		// query param UpdatePassword
-		var qrUpdatePassword string
-
-		if o.UpdatePassword != nil {
-			qrUpdatePassword = *o.UpdatePassword
-		}
-		qUpdatePassword := qrUpdatePassword
-		if qUpdatePassword != "" {
-
-			if err := r.SetQueryParam("UpdatePassword", qUpdatePassword); err != nil {
-				return err
-			}
-		}
-	}
-
-	// path param Uuid
-	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
-		return err
 	}
 
 	if len(res) > 0 {

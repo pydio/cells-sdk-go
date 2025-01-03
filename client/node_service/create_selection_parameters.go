@@ -63,7 +63,10 @@ CreateSelectionParams contains all the parameters to send to the API endpoint
 */
 type CreateSelectionParams struct {
 
-	// Body.
+	/* Body.
+
+	   Request to create a selection from a list of nodes.
+	*/
 	Body *models.RestSelection
 
 	timeout    time.Duration

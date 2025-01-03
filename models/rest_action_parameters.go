@@ -14,13 +14,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestActionParameters rest action parameters
+// RestActionParameters Parameters used by actions. Some may use Nodes/TargetNode, but not necessarily
 //
 // swagger:model restActionParameters
 type RestActionParameters struct {
 
-	// await
-	Await bool `json:"Await,omitempty"`
+	// Optionally wait for the task to exist with a specific status
+	AwaitStatus *JobsTaskStatus `json:"AwaitStatus,omitempty"`
+
+	// Define a golang duration to wait for
+	AwaitTimeout string `json:"AwaitTimeout,omitempty"`
 
 	// Json parameters
 	JSONParameters string `json:"JsonParameters,omitempty"`
@@ -39,6 +42,10 @@ type RestActionParameters struct {
 func (m *RestActionParameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAwaitStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNodes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -50,6 +57,25 @@ func (m *RestActionParameters) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestActionParameters) validateAwaitStatus(formats strfmt.Registry) error {
+	if swag.IsZero(m.AwaitStatus) { // not required
+		return nil
+	}
+
+	if m.AwaitStatus != nil {
+		if err := m.AwaitStatus.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AwaitStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("AwaitStatus")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -102,6 +128,10 @@ func (m *RestActionParameters) validateTargetNode(formats strfmt.Registry) error
 func (m *RestActionParameters) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateAwaitStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateNodes(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -113,6 +143,27 @@ func (m *RestActionParameters) ContextValidate(ctx context.Context, formats strf
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestActionParameters) contextValidateAwaitStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AwaitStatus != nil {
+
+		if swag.IsZero(m.AwaitStatus) { // not required
+			return nil
+		}
+
+		if err := m.AwaitStatus.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AwaitStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("AwaitStatus")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

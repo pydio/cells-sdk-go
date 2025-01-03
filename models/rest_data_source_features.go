@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestDataSourceFeatures rest data source features
+// RestDataSourceFeatures Current datasource features
 //
 // swagger:model restDataSourceFeatures
 type RestDataSourceFeatures struct {

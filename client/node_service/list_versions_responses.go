@@ -55,7 +55,7 @@ func (o *ListVersionsReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[GET /node/v/{Uuid}] ListVersions", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /n/node/{Uuid}/versions] ListVersions", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *ListVersionsOK) Code() int {
 
 func (o *ListVersionsOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsOK %s", 200, payload)
 }
 
 func (o *ListVersionsOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsOK %s", 200, payload)
 }
 
 func (o *ListVersionsOK) GetPayload() *models.RestNodeCollection {
@@ -175,12 +175,12 @@ func (o *ListVersionsUnauthorized) Code() int {
 
 func (o *ListVersionsUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsUnauthorized %s", 401, payload)
 }
 
 func (o *ListVersionsUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsUnauthorized %s", 401, payload)
 }
 
 func (o *ListVersionsUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *ListVersionsForbidden) Code() int {
 
 func (o *ListVersionsForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsForbidden %s", 403, payload)
 }
 
 func (o *ListVersionsForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsForbidden %s", 403, payload)
 }
 
 func (o *ListVersionsForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *ListVersionsNotFound) Code() int {
 
 func (o *ListVersionsNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsNotFound %s", 404, payload)
 }
 
 func (o *ListVersionsNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsNotFound %s", 404, payload)
 }
 
 func (o *ListVersionsNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *ListVersionsInternalServerError) Code() int {
 
 func (o *ListVersionsInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsInternalServerError %s", 500, payload)
 }
 
 func (o *ListVersionsInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /node/v/{Uuid}][%d] listVersionsInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /n/node/{Uuid}/versions][%d] listVersionsInternalServerError %s", 500, payload)
 }
 
 func (o *ListVersionsInternalServerError) GetPayload() *models.RestError {

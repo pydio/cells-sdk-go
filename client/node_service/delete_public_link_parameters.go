@@ -61,8 +61,8 @@ DeletePublicLinkParams contains all the parameters to send to the API endpoint
 */
 type DeletePublicLinkParams struct {
 
-	// UUID.
-	UUID string
+	// LinkUUID.
+	LinkUUID string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -117,15 +117,15 @@ func (o *DeletePublicLinkParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithUUID adds the uuid to the delete public link params
-func (o *DeletePublicLinkParams) WithUUID(uuid string) *DeletePublicLinkParams {
-	o.SetUUID(uuid)
+// WithLinkUUID adds the linkUUID to the delete public link params
+func (o *DeletePublicLinkParams) WithLinkUUID(linkUUID string) *DeletePublicLinkParams {
+	o.SetLinkUUID(linkUUID)
 	return o
 }
 
-// SetUUID adds the uuid to the delete public link params
-func (o *DeletePublicLinkParams) SetUUID(uuid string) {
-	o.UUID = uuid
+// SetLinkUUID adds the linkUuid to the delete public link params
+func (o *DeletePublicLinkParams) SetLinkUUID(linkUUID string) {
+	o.LinkUUID = linkUUID
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -136,8 +136,8 @@ func (o *DeletePublicLinkParams) WriteToRequest(r runtime.ClientRequest, reg str
 	}
 	var res []error
 
-	// path param Uuid
-	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
+	// path param LinkUuid
+	if err := r.SetPathParam("LinkUuid", o.LinkUUID); err != nil {
 		return err
 	}
 

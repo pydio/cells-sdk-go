@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestFilePreview rest file preview
+// RestFilePreview Description of an available preview
 //
 // swagger:model restFilePreview
 type RestFilePreview struct {
@@ -26,8 +26,8 @@ type RestFilePreview struct {
 	// processing
 	Processing bool `json:"Processing,omitempty"`
 
-	// URL
-	URL string `json:"URL,omitempty"`
+	// Url
+	URL string `json:"Url,omitempty"`
 }
 
 // Validate validates this rest file preview

@@ -63,8 +63,11 @@ CreatePublicLinkParams contains all the parameters to send to the API endpoint
 */
 type CreatePublicLinkParams struct {
 
-	// Body.
-	Body *models.RestUpsertPublicLinkRequest
+	// PublicLinkRequest.
+	PublicLinkRequest *models.RestPublicLinkRequest
+
+	// UUID.
+	UUID string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +122,26 @@ func (o *CreatePublicLinkParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBody adds the body to the create public link params
-func (o *CreatePublicLinkParams) WithBody(body *models.RestUpsertPublicLinkRequest) *CreatePublicLinkParams {
-	o.SetBody(body)
+// WithPublicLinkRequest adds the publicLinkRequest to the create public link params
+func (o *CreatePublicLinkParams) WithPublicLinkRequest(publicLinkRequest *models.RestPublicLinkRequest) *CreatePublicLinkParams {
+	o.SetPublicLinkRequest(publicLinkRequest)
 	return o
 }
 
-// SetBody adds the body to the create public link params
-func (o *CreatePublicLinkParams) SetBody(body *models.RestUpsertPublicLinkRequest) {
-	o.Body = body
+// SetPublicLinkRequest adds the publicLinkRequest to the create public link params
+func (o *CreatePublicLinkParams) SetPublicLinkRequest(publicLinkRequest *models.RestPublicLinkRequest) {
+	o.PublicLinkRequest = publicLinkRequest
+}
+
+// WithUUID adds the uuid to the create public link params
+func (o *CreatePublicLinkParams) WithUUID(uuid string) *CreatePublicLinkParams {
+	o.SetUUID(uuid)
+	return o
+}
+
+// SetUUID adds the uuid to the create public link params
+func (o *CreatePublicLinkParams) SetUUID(uuid string) {
+	o.UUID = uuid
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,10 +151,15 @@ func (o *CreatePublicLinkParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
+	if o.PublicLinkRequest != nil {
+		if err := r.SetBodyParam(o.PublicLinkRequest); err != nil {
 			return err
 		}
+	}
+
+	// path param Uuid
+	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

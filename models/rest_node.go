@@ -12,84 +12,94 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// RestNode rest node
+// RestNode Node
+//
+// # Representation of a file or folder
 //
 // swagger:model restNode
 type RestNode struct {
 
-	// activities
+	// All file activities
 	Activities []*ActivityObject `json:"Activities"`
 
-	// content lock
+	// Flag set if a file is manually locked by a user
 	ContentLock *RestLockInfo `json:"ContentLock,omitempty"`
 
-	// content type
+	// ContentType in the form of application/mime
 	ContentType string `json:"ContentType,omitempty"`
 
-	// contents hash
+	// ContentsHash is a server-computed file signature
 	ContentsHash string `json:"ContentsHash,omitempty"`
 
-	// context workspace
+	// Additional information about the current workspace. Only published on the root node of a workspace/cell
 	ContextWorkspace *RestContextWorkspace `json:"ContextWorkspace,omitempty"`
 
-	// data source features
+	// Additional features set at the datasource level
 	DataSourceFeatures *RestDataSourceFeatures `json:"DataSourceFeatures,omitempty"`
 
-	// folder meta
+	// Open map of integers metadata published on folders
 	FolderMeta []*RestCountMeta `json:"FolderMeta"`
 
-	// hashing method
+	// HashingMethod refers to the method used for computing ContentsHash
 	HashingMethod string `json:"HashingMethod,omitempty"`
 
-	// image meta
+	// Additional metadata extracted by the server if file is an image
 	ImageMeta *RestImageMeta `json:"ImageMeta,omitempty"`
 
-	// is bookmarked
+	// This node is bookmarked by the user
 	IsBookmarked bool `json:"IsBookmarked,omitempty"`
 
-	// is recycle bin
+	// If this node is a RecycleBin folder
 	IsRecycleBin bool `json:"IsRecycleBin,omitempty"`
 
-	// is recycled
+	// If this node is *inside* a RecycleBin folder
 	IsRecycled bool `json:"IsRecycled,omitempty"`
 
-	// metadata
+	// Open map of metadata, values are JSON-encoded
 	Metadata []*RestJSONMeta `json:"Metadata"`
 
-	// mode
+	// Default is read/write, Mode can provide additional restrictions
 	Mode *RestMode `json:"Mode,omitempty"`
 
+	// Last modification date
+	//
 	// Date instead of TS ?
 	Modified string `json:"Modified,omitempty"`
 
-	// path
-	Path string `json:"Path,omitempty"`
+	// Node Path - Always starting with a workspace slug
+	// Required: true
+	Path *string `json:"Path"`
 
-	// previews
+	// List of available previews generated server-side
 	Previews []*RestFilePreview `json:"Previews"`
 
-	// shares
+	// Additional metadata attached to a Version node
+	RevisionMeta *RestRevisionMeta `json:"RevisionMeta,omitempty"`
+
+	// List of public links created on this file. Should be one but server supports multiple links
 	Shares []*RestShareLink `json:"Shares"`
 
-	// size
+	// Known contents size
 	Size string `json:"Size,omitempty"`
 
-	// storage e tag
+	// StorageEtag refers to the storage underlying hash
 	StorageETag string `json:"StorageETag,omitempty"`
 
-	// subscriptions
+	// File subscriptions (watches)
 	Subscriptions []*ActivitySubscription `json:"Subscriptions"`
 
-	// type
+	// Whether it's a folder ('COLLECTION') or a file ('LEAF')
 	Type *TreeNodeType `json:"Type,omitempty"`
 
-	// user metadata
-	UserMetadata []*RestJSONMeta `json:"UserMetadata"`
+	// User-defined metadata
+	UserMetadata []*RestUserMeta `json:"UserMetadata"`
 
-	// Uuid
-	UUID string `json:"Uuid,omitempty"`
+	// Unique Identifier
+	// Required: true
+	UUID *string `json:"Uuid"`
 }
 
 // Validate validates this rest node
@@ -128,7 +138,15 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validatePath(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePreviews(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRevisionMeta(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -145,6 +163,10 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUserMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUUID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -327,6 +349,15 @@ func (m *RestNode) validateMode(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestNode) validatePath(formats strfmt.Registry) error {
+
+	if err := validate.Required("Path", "body", m.Path); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *RestNode) validatePreviews(formats strfmt.Registry) error {
 	if swag.IsZero(m.Previews) { // not required
 		return nil
@@ -348,6 +379,25 @@ func (m *RestNode) validatePreviews(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RestNode) validateRevisionMeta(formats strfmt.Registry) error {
+	if swag.IsZero(m.RevisionMeta) { // not required
+		return nil
+	}
+
+	if m.RevisionMeta != nil {
+		if err := m.RevisionMeta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("RevisionMeta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RevisionMeta")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -450,6 +500,15 @@ func (m *RestNode) validateUserMetadata(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestNode) validateUUID(formats strfmt.Registry) error {
+
+	if err := validate.Required("Uuid", "body", m.UUID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // ContextValidate validate this rest node based on the context it is used
 func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -487,6 +546,10 @@ func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry)
 	}
 
 	if err := m.contextValidatePreviews(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRevisionMeta(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -712,6 +775,27 @@ func (m *RestNode) contextValidatePreviews(ctx context.Context, formats strfmt.R
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RestNode) contextValidateRevisionMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RevisionMeta != nil {
+
+		if swag.IsZero(m.RevisionMeta) { // not required
+			return nil
+		}
+
+		if err := m.RevisionMeta.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("RevisionMeta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RevisionMeta")
+			}
+			return err
+		}
 	}
 
 	return nil

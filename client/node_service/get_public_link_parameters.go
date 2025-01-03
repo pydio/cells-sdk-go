@@ -61,8 +61,8 @@ GetPublicLinkParams contains all the parameters to send to the API endpoint
 */
 type GetPublicLinkParams struct {
 
-	// UUID.
-	UUID string
+	// LinkUUID.
+	LinkUUID string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -117,15 +117,15 @@ func (o *GetPublicLinkParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithUUID adds the uuid to the get public link params
-func (o *GetPublicLinkParams) WithUUID(uuid string) *GetPublicLinkParams {
-	o.SetUUID(uuid)
+// WithLinkUUID adds the linkUUID to the get public link params
+func (o *GetPublicLinkParams) WithLinkUUID(linkUUID string) *GetPublicLinkParams {
+	o.SetLinkUUID(linkUUID)
 	return o
 }
 
-// SetUUID adds the uuid to the get public link params
-func (o *GetPublicLinkParams) SetUUID(uuid string) {
-	o.UUID = uuid
+// SetLinkUUID adds the linkUuid to the get public link params
+func (o *GetPublicLinkParams) SetLinkUUID(linkUUID string) {
+	o.LinkUUID = linkUUID
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -136,8 +136,8 @@ func (o *GetPublicLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	}
 	var res []error
 
-	// path param Uuid
-	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
+	// path param LinkUuid
+	if err := r.SetPathParam("LinkUuid", o.LinkUUID); err != nil {
 		return err
 	}
 

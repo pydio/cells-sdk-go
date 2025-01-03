@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestNodeLocator rest node locator
+// RestNodeLocator Simple Uuid/Path discriminator to locate a node
 //
 // swagger:model restNodeLocator
 type RestNodeLocator struct {

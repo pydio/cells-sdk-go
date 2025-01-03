@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestImageMeta rest image meta
+// RestImageMeta If file is an image, extracted information about this image
 //
 // swagger:model restImageMeta
 type RestImageMeta struct {

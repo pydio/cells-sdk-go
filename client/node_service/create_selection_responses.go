@@ -55,7 +55,7 @@ func (o *CreateSelectionReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[POST /node/selection] CreateSelection", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /n/selection] CreateSelection", response, response.Code())
 	}
 }
 
@@ -105,12 +105,12 @@ func (o *CreateSelectionOK) Code() int {
 
 func (o *CreateSelectionOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionOK %s", 200, payload)
 }
 
 func (o *CreateSelectionOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionOK %s", 200, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionOK %s", 200, payload)
 }
 
 func (o *CreateSelectionOK) GetPayload() *models.RestSelection {
@@ -175,12 +175,12 @@ func (o *CreateSelectionUnauthorized) Code() int {
 
 func (o *CreateSelectionUnauthorized) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionUnauthorized %s", 401, payload)
 }
 
 func (o *CreateSelectionUnauthorized) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionUnauthorized %s", 401, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionUnauthorized %s", 401, payload)
 }
 
 func (o *CreateSelectionUnauthorized) GetPayload() *models.RestError {
@@ -245,12 +245,12 @@ func (o *CreateSelectionForbidden) Code() int {
 
 func (o *CreateSelectionForbidden) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionForbidden %s", 403, payload)
 }
 
 func (o *CreateSelectionForbidden) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionForbidden %s", 403, payload)
 }
 
 func (o *CreateSelectionForbidden) GetPayload() *models.RestError {
@@ -315,12 +315,12 @@ func (o *CreateSelectionNotFound) Code() int {
 
 func (o *CreateSelectionNotFound) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionNotFound %s", 404, payload)
 }
 
 func (o *CreateSelectionNotFound) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionNotFound %s", 404, payload)
 }
 
 func (o *CreateSelectionNotFound) GetPayload() *models.RestError {
@@ -385,12 +385,12 @@ func (o *CreateSelectionInternalServerError) Code() int {
 
 func (o *CreateSelectionInternalServerError) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionInternalServerError %s", 500, payload)
 }
 
 func (o *CreateSelectionInternalServerError) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /node/selection][%d] createSelectionInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[POST /n/selection][%d] createSelectionInternalServerError %s", 500, payload)
 }
 
 func (o *CreateSelectionInternalServerError) GetPayload() *models.RestError {
