@@ -26,7 +26,7 @@ go get github.com/pydio/cells-sdk-go/v4
 
 and import necessary sub-packages in your code.
 
-The `transport` package provides utilitary methods to ease the set up of a communication with your target Cells instance. You might find the commands that are in the `example` package useful to jump in.
+The `transport` package provides utility methods to ease the set-up of a communication with your target Cells instance. You might find the commands that are in the `example` package useful to jump in.
 
 You can also have a look at the [Cells client repository](https://github.com/pydio/cells-client) to see more working examples.
 
@@ -36,7 +36,7 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
 
-If you are relying of some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you will have to update your code.
+If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you will have to update your code.
 You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
 
 ### From SDK v3
@@ -57,7 +57,7 @@ Here is a short list of the modification you might have to do in your old code:
 - `enum` objects are managed more cleanly:
   - you have to dereference the pointer to make comparison: `*node.Type == models.TreeNodeTypeCOLLECTION`
   - you cannot use a string to create a parameter. This won't compile: `Type: "COLLECTION"` and you must rather write: `Type: models.NewTreeNodeType(models.TreeNodeTypeCOLLECTION)`
-- `Acls` param in struc `models.RestCell` has been renamed `ACLs`
+- `Acls` param in struct `models.RestCell` has been renamed `ACLs`
 
 ## Versioning policy
 
