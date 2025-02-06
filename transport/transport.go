@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	CellsApiPrefix       = "/a"
+	CellsApiPrefix       = "/v2"
 	CellsS3SecretDefault = "gatewaysecret"
 
 	KeyUserAgent = "User-Agent"
