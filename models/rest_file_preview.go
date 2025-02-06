@@ -17,11 +17,17 @@ import (
 // swagger:model restFilePreview
 type RestFilePreview struct {
 
+	// bucket
+	Bucket string `json:"Bucket,omitempty"`
+
 	// content type
 	ContentType string `json:"ContentType,omitempty"`
 
 	// dimension
 	Dimension int32 `json:"Dimension,omitempty"`
+
+	// key
+	Key string `json:"Key,omitempty"`
 
 	// processing
 	Processing bool `json:"Processing,omitempty"`

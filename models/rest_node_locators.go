@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RestNodeLocators rest node locators
+// RestNodeLocators Collection of NodeLocator
 //
 // swagger:model restNodeLocators
 type RestNodeLocators struct {

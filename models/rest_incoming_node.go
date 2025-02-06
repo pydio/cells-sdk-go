@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -22,9 +23,21 @@ type RestIncomingNode struct {
 	// content type
 	ContentType string `json:"ContentType,omitempty"`
 
+	// Whether this resource should be created as draft
+	DraftMode bool `json:"DraftMode,omitempty"`
+
+	// known size
+	KnownSize string `json:"KnownSize,omitempty"`
+
 	// locator
 	// Required: true
 	Locator *RestNodeLocator `json:"Locator"`
+
+	// metadata
+	Metadata []*RestUserMeta `json:"Metadata"`
+
+	// Pass a generated UUID to be used as the created node UUID
+	ResourceUUID string `json:"ResourceUuid,omitempty"`
 
 	// template Uuid
 	TemplateUUID string `json:"TemplateUuid,omitempty"`
@@ -32,6 +45,9 @@ type RestIncomingNode struct {
 	// type
 	// Required: true
 	Type *TreeNodeType `json:"Type"`
+
+	// Pass a generated UUID to be used as the versionId
+	VersionID string `json:"VersionId,omitempty"`
 }
 
 // Validate validates this rest incoming node
@@ -39,6 +55,10 @@ func (m *RestIncomingNode) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateLocator(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetadata(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -67,6 +87,32 @@ func (m *RestIncomingNode) validateLocator(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestIncomingNode) validateMetadata(formats strfmt.Registry) error {
+	if swag.IsZero(m.Metadata) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Metadata); i++ {
+		if swag.IsZero(m.Metadata[i]) { // not required
+			continue
+		}
+
+		if m.Metadata[i] != nil {
+			if err := m.Metadata[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -104,6 +150,10 @@ func (m *RestIncomingNode) ContextValidate(ctx context.Context, formats strfmt.R
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -126,6 +176,31 @@ func (m *RestIncomingNode) contextValidateLocator(ctx context.Context, formats s
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestIncomingNode) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Metadata); i++ {
+
+		if m.Metadata[i] != nil {
+
+			if swag.IsZero(m.Metadata[i]) { // not required
+				return nil
+			}
+
+			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

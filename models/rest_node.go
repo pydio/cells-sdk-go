@@ -25,14 +25,14 @@ type RestNode struct {
 	// All file activities
 	Activities []*ActivityObject `json:"Activities"`
 
+	// ContentHash is a server-computed file signature
+	ContentHash string `json:"ContentHash,omitempty"`
+
 	// Flag set if a file is manually locked by a user
 	ContentLock *RestLockInfo `json:"ContentLock,omitempty"`
 
 	// ContentType in the form of application/mime
 	ContentType string `json:"ContentType,omitempty"`
-
-	// ContentsHash is a server-computed file signature
-	ContentsHash string `json:"ContentsHash,omitempty"`
 
 	// Additional information about the current workspace. Only published on the root node of a workspace/cell
 	ContextWorkspace *RestContextWorkspace `json:"ContextWorkspace,omitempty"`
@@ -43,7 +43,7 @@ type RestNode struct {
 	// Open map of integers metadata published on folders
 	FolderMeta []*RestCountMeta `json:"FolderMeta"`
 
-	// HashingMethod refers to the method used for computing ContentsHash
+	// HashingMethod refers to the method used for computing ContentHash
 	HashingMethod string `json:"HashingMethod,omitempty"`
 
 	// Additional metadata extracted by the server if file is an image
@@ -51,6 +51,9 @@ type RestNode struct {
 
 	// This node is bookmarked by the user
 	IsBookmarked bool `json:"IsBookmarked,omitempty"`
+
+	// Additional metadata for lifecycle
+	IsDraft bool `json:"IsDraft,omitempty"`
 
 	// If this node is a RecycleBin folder
 	IsRecycleBin bool `json:"IsRecycleBin,omitempty"`
@@ -76,9 +79,6 @@ type RestNode struct {
 	// List of available previews generated server-side
 	Previews []*RestFilePreview `json:"Previews"`
 
-	// Additional metadata attached to a Version node
-	RevisionMeta *RestRevisionMeta `json:"RevisionMeta,omitempty"`
-
 	// List of public links created on this file. Should be one but server supports multiple links
 	Shares []*RestShareLink `json:"Shares"`
 
@@ -100,6 +100,9 @@ type RestNode struct {
 	// Unique Identifier
 	// Required: true
 	UUID *string `json:"Uuid"`
+
+	// Additional metadata attached to a Version Node
+	VersionMeta *RestVersionMeta `json:"VersionMeta,omitempty"`
 }
 
 // Validate validates this rest node
@@ -146,10 +149,6 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRevisionMeta(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateShares(formats); err != nil {
 		res = append(res, err)
 	}
@@ -167,6 +166,10 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUUID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVersionMeta(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -384,25 +387,6 @@ func (m *RestNode) validatePreviews(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RestNode) validateRevisionMeta(formats strfmt.Registry) error {
-	if swag.IsZero(m.RevisionMeta) { // not required
-		return nil
-	}
-
-	if m.RevisionMeta != nil {
-		if err := m.RevisionMeta.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("RevisionMeta")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("RevisionMeta")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *RestNode) validateShares(formats strfmt.Registry) error {
 	if swag.IsZero(m.Shares) { // not required
 		return nil
@@ -509,6 +493,25 @@ func (m *RestNode) validateUUID(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestNode) validateVersionMeta(formats strfmt.Registry) error {
+	if swag.IsZero(m.VersionMeta) { // not required
+		return nil
+	}
+
+	if m.VersionMeta != nil {
+		if err := m.VersionMeta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("VersionMeta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("VersionMeta")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this rest node based on the context it is used
 func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -549,10 +552,6 @@ func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry)
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateRevisionMeta(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateShares(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -566,6 +565,10 @@ func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry)
 	}
 
 	if err := m.contextValidateUserMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateVersionMeta(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -780,27 +783,6 @@ func (m *RestNode) contextValidatePreviews(ctx context.Context, formats strfmt.R
 	return nil
 }
 
-func (m *RestNode) contextValidateRevisionMeta(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.RevisionMeta != nil {
-
-		if swag.IsZero(m.RevisionMeta) { // not required
-			return nil
-		}
-
-		if err := m.RevisionMeta.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("RevisionMeta")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("RevisionMeta")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *RestNode) contextValidateShares(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Shares); i++ {
@@ -892,6 +874,27 @@ func (m *RestNode) contextValidateUserMetadata(ctx context.Context, formats strf
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RestNode) contextValidateVersionMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.VersionMeta != nil {
+
+		if swag.IsZero(m.VersionMeta) { // not required
+			return nil
+		}
+
+		if err := m.VersionMeta.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("VersionMeta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("VersionMeta")
+			}
+			return err
+		}
 	}
 
 	return nil

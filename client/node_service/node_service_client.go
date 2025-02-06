@@ -64,11 +64,15 @@ type ClientService interface {
 
 	Create(params *CreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOK, error)
 
+	CreateCheck(params *CreateCheckParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCheckOK, error)
+
 	CreatePublicLink(params *CreatePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePublicLinkOK, error)
 
 	CreateSelection(params *CreateSelectionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSelectionOK, error)
 
 	DeletePublicLink(params *DeletePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePublicLinkOK, error)
+
+	DeleteVersion(params *DeleteVersionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVersionOK, error)
 
 	GetByUUID(params *GetByUUIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetByUUIDOK, error)
 
@@ -78,13 +82,17 @@ type ClientService interface {
 
 	ListNamespaces(params *ListNamespacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNamespacesOK, error)
 
-	ListVersions(params *ListVersionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListVersionsOK, error)
-
 	Lookup(params *LookupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LookupOK, error)
+
+	NodeVersions(params *NodeVersionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*NodeVersionsOK, error)
 
 	PatchNode(params *PatchNodeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchNodeOK, error)
 
 	PerformAction(params *PerformActionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PerformActionOK, error)
+
+	PromoteVersion(params *PromoteVersionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PromoteVersionOK, error)
+
+	PublishNode(params *PublishNodeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PublishNodeOK, error)
 
 	SearchMeta(params *SearchMetaParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchMetaOK, error)
 
@@ -256,6 +264,45 @@ func (a *Client) Create(params *CreateParams, authInfo runtime.ClientAuthInfoWri
 }
 
 /*
+CreateCheck applies some pre validation checks on node name before sending an upload
+*/
+func (a *Client) CreateCheck(params *CreateCheckParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCheckOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateCheckParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "CreateCheck",
+		Method:             "POST",
+		PathPattern:        "/n/nodes/create/precheck",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &CreateCheckReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateCheckOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for CreateCheck: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 CreatePublicLink creates a public link on a given node
 */
 func (a *Client) CreatePublicLink(params *CreatePublicLinkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePublicLinkOK, error) {
@@ -369,6 +416,45 @@ func (a *Client) DeletePublicLink(params *DeletePublicLinkParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeletePublicLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteVersion deletes a version by its ID
+*/
+func (a *Client) DeleteVersion(params *DeleteVersionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVersionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteVersionParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "DeleteVersion",
+		Method:             "DELETE",
+		PathPattern:        "/n/node/{Uuid}/versions/{VersionId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &DeleteVersionReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteVersion: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -529,45 +615,6 @@ func (a *Client) ListNamespaces(params *ListNamespacesParams, authInfo runtime.C
 }
 
 /*
-ListVersions lists all known versions of a node
-*/
-func (a *Client) ListVersions(params *ListVersionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListVersionsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListVersionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "ListVersions",
-		Method:             "GET",
-		PathPattern:        "/n/node/{Uuid}/versions",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https", "wss"},
-		Params:             params,
-		Reader:             &ListVersionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*ListVersionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListVersions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
 Lookup generics request to either list using locators or search using query for nodes
 */
 func (a *Client) Lookup(params *LookupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LookupOK, error) {
@@ -607,7 +654,46 @@ func (a *Client) Lookup(params *LookupParams, authInfo runtime.ClientAuthInfoWri
 }
 
 /*
-PatchNode patches node is used to update a node specific meta it is used for reserved meta as well bookmarks content lock
+NodeVersions lists all known versions of a node
+*/
+func (a *Client) NodeVersions(params *NodeVersionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*NodeVersionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewNodeVersionsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "NodeVersions",
+		Method:             "POST",
+		PathPattern:        "/n/node/{Uuid}/versions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &NodeVersionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*NodeVersionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for NodeVersions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+PatchNode updates a node specific meta it is used for reserved meta as well bookmarks content lock
 */
 func (a *Client) PatchNode(params *PatchNodeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchNodeOK, error) {
 	// TODO: Validate the params before sending
@@ -681,6 +767,84 @@ func (a *Client) PerformAction(params *PerformActionParams, authInfo runtime.Cli
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PerformAction: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+PromoteVersion promotes a version by ID to be the publicly available content of the node files only
+*/
+func (a *Client) PromoteVersion(params *PromoteVersionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PromoteVersionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPromoteVersionParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "PromoteVersion",
+		Method:             "POST",
+		PathPattern:        "/n/node/{Uuid}/versions/{VersionId}/promote",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &PromoteVersionReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PromoteVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PromoteVersion: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+PublishNode unsets draft status of a resource typically to publish a folder in draft mode
+*/
+func (a *Client) PublishNode(params *PublishNodeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PublishNodeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPublishNodeParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "PublishNode",
+		Method:             "POST",
+		PathPattern:        "/n/node/{Uuid}/publish",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &PublishNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PublishNodeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PublishNode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
