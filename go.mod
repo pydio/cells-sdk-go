@@ -2,7 +2,7 @@ module github.com/pydio/cells-sdk-go/v5
 
 go 1.22.0
 
-toolchain go1.23.4
+toolchain go1.23.5
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.32.7
@@ -29,11 +29,11 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
-	go.mongodb.org/mongo-driver v1.17.1 // indirect
+	go.mongodb.org/mongo-driver v1.17.2 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
-	go.opentelemetry.io/otel v1.33.0 // indirect
-	go.opentelemetry.io/otel/metric v1.33.0 // indirect
-	go.opentelemetry.io/otel/trace v1.33.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
+	go.opentelemetry.io/otel v1.34.0 // indirect
+	go.opentelemetry.io/otel/metric v1.34.0 // indirect
+	go.opentelemetry.io/otel/trace v1.34.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
