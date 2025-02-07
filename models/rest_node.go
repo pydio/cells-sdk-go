@@ -103,6 +103,9 @@ type RestNode struct {
 
 	// Additional metadata attached to a Version Node
 	VersionMeta *RestVersionMeta `json:"VersionMeta,omitempty"`
+
+	// Known versions - attached when flags WithVersionsXXX are passed
+	Versions []*RestVersion `json:"Versions"`
 }
 
 // Validate validates this rest node
@@ -170,6 +173,10 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateVersionMeta(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVersions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -512,6 +519,32 @@ func (m *RestNode) validateVersionMeta(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestNode) validateVersions(formats strfmt.Registry) error {
+	if swag.IsZero(m.Versions) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Versions); i++ {
+		if swag.IsZero(m.Versions[i]) { // not required
+			continue
+		}
+
+		if m.Versions[i] != nil {
+			if err := m.Versions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Versions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Versions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this rest node based on the context it is used
 func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -569,6 +602,10 @@ func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry)
 	}
 
 	if err := m.contextValidateVersionMeta(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateVersions(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -895,6 +932,31 @@ func (m *RestNode) contextValidateVersionMeta(ctx context.Context, formats strfm
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestNode) contextValidateVersions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Versions); i++ {
+
+		if m.Versions[i] != nil {
+
+			if swag.IsZero(m.Versions[i]) { // not required
+				return nil
+			}
+
+			if err := m.Versions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Versions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Versions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

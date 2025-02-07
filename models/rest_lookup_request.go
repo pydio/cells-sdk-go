@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,6 +20,9 @@ import (
 //
 // swagger:model restLookupRequest
 type RestLookupRequest struct {
+
+	// flags
+	Flags []*RestFlag `json:"Flags"`
 
 	// limit
 	Limit string `json:"Limit,omitempty"`
@@ -37,14 +41,15 @@ type RestLookupRequest struct {
 
 	// sort field
 	SortField string `json:"SortField,omitempty"`
-
-	// stat flags
-	StatFlags []int64 `json:"StatFlags"`
 }
 
 // Validate validates this rest lookup request
 func (m *RestLookupRequest) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateFlags(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateLocators(formats); err != nil {
 		res = append(res, err)
@@ -57,6 +62,32 @@ func (m *RestLookupRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestLookupRequest) validateFlags(formats strfmt.Registry) error {
+	if swag.IsZero(m.Flags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Flags); i++ {
+		if swag.IsZero(m.Flags[i]) { // not required
+			continue
+		}
+
+		if m.Flags[i] != nil {
+			if err := m.Flags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Flags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Flags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -102,6 +133,10 @@ func (m *RestLookupRequest) validateQuery(formats strfmt.Registry) error {
 func (m *RestLookupRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateFlags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateLocators(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -113,6 +148,31 @@ func (m *RestLookupRequest) ContextValidate(ctx context.Context, formats strfmt.
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestLookupRequest) contextValidateFlags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Flags); i++ {
+
+		if m.Flags[i] != nil {
+
+			if swag.IsZero(m.Flags[i]) { // not required
+				return nil
+			}
+
+			if err := m.Flags[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Flags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Flags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

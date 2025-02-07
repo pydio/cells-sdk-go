@@ -33,11 +33,11 @@ const (
 	// RestVersionsTypesVersionsAll captures enum value "VersionsAll"
 	RestVersionsTypesVersionsAll RestVersionsTypes = "VersionsAll"
 
-	// RestVersionsTypesDraftsOnly captures enum value "DraftsOnly"
-	RestVersionsTypesDraftsOnly RestVersionsTypes = "DraftsOnly"
+	// RestVersionsTypesVersionsDraft captures enum value "VersionsDraft"
+	RestVersionsTypesVersionsDraft RestVersionsTypes = "VersionsDraft"
 
-	// RestVersionsTypesVersionsOnly captures enum value "VersionsOnly"
-	RestVersionsTypesVersionsOnly RestVersionsTypes = "VersionsOnly"
+	// RestVersionsTypesVersionsPublished captures enum value "VersionsPublished"
+	RestVersionsTypesVersionsPublished RestVersionsTypes = "VersionsPublished"
 )
 
 // for schema
@@ -45,7 +45,7 @@ var restVersionsTypesEnum []interface{}
 
 func init() {
 	var res []RestVersionsTypes
-	if err := json.Unmarshal([]byte(`["VersionsAll","DraftsOnly","VersionsOnly"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["VersionsAll","VersionsDraft","VersionsPublished"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
