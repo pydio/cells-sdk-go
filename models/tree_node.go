@@ -22,7 +22,7 @@ type TreeNode struct {
 	// Can be used for output when node is appearing in multiple workspaces
 	AppearsIn []*TreeWorkspaceRelativePath `json:"AppearsIn"`
 
-	// List of successive commits
+	// Deprecated - List of successive commits
 	Commits []*TreeChangeLog `json:"Commits"`
 
 	// Hash of the content if node is a LEAF, Uuid or
