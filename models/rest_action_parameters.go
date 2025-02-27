@@ -25,7 +25,16 @@ type RestActionParameters struct {
 	// Define a golang duration to wait for
 	AwaitTimeout string `json:"AwaitTimeout,omitempty"`
 
-	// Json parameters
+	// copy move options
+	CopyMoveOptions *RestActionOptionsCopyMove `json:"CopyMoveOptions,omitempty"`
+
+	// delete options
+	DeleteOptions *RestActionOptionsDelete `json:"DeleteOptions,omitempty"`
+
+	// extract compress options
+	ExtractCompressOptions *RestActionOptionsExtractCompress `json:"ExtractCompressOptions,omitempty"`
+
+	// Should be deprecated in favor of ActionOptions
 	JSONParameters string `json:"JsonParameters,omitempty"`
 
 	// nodes
@@ -33,9 +42,6 @@ type RestActionParameters struct {
 
 	// selection Uuid
 	SelectionUUID string `json:"SelectionUuid,omitempty"`
-
-	// target node
-	TargetNode *RestNodeLocator `json:"TargetNode,omitempty"`
 }
 
 // Validate validates this rest action parameters
@@ -46,11 +52,19 @@ func (m *RestActionParameters) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateNodes(formats); err != nil {
+	if err := m.validateCopyMoveOptions(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateTargetNode(formats); err != nil {
+	if err := m.validateDeleteOptions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExtractCompressOptions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNodes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,6 +85,63 @@ func (m *RestActionParameters) validateAwaitStatus(formats strfmt.Registry) erro
 				return ve.ValidateName("AwaitStatus")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("AwaitStatus")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestActionParameters) validateCopyMoveOptions(formats strfmt.Registry) error {
+	if swag.IsZero(m.CopyMoveOptions) { // not required
+		return nil
+	}
+
+	if m.CopyMoveOptions != nil {
+		if err := m.CopyMoveOptions.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CopyMoveOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CopyMoveOptions")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestActionParameters) validateDeleteOptions(formats strfmt.Registry) error {
+	if swag.IsZero(m.DeleteOptions) { // not required
+		return nil
+	}
+
+	if m.DeleteOptions != nil {
+		if err := m.DeleteOptions.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DeleteOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DeleteOptions")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestActionParameters) validateExtractCompressOptions(formats strfmt.Registry) error {
+	if swag.IsZero(m.ExtractCompressOptions) { // not required
+		return nil
+	}
+
+	if m.ExtractCompressOptions != nil {
+		if err := m.ExtractCompressOptions.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ExtractCompressOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ExtractCompressOptions")
 			}
 			return err
 		}
@@ -105,25 +176,6 @@ func (m *RestActionParameters) validateNodes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RestActionParameters) validateTargetNode(formats strfmt.Registry) error {
-	if swag.IsZero(m.TargetNode) { // not required
-		return nil
-	}
-
-	if m.TargetNode != nil {
-		if err := m.TargetNode.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("TargetNode")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("TargetNode")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 // ContextValidate validate this rest action parameters based on the context it is used
 func (m *RestActionParameters) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -132,11 +184,19 @@ func (m *RestActionParameters) ContextValidate(ctx context.Context, formats strf
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateNodes(ctx, formats); err != nil {
+	if err := m.contextValidateCopyMoveOptions(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateTargetNode(ctx, formats); err != nil {
+	if err := m.contextValidateDeleteOptions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExtractCompressOptions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodes(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -167,6 +227,69 @@ func (m *RestActionParameters) contextValidateAwaitStatus(ctx context.Context, f
 	return nil
 }
 
+func (m *RestActionParameters) contextValidateCopyMoveOptions(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CopyMoveOptions != nil {
+
+		if swag.IsZero(m.CopyMoveOptions) { // not required
+			return nil
+		}
+
+		if err := m.CopyMoveOptions.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CopyMoveOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CopyMoveOptions")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestActionParameters) contextValidateDeleteOptions(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DeleteOptions != nil {
+
+		if swag.IsZero(m.DeleteOptions) { // not required
+			return nil
+		}
+
+		if err := m.DeleteOptions.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DeleteOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DeleteOptions")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestActionParameters) contextValidateExtractCompressOptions(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ExtractCompressOptions != nil {
+
+		if swag.IsZero(m.ExtractCompressOptions) { // not required
+			return nil
+		}
+
+		if err := m.ExtractCompressOptions.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ExtractCompressOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ExtractCompressOptions")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *RestActionParameters) contextValidateNodes(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Nodes); i++ {
@@ -187,27 +310,6 @@ func (m *RestActionParameters) contextValidateNodes(ctx context.Context, formats
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *RestActionParameters) contextValidateTargetNode(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.TargetNode != nil {
-
-		if swag.IsZero(m.TargetNode) { // not required
-			return nil
-		}
-
-		if err := m.TargetNode.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("TargetNode")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("TargetNode")
-			}
-			return err
-		}
 	}
 
 	return nil
