@@ -76,6 +76,9 @@ type RestNode struct {
 	// Required: true
 	Path *string `json:"Path"`
 
+	// PreSignedURL to retrieve the current content of this file
+	PreSignedGET *RestPreSignedURL `json:"PreSignedGET,omitempty"`
+
 	// List of available previews generated server-side
 	Previews []*RestFilePreview `json:"Previews"`
 
@@ -145,6 +148,10 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePath(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreSignedGET(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -368,6 +375,25 @@ func (m *RestNode) validatePath(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestNode) validatePreSignedGET(formats strfmt.Registry) error {
+	if swag.IsZero(m.PreSignedGET) { // not required
+		return nil
+	}
+
+	if m.PreSignedGET != nil {
+		if err := m.PreSignedGET.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PreSignedGET")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PreSignedGET")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *RestNode) validatePreviews(formats strfmt.Registry) error {
 	if swag.IsZero(m.Previews) { // not required
 		return nil
@@ -581,6 +607,10 @@ func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry)
 		res = append(res, err)
 	}
 
+	if err := m.contextValidatePreSignedGET(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidatePreviews(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -787,6 +817,27 @@ func (m *RestNode) contextValidateMode(ctx context.Context, formats strfmt.Regis
 				return ve.ValidateName("Mode")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Mode")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestNode) contextValidatePreSignedGET(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PreSignedGET != nil {
+
+		if swag.IsZero(m.PreSignedGET) { // not required
+			return nil
+		}
+
+		if err := m.PreSignedGET.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PreSignedGET")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PreSignedGET")
 			}
 			return err
 		}
