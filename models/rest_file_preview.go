@@ -27,6 +27,9 @@ type RestFilePreview struct {
 	// dimension
 	Dimension int32 `json:"Dimension,omitempty"`
 
+	// error
+	Error bool `json:"Error,omitempty"`
+
 	// key
 	Key string `json:"Key,omitempty"`
 
