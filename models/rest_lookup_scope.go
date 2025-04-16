@@ -22,15 +22,13 @@ type RestLookupScope struct {
 	// These locators will restrict the query to these nodes, along any additional filtering
 	Nodes []*RestNodeLocator `json:"Nodes"`
 
+	// Whether to list/search first level of children
+	// or all children recursively. This does not apply if no Root or empty Root is provided
+	Recursive bool `json:"Recursive,omitempty"`
+
 	// These locators will restrict the query to their children
 	// Root can be empty (or /) to target top folder for listing
 	Root *RestNodeLocator `json:"Root,omitempty"`
-
-	// When using a Root, restrict listing to a certain depth:
-	// 0 (default) or 1 will list children at first level,
-	// -1 searches all children recursively
-	// Number N will list *until* level N
-	RootRelativeDepth int32 `json:"RootRelativeDepth,omitempty"`
 }
 
 // Validate validates this rest lookup scope
