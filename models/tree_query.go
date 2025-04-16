@@ -29,6 +29,9 @@ type TreeQuery struct {
 	// Look for a specific ETag value, may only be useful to lookup for files with __temporary__ ETag
 	ETag string `json:"ETag,omitempty"`
 
+	// Nodes below these paths will be excluded from results
+	ExcludedPathPrefix []string `json:"ExcludedPathPrefix"`
+
 	// Search files by their extension, use pipe symbol | if you wish to allow many extensions.
 	// Example png|pdf|jpg
 	Extension string `json:"Extension,omitempty"`

@@ -21,6 +21,9 @@ import (
 // swagger:model restLookupRequest
 type RestLookupRequest struct {
 
+	// filters
+	Filters *RestLookupFilter `json:"Filters,omitempty"`
+
 	// flags
 	Flags []*RestFlag `json:"Flags"`
 
@@ -36,6 +39,9 @@ type RestLookupRequest struct {
 	// query
 	Query *TreeQuery `json:"Query,omitempty"`
 
+	// scope
+	Scope *RestLookupScope `json:"Scope,omitempty"`
+
 	// sort dir desc
 	SortDirDesc bool `json:"SortDirDesc,omitempty"`
 
@@ -46,6 +52,10 @@ type RestLookupRequest struct {
 // Validate validates this rest lookup request
 func (m *RestLookupRequest) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateFilters(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateFlags(formats); err != nil {
 		res = append(res, err)
@@ -59,9 +69,32 @@ func (m *RestLookupRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateScope(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestLookupRequest) validateFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.Filters) { // not required
+		return nil
+	}
+
+	if m.Filters != nil {
+		if err := m.Filters.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Filters")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Filters")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -129,9 +162,32 @@ func (m *RestLookupRequest) validateQuery(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestLookupRequest) validateScope(formats strfmt.Registry) error {
+	if swag.IsZero(m.Scope) { // not required
+		return nil
+	}
+
+	if m.Scope != nil {
+		if err := m.Scope.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Scope")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Scope")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this rest lookup request based on the context it is used
 func (m *RestLookupRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.contextValidateFilters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.contextValidateFlags(ctx, formats); err != nil {
 		res = append(res, err)
@@ -145,9 +201,34 @@ func (m *RestLookupRequest) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateScope(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestLookupRequest) contextValidateFilters(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Filters != nil {
+
+		if swag.IsZero(m.Filters) { // not required
+			return nil
+		}
+
+		if err := m.Filters.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Filters")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Filters")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -210,6 +291,27 @@ func (m *RestLookupRequest) contextValidateQuery(ctx context.Context, formats st
 				return ve.ValidateName("Query")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Query")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestLookupRequest) contextValidateScope(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Scope != nil {
+
+		if swag.IsZero(m.Scope) { // not required
+			return nil
+		}
+
+		if err := m.Scope.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Scope")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Scope")
 			}
 			return err
 		}

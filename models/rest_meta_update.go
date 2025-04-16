@@ -21,7 +21,7 @@ type RestMetaUpdate struct {
 
 	// operation
 	// Required: true
-	Operation *MetaUpdateOp `json:"Operation"`
+	Operation *RestMetaUpdateOp `json:"Operation"`
 
 	// user meta
 	// Required: true
