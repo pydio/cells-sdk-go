@@ -1,7 +1,6 @@
 # Cells SDK Go (v4)
 
-> **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients. 
-> Note also that the cells-sdk-go specific API (mainly package v4/transport) is still being refined and some methods will need migration between v4 and v4.1  
+> **WARNING**: the cells-sdk-go specific API (mainly package v4/transport) has been refined between v4 and v4.1. A migration is needed when you switch to v4.1 from an older version (see below).   
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 
@@ -36,7 +35,7 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
 
-If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you will have to update your code.
+If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you have to update your code.
 You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
 
 ### From SDK v3
@@ -62,8 +61,6 @@ Here is a short list of the modification you might have to do in your old code:
 ## Versioning policy
 
 Between version 2.2 and 3.99 of the Cells server, as the API was still moving and even if we tried to stay backward compatible, we released a minor version of the SDK for each minor version of the Pydio Cells Server: if you are stuck with some servers in v2 or v3, you might still want to use a SDK that has same major.minor version to communicate with your server.
-
-Since the v4, you can use the latest version of the SDK to communicate with any Cells V4+ server.
 
 ## License
 
