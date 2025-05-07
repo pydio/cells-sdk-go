@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -26,23 +27,84 @@ type RestFilePreview struct {
 	// dimension
 	Dimension int32 `json:"Dimension,omitempty"`
 
+	// error
+	Error bool `json:"Error,omitempty"`
+
 	// key
 	Key string `json:"Key,omitempty"`
 
+	// pre signed g e t
+	PreSignedGET *RestPreSignedURL `json:"PreSignedGET,omitempty"`
+
 	// processing
 	Processing bool `json:"Processing,omitempty"`
-
-	// Url
-	URL string `json:"Url,omitempty"`
 }
 
 // Validate validates this rest file preview
 func (m *RestFilePreview) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validatePreSignedGET(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this rest file preview based on context it is used
+func (m *RestFilePreview) validatePreSignedGET(formats strfmt.Registry) error {
+	if swag.IsZero(m.PreSignedGET) { // not required
+		return nil
+	}
+
+	if m.PreSignedGET != nil {
+		if err := m.PreSignedGET.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PreSignedGET")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PreSignedGET")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this rest file preview based on the context it is used
 func (m *RestFilePreview) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePreSignedGET(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestFilePreview) contextValidatePreSignedGET(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PreSignedGET != nil {
+
+		if swag.IsZero(m.PreSignedGET) { // not required
+			return nil
+		}
+
+		if err := m.PreSignedGET.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PreSignedGET")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PreSignedGET")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
