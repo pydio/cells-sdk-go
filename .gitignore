@@ -7,6 +7,6 @@
 
 target/
 
-example/config.json
-example/main
+apiv2/example/config.json
+apiv2/example/main
 main
