@@ -1,4 +1,9 @@
-# Cells SDK Go (v4)
+# Cells SDK Go (v5)
+
+
+> **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients.
+> Note also that the cells-sdk-go specific API (mainly package v5/transport) is still being refined and some methods will need migration between v4 and v5.
+
 
 > **WARNING**: due to a breaking change in the AWS SDK we use to manage large upload with unsigned streaming, we had to adapt the server. As a consequence, the latest version of the SDK v4.4 requires at least a server that has version 4.4.**12**, or large uploads will fail. If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.
 > Note also that the cells-sdk-go specific API (mainly package v4/transport) is still being refined and some methods will need migration between v4 and v4.1  
