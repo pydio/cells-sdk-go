@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // GetByUUIDReader is a Reader for the GetByUUID structure.
@@ -70,7 +69,7 @@ GetByUUIDOK describes a response with status code 200, with default header value
 A successful response.
 */
 type GetByUUIDOK struct {
-	Payload *models.RestNode
+	Payload *models2.RestNode
 }
 
 // IsSuccess returns true when this get by Uuid o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *GetByUUIDOK) String() string {
 	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidOK %s", 200, payload)
 }
 
-func (o *GetByUUIDOK) GetPayload() *models.RestNode {
+func (o *GetByUUIDOK) GetPayload() *models2.RestNode {
 	return o.Payload
 }
 
 func (o *GetByUUIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestNode)
+	o.Payload = new(models2.RestNode)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ GetByUUIDUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type GetByUUIDUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this get by Uuid unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *GetByUUIDUnauthorized) String() string {
 	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidUnauthorized %s", 401, payload)
 }
 
-func (o *GetByUUIDUnauthorized) GetPayload() *models.RestError {
+func (o *GetByUUIDUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *GetByUUIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ GetByUUIDForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type GetByUUIDForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this get by Uuid forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *GetByUUIDForbidden) String() string {
 	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidForbidden %s", 403, payload)
 }
 
-func (o *GetByUUIDForbidden) GetPayload() *models.RestError {
+func (o *GetByUUIDForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *GetByUUIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ GetByUUIDNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type GetByUUIDNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this get by Uuid not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *GetByUUIDNotFound) String() string {
 	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidNotFound %s", 404, payload)
 }
 
-func (o *GetByUUIDNotFound) GetPayload() *models.RestError {
+func (o *GetByUUIDNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *GetByUUIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ GetByUUIDInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type GetByUUIDInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this get by Uuid internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *GetByUUIDInternalServerError) String() string {
 	return fmt.Sprintf("[GET /n/node/{Uuid}][%d] getByUuidInternalServerError %s", 500, payload)
 }
 
-func (o *GetByUUIDInternalServerError) GetPayload() *models.RestError {
+func (o *GetByUUIDInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *GetByUUIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // BatchUpdateMetaReader is a Reader for the BatchUpdateMeta structure.
@@ -70,7 +69,7 @@ BatchUpdateMetaOK describes a response with status code 200, with default header
 A successful response.
 */
 type BatchUpdateMetaOK struct {
-	Payload *models.RestBatchUpdateMetaList
+	Payload *models2.RestBatchUpdateMetaList
 }
 
 // IsSuccess returns true when this batch update meta o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *BatchUpdateMetaOK) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/batch][%d] batchUpdateMetaOK %s", 200, payload)
 }
 
-func (o *BatchUpdateMetaOK) GetPayload() *models.RestBatchUpdateMetaList {
+func (o *BatchUpdateMetaOK) GetPayload() *models2.RestBatchUpdateMetaList {
 	return o.Payload
 }
 
 func (o *BatchUpdateMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestBatchUpdateMetaList)
+	o.Payload = new(models2.RestBatchUpdateMetaList)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ BatchUpdateMetaUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type BatchUpdateMetaUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this batch update meta unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *BatchUpdateMetaUnauthorized) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/batch][%d] batchUpdateMetaUnauthorized %s", 401, payload)
 }
 
-func (o *BatchUpdateMetaUnauthorized) GetPayload() *models.RestError {
+func (o *BatchUpdateMetaUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BatchUpdateMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ BatchUpdateMetaForbidden describes a response with status code 403, with default
 User has no permission to access this particular resource
 */
 type BatchUpdateMetaForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this batch update meta forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *BatchUpdateMetaForbidden) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/batch][%d] batchUpdateMetaForbidden %s", 403, payload)
 }
 
-func (o *BatchUpdateMetaForbidden) GetPayload() *models.RestError {
+func (o *BatchUpdateMetaForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BatchUpdateMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ BatchUpdateMetaNotFound describes a response with status code 404, with default 
 Resource does not exist in the system
 */
 type BatchUpdateMetaNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this batch update meta not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *BatchUpdateMetaNotFound) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/batch][%d] batchUpdateMetaNotFound %s", 404, payload)
 }
 
-func (o *BatchUpdateMetaNotFound) GetPayload() *models.RestError {
+func (o *BatchUpdateMetaNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BatchUpdateMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ BatchUpdateMetaInternalServerError describes a response with status code 500, wi
 An internal error occurred in the backend
 */
 type BatchUpdateMetaInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this batch update meta internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *BatchUpdateMetaInternalServerError) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/batch][%d] batchUpdateMetaInternalServerError %s", 500, payload)
 }
 
-func (o *BatchUpdateMetaInternalServerError) GetPayload() *models.RestError {
+func (o *BatchUpdateMetaInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BatchUpdateMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

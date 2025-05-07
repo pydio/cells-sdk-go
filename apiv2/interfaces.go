@@ -1,4 +1,4 @@
-package cells_sdk
+package apiv2
 
 import (
 	"context"

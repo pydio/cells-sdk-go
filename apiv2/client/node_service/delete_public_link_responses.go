@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // DeletePublicLinkReader is a Reader for the DeletePublicLink structure.
@@ -70,7 +69,7 @@ DeletePublicLinkOK describes a response with status code 200, with default heade
 A successful response.
 */
 type DeletePublicLinkOK struct {
-	Payload *models.RestPublicLinkDeleteSuccess
+	Payload *models2.RestPublicLinkDeleteSuccess
 }
 
 // IsSuccess returns true when this delete public link o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *DeletePublicLinkOK) String() string {
 	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkOK %s", 200, payload)
 }
 
-func (o *DeletePublicLinkOK) GetPayload() *models.RestPublicLinkDeleteSuccess {
+func (o *DeletePublicLinkOK) GetPayload() *models2.RestPublicLinkDeleteSuccess {
 	return o.Payload
 }
 
 func (o *DeletePublicLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestPublicLinkDeleteSuccess)
+	o.Payload = new(models2.RestPublicLinkDeleteSuccess)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ DeletePublicLinkUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type DeletePublicLinkUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this delete public link unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *DeletePublicLinkUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkUnauthorized %s", 401, payload)
 }
 
-func (o *DeletePublicLinkUnauthorized) GetPayload() *models.RestError {
+func (o *DeletePublicLinkUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *DeletePublicLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ DeletePublicLinkForbidden describes a response with status code 403, with defaul
 User has no permission to access this particular resource
 */
 type DeletePublicLinkForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this delete public link forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *DeletePublicLinkForbidden) String() string {
 	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkForbidden %s", 403, payload)
 }
 
-func (o *DeletePublicLinkForbidden) GetPayload() *models.RestError {
+func (o *DeletePublicLinkForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *DeletePublicLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ DeletePublicLinkNotFound describes a response with status code 404, with default
 Resource does not exist in the system
 */
 type DeletePublicLinkNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this delete public link not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *DeletePublicLinkNotFound) String() string {
 	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkNotFound %s", 404, payload)
 }
 
-func (o *DeletePublicLinkNotFound) GetPayload() *models.RestError {
+func (o *DeletePublicLinkNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *DeletePublicLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ DeletePublicLinkInternalServerError describes a response with status code 500, w
 An internal error occurred in the backend
 */
 type DeletePublicLinkInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this delete public link internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *DeletePublicLinkInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /n/link/{LinkUuid}][%d] deletePublicLinkInternalServerError %s", 500, payload)
 }
 
-func (o *DeletePublicLinkInternalServerError) GetPayload() *models.RestError {
+func (o *DeletePublicLinkInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *DeletePublicLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

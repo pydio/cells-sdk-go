@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // NodeVersionsReader is a Reader for the NodeVersions structure.
@@ -70,7 +69,7 @@ NodeVersionsOK describes a response with status code 200, with default header va
 A successful response.
 */
 type NodeVersionsOK struct {
-	Payload *models.RestVersionCollection
+	Payload *models2.RestVersionCollection
 }
 
 // IsSuccess returns true when this node versions o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *NodeVersionsOK) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions][%d] nodeVersionsOK %s", 200, payload)
 }
 
-func (o *NodeVersionsOK) GetPayload() *models.RestVersionCollection {
+func (o *NodeVersionsOK) GetPayload() *models2.RestVersionCollection {
 	return o.Payload
 }
 
 func (o *NodeVersionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestVersionCollection)
+	o.Payload = new(models2.RestVersionCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ NodeVersionsUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type NodeVersionsUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this node versions unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *NodeVersionsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions][%d] nodeVersionsUnauthorized %s", 401, payload)
 }
 
-func (o *NodeVersionsUnauthorized) GetPayload() *models.RestError {
+func (o *NodeVersionsUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *NodeVersionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ NodeVersionsForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type NodeVersionsForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this node versions forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *NodeVersionsForbidden) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions][%d] nodeVersionsForbidden %s", 403, payload)
 }
 
-func (o *NodeVersionsForbidden) GetPayload() *models.RestError {
+func (o *NodeVersionsForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *NodeVersionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ NodeVersionsNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type NodeVersionsNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this node versions not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *NodeVersionsNotFound) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions][%d] nodeVersionsNotFound %s", 404, payload)
 }
 
-func (o *NodeVersionsNotFound) GetPayload() *models.RestError {
+func (o *NodeVersionsNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *NodeVersionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ NodeVersionsInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type NodeVersionsInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this node versions internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *NodeVersionsInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions][%d] nodeVersionsInternalServerError %s", 500, payload)
 }
 
-func (o *NodeVersionsInternalServerError) GetPayload() *models.RestError {
+func (o *NodeVersionsInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *NodeVersionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // LookupReader is a Reader for the Lookup structure.
@@ -70,7 +69,7 @@ LookupOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type LookupOK struct {
-	Payload *models.RestNodeCollection
+	Payload *models2.RestNodeCollection
 }
 
 // IsSuccess returns true when this lookup o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *LookupOK) String() string {
 	return fmt.Sprintf("[POST /n/nodes][%d] lookupOK %s", 200, payload)
 }
 
-func (o *LookupOK) GetPayload() *models.RestNodeCollection {
+func (o *LookupOK) GetPayload() *models2.RestNodeCollection {
 	return o.Payload
 }
 
 func (o *LookupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestNodeCollection)
+	o.Payload = new(models2.RestNodeCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ LookupUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type LookupUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this lookup unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *LookupUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/nodes][%d] lookupUnauthorized %s", 401, payload)
 }
 
-func (o *LookupUnauthorized) GetPayload() *models.RestError {
+func (o *LookupUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *LookupUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ LookupForbidden describes a response with status code 403, with default header v
 User has no permission to access this particular resource
 */
 type LookupForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this lookup forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *LookupForbidden) String() string {
 	return fmt.Sprintf("[POST /n/nodes][%d] lookupForbidden %s", 403, payload)
 }
 
-func (o *LookupForbidden) GetPayload() *models.RestError {
+func (o *LookupForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *LookupForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ LookupNotFound describes a response with status code 404, with default header va
 Resource does not exist in the system
 */
 type LookupNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this lookup not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *LookupNotFound) String() string {
 	return fmt.Sprintf("[POST /n/nodes][%d] lookupNotFound %s", 404, payload)
 }
 
-func (o *LookupNotFound) GetPayload() *models.RestError {
+func (o *LookupNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *LookupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ LookupInternalServerError describes a response with status code 500, with defaul
 An internal error occurred in the backend
 */
 type LookupInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this lookup internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *LookupInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/nodes][%d] lookupInternalServerError %s", 500, payload)
 }
 
-func (o *LookupInternalServerError) GetPayload() *models.RestError {
+func (o *LookupInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *LookupInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

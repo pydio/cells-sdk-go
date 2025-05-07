@@ -2,14 +2,13 @@ package transport
 
 import (
 	"context"
+	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv2"
+	sdkClient "github.com/pydio/cells-sdk-go/v5/apiv2/client"
 	"net/url"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	cellsSdk "github.com/pydio/cells-sdk-go/v5"
-	sdkClient "github.com/pydio/cells-sdk-go/v5/client"
 )
 
 func GetRuntimeTransport(context context.Context, currConfig *cellsSdk.SdkConfig) (runtime.ClientTransport, error) {

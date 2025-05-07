@@ -9,8 +9,7 @@ import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/client/node_service"
+	"github.com/pydio/cells-sdk-go/v5/apiv2/client/node_service"
 )
 
 // Default pydio cells rest API HTTP client.

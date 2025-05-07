@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // UserBookmarksReader is a Reader for the UserBookmarks structure.
@@ -70,7 +69,7 @@ UserBookmarksOK describes a response with status code 200, with default header v
 A successful response.
 */
 type UserBookmarksOK struct {
-	Payload *models.RestNodeCollection
+	Payload *models2.RestNodeCollection
 }
 
 // IsSuccess returns true when this user bookmarks o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *UserBookmarksOK) String() string {
 	return fmt.Sprintf("[GET /n/nodes/bookmarks][%d] userBookmarksOK %s", 200, payload)
 }
 
-func (o *UserBookmarksOK) GetPayload() *models.RestNodeCollection {
+func (o *UserBookmarksOK) GetPayload() *models2.RestNodeCollection {
 	return o.Payload
 }
 
 func (o *UserBookmarksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestNodeCollection)
+	o.Payload = new(models2.RestNodeCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ UserBookmarksUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type UserBookmarksUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this user bookmarks unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *UserBookmarksUnauthorized) String() string {
 	return fmt.Sprintf("[GET /n/nodes/bookmarks][%d] userBookmarksUnauthorized %s", 401, payload)
 }
 
-func (o *UserBookmarksUnauthorized) GetPayload() *models.RestError {
+func (o *UserBookmarksUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *UserBookmarksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ UserBookmarksForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type UserBookmarksForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this user bookmarks forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *UserBookmarksForbidden) String() string {
 	return fmt.Sprintf("[GET /n/nodes/bookmarks][%d] userBookmarksForbidden %s", 403, payload)
 }
 
-func (o *UserBookmarksForbidden) GetPayload() *models.RestError {
+func (o *UserBookmarksForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *UserBookmarksForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ UserBookmarksNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type UserBookmarksNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this user bookmarks not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *UserBookmarksNotFound) String() string {
 	return fmt.Sprintf("[GET /n/nodes/bookmarks][%d] userBookmarksNotFound %s", 404, payload)
 }
 
-func (o *UserBookmarksNotFound) GetPayload() *models.RestError {
+func (o *UserBookmarksNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *UserBookmarksNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ UserBookmarksInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type UserBookmarksInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this user bookmarks internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *UserBookmarksInternalServerError) String() string {
 	return fmt.Sprintf("[GET /n/nodes/bookmarks][%d] userBookmarksInternalServerError %s", 500, payload)
 }
 
-func (o *UserBookmarksInternalServerError) GetPayload() *models.RestError {
+func (o *UserBookmarksInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *UserBookmarksInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

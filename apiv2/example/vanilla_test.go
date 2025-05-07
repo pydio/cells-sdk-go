@@ -11,11 +11,11 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	cellsSdk "github.com/pydio/cells-sdk-go/v5"
-	sdkClient "github.com/pydio/cells-sdk-go/v5/client"
-	"github.com/pydio/cells-sdk-go/v5/client/node_service"
-	"github.com/pydio/cells-sdk-go/v5/models"
-	"github.com/pydio/cells-sdk-go/v5/transport"
+	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv2"
+	sdkClient "github.com/pydio/cells-sdk-go/v5/apiv2/client"
+	node_service2 "github.com/pydio/cells-sdk-go/v5/apiv2/client/node_service"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
+	"github.com/pydio/cells-sdk-go/v5/apiv2/transport"
 )
 
 var DefaultConfig = &cellsSdk.SdkConfig{
@@ -50,11 +50,11 @@ func TestNodeService_SimpleCrudWithPat(t *testing.T) {
 	path := fmt.Sprintf("common-files/test-%s.txt", unique())
 
 	// Create an empty file
-	p1 := node_service.NewCreateParams()
-	p1.Body = &models.RestCreateRequest{
-		Inputs: []*models.RestIncomingNode{{
-			Locator: &models.RestNodeLocator{Path: path},
-			Type:    models.NewTreeNodeType("LEAF"),
+	p1 := node_service2.NewCreateParams()
+	p1.Body = &models2.RestCreateRequest{
+		Inputs: []*models2.RestIncomingNode{{
+			Locator: &models2.RestNodeLocator{Path: path},
+			Type:    models2.NewTreeNodeType("LEAF"),
 		}},
 		Recursive: false,
 	}
@@ -67,9 +67,9 @@ func TestNodeService_SimpleCrudWithPat(t *testing.T) {
 	}
 
 	// Retrieve it by path
-	p2 := &node_service.LookupParams{
-		Body: &models.RestLookupRequest{
-			Locators: &models.RestNodeLocators{Many: []*models.RestNodeLocator{{Path: path}}},
+	p2 := &node_service2.LookupParams{
+		Body: &models2.RestLookupRequest{
+			Locators: &models2.RestNodeLocators{Many: []*models2.RestNodeLocator{{Path: path}}},
 		},
 	}
 	r2, err := rClient.NodeService.Lookup(p2, bearerTokenAuth)
@@ -80,7 +80,7 @@ func TestNodeService_SimpleCrudWithPat(t *testing.T) {
 	}
 
 	// Retrieve it by UUID
-	p3 := node_service.NewGetByUUIDParams().WithUUID(*r2.Payload.Nodes[0].UUID)
+	p3 := node_service2.NewGetByUUIDParams().WithUUID(*r2.Payload.Nodes[0].UUID)
 	r3, err := rClient.NodeService.GetByUUID(p3, bearerTokenAuth)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
@@ -106,11 +106,11 @@ func TestNodeService_BasicAuth(t *testing.T) {
 
 	path := fmt.Sprintf("common-files/with-basic-%s.txt", unique())
 
-	p1 := node_service.NewCreateParams()
-	p1.Body = &models.RestCreateRequest{
-		Inputs: []*models.RestIncomingNode{{
-			Locator: &models.RestNodeLocator{Path: path},
-			Type:    models.NewTreeNodeType("LEAF"),
+	p1 := node_service2.NewCreateParams()
+	p1.Body = &models2.RestCreateRequest{
+		Inputs: []*models2.RestIncomingNode{{
+			Locator: &models2.RestNodeLocator{Path: path},
+			Type:    models2.NewTreeNodeType("LEAF"),
 		}},
 		Recursive: false,
 	}
@@ -122,9 +122,9 @@ func TestNodeService_BasicAuth(t *testing.T) {
 		t.Fatalf("expected response, got nil")
 	}
 
-	p2 := &node_service.LookupParams{
-		Body: &models.RestLookupRequest{
-			Locators: &models.RestNodeLocators{Many: []*models.RestNodeLocator{{Path: path}}},
+	p2 := &node_service2.LookupParams{
+		Body: &models2.RestLookupRequest{
+			Locators: &models2.RestNodeLocators{Many: []*models2.RestNodeLocator{{Path: path}}},
 		},
 	}
 	r2, err := cli.NodeService.Lookup(p2, basicAuth)
@@ -141,7 +141,7 @@ func TestNodeService_GetByUUID_Error(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	params := node_service.NewGetByUUIDParams().WithUUID("invalid-uuid")
+	params := node_service2.NewGetByUUIDParams().WithUUID("invalid-uuid")
 	_, err = cli.NodeService.GetByUUID(params, httptransport.BearerToken(DefaultConfig.IdToken))
 	if err == nil {
 		t.Fatalf("expected error, got nil")

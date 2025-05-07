@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // ControlBackgroundActionReader is a Reader for the ControlBackgroundAction structure.
@@ -70,7 +69,7 @@ ControlBackgroundActionOK describes a response with status code 200, with defaul
 A successful response.
 */
 type ControlBackgroundActionOK struct {
-	Payload *models.RestBackgroundAction
+	Payload *models2.RestBackgroundAction
 }
 
 // IsSuccess returns true when this control background action o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *ControlBackgroundActionOK) String() string {
 	return fmt.Sprintf("[PATCH /n/action/{Name}/{JobUuid}][%d] controlBackgroundActionOK %s", 200, payload)
 }
 
-func (o *ControlBackgroundActionOK) GetPayload() *models.RestBackgroundAction {
+func (o *ControlBackgroundActionOK) GetPayload() *models2.RestBackgroundAction {
 	return o.Payload
 }
 
 func (o *ControlBackgroundActionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestBackgroundAction)
+	o.Payload = new(models2.RestBackgroundAction)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ ControlBackgroundActionUnauthorized describes a response with status code 401, w
 User is not authenticated
 */
 type ControlBackgroundActionUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this control background action unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *ControlBackgroundActionUnauthorized) String() string {
 	return fmt.Sprintf("[PATCH /n/action/{Name}/{JobUuid}][%d] controlBackgroundActionUnauthorized %s", 401, payload)
 }
 
-func (o *ControlBackgroundActionUnauthorized) GetPayload() *models.RestError {
+func (o *ControlBackgroundActionUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *ControlBackgroundActionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ ControlBackgroundActionForbidden describes a response with status code 403, with
 User has no permission to access this particular resource
 */
 type ControlBackgroundActionForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this control background action forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *ControlBackgroundActionForbidden) String() string {
 	return fmt.Sprintf("[PATCH /n/action/{Name}/{JobUuid}][%d] controlBackgroundActionForbidden %s", 403, payload)
 }
 
-func (o *ControlBackgroundActionForbidden) GetPayload() *models.RestError {
+func (o *ControlBackgroundActionForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *ControlBackgroundActionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ ControlBackgroundActionNotFound describes a response with status code 404, with 
 Resource does not exist in the system
 */
 type ControlBackgroundActionNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this control background action not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *ControlBackgroundActionNotFound) String() string {
 	return fmt.Sprintf("[PATCH /n/action/{Name}/{JobUuid}][%d] controlBackgroundActionNotFound %s", 404, payload)
 }
 
-func (o *ControlBackgroundActionNotFound) GetPayload() *models.RestError {
+func (o *ControlBackgroundActionNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *ControlBackgroundActionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ ControlBackgroundActionInternalServerError describes a response with status code
 An internal error occurred in the backend
 */
 type ControlBackgroundActionInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this control background action internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *ControlBackgroundActionInternalServerError) String() string {
 	return fmt.Sprintf("[PATCH /n/action/{Name}/{JobUuid}][%d] controlBackgroundActionInternalServerError %s", 500, payload)
 }
 
-func (o *ControlBackgroundActionInternalServerError) GetPayload() *models.RestError {
+func (o *ControlBackgroundActionInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *ControlBackgroundActionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

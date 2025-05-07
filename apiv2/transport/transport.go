@@ -3,13 +3,12 @@ package transport
 import (
 	"context"
 	"fmt"
+	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv2"
 	"net/http"
 	"runtime"
 
 	openapiRuntime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	cellsSdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 const (

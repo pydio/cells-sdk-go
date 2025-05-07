@@ -4,6 +4,10 @@
 .DS_Store
 
 target/
+
 apiv1/example/config.json
 apiv1/example/main
+apiv2/example/config.json
+apiv2/example/main
+
 main

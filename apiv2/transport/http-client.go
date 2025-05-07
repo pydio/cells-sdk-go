@@ -1,9 +1,8 @@
 package transport
 
 import (
+	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv2"
 	"net/http"
-
-	cellsSdk "github.com/pydio/cells-sdk-go/v5"
 )
 
 // GetClient provides an option to rather use an HTTP client that ignores SSL certificate issues.

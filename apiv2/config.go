@@ -1,13 +1,13 @@
-// Package cells_sdk provides a ready to use SDK to use the Cells REST API in Go language.
+// Package apiv2 provides a ready to use SDK to use the Cells REST API in Go language.
 // It also provides some patterns that ease implementation of Go programs that use the SDK.
-package cells_sdk
+package apiv2
 
 // SdkConfig stores parameters to talk to a running Cells instance REST API via the Go SDK.
 type SdkConfig struct {
 
 	// Url stores domain name or IP & port to the server.
 	Url string `json:"url"`
-	// Username (login) for the currenly configured Pydio Account
+	// Username (login) for the currently configured Pydio Account
 	User string `json:"user"`
 
 	// IdToken might be a personal access Token (generated on your server) or an OAuth2 Token retrieved via the OIDC code flow
@@ -17,13 +17,13 @@ type SdkConfig struct {
 	//RefreshToken   string `json:"refreshToken,omitempty"`
 	//TokenExpiresAt int    `json:"tokenExpiresAt,omitempty"`
 	//
-	//// Password for client credential authentification (Legacy, less secure)
+	//// Password for client credential authentication (Legacy, less secure)
 	//Password string `json:"password,omitempty"`
 
 	// SkipVerify tells the transport to ignore expired or self-signed TLS certificates
 	SkipVerify bool `json:"skipVerify"`
 
-	// UseTokenCache flags wether we should rely on a local cache to avoid retrieving a new JWT token at each request.
+	// UseTokenCache flags if we should rely on a local cache to avoid retrieving a new JWT token at each request.
 	// It is useful to *not* use the cache when running connection tests for instance.
 	UseTokenCache bool `json:"useTokenCache"`
 

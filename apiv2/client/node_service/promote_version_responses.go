@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // PromoteVersionReader is a Reader for the PromoteVersion structure.
@@ -70,7 +69,7 @@ PromoteVersionOK describes a response with status code 200, with default header 
 A successful response.
 */
 type PromoteVersionOK struct {
-	Payload *models.RestPromoteVersionResponse
+	Payload *models2.RestPromoteVersionResponse
 }
 
 // IsSuccess returns true when this promote version o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *PromoteVersionOK) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions/{VersionId}/promote][%d] promoteVersionOK %s", 200, payload)
 }
 
-func (o *PromoteVersionOK) GetPayload() *models.RestPromoteVersionResponse {
+func (o *PromoteVersionOK) GetPayload() *models2.RestPromoteVersionResponse {
 	return o.Payload
 }
 
 func (o *PromoteVersionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestPromoteVersionResponse)
+	o.Payload = new(models2.RestPromoteVersionResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ PromoteVersionUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type PromoteVersionUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this promote version unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *PromoteVersionUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions/{VersionId}/promote][%d] promoteVersionUnauthorized %s", 401, payload)
 }
 
-func (o *PromoteVersionUnauthorized) GetPayload() *models.RestError {
+func (o *PromoteVersionUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *PromoteVersionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ PromoteVersionForbidden describes a response with status code 403, with default 
 User has no permission to access this particular resource
 */
 type PromoteVersionForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this promote version forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *PromoteVersionForbidden) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions/{VersionId}/promote][%d] promoteVersionForbidden %s", 403, payload)
 }
 
-func (o *PromoteVersionForbidden) GetPayload() *models.RestError {
+func (o *PromoteVersionForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *PromoteVersionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ PromoteVersionNotFound describes a response with status code 404, with default h
 Resource does not exist in the system
 */
 type PromoteVersionNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this promote version not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *PromoteVersionNotFound) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions/{VersionId}/promote][%d] promoteVersionNotFound %s", 404, payload)
 }
 
-func (o *PromoteVersionNotFound) GetPayload() *models.RestError {
+func (o *PromoteVersionNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *PromoteVersionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ PromoteVersionInternalServerError describes a response with status code 500, wit
 An internal error occurred in the backend
 */
 type PromoteVersionInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this promote version internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *PromoteVersionInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/node/{Uuid}/versions/{VersionId}/promote][%d] promoteVersionInternalServerError %s", 500, payload)
 }
 
-func (o *PromoteVersionInternalServerError) GetPayload() *models.RestError {
+func (o *PromoteVersionInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *PromoteVersionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

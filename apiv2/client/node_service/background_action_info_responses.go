@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // BackgroundActionInfoReader is a Reader for the BackgroundActionInfo structure.
@@ -70,7 +69,7 @@ BackgroundActionInfoOK describes a response with status code 200, with default h
 A successful response.
 */
 type BackgroundActionInfoOK struct {
-	Payload *models.RestBackgroundAction
+	Payload *models2.RestBackgroundAction
 }
 
 // IsSuccess returns true when this background action info o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *BackgroundActionInfoOK) String() string {
 	return fmt.Sprintf("[GET /n/action/{Name}/{JobUuid}][%d] backgroundActionInfoOK %s", 200, payload)
 }
 
-func (o *BackgroundActionInfoOK) GetPayload() *models.RestBackgroundAction {
+func (o *BackgroundActionInfoOK) GetPayload() *models2.RestBackgroundAction {
 	return o.Payload
 }
 
 func (o *BackgroundActionInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestBackgroundAction)
+	o.Payload = new(models2.RestBackgroundAction)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ BackgroundActionInfoUnauthorized describes a response with status code 401, with
 User is not authenticated
 */
 type BackgroundActionInfoUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this background action info unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *BackgroundActionInfoUnauthorized) String() string {
 	return fmt.Sprintf("[GET /n/action/{Name}/{JobUuid}][%d] backgroundActionInfoUnauthorized %s", 401, payload)
 }
 
-func (o *BackgroundActionInfoUnauthorized) GetPayload() *models.RestError {
+func (o *BackgroundActionInfoUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BackgroundActionInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ BackgroundActionInfoForbidden describes a response with status code 403, with de
 User has no permission to access this particular resource
 */
 type BackgroundActionInfoForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this background action info forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *BackgroundActionInfoForbidden) String() string {
 	return fmt.Sprintf("[GET /n/action/{Name}/{JobUuid}][%d] backgroundActionInfoForbidden %s", 403, payload)
 }
 
-func (o *BackgroundActionInfoForbidden) GetPayload() *models.RestError {
+func (o *BackgroundActionInfoForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BackgroundActionInfoForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ BackgroundActionInfoNotFound describes a response with status code 404, with def
 Resource does not exist in the system
 */
 type BackgroundActionInfoNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this background action info not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *BackgroundActionInfoNotFound) String() string {
 	return fmt.Sprintf("[GET /n/action/{Name}/{JobUuid}][%d] backgroundActionInfoNotFound %s", 404, payload)
 }
 
-func (o *BackgroundActionInfoNotFound) GetPayload() *models.RestError {
+func (o *BackgroundActionInfoNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BackgroundActionInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ BackgroundActionInfoInternalServerError describes a response with status code 50
 An internal error occurred in the backend
 */
 type BackgroundActionInfoInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this background action info internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *BackgroundActionInfoInternalServerError) String() string {
 	return fmt.Sprintf("[GET /n/action/{Name}/{JobUuid}][%d] backgroundActionInfoInternalServerError %s", 500, payload)
 }
 
-func (o *BackgroundActionInfoInternalServerError) GetPayload() *models.RestError {
+func (o *BackgroundActionInfoInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *BackgroundActionInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

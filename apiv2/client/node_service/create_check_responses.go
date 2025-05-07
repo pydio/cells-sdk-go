@@ -8,12 +8,11 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v5/models"
 )
 
 // CreateCheckReader is a Reader for the CreateCheck structure.
@@ -70,7 +69,7 @@ CreateCheckOK describes a response with status code 200, with default header val
 A successful response.
 */
 type CreateCheckOK struct {
-	Payload *models.RestCreateCheckResponse
+	Payload *models2.RestCreateCheckResponse
 }
 
 // IsSuccess returns true when this create check o k response has a 2xx status code
@@ -113,13 +112,13 @@ func (o *CreateCheckOK) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create/precheck][%d] createCheckOK %s", 200, payload)
 }
 
-func (o *CreateCheckOK) GetPayload() *models.RestCreateCheckResponse {
+func (o *CreateCheckOK) GetPayload() *models2.RestCreateCheckResponse {
 	return o.Payload
 }
 
 func (o *CreateCheckOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestCreateCheckResponse)
+	o.Payload = new(models2.RestCreateCheckResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -140,7 +139,7 @@ CreateCheckUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type CreateCheckUnauthorized struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this create check unauthorized response has a 2xx status code
@@ -183,13 +182,13 @@ func (o *CreateCheckUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create/precheck][%d] createCheckUnauthorized %s", 401, payload)
 }
 
-func (o *CreateCheckUnauthorized) GetPayload() *models.RestError {
+func (o *CreateCheckUnauthorized) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *CreateCheckUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -210,7 +209,7 @@ CreateCheckForbidden describes a response with status code 403, with default hea
 User has no permission to access this particular resource
 */
 type CreateCheckForbidden struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this create check forbidden response has a 2xx status code
@@ -253,13 +252,13 @@ func (o *CreateCheckForbidden) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create/precheck][%d] createCheckForbidden %s", 403, payload)
 }
 
-func (o *CreateCheckForbidden) GetPayload() *models.RestError {
+func (o *CreateCheckForbidden) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *CreateCheckForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -280,7 +279,7 @@ CreateCheckNotFound describes a response with status code 404, with default head
 Resource does not exist in the system
 */
 type CreateCheckNotFound struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this create check not found response has a 2xx status code
@@ -323,13 +322,13 @@ func (o *CreateCheckNotFound) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create/precheck][%d] createCheckNotFound %s", 404, payload)
 }
 
-func (o *CreateCheckNotFound) GetPayload() *models.RestError {
+func (o *CreateCheckNotFound) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *CreateCheckNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -350,7 +349,7 @@ CreateCheckInternalServerError describes a response with status code 500, with d
 An internal error occurred in the backend
 */
 type CreateCheckInternalServerError struct {
-	Payload *models.RestError
+	Payload *models2.RestError
 }
 
 // IsSuccess returns true when this create check internal server error response has a 2xx status code
@@ -393,13 +392,13 @@ func (o *CreateCheckInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create/precheck][%d] createCheckInternalServerError %s", 500, payload)
 }
 
-func (o *CreateCheckInternalServerError) GetPayload() *models.RestError {
+func (o *CreateCheckInternalServerError) GetPayload() *models2.RestError {
 	return o.Payload
 }
 
 func (o *CreateCheckInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestError)
+	o.Payload = new(models2.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
