@@ -1,0 +1,102 @@
+package cmd
+
+import (
+	"github.com/pydio/cells-sdk-go/v4/apiv1/client/user_service"
+	models2 "github.com/pydio/cells-sdk-go/v4/apiv1/models"
+	"github.com/pydio/cells-sdk-go/v4/apiv1/transport/rest"
+	"log"
+
+	"github.com/spf13/cobra"
+)
+
+var (
+	newUserName     string
+	newUserPassword string
+	newUserIsAdmin  bool
+
+	readP  = models2.ServiceResourcePolicyActionREAD
+	writeP = models2.ServiceResourcePolicyActionWRITE
+	allowP = models2.ServiceResourcePolicyPolicyEffectAllow
+
+	DefaultUserPolicies = []*models2.ServiceResourcePolicy{
+		{
+			Action:  models2.NewServiceResourcePolicyAction(readP),
+			Effect:  models2.NewServiceResourcePolicyPolicyEffect(allowP),
+			Subject: "profile:" + ProfileStandard,
+		},
+		{
+			Action:  models2.NewServiceResourcePolicyAction(writeP),
+			Effect:  models2.NewServiceResourcePolicyPolicyEffect(allowP),
+			Subject: "profile:" + ProfileAdmin,
+		},
+	}
+
+	ProfileAdmin    = "admin"
+	ProfileStandard = "standard"
+)
+
+var userCmd = &cobra.Command{
+	Use:   "user",
+	Short: "Set of sample commands to manage user via the API",
+	Run: func(cmd *cobra.Command, args []string) {
+		err := cmd.Usage()
+		if err != nil {
+			log.Fatalf("could not display usage helper: %s\n", err.Error())
+		}
+	},
+}
+
+var addUserCmd = &cobra.Command{
+	Use: "add",
+	Long: `Test simple user creation.
+	
+	Example:
+	$ go run main.go user -u https://localhost:8080 -l admin -p admin --skipVerify=true add --newUser test --newPwd='P@ssw0rd'
+	`,
+	Run: func(cmd *cobra.Command, args []string) {
+
+		// Connect to the Pydio API via the sdkConfig
+		apiClient, err := rest.GetApiClient(DefaultConfig, false)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		policies := append(DefaultUserPolicies, &models2.ServiceResourcePolicy{
+			Action:  models2.NewServiceResourcePolicyAction(writeP),
+			Effect:  models2.NewServiceResourcePolicyPolicyEffect(allowP),
+			Subject: "user:" + newUserName,
+		})
+
+		profile := ProfileStandard
+		if newUserIsAdmin {
+			profile = ProfileAdmin
+		}
+
+		// Create User
+		newUser := &models2.UserServicePutUserBody{
+			GroupPath:  "/",
+			Password:   newUserPassword,
+			Policies:   policies,
+			Attributes: map[string]string{"profile": profile},
+		}
+
+		_, err = apiClient.UserService.PutUser(&user_service.PutUserParams{
+			Login:   newUserName,
+			Body:    newUser,
+			Context: cmd.Context(),
+		})
+		if err != nil {
+			log.Fatal("could not create user ", newUserName, ", aborting...\nCause:", err)
+		}
+		// fmt.Println(" ### user put...")
+	},
+}
+
+func init() {
+	addUserCmd.Flags().StringVar(&newUserName, "newUser", "", "Login of the new user")
+	addUserCmd.Flags().StringVar(&newUserPassword, "newPwd", "", "Password for the new user")
+	addUserCmd.Flags().BoolVar(&newUserIsAdmin, "newIsAdmin", false, "Flag to create an admin user")
+
+	userCmd.AddCommand(addUserCmd)
+	ExampleCmd.AddCommand(userCmd)
+}

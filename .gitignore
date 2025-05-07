@@ -4,6 +4,6 @@
 .DS_Store
 
 target/
-example/config.json
-example/main
+apiv1/example/config.json
+apiv1/example/main
 main
