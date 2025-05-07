@@ -7,7 +7,7 @@ package log_service
 
 import (
 	"context"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/models"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"net/http"
 	"time"
 

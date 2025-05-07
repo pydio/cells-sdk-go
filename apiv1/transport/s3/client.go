@@ -3,8 +3,8 @@ package s3
 import (
 	"context"
 	"fmt"
-	"github.com/pydio/cells-sdk-go/v4/apiv1"
-	http2 "github.com/pydio/cells-sdk-go/v4/apiv1/transport"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"

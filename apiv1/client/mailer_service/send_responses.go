@@ -8,7 +8,7 @@ package mailer_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v4/apiv1/models"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"

@@ -2,14 +2,15 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/client/meta_service"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/client/workspace_service"
-	models2 "github.com/pydio/cells-sdk-go/v4/apiv1/models"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/transport/rest"
 	"log"
 	"strings"
 
 	"github.com/spf13/cobra"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/client/meta_service"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/client/workspace_service"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/transport/rest"
 )
 
 var (

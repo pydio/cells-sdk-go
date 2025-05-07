@@ -2,8 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	cellssdk "github.com/pydio/cells-sdk-go/v4/apiv1"
-	ts3 "github.com/pydio/cells-sdk-go/v4/apiv1/transport/s3"
 	"io"
 	"log"
 	"os"
@@ -13,6 +11,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/spf13/cobra"
+
+	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+	ts3 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/s3"
 )
 
 var (

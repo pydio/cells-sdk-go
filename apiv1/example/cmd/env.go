@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"encoding/json"
-	cellsSdk "github.com/pydio/cells-sdk-go/v4/apiv1"
 	"os"
 	"strconv"
+
+	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 var (

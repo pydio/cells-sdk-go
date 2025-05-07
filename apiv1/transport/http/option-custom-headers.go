@@ -1,7 +1,7 @@
 package http
 
 import (
-	cellssdk "github.com/pydio/cells-sdk-go/v4/apiv1"
+	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
 	"net/http"
 )
 

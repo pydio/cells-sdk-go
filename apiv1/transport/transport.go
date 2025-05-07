@@ -3,7 +3,7 @@ package transport
 import (
 	"net/http"
 
-	"github.com/pydio/cells-sdk-go/v4/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 // New creates a new default http transport with the passed transport and round-trip options.

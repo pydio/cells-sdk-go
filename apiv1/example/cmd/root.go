@@ -5,11 +5,12 @@ package cmd
 
 import (
 	"encoding/json"
-	cellssdk "github.com/pydio/cells-sdk-go/v4/apiv1"
 	"log"
 	"os"
 
 	"github.com/spf13/cobra"
+
+	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 var (

@@ -1,12 +1,13 @@
 package cmd
 
 import (
-	"github.com/pydio/cells-sdk-go/v4/apiv1/client/user_service"
-	models2 "github.com/pydio/cells-sdk-go/v4/apiv1/models"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/transport/rest"
 	"log"
 
 	"github.com/spf13/cobra"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/client/user_service"
+	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/transport/rest"
 )
 
 var (

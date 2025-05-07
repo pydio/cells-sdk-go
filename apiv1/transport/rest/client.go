@@ -1,10 +1,10 @@
 package rest
 
 import (
-	cellssdk "github.com/pydio/cells-sdk-go/v4/apiv1"
-	sdkclient "github.com/pydio/cells-sdk-go/v4/apiv1/client"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/transport"
-	http2 "github.com/pydio/cells-sdk-go/v4/apiv1/transport/http"
+	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+	sdkclient "github.com/pydio/cells-sdk-go/v5/apiv1/client"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/transport"
+	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
 	"net/url"
 
 	"github.com/go-openapi/runtime/client"

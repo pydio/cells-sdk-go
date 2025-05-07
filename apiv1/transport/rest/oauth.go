@@ -3,8 +3,8 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
-	cellssdk "github.com/pydio/cells-sdk-go/v4/apiv1"
-	cellshttp "github.com/pydio/cells-sdk-go/v4/apiv1/transport"
+	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+	cellshttp "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 	"io"
 	"net/http"
 	"net/url"

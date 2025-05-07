@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/pydio/cells-sdk-go/v4/apiv1/example/cmd"
 	"log"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/example/cmd"
 )
 
 func main() {

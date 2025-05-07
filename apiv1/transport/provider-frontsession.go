@@ -8,11 +8,11 @@ import (
 	openapi "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/pydio/cells-sdk-go/v4/apiv1"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/client"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/client/frontend_service"
-	"github.com/pydio/cells-sdk-go/v4/apiv1/models"
-	http2 "github.com/pydio/cells-sdk-go/v4/apiv1/transport/http"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/client"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/client/frontend_service"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
+	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
 )
 
 type FrontSessionTokenProvider struct {

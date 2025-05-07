@@ -3,7 +3,7 @@ package s3
 import (
 	"fmt"
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/pydio/cells-sdk-go/v4/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 func NewCredentialsProvider(sdc *apiv1.SdkConfig, options ...interface{}) (aws.CredentialsProvider, error) {
