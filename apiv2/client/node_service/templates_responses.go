@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // TemplatesReader is a Reader for the Templates structure.
@@ -69,7 +70,7 @@ TemplatesOK describes a response with status code 200, with default header value
 A successful response.
 */
 type TemplatesOK struct {
-	Payload *models2.RestListTemplatesResponse
+	Payload *models.RestListTemplatesResponse
 }
 
 // IsSuccess returns true when this templates o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *TemplatesOK) String() string {
 	return fmt.Sprintf("[GET /n/templates][%d] templatesOK %s", 200, payload)
 }
 
-func (o *TemplatesOK) GetPayload() *models2.RestListTemplatesResponse {
+func (o *TemplatesOK) GetPayload() *models.RestListTemplatesResponse {
 	return o.Payload
 }
 
 func (o *TemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestListTemplatesResponse)
+	o.Payload = new(models.RestListTemplatesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ TemplatesUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type TemplatesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this templates unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *TemplatesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /n/templates][%d] templatesUnauthorized %s", 401, payload)
 }
 
-func (o *TemplatesUnauthorized) GetPayload() *models2.RestError {
+func (o *TemplatesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *TemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ TemplatesForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type TemplatesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this templates forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *TemplatesForbidden) String() string {
 	return fmt.Sprintf("[GET /n/templates][%d] templatesForbidden %s", 403, payload)
 }
 
-func (o *TemplatesForbidden) GetPayload() *models2.RestError {
+func (o *TemplatesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *TemplatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ TemplatesNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type TemplatesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this templates not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *TemplatesNotFound) String() string {
 	return fmt.Sprintf("[GET /n/templates][%d] templatesNotFound %s", 404, payload)
 }
 
-func (o *TemplatesNotFound) GetPayload() *models2.RestError {
+func (o *TemplatesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *TemplatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ TemplatesInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type TemplatesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this templates internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *TemplatesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /n/templates][%d] templatesInternalServerError %s", 500, payload)
 }
 
-func (o *TemplatesInternalServerError) GetPayload() *models2.RestError {
+func (o *TemplatesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *TemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

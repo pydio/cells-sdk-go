@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // UpdateNamespaceValuesReader is a Reader for the UpdateNamespaceValues structure.
@@ -69,7 +70,7 @@ UpdateNamespaceValuesOK describes a response with status code 200, with default 
 A successful response.
 */
 type UpdateNamespaceValuesOK struct {
-	Payload *models2.RestNamespaceValuesResponse
+	Payload *models.RestNamespaceValuesResponse
 }
 
 // IsSuccess returns true when this update namespace values o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UpdateNamespaceValuesOK) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/namespace/{Namespace}][%d] updateNamespaceValuesOK %s", 200, payload)
 }
 
-func (o *UpdateNamespaceValuesOK) GetPayload() *models2.RestNamespaceValuesResponse {
+func (o *UpdateNamespaceValuesOK) GetPayload() *models.RestNamespaceValuesResponse {
 	return o.Payload
 }
 
 func (o *UpdateNamespaceValuesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestNamespaceValuesResponse)
+	o.Payload = new(models.RestNamespaceValuesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UpdateNamespaceValuesUnauthorized describes a response with status code 401, wit
 User is not authenticated
 */
 type UpdateNamespaceValuesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update namespace values unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UpdateNamespaceValuesUnauthorized) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/namespace/{Namespace}][%d] updateNamespaceValuesUnauthorized %s", 401, payload)
 }
 
-func (o *UpdateNamespaceValuesUnauthorized) GetPayload() *models2.RestError {
+func (o *UpdateNamespaceValuesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateNamespaceValuesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UpdateNamespaceValuesForbidden describes a response with status code 403, with d
 User has no permission to access this particular resource
 */
 type UpdateNamespaceValuesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update namespace values forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UpdateNamespaceValuesForbidden) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/namespace/{Namespace}][%d] updateNamespaceValuesForbidden %s", 403, payload)
 }
 
-func (o *UpdateNamespaceValuesForbidden) GetPayload() *models2.RestError {
+func (o *UpdateNamespaceValuesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateNamespaceValuesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UpdateNamespaceValuesNotFound describes a response with status code 404, with de
 Resource does not exist in the system
 */
 type UpdateNamespaceValuesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update namespace values not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UpdateNamespaceValuesNotFound) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/namespace/{Namespace}][%d] updateNamespaceValuesNotFound %s", 404, payload)
 }
 
-func (o *UpdateNamespaceValuesNotFound) GetPayload() *models2.RestError {
+func (o *UpdateNamespaceValuesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateNamespaceValuesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UpdateNamespaceValuesInternalServerError describes a response with status code 5
 An internal error occurred in the backend
 */
 type UpdateNamespaceValuesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update namespace values internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UpdateNamespaceValuesInternalServerError) String() string {
 	return fmt.Sprintf("[PATCH /n/meta/namespace/{Namespace}][%d] updateNamespaceValuesInternalServerError %s", 500, payload)
 }
 
-func (o *UpdateNamespaceValuesInternalServerError) GetPayload() *models2.RestError {
+func (o *UpdateNamespaceValuesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateNamespaceValuesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // DeleteVersionReader is a Reader for the DeleteVersion structure.
@@ -69,7 +70,7 @@ DeleteVersionOK describes a response with status code 200, with default header v
 A successful response.
 */
 type DeleteVersionOK struct {
-	Payload *models2.RestDeleteVersionResponse
+	Payload *models.RestDeleteVersionResponse
 }
 
 // IsSuccess returns true when this delete version o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteVersionOK) String() string {
 	return fmt.Sprintf("[DELETE /n/node/{Uuid}/versions/{VersionId}][%d] deleteVersionOK %s", 200, payload)
 }
 
-func (o *DeleteVersionOK) GetPayload() *models2.RestDeleteVersionResponse {
+func (o *DeleteVersionOK) GetPayload() *models.RestDeleteVersionResponse {
 	return o.Payload
 }
 
 func (o *DeleteVersionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteVersionResponse)
+	o.Payload = new(models.RestDeleteVersionResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteVersionUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type DeleteVersionUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete version unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteVersionUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /n/node/{Uuid}/versions/{VersionId}][%d] deleteVersionUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteVersionUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteVersionUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteVersionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteVersionForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type DeleteVersionForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete version forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteVersionForbidden) String() string {
 	return fmt.Sprintf("[DELETE /n/node/{Uuid}/versions/{VersionId}][%d] deleteVersionForbidden %s", 403, payload)
 }
 
-func (o *DeleteVersionForbidden) GetPayload() *models2.RestError {
+func (o *DeleteVersionForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteVersionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteVersionNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type DeleteVersionNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete version not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteVersionNotFound) String() string {
 	return fmt.Sprintf("[DELETE /n/node/{Uuid}/versions/{VersionId}][%d] deleteVersionNotFound %s", 404, payload)
 }
 
-func (o *DeleteVersionNotFound) GetPayload() *models2.RestError {
+func (o *DeleteVersionNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteVersionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteVersionInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type DeleteVersionInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete version internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteVersionInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /n/node/{Uuid}/versions/{VersionId}][%d] deleteVersionInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteVersionInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteVersionInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteVersionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

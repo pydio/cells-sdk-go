@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // GetPublicLinkReader is a Reader for the GetPublicLink structure.
@@ -69,7 +70,7 @@ GetPublicLinkOK describes a response with status code 200, with default header v
 A successful response.
 */
 type GetPublicLinkOK struct {
-	Payload *models2.RestShareLink
+	Payload *models.RestShareLink
 }
 
 // IsSuccess returns true when this get public link o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetPublicLinkOK) String() string {
 	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkOK %s", 200, payload)
 }
 
-func (o *GetPublicLinkOK) GetPayload() *models2.RestShareLink {
+func (o *GetPublicLinkOK) GetPayload() *models.RestShareLink {
 	return o.Payload
 }
 
 func (o *GetPublicLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestShareLink)
+	o.Payload = new(models.RestShareLink)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetPublicLinkUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type GetPublicLinkUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get public link unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetPublicLinkUnauthorized) String() string {
 	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkUnauthorized %s", 401, payload)
 }
 
-func (o *GetPublicLinkUnauthorized) GetPayload() *models2.RestError {
+func (o *GetPublicLinkUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetPublicLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetPublicLinkForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type GetPublicLinkForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get public link forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetPublicLinkForbidden) String() string {
 	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkForbidden %s", 403, payload)
 }
 
-func (o *GetPublicLinkForbidden) GetPayload() *models2.RestError {
+func (o *GetPublicLinkForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetPublicLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetPublicLinkNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type GetPublicLinkNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get public link not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetPublicLinkNotFound) String() string {
 	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkNotFound %s", 404, payload)
 }
 
-func (o *GetPublicLinkNotFound) GetPayload() *models2.RestError {
+func (o *GetPublicLinkNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetPublicLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetPublicLinkInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type GetPublicLinkInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get public link internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetPublicLinkInternalServerError) String() string {
 	return fmt.Sprintf("[GET /n/link/{LinkUuid}][%d] getPublicLinkInternalServerError %s", 500, payload)
 }
 
-func (o *GetPublicLinkInternalServerError) GetPayload() *models2.RestError {
+func (o *GetPublicLinkInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetPublicLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

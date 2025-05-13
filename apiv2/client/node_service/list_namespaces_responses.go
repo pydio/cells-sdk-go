@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // ListNamespacesReader is a Reader for the ListNamespaces structure.
@@ -69,7 +70,7 @@ ListNamespacesOK describes a response with status code 200, with default header 
 A successful response.
 */
 type ListNamespacesOK struct {
-	Payload *models2.RestUserMetaNamespaceCollection
+	Payload *models.RestUserMetaNamespaceCollection
 }
 
 // IsSuccess returns true when this list namespaces o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListNamespacesOK) String() string {
 	return fmt.Sprintf("[GET /n/meta/namespace][%d] listNamespacesOK %s", 200, payload)
 }
 
-func (o *ListNamespacesOK) GetPayload() *models2.RestUserMetaNamespaceCollection {
+func (o *ListNamespacesOK) GetPayload() *models.RestUserMetaNamespaceCollection {
 	return o.Payload
 }
 
 func (o *ListNamespacesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestUserMetaNamespaceCollection)
+	o.Payload = new(models.RestUserMetaNamespaceCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListNamespacesUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type ListNamespacesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list namespaces unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListNamespacesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /n/meta/namespace][%d] listNamespacesUnauthorized %s", 401, payload)
 }
 
-func (o *ListNamespacesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListNamespacesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListNamespacesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListNamespacesForbidden describes a response with status code 403, with default 
 User has no permission to access this particular resource
 */
 type ListNamespacesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list namespaces forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListNamespacesForbidden) String() string {
 	return fmt.Sprintf("[GET /n/meta/namespace][%d] listNamespacesForbidden %s", 403, payload)
 }
 
-func (o *ListNamespacesForbidden) GetPayload() *models2.RestError {
+func (o *ListNamespacesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListNamespacesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListNamespacesNotFound describes a response with status code 404, with default h
 Resource does not exist in the system
 */
 type ListNamespacesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list namespaces not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListNamespacesNotFound) String() string {
 	return fmt.Sprintf("[GET /n/meta/namespace][%d] listNamespacesNotFound %s", 404, payload)
 }
 
-func (o *ListNamespacesNotFound) GetPayload() *models2.RestError {
+func (o *ListNamespacesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListNamespacesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListNamespacesInternalServerError describes a response with status code 500, wit
 An internal error occurred in the backend
 */
 type ListNamespacesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list namespaces internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListNamespacesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /n/meta/namespace][%d] listNamespacesInternalServerError %s", 500, payload)
 }
 
-func (o *ListNamespacesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListNamespacesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListNamespacesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

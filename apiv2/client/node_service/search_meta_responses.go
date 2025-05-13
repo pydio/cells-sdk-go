@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // SearchMetaReader is a Reader for the SearchMeta structure.
@@ -69,7 +70,7 @@ SearchMetaOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type SearchMetaOK struct {
-	Payload *models2.RestUserMetaList
+	Payload *models.RestUserMetaList
 }
 
 // IsSuccess returns true when this search meta o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SearchMetaOK) String() string {
 	return fmt.Sprintf("[POST /n/meta/find][%d] searchMetaOK %s", 200, payload)
 }
 
-func (o *SearchMetaOK) GetPayload() *models2.RestUserMetaList {
+func (o *SearchMetaOK) GetPayload() *models.RestUserMetaList {
 	return o.Payload
 }
 
 func (o *SearchMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestUserMetaList)
+	o.Payload = new(models.RestUserMetaList)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SearchMetaUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type SearchMetaUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search meta unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SearchMetaUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/meta/find][%d] searchMetaUnauthorized %s", 401, payload)
 }
 
-func (o *SearchMetaUnauthorized) GetPayload() *models2.RestError {
+func (o *SearchMetaUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SearchMetaForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type SearchMetaForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search meta forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SearchMetaForbidden) String() string {
 	return fmt.Sprintf("[POST /n/meta/find][%d] searchMetaForbidden %s", 403, payload)
 }
 
-func (o *SearchMetaForbidden) GetPayload() *models2.RestError {
+func (o *SearchMetaForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SearchMetaNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type SearchMetaNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search meta not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SearchMetaNotFound) String() string {
 	return fmt.Sprintf("[POST /n/meta/find][%d] searchMetaNotFound %s", 404, payload)
 }
 
-func (o *SearchMetaNotFound) GetPayload() *models2.RestError {
+func (o *SearchMetaNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SearchMetaInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type SearchMetaInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search meta internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SearchMetaInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/meta/find][%d] searchMetaInternalServerError %s", 500, payload)
 }
 
-func (o *SearchMetaInternalServerError) GetPayload() *models2.RestError {
+func (o *SearchMetaInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

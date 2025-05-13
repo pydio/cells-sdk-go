@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // PatchNodeReader is a Reader for the PatchNode structure.
@@ -69,7 +70,7 @@ PatchNodeOK describes a response with status code 200, with default header value
 A successful response.
 */
 type PatchNodeOK struct {
-	Payload *models2.RestNode
+	Payload *models.RestNode
 }
 
 // IsSuccess returns true when this patch node o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PatchNodeOK) String() string {
 	return fmt.Sprintf("[PATCH /n/node/{Uuid}][%d] patchNodeOK %s", 200, payload)
 }
 
-func (o *PatchNodeOK) GetPayload() *models2.RestNode {
+func (o *PatchNodeOK) GetPayload() *models.RestNode {
 	return o.Payload
 }
 
 func (o *PatchNodeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestNode)
+	o.Payload = new(models.RestNode)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PatchNodeUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type PatchNodeUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this patch node unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PatchNodeUnauthorized) String() string {
 	return fmt.Sprintf("[PATCH /n/node/{Uuid}][%d] patchNodeUnauthorized %s", 401, payload)
 }
 
-func (o *PatchNodeUnauthorized) GetPayload() *models2.RestError {
+func (o *PatchNodeUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PatchNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PatchNodeForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type PatchNodeForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this patch node forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PatchNodeForbidden) String() string {
 	return fmt.Sprintf("[PATCH /n/node/{Uuid}][%d] patchNodeForbidden %s", 403, payload)
 }
 
-func (o *PatchNodeForbidden) GetPayload() *models2.RestError {
+func (o *PatchNodeForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PatchNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PatchNodeNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type PatchNodeNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this patch node not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PatchNodeNotFound) String() string {
 	return fmt.Sprintf("[PATCH /n/node/{Uuid}][%d] patchNodeNotFound %s", 404, payload)
 }
 
-func (o *PatchNodeNotFound) GetPayload() *models2.RestError {
+func (o *PatchNodeNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PatchNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PatchNodeInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type PatchNodeInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this patch node internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PatchNodeInternalServerError) String() string {
 	return fmt.Sprintf("[PATCH /n/node/{Uuid}][%d] patchNodeInternalServerError %s", 500, payload)
 }
 
-func (o *PatchNodeInternalServerError) GetPayload() *models2.RestError {
+func (o *PatchNodeInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PatchNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

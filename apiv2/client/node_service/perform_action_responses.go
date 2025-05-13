@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // PerformActionReader is a Reader for the PerformAction structure.
@@ -69,7 +70,7 @@ PerformActionOK describes a response with status code 200, with default header v
 A successful response.
 */
 type PerformActionOK struct {
-	Payload *models2.RestPerformActionResponse
+	Payload *models.RestPerformActionResponse
 }
 
 // IsSuccess returns true when this perform action o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PerformActionOK) String() string {
 	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionOK %s", 200, payload)
 }
 
-func (o *PerformActionOK) GetPayload() *models2.RestPerformActionResponse {
+func (o *PerformActionOK) GetPayload() *models.RestPerformActionResponse {
 	return o.Payload
 }
 
 func (o *PerformActionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestPerformActionResponse)
+	o.Payload = new(models.RestPerformActionResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PerformActionUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type PerformActionUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform action unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PerformActionUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionUnauthorized %s", 401, payload)
 }
 
-func (o *PerformActionUnauthorized) GetPayload() *models2.RestError {
+func (o *PerformActionUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformActionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PerformActionForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type PerformActionForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform action forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PerformActionForbidden) String() string {
 	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionForbidden %s", 403, payload)
 }
 
-func (o *PerformActionForbidden) GetPayload() *models2.RestError {
+func (o *PerformActionForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformActionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PerformActionNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type PerformActionNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform action not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PerformActionNotFound) String() string {
 	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionNotFound %s", 404, payload)
 }
 
-func (o *PerformActionNotFound) GetPayload() *models2.RestError {
+func (o *PerformActionNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformActionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PerformActionInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type PerformActionInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform action internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PerformActionInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/action/{Name}][%d] performActionInternalServerError %s", 500, payload)
 }
 
-func (o *PerformActionInternalServerError) GetPayload() *models2.RestError {
+func (o *PerformActionInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformActionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

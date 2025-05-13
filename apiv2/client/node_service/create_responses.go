@@ -8,11 +8,12 @@ package node_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv2/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2/models"
 )
 
 // CreateReader is a Reader for the Create structure.
@@ -69,7 +70,7 @@ CreateOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type CreateOK struct {
-	Payload *models2.RestNodeCollection
+	Payload *models.RestNodeCollection
 }
 
 // IsSuccess returns true when this create o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *CreateOK) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create][%d] createOK %s", 200, payload)
 }
 
-func (o *CreateOK) GetPayload() *models2.RestNodeCollection {
+func (o *CreateOK) GetPayload() *models.RestNodeCollection {
 	return o.Payload
 }
 
 func (o *CreateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestNodeCollection)
+	o.Payload = new(models.RestNodeCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ CreateUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type CreateUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *CreateUnauthorized) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create][%d] createUnauthorized %s", 401, payload)
 }
 
-func (o *CreateUnauthorized) GetPayload() *models2.RestError {
+func (o *CreateUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ CreateForbidden describes a response with status code 403, with default header v
 User has no permission to access this particular resource
 */
 type CreateForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *CreateForbidden) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create][%d] createForbidden %s", 403, payload)
 }
 
-func (o *CreateForbidden) GetPayload() *models2.RestError {
+func (o *CreateForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ CreateNotFound describes a response with status code 404, with default header va
 Resource does not exist in the system
 */
 type CreateNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *CreateNotFound) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create][%d] createNotFound %s", 404, payload)
 }
 
-func (o *CreateNotFound) GetPayload() *models2.RestError {
+func (o *CreateNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ CreateInternalServerError describes a response with status code 500, with defaul
 An internal error occurred in the backend
 */
 type CreateInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *CreateInternalServerError) String() string {
 	return fmt.Sprintf("[POST /n/nodes/create][%d] createInternalServerError %s", 500, payload)
 }
 
-func (o *CreateInternalServerError) GetPayload() *models2.RestError {
+func (o *CreateInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
