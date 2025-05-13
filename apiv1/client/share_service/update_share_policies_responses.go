@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // UpdateSharePoliciesReader is a Reader for the UpdateSharePolicies structure.
@@ -69,7 +70,7 @@ UpdateSharePoliciesOK describes a response with status code 200, with default he
 A successful response.
 */
 type UpdateSharePoliciesOK struct {
-	Payload *models2.RestUpdateSharePoliciesResponse
+	Payload *models.RestUpdateSharePoliciesResponse
 }
 
 // IsSuccess returns true when this update share policies o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UpdateSharePoliciesOK) String() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesOK %s", 200, payload)
 }
 
-func (o *UpdateSharePoliciesOK) GetPayload() *models2.RestUpdateSharePoliciesResponse {
+func (o *UpdateSharePoliciesOK) GetPayload() *models.RestUpdateSharePoliciesResponse {
 	return o.Payload
 }
 
 func (o *UpdateSharePoliciesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestUpdateSharePoliciesResponse)
+	o.Payload = new(models.RestUpdateSharePoliciesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UpdateSharePoliciesUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type UpdateSharePoliciesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update share policies unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UpdateSharePoliciesUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesUnauthorized %s", 401, payload)
 }
 
-func (o *UpdateSharePoliciesUnauthorized) GetPayload() *models2.RestError {
+func (o *UpdateSharePoliciesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateSharePoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UpdateSharePoliciesForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type UpdateSharePoliciesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update share policies forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UpdateSharePoliciesForbidden) String() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesForbidden %s", 403, payload)
 }
 
-func (o *UpdateSharePoliciesForbidden) GetPayload() *models2.RestError {
+func (o *UpdateSharePoliciesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateSharePoliciesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UpdateSharePoliciesNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type UpdateSharePoliciesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update share policies not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UpdateSharePoliciesNotFound) String() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesNotFound %s", 404, payload)
 }
 
-func (o *UpdateSharePoliciesNotFound) GetPayload() *models2.RestError {
+func (o *UpdateSharePoliciesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateSharePoliciesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UpdateSharePoliciesInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type UpdateSharePoliciesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update share policies internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UpdateSharePoliciesInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /share/policies][%d] updateSharePoliciesInternalServerError %s", 500, payload)
 }
 
-func (o *UpdateSharePoliciesInternalServerError) GetPayload() *models2.RestError {
+func (o *UpdateSharePoliciesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateSharePoliciesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package meta_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SetMetaReader is a Reader for the SetMeta structure.
@@ -69,7 +70,7 @@ SetMetaOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type SetMetaOK struct {
-	Payload *models2.TreeNode
+	Payload *models.TreeNode
 }
 
 // IsSuccess returns true when this set meta o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SetMetaOK) String() string {
 	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaOK %s", 200, payload)
 }
 
-func (o *SetMetaOK) GetPayload() *models2.TreeNode {
+func (o *SetMetaOK) GetPayload() *models.TreeNode {
 	return o.Payload
 }
 
 func (o *SetMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.TreeNode)
+	o.Payload = new(models.TreeNode)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SetMetaUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type SetMetaUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set meta unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SetMetaUnauthorized) String() string {
 	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaUnauthorized %s", 401, payload)
 }
 
-func (o *SetMetaUnauthorized) GetPayload() *models2.RestError {
+func (o *SetMetaUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SetMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SetMetaForbidden describes a response with status code 403, with default header 
 User has no permission to access this particular resource
 */
 type SetMetaForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set meta forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SetMetaForbidden) String() string {
 	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaForbidden %s", 403, payload)
 }
 
-func (o *SetMetaForbidden) GetPayload() *models2.RestError {
+func (o *SetMetaForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SetMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SetMetaNotFound describes a response with status code 404, with default header v
 Resource does not exist in the system
 */
 type SetMetaNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set meta not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SetMetaNotFound) String() string {
 	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaNotFound %s", 404, payload)
 }
 
-func (o *SetMetaNotFound) GetPayload() *models2.RestError {
+func (o *SetMetaNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SetMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SetMetaInternalServerError describes a response with status code 500, with defau
 An internal error occurred in the backend
 */
 type SetMetaInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this set meta internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SetMetaInternalServerError) String() string {
 	return fmt.Sprintf("[POST /meta/set/{NodePath}][%d] setMetaInternalServerError %s", 500, payload)
 }
 
-func (o *SetMetaInternalServerError) GetPayload() *models2.RestError {
+func (o *SetMetaInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SetMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

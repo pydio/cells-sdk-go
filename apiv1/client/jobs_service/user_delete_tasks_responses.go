@@ -8,11 +8,12 @@ package jobs_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // UserDeleteTasksReader is a Reader for the UserDeleteTasks structure.
@@ -69,7 +70,7 @@ UserDeleteTasksOK describes a response with status code 200, with default header
 A successful response.
 */
 type UserDeleteTasksOK struct {
-	Payload *models2.JobsDeleteTasksResponse
+	Payload *models.JobsDeleteTasksResponse
 }
 
 // IsSuccess returns true when this user delete tasks o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UserDeleteTasksOK) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksOK %s", 200, payload)
 }
 
-func (o *UserDeleteTasksOK) GetPayload() *models2.JobsDeleteTasksResponse {
+func (o *UserDeleteTasksOK) GetPayload() *models.JobsDeleteTasksResponse {
 	return o.Payload
 }
 
 func (o *UserDeleteTasksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.JobsDeleteTasksResponse)
+	o.Payload = new(models.JobsDeleteTasksResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UserDeleteTasksUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type UserDeleteTasksUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user delete tasks unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UserDeleteTasksUnauthorized) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksUnauthorized %s", 401, payload)
 }
 
-func (o *UserDeleteTasksUnauthorized) GetPayload() *models2.RestError {
+func (o *UserDeleteTasksUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserDeleteTasksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UserDeleteTasksForbidden describes a response with status code 403, with default
 User has no permission to access this particular resource
 */
 type UserDeleteTasksForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user delete tasks forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UserDeleteTasksForbidden) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksForbidden %s", 403, payload)
 }
 
-func (o *UserDeleteTasksForbidden) GetPayload() *models2.RestError {
+func (o *UserDeleteTasksForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserDeleteTasksForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UserDeleteTasksNotFound describes a response with status code 404, with default 
 Resource does not exist in the system
 */
 type UserDeleteTasksNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user delete tasks not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UserDeleteTasksNotFound) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksNotFound %s", 404, payload)
 }
 
-func (o *UserDeleteTasksNotFound) GetPayload() *models2.RestError {
+func (o *UserDeleteTasksNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserDeleteTasksNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UserDeleteTasksInternalServerError describes a response with status code 500, wi
 An internal error occurred in the backend
 */
 type UserDeleteTasksInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user delete tasks internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UserDeleteTasksInternalServerError) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/delete][%d] userDeleteTasksInternalServerError %s", 500, payload)
 }
 
-func (o *UserDeleteTasksInternalServerError) GetPayload() *models2.RestError {
+func (o *UserDeleteTasksInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserDeleteTasksInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

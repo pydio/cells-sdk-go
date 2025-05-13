@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteShareLinkReader is a Reader for the DeleteShareLink structure.
@@ -69,7 +70,7 @@ DeleteShareLinkOK describes a response with status code 200, with default header
 A successful response.
 */
 type DeleteShareLinkOK struct {
-	Payload *models2.RestDeleteShareLinkResponse
+	Payload *models.RestDeleteShareLinkResponse
 }
 
 // IsSuccess returns true when this delete share link o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteShareLinkOK) String() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkOK %s", 200, payload)
 }
 
-func (o *DeleteShareLinkOK) GetPayload() *models2.RestDeleteShareLinkResponse {
+func (o *DeleteShareLinkOK) GetPayload() *models.RestDeleteShareLinkResponse {
 	return o.Payload
 }
 
 func (o *DeleteShareLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteShareLinkResponse)
+	o.Payload = new(models.RestDeleteShareLinkResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteShareLinkUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type DeleteShareLinkUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete share link unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteShareLinkUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteShareLinkUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteShareLinkUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteShareLinkForbidden describes a response with status code 403, with default
 User has no permission to access this particular resource
 */
 type DeleteShareLinkForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete share link forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteShareLinkForbidden) String() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkForbidden %s", 403, payload)
 }
 
-func (o *DeleteShareLinkForbidden) GetPayload() *models2.RestError {
+func (o *DeleteShareLinkForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteShareLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteShareLinkNotFound describes a response with status code 404, with default 
 Resource does not exist in the system
 */
 type DeleteShareLinkNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete share link not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteShareLinkNotFound) String() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkNotFound %s", 404, payload)
 }
 
-func (o *DeleteShareLinkNotFound) GetPayload() *models2.RestError {
+func (o *DeleteShareLinkNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteShareLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteShareLinkInternalServerError describes a response with status code 500, wi
 An internal error occurred in the backend
 */
 type DeleteShareLinkInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete share link internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteShareLinkInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /share/link/{Uuid}][%d] deleteShareLinkInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteShareLinkInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteShareLinkInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteShareLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

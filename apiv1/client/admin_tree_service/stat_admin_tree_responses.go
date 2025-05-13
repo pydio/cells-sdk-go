@@ -8,11 +8,12 @@ package admin_tree_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // StatAdminTreeReader is a Reader for the StatAdminTree structure.
@@ -69,7 +70,7 @@ StatAdminTreeOK describes a response with status code 200, with default header v
 A successful response.
 */
 type StatAdminTreeOK struct {
-	Payload *models2.TreeReadNodeResponse
+	Payload *models.TreeReadNodeResponse
 }
 
 // IsSuccess returns true when this stat admin tree o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *StatAdminTreeOK) String() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeOK %s", 200, payload)
 }
 
-func (o *StatAdminTreeOK) GetPayload() *models2.TreeReadNodeResponse {
+func (o *StatAdminTreeOK) GetPayload() *models.TreeReadNodeResponse {
 	return o.Payload
 }
 
 func (o *StatAdminTreeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.TreeReadNodeResponse)
+	o.Payload = new(models.TreeReadNodeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ StatAdminTreeUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type StatAdminTreeUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stat admin tree unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *StatAdminTreeUnauthorized) String() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeUnauthorized %s", 401, payload)
 }
 
-func (o *StatAdminTreeUnauthorized) GetPayload() *models2.RestError {
+func (o *StatAdminTreeUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StatAdminTreeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ StatAdminTreeForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type StatAdminTreeForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stat admin tree forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *StatAdminTreeForbidden) String() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeForbidden %s", 403, payload)
 }
 
-func (o *StatAdminTreeForbidden) GetPayload() *models2.RestError {
+func (o *StatAdminTreeForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StatAdminTreeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ StatAdminTreeNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type StatAdminTreeNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stat admin tree not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *StatAdminTreeNotFound) String() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeNotFound %s", 404, payload)
 }
 
-func (o *StatAdminTreeNotFound) GetPayload() *models2.RestError {
+func (o *StatAdminTreeNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StatAdminTreeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ StatAdminTreeInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type StatAdminTreeInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stat admin tree internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *StatAdminTreeInternalServerError) String() string {
 	return fmt.Sprintf("[POST /tree/admin/stat][%d] statAdminTreeInternalServerError %s", 500, payload)
 }
 
-func (o *StatAdminTreeInternalServerError) GetPayload() *models2.RestError {
+func (o *StatAdminTreeInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StatAdminTreeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ImportEncryptionKeyReader is a Reader for the ImportEncryptionKey structure.
@@ -69,7 +70,7 @@ ImportEncryptionKeyOK describes a response with status code 200, with default he
 A successful response.
 */
 type ImportEncryptionKeyOK struct {
-	Payload *models2.EncryptionAdminImportKeyResponse
+	Payload *models.EncryptionAdminImportKeyResponse
 }
 
 // IsSuccess returns true when this import encryption key o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ImportEncryptionKeyOK) String() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyOK %s", 200, payload)
 }
 
-func (o *ImportEncryptionKeyOK) GetPayload() *models2.EncryptionAdminImportKeyResponse {
+func (o *ImportEncryptionKeyOK) GetPayload() *models.EncryptionAdminImportKeyResponse {
 	return o.Payload
 }
 
 func (o *ImportEncryptionKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.EncryptionAdminImportKeyResponse)
+	o.Payload = new(models.EncryptionAdminImportKeyResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ImportEncryptionKeyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type ImportEncryptionKeyUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this import encryption key unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ImportEncryptionKeyUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyUnauthorized %s", 401, payload)
 }
 
-func (o *ImportEncryptionKeyUnauthorized) GetPayload() *models2.RestError {
+func (o *ImportEncryptionKeyUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ImportEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ImportEncryptionKeyForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type ImportEncryptionKeyForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this import encryption key forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ImportEncryptionKeyForbidden) String() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyForbidden %s", 403, payload)
 }
 
-func (o *ImportEncryptionKeyForbidden) GetPayload() *models2.RestError {
+func (o *ImportEncryptionKeyForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ImportEncryptionKeyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ImportEncryptionKeyNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type ImportEncryptionKeyNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this import encryption key not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ImportEncryptionKeyNotFound) String() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyNotFound %s", 404, payload)
 }
 
-func (o *ImportEncryptionKeyNotFound) GetPayload() *models2.RestError {
+func (o *ImportEncryptionKeyNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ImportEncryptionKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ImportEncryptionKeyInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type ImportEncryptionKeyInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this import encryption key internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ImportEncryptionKeyInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /config/encryption/import][%d] importEncryptionKeyInternalServerError %s", 500, payload)
 }
 
-func (o *ImportEncryptionKeyInternalServerError) GetPayload() *models2.RestError {
+func (o *ImportEncryptionKeyInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ImportEncryptionKeyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

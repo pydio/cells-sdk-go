@@ -8,11 +8,12 @@ package acl_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutACLReader is a Reader for the PutACL structure.
@@ -69,7 +70,7 @@ PutACLOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type PutACLOK struct {
-	Payload *models2.IdmACL
+	Payload *models.IdmACL
 }
 
 // IsSuccess returns true when this put Acl o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutACLOK) String() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclOK %s", 200, payload)
 }
 
-func (o *PutACLOK) GetPayload() *models2.IdmACL {
+func (o *PutACLOK) GetPayload() *models.IdmACL {
 	return o.Payload
 }
 
 func (o *PutACLOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmACL)
+	o.Payload = new(models.IdmACL)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutACLUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type PutACLUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put Acl unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutACLUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclUnauthorized %s", 401, payload)
 }
 
-func (o *PutACLUnauthorized) GetPayload() *models2.RestError {
+func (o *PutACLUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutACLUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutACLForbidden describes a response with status code 403, with default header v
 User has no permission to access this particular resource
 */
 type PutACLForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put Acl forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutACLForbidden) String() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclForbidden %s", 403, payload)
 }
 
-func (o *PutACLForbidden) GetPayload() *models2.RestError {
+func (o *PutACLForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutACLForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutACLNotFound describes a response with status code 404, with default header va
 Resource does not exist in the system
 */
 type PutACLNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put Acl not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutACLNotFound) String() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclNotFound %s", 404, payload)
 }
 
-func (o *PutACLNotFound) GetPayload() *models2.RestError {
+func (o *PutACLNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutACLNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutACLInternalServerError describes a response with status code 500, with defaul
 An internal error occurred in the backend
 */
 type PutACLInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put Acl internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutACLInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /acl][%d] putAclInternalServerError %s", 500, payload)
 }
 
-func (o *PutACLInternalServerError) GetPayload() *models2.RestError {
+func (o *PutACLInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutACLInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

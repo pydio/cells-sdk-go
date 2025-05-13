@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SchedulerActionFormDiscoveryReader is a Reader for the SchedulerActionFormDiscovery structure.
@@ -69,7 +70,7 @@ SchedulerActionFormDiscoveryOK describes a response with status code 200, with d
 A successful response.
 */
 type SchedulerActionFormDiscoveryOK struct {
-	Payload *models2.RestSchedulerActionFormResponse
+	Payload *models.RestSchedulerActionFormResponse
 }
 
 // IsSuccess returns true when this scheduler action form discovery o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SchedulerActionFormDiscoveryOK) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryOK %s", 200, payload)
 }
 
-func (o *SchedulerActionFormDiscoveryOK) GetPayload() *models2.RestSchedulerActionFormResponse {
+func (o *SchedulerActionFormDiscoveryOK) GetPayload() *models.RestSchedulerActionFormResponse {
 	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestSchedulerActionFormResponse)
+	o.Payload = new(models.RestSchedulerActionFormResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SchedulerActionFormDiscoveryUnauthorized describes a response with status code 4
 User is not authenticated
 */
 type SchedulerActionFormDiscoveryUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler action form discovery unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SchedulerActionFormDiscoveryUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryUnauthorized %s", 401, payload)
 }
 
-func (o *SchedulerActionFormDiscoveryUnauthorized) GetPayload() *models2.RestError {
+func (o *SchedulerActionFormDiscoveryUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SchedulerActionFormDiscoveryForbidden describes a response with status code 403,
 User has no permission to access this particular resource
 */
 type SchedulerActionFormDiscoveryForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler action form discovery forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SchedulerActionFormDiscoveryForbidden) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryForbidden %s", 403, payload)
 }
 
-func (o *SchedulerActionFormDiscoveryForbidden) GetPayload() *models2.RestError {
+func (o *SchedulerActionFormDiscoveryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SchedulerActionFormDiscoveryNotFound describes a response with status code 404, 
 Resource does not exist in the system
 */
 type SchedulerActionFormDiscoveryNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler action form discovery not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SchedulerActionFormDiscoveryNotFound) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryNotFound %s", 404, payload)
 }
 
-func (o *SchedulerActionFormDiscoveryNotFound) GetPayload() *models2.RestError {
+func (o *SchedulerActionFormDiscoveryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SchedulerActionFormDiscoveryInternalServerError describes a response with status
 An internal error occurred in the backend
 */
 type SchedulerActionFormDiscoveryInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler action form discovery internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SchedulerActionFormDiscoveryInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions/{ActionName}][%d] schedulerActionFormDiscoveryInternalServerError %s", 500, payload)
 }
 
-func (o *SchedulerActionFormDiscoveryInternalServerError) GetPayload() *models2.RestError {
+func (o *SchedulerActionFormDiscoveryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionFormDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

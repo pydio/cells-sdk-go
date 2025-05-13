@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // CreateStorageBucketReader is a Reader for the CreateStorageBucket structure.
@@ -69,7 +70,7 @@ CreateStorageBucketOK describes a response with status code 200, with default he
 A successful response.
 */
 type CreateStorageBucketOK struct {
-	Payload *models2.RestCreateStorageBucketResponse
+	Payload *models.RestCreateStorageBucketResponse
 }
 
 // IsSuccess returns true when this create storage bucket o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *CreateStorageBucketOK) String() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketOK %s", 200, payload)
 }
 
-func (o *CreateStorageBucketOK) GetPayload() *models2.RestCreateStorageBucketResponse {
+func (o *CreateStorageBucketOK) GetPayload() *models.RestCreateStorageBucketResponse {
 	return o.Payload
 }
 
 func (o *CreateStorageBucketOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestCreateStorageBucketResponse)
+	o.Payload = new(models.RestCreateStorageBucketResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ CreateStorageBucketUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type CreateStorageBucketUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create storage bucket unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *CreateStorageBucketUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketUnauthorized %s", 401, payload)
 }
 
-func (o *CreateStorageBucketUnauthorized) GetPayload() *models2.RestError {
+func (o *CreateStorageBucketUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateStorageBucketUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ CreateStorageBucketForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type CreateStorageBucketForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create storage bucket forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *CreateStorageBucketForbidden) String() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketForbidden %s", 403, payload)
 }
 
-func (o *CreateStorageBucketForbidden) GetPayload() *models2.RestError {
+func (o *CreateStorageBucketForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateStorageBucketForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ CreateStorageBucketNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type CreateStorageBucketNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create storage bucket not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *CreateStorageBucketNotFound) String() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketNotFound %s", 404, payload)
 }
 
-func (o *CreateStorageBucketNotFound) GetPayload() *models2.RestError {
+func (o *CreateStorageBucketNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateStorageBucketNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ CreateStorageBucketInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type CreateStorageBucketInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create storage bucket internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *CreateStorageBucketInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /config/buckets/{BucketName}][%d] createStorageBucketInternalServerError %s", 500, payload)
 }
 
-func (o *CreateStorageBucketInternalServerError) GetPayload() *models2.RestError {
+func (o *CreateStorageBucketInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateStorageBucketInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

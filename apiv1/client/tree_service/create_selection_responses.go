@@ -8,11 +8,12 @@ package tree_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // CreateSelectionReader is a Reader for the CreateSelection structure.
@@ -69,7 +70,7 @@ CreateSelectionOK describes a response with status code 200, with default header
 A successful response.
 */
 type CreateSelectionOK struct {
-	Payload *models2.RestCreateSelectionResponse
+	Payload *models.RestCreateSelectionResponse
 }
 
 // IsSuccess returns true when this create selection o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *CreateSelectionOK) String() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionOK %s", 200, payload)
 }
 
-func (o *CreateSelectionOK) GetPayload() *models2.RestCreateSelectionResponse {
+func (o *CreateSelectionOK) GetPayload() *models.RestCreateSelectionResponse {
 	return o.Payload
 }
 
 func (o *CreateSelectionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestCreateSelectionResponse)
+	o.Payload = new(models.RestCreateSelectionResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ CreateSelectionUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type CreateSelectionUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create selection unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *CreateSelectionUnauthorized) String() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionUnauthorized %s", 401, payload)
 }
 
-func (o *CreateSelectionUnauthorized) GetPayload() *models2.RestError {
+func (o *CreateSelectionUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateSelectionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ CreateSelectionForbidden describes a response with status code 403, with default
 User has no permission to access this particular resource
 */
 type CreateSelectionForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create selection forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *CreateSelectionForbidden) String() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionForbidden %s", 403, payload)
 }
 
-func (o *CreateSelectionForbidden) GetPayload() *models2.RestError {
+func (o *CreateSelectionForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateSelectionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ CreateSelectionNotFound describes a response with status code 404, with default 
 Resource does not exist in the system
 */
 type CreateSelectionNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create selection not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *CreateSelectionNotFound) String() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionNotFound %s", 404, payload)
 }
 
-func (o *CreateSelectionNotFound) GetPayload() *models2.RestError {
+func (o *CreateSelectionNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateSelectionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ CreateSelectionInternalServerError describes a response with status code 500, wi
 An internal error occurred in the backend
 */
 type CreateSelectionInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this create selection internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *CreateSelectionInternalServerError) String() string {
 	return fmt.Sprintf("[POST /tree/selection][%d] createSelectionInternalServerError %s", 500, payload)
 }
 
-func (o *CreateSelectionInternalServerError) GetPayload() *models2.RestError {
+func (o *CreateSelectionInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *CreateSelectionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ControlServiceReader is a Reader for the ControlService structure.
@@ -69,7 +70,7 @@ ControlServiceOK describes a response with status code 200, with default header 
 A successful response.
 */
 type ControlServiceOK struct {
-	Payload *models2.CtlService
+	Payload *models.CtlService
 }
 
 // IsSuccess returns true when this control service o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ControlServiceOK) String() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceOK %s", 200, payload)
 }
 
-func (o *ControlServiceOK) GetPayload() *models2.CtlService {
+func (o *ControlServiceOK) GetPayload() *models.CtlService {
 	return o.Payload
 }
 
 func (o *ControlServiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.CtlService)
+	o.Payload = new(models.CtlService)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ControlServiceUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type ControlServiceUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this control service unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ControlServiceUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceUnauthorized %s", 401, payload)
 }
 
-func (o *ControlServiceUnauthorized) GetPayload() *models2.RestError {
+func (o *ControlServiceUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ControlServiceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ControlServiceForbidden describes a response with status code 403, with default 
 User has no permission to access this particular resource
 */
 type ControlServiceForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this control service forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ControlServiceForbidden) String() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceForbidden %s", 403, payload)
 }
 
-func (o *ControlServiceForbidden) GetPayload() *models2.RestError {
+func (o *ControlServiceForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ControlServiceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ControlServiceNotFound describes a response with status code 404, with default h
 Resource does not exist in the system
 */
 type ControlServiceNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this control service not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ControlServiceNotFound) String() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceNotFound %s", 404, payload)
 }
 
-func (o *ControlServiceNotFound) GetPayload() *models2.RestError {
+func (o *ControlServiceNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ControlServiceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ControlServiceInternalServerError describes a response with status code 500, wit
 An internal error occurred in the backend
 */
 type ControlServiceInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this control service internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ControlServiceInternalServerError) String() string {
 	return fmt.Sprintf("[POST /config/ctl][%d] controlServiceInternalServerError %s", 500, payload)
 }
 
-func (o *ControlServiceInternalServerError) GetPayload() *models2.RestError {
+func (o *ControlServiceInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ControlServiceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

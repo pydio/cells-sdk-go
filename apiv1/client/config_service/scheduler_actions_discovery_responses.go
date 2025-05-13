@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SchedulerActionsDiscoveryReader is a Reader for the SchedulerActionsDiscovery structure.
@@ -69,7 +70,7 @@ SchedulerActionsDiscoveryOK describes a response with status code 200, with defa
 A successful response.
 */
 type SchedulerActionsDiscoveryOK struct {
-	Payload *models2.RestSchedulerActionsResponse
+	Payload *models.RestSchedulerActionsResponse
 }
 
 // IsSuccess returns true when this scheduler actions discovery o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SchedulerActionsDiscoveryOK) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryOK %s", 200, payload)
 }
 
-func (o *SchedulerActionsDiscoveryOK) GetPayload() *models2.RestSchedulerActionsResponse {
+func (o *SchedulerActionsDiscoveryOK) GetPayload() *models.RestSchedulerActionsResponse {
 	return o.Payload
 }
 
 func (o *SchedulerActionsDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestSchedulerActionsResponse)
+	o.Payload = new(models.RestSchedulerActionsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SchedulerActionsDiscoveryUnauthorized describes a response with status code 401,
 User is not authenticated
 */
 type SchedulerActionsDiscoveryUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler actions discovery unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SchedulerActionsDiscoveryUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryUnauthorized %s", 401, payload)
 }
 
-func (o *SchedulerActionsDiscoveryUnauthorized) GetPayload() *models2.RestError {
+func (o *SchedulerActionsDiscoveryUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SchedulerActionsDiscoveryForbidden describes a response with status code 403, wi
 User has no permission to access this particular resource
 */
 type SchedulerActionsDiscoveryForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler actions discovery forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SchedulerActionsDiscoveryForbidden) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryForbidden %s", 403, payload)
 }
 
-func (o *SchedulerActionsDiscoveryForbidden) GetPayload() *models2.RestError {
+func (o *SchedulerActionsDiscoveryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionsDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SchedulerActionsDiscoveryNotFound describes a response with status code 404, wit
 Resource does not exist in the system
 */
 type SchedulerActionsDiscoveryNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler actions discovery not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SchedulerActionsDiscoveryNotFound) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryNotFound %s", 404, payload)
 }
 
-func (o *SchedulerActionsDiscoveryNotFound) GetPayload() *models2.RestError {
+func (o *SchedulerActionsDiscoveryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionsDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SchedulerActionsDiscoveryInternalServerError describes a response with status co
 An internal error occurred in the backend
 */
 type SchedulerActionsDiscoveryInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this scheduler actions discovery internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SchedulerActionsDiscoveryInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/scheduler/actions][%d] schedulerActionsDiscoveryInternalServerError %s", 500, payload)
 }
 
-func (o *SchedulerActionsDiscoveryInternalServerError) GetPayload() *models2.RestError {
+func (o *SchedulerActionsDiscoveryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SchedulerActionsDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

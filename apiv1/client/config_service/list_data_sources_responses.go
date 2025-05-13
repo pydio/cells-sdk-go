@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListDataSourcesReader is a Reader for the ListDataSources structure.
@@ -69,7 +70,7 @@ ListDataSourcesOK describes a response with status code 200, with default header
 A successful response.
 */
 type ListDataSourcesOK struct {
-	Payload *models2.RestDataSourceCollection
+	Payload *models.RestDataSourceCollection
 }
 
 // IsSuccess returns true when this list data sources o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListDataSourcesOK) String() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesOK %s", 200, payload)
 }
 
-func (o *ListDataSourcesOK) GetPayload() *models2.RestDataSourceCollection {
+func (o *ListDataSourcesOK) GetPayload() *models.RestDataSourceCollection {
 	return o.Payload
 }
 
 func (o *ListDataSourcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDataSourceCollection)
+	o.Payload = new(models.RestDataSourceCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListDataSourcesUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type ListDataSourcesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list data sources unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListDataSourcesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesUnauthorized %s", 401, payload)
 }
 
-func (o *ListDataSourcesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListDataSourcesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListDataSourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListDataSourcesForbidden describes a response with status code 403, with default
 User has no permission to access this particular resource
 */
 type ListDataSourcesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list data sources forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListDataSourcesForbidden) String() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesForbidden %s", 403, payload)
 }
 
-func (o *ListDataSourcesForbidden) GetPayload() *models2.RestError {
+func (o *ListDataSourcesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListDataSourcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListDataSourcesNotFound describes a response with status code 404, with default 
 Resource does not exist in the system
 */
 type ListDataSourcesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list data sources not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListDataSourcesNotFound) String() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesNotFound %s", 404, payload)
 }
 
-func (o *ListDataSourcesNotFound) GetPayload() *models2.RestError {
+func (o *ListDataSourcesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListDataSourcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListDataSourcesInternalServerError describes a response with status code 500, wi
 An internal error occurred in the backend
 */
 type ListDataSourcesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list data sources internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListDataSourcesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/datasource][%d] listDataSourcesInternalServerError %s", 500, payload)
 }
 
-func (o *ListDataSourcesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListDataSourcesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListDataSourcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

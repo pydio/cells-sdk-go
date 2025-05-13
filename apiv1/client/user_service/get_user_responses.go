@@ -8,11 +8,12 @@ package user_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetUserReader is a Reader for the GetUser structure.
@@ -69,7 +70,7 @@ GetUserOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type GetUserOK struct {
-	Payload *models2.IdmUser
+	Payload *models.IdmUser
 }
 
 // IsSuccess returns true when this get user o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetUserOK) String() string {
 	return fmt.Sprintf("[GET /user/{Login}][%d] getUserOK %s", 200, payload)
 }
 
-func (o *GetUserOK) GetPayload() *models2.IdmUser {
+func (o *GetUserOK) GetPayload() *models.IdmUser {
 	return o.Payload
 }
 
 func (o *GetUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmUser)
+	o.Payload = new(models.IdmUser)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetUserUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetUserUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get user unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetUserUnauthorized) String() string {
 	return fmt.Sprintf("[GET /user/{Login}][%d] getUserUnauthorized %s", 401, payload)
 }
 
-func (o *GetUserUnauthorized) GetPayload() *models2.RestError {
+func (o *GetUserUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetUserForbidden describes a response with status code 403, with default header 
 User has no permission to access this particular resource
 */
 type GetUserForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get user forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetUserForbidden) String() string {
 	return fmt.Sprintf("[GET /user/{Login}][%d] getUserForbidden %s", 403, payload)
 }
 
-func (o *GetUserForbidden) GetPayload() *models2.RestError {
+func (o *GetUserForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetUserNotFound describes a response with status code 404, with default header v
 Resource does not exist in the system
 */
 type GetUserNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get user not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetUserNotFound) String() string {
 	return fmt.Sprintf("[GET /user/{Login}][%d] getUserNotFound %s", 404, payload)
 }
 
-func (o *GetUserNotFound) GetPayload() *models2.RestError {
+func (o *GetUserNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetUserInternalServerError describes a response with status code 500, with defau
 An internal error occurred in the backend
 */
 type GetUserInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get user internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetUserInternalServerError) String() string {
 	return fmt.Sprintf("[GET /user/{Login}][%d] getUserInternalServerError %s", 500, payload)
 }
 
-func (o *GetUserInternalServerError) GetPayload() *models2.RestError {
+func (o *GetUserInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

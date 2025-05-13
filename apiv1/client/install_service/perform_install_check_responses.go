@@ -8,11 +8,12 @@ package install_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PerformInstallCheckReader is a Reader for the PerformInstallCheck structure.
@@ -69,7 +70,7 @@ PerformInstallCheckOK describes a response with status code 200, with default he
 A successful response.
 */
 type PerformInstallCheckOK struct {
-	Payload *models2.InstallPerformCheckResponse
+	Payload *models.InstallPerformCheckResponse
 }
 
 // IsSuccess returns true when this perform install check o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PerformInstallCheckOK) String() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckOK %s", 200, payload)
 }
 
-func (o *PerformInstallCheckOK) GetPayload() *models2.InstallPerformCheckResponse {
+func (o *PerformInstallCheckOK) GetPayload() *models.InstallPerformCheckResponse {
 	return o.Payload
 }
 
 func (o *PerformInstallCheckOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.InstallPerformCheckResponse)
+	o.Payload = new(models.InstallPerformCheckResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PerformInstallCheckUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type PerformInstallCheckUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform install check unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PerformInstallCheckUnauthorized) String() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckUnauthorized %s", 401, payload)
 }
 
-func (o *PerformInstallCheckUnauthorized) GetPayload() *models2.RestError {
+func (o *PerformInstallCheckUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformInstallCheckUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PerformInstallCheckForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type PerformInstallCheckForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform install check forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PerformInstallCheckForbidden) String() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckForbidden %s", 403, payload)
 }
 
-func (o *PerformInstallCheckForbidden) GetPayload() *models2.RestError {
+func (o *PerformInstallCheckForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformInstallCheckForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PerformInstallCheckNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type PerformInstallCheckNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform install check not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PerformInstallCheckNotFound) String() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckNotFound %s", 404, payload)
 }
 
-func (o *PerformInstallCheckNotFound) GetPayload() *models2.RestError {
+func (o *PerformInstallCheckNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformInstallCheckNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PerformInstallCheckInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type PerformInstallCheckInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this perform install check internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PerformInstallCheckInternalServerError) String() string {
 	return fmt.Sprintf("[POST /install/check][%d] performInstallCheckInternalServerError %s", 500, payload)
 }
 
-func (o *PerformInstallCheckInternalServerError) GetPayload() *models2.RestError {
+func (o *PerformInstallCheckInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PerformInstallCheckInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

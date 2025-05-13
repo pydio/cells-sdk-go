@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ConfigFormsDiscoveryReader is a Reader for the ConfigFormsDiscovery structure.
@@ -69,7 +70,7 @@ ConfigFormsDiscoveryOK describes a response with status code 200, with default h
 A successful response.
 */
 type ConfigFormsDiscoveryOK struct {
-	Payload *models2.RestDiscoveryResponse
+	Payload *models.RestDiscoveryResponse
 }
 
 // IsSuccess returns true when this config forms discovery o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ConfigFormsDiscoveryOK) String() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryOK %s", 200, payload)
 }
 
-func (o *ConfigFormsDiscoveryOK) GetPayload() *models2.RestDiscoveryResponse {
+func (o *ConfigFormsDiscoveryOK) GetPayload() *models.RestDiscoveryResponse {
 	return o.Payload
 }
 
 func (o *ConfigFormsDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDiscoveryResponse)
+	o.Payload = new(models.RestDiscoveryResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ConfigFormsDiscoveryUnauthorized describes a response with status code 401, with
 User is not authenticated
 */
 type ConfigFormsDiscoveryUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this config forms discovery unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ConfigFormsDiscoveryUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryUnauthorized %s", 401, payload)
 }
 
-func (o *ConfigFormsDiscoveryUnauthorized) GetPayload() *models2.RestError {
+func (o *ConfigFormsDiscoveryUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ConfigFormsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ConfigFormsDiscoveryForbidden describes a response with status code 403, with de
 User has no permission to access this particular resource
 */
 type ConfigFormsDiscoveryForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this config forms discovery forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ConfigFormsDiscoveryForbidden) String() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryForbidden %s", 403, payload)
 }
 
-func (o *ConfigFormsDiscoveryForbidden) GetPayload() *models2.RestError {
+func (o *ConfigFormsDiscoveryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ConfigFormsDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ConfigFormsDiscoveryNotFound describes a response with status code 404, with def
 Resource does not exist in the system
 */
 type ConfigFormsDiscoveryNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this config forms discovery not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ConfigFormsDiscoveryNotFound) String() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryNotFound %s", 404, payload)
 }
 
-func (o *ConfigFormsDiscoveryNotFound) GetPayload() *models2.RestError {
+func (o *ConfigFormsDiscoveryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ConfigFormsDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ConfigFormsDiscoveryInternalServerError describes a response with status code 50
 An internal error occurred in the backend
 */
 type ConfigFormsDiscoveryInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this config forms discovery internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ConfigFormsDiscoveryInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/discovery/forms/{ServiceName}][%d] configFormsDiscoveryInternalServerError %s", 500, payload)
 }
 
-func (o *ConfigFormsDiscoveryInternalServerError) GetPayload() *models2.RestError {
+func (o *ConfigFormsDiscoveryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ConfigFormsDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

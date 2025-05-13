@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // EndpointsDiscoveryReader is a Reader for the EndpointsDiscovery structure.
@@ -69,7 +70,7 @@ EndpointsDiscoveryOK describes a response with status code 200, with default hea
 A successful response.
 */
 type EndpointsDiscoveryOK struct {
-	Payload *models2.RestDiscoveryResponse
+	Payload *models.RestDiscoveryResponse
 }
 
 // IsSuccess returns true when this endpoints discovery o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *EndpointsDiscoveryOK) String() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryOK %s", 200, payload)
 }
 
-func (o *EndpointsDiscoveryOK) GetPayload() *models2.RestDiscoveryResponse {
+func (o *EndpointsDiscoveryOK) GetPayload() *models.RestDiscoveryResponse {
 	return o.Payload
 }
 
 func (o *EndpointsDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDiscoveryResponse)
+	o.Payload = new(models.RestDiscoveryResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ EndpointsDiscoveryUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type EndpointsDiscoveryUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this endpoints discovery unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *EndpointsDiscoveryUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryUnauthorized %s", 401, payload)
 }
 
-func (o *EndpointsDiscoveryUnauthorized) GetPayload() *models2.RestError {
+func (o *EndpointsDiscoveryUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *EndpointsDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ EndpointsDiscoveryForbidden describes a response with status code 403, with defa
 User has no permission to access this particular resource
 */
 type EndpointsDiscoveryForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this endpoints discovery forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *EndpointsDiscoveryForbidden) String() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryForbidden %s", 403, payload)
 }
 
-func (o *EndpointsDiscoveryForbidden) GetPayload() *models2.RestError {
+func (o *EndpointsDiscoveryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *EndpointsDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ EndpointsDiscoveryNotFound describes a response with status code 404, with defau
 Resource does not exist in the system
 */
 type EndpointsDiscoveryNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this endpoints discovery not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *EndpointsDiscoveryNotFound) String() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryNotFound %s", 404, payload)
 }
 
-func (o *EndpointsDiscoveryNotFound) GetPayload() *models2.RestError {
+func (o *EndpointsDiscoveryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *EndpointsDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ EndpointsDiscoveryInternalServerError describes a response with status code 500,
 An internal error occurred in the backend
 */
 type EndpointsDiscoveryInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this endpoints discovery internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *EndpointsDiscoveryInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/discovery][%d] endpointsDiscoveryInternalServerError %s", 500, payload)
 }
 
-func (o *EndpointsDiscoveryInternalServerError) GetPayload() *models2.RestError {
+func (o *EndpointsDiscoveryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *EndpointsDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

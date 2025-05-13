@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // FrontMessagesReader is a Reader for the FrontMessages structure.
@@ -69,7 +70,7 @@ FrontMessagesOK describes a response with status code 200, with default header v
 A successful response.
 */
 type FrontMessagesOK struct {
-	Payload *models2.RestFrontMessagesResponse
+	Payload *models.RestFrontMessagesResponse
 }
 
 // IsSuccess returns true when this front messages o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *FrontMessagesOK) String() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesOK %s", 200, payload)
 }
 
-func (o *FrontMessagesOK) GetPayload() *models2.RestFrontMessagesResponse {
+func (o *FrontMessagesOK) GetPayload() *models.RestFrontMessagesResponse {
 	return o.Payload
 }
 
 func (o *FrontMessagesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestFrontMessagesResponse)
+	o.Payload = new(models.RestFrontMessagesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ FrontMessagesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type FrontMessagesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front messages unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *FrontMessagesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesUnauthorized %s", 401, payload)
 }
 
-func (o *FrontMessagesUnauthorized) GetPayload() *models2.RestError {
+func (o *FrontMessagesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontMessagesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ FrontMessagesForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type FrontMessagesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front messages forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *FrontMessagesForbidden) String() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesForbidden %s", 403, payload)
 }
 
-func (o *FrontMessagesForbidden) GetPayload() *models2.RestError {
+func (o *FrontMessagesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontMessagesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ FrontMessagesNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type FrontMessagesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front messages not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *FrontMessagesNotFound) String() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesNotFound %s", 404, payload)
 }
 
-func (o *FrontMessagesNotFound) GetPayload() *models2.RestError {
+func (o *FrontMessagesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontMessagesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ FrontMessagesInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type FrontMessagesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front messages internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *FrontMessagesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /frontend/messages/{Lang}][%d] frontMessagesInternalServerError %s", 500, payload)
 }
 
-func (o *FrontMessagesInternalServerError) GetPayload() *models2.RestError {
+func (o *FrontMessagesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontMessagesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

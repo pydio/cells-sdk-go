@@ -8,11 +8,12 @@ package graph_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // UserStateReader is a Reader for the UserState structure.
@@ -69,7 +70,7 @@ UserStateOK describes a response with status code 200, with default header value
 A successful response.
 */
 type UserStateOK struct {
-	Payload *models2.RestUserStateResponse
+	Payload *models.RestUserStateResponse
 }
 
 // IsSuccess returns true when this user state o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UserStateOK) String() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateOK %s", 200, payload)
 }
 
-func (o *UserStateOK) GetPayload() *models2.RestUserStateResponse {
+func (o *UserStateOK) GetPayload() *models.RestUserStateResponse {
 	return o.Payload
 }
 
 func (o *UserStateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestUserStateResponse)
+	o.Payload = new(models.RestUserStateResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UserStateUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type UserStateUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user state unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UserStateUnauthorized) String() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateUnauthorized %s", 401, payload)
 }
 
-func (o *UserStateUnauthorized) GetPayload() *models2.RestError {
+func (o *UserStateUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserStateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UserStateForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type UserStateForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user state forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UserStateForbidden) String() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateForbidden %s", 403, payload)
 }
 
-func (o *UserStateForbidden) GetPayload() *models2.RestError {
+func (o *UserStateForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserStateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UserStateNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type UserStateNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user state not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UserStateNotFound) String() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateNotFound %s", 404, payload)
 }
 
-func (o *UserStateNotFound) GetPayload() *models2.RestError {
+func (o *UserStateNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserStateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UserStateInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type UserStateInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user state internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UserStateInternalServerError) String() string {
 	return fmt.Sprintf("[GET /graph/state/{Segment}][%d] userStateInternalServerError %s", 500, payload)
 }
 
-func (o *UserStateInternalServerError) GetPayload() *models2.RestError {
+func (o *UserStateInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserStateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

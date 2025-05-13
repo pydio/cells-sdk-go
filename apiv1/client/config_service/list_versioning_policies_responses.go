@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListVersioningPoliciesReader is a Reader for the ListVersioningPolicies structure.
@@ -69,7 +70,7 @@ ListVersioningPoliciesOK describes a response with status code 200, with default
 A successful response.
 */
 type ListVersioningPoliciesOK struct {
-	Payload *models2.RestVersioningPolicyCollection
+	Payload *models.RestVersioningPolicyCollection
 }
 
 // IsSuccess returns true when this list versioning policies o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListVersioningPoliciesOK) String() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesOK %s", 200, payload)
 }
 
-func (o *ListVersioningPoliciesOK) GetPayload() *models2.RestVersioningPolicyCollection {
+func (o *ListVersioningPoliciesOK) GetPayload() *models.RestVersioningPolicyCollection {
 	return o.Payload
 }
 
 func (o *ListVersioningPoliciesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestVersioningPolicyCollection)
+	o.Payload = new(models.RestVersioningPolicyCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListVersioningPoliciesUnauthorized describes a response with status code 401, wi
 User is not authenticated
 */
 type ListVersioningPoliciesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list versioning policies unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListVersioningPoliciesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesUnauthorized %s", 401, payload)
 }
 
-func (o *ListVersioningPoliciesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListVersioningPoliciesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVersioningPoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListVersioningPoliciesForbidden describes a response with status code 403, with 
 User has no permission to access this particular resource
 */
 type ListVersioningPoliciesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list versioning policies forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListVersioningPoliciesForbidden) String() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesForbidden %s", 403, payload)
 }
 
-func (o *ListVersioningPoliciesForbidden) GetPayload() *models2.RestError {
+func (o *ListVersioningPoliciesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVersioningPoliciesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListVersioningPoliciesNotFound describes a response with status code 404, with d
 Resource does not exist in the system
 */
 type ListVersioningPoliciesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list versioning policies not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListVersioningPoliciesNotFound) String() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesNotFound %s", 404, payload)
 }
 
-func (o *ListVersioningPoliciesNotFound) GetPayload() *models2.RestError {
+func (o *ListVersioningPoliciesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVersioningPoliciesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListVersioningPoliciesInternalServerError describes a response with status code 
 An internal error occurred in the backend
 */
 type ListVersioningPoliciesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list versioning policies internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListVersioningPoliciesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/versioning][%d] listVersioningPoliciesInternalServerError %s", 500, payload)
 }
 
-func (o *ListVersioningPoliciesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListVersioningPoliciesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVersioningPoliciesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

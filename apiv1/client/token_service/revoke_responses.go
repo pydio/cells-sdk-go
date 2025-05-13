@@ -8,11 +8,12 @@ package token_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // RevokeReader is a Reader for the Revoke structure.
@@ -69,7 +70,7 @@ RevokeOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type RevokeOK struct {
-	Payload *models2.RestRevokeResponse
+	Payload *models.RestRevokeResponse
 }
 
 // IsSuccess returns true when this revoke o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *RevokeOK) String() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeOK %s", 200, payload)
 }
 
-func (o *RevokeOK) GetPayload() *models2.RestRevokeResponse {
+func (o *RevokeOK) GetPayload() *models.RestRevokeResponse {
 	return o.Payload
 }
 
 func (o *RevokeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestRevokeResponse)
+	o.Payload = new(models.RestRevokeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ RevokeUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type RevokeUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this revoke unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *RevokeUnauthorized) String() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeUnauthorized %s", 401, payload)
 }
 
-func (o *RevokeUnauthorized) GetPayload() *models2.RestError {
+func (o *RevokeUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RevokeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ RevokeForbidden describes a response with status code 403, with default header v
 User has no permission to access this particular resource
 */
 type RevokeForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this revoke forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *RevokeForbidden) String() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeForbidden %s", 403, payload)
 }
 
-func (o *RevokeForbidden) GetPayload() *models2.RestError {
+func (o *RevokeForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RevokeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ RevokeNotFound describes a response with status code 404, with default header va
 Resource does not exist in the system
 */
 type RevokeNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this revoke not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *RevokeNotFound) String() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeNotFound %s", 404, payload)
 }
 
-func (o *RevokeNotFound) GetPayload() *models2.RestError {
+func (o *RevokeNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RevokeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ RevokeInternalServerError describes a response with status code 500, with defaul
 An internal error occurred in the backend
 */
 type RevokeInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this revoke internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *RevokeInternalServerError) String() string {
 	return fmt.Sprintf("[POST /auth/token/revoke][%d] revokeInternalServerError %s", 500, payload)
 }
 
-func (o *RevokeInternalServerError) GetPayload() *models2.RestError {
+func (o *RevokeInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RevokeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutShareLinkReader is a Reader for the PutShareLink structure.
@@ -69,7 +70,7 @@ PutShareLinkOK describes a response with status code 200, with default header va
 A successful response.
 */
 type PutShareLinkOK struct {
-	Payload *models2.RestShareLink
+	Payload *models.RestShareLink
 }
 
 // IsSuccess returns true when this put share link o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutShareLinkOK) String() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkOK %s", 200, payload)
 }
 
-func (o *PutShareLinkOK) GetPayload() *models2.RestShareLink {
+func (o *PutShareLinkOK) GetPayload() *models.RestShareLink {
 	return o.Payload
 }
 
 func (o *PutShareLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestShareLink)
+	o.Payload = new(models.RestShareLink)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutShareLinkUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type PutShareLinkUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put share link unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutShareLinkUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkUnauthorized %s", 401, payload)
 }
 
-func (o *PutShareLinkUnauthorized) GetPayload() *models2.RestError {
+func (o *PutShareLinkUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutShareLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutShareLinkForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type PutShareLinkForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put share link forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutShareLinkForbidden) String() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkForbidden %s", 403, payload)
 }
 
-func (o *PutShareLinkForbidden) GetPayload() *models2.RestError {
+func (o *PutShareLinkForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutShareLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutShareLinkNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type PutShareLinkNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put share link not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutShareLinkNotFound) String() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkNotFound %s", 404, payload)
 }
 
-func (o *PutShareLinkNotFound) GetPayload() *models2.RestError {
+func (o *PutShareLinkNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutShareLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutShareLinkInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type PutShareLinkInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put share link internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutShareLinkInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /share/link][%d] putShareLinkInternalServerError %s", 500, payload)
 }
 
-func (o *PutShareLinkInternalServerError) GetPayload() *models2.RestError {
+func (o *PutShareLinkInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutShareLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

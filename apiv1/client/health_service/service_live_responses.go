@@ -8,11 +8,12 @@ package health_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ServiceLiveReader is a Reader for the ServiceLive structure.
@@ -69,7 +70,7 @@ ServiceLiveOK describes a response with status code 200, with default header val
 A successful response.
 */
 type ServiceLiveOK struct {
-	Payload *models2.RestHealthServiceResponse
+	Payload *models.RestHealthServiceResponse
 }
 
 // IsSuccess returns true when this service live o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ServiceLiveOK) String() string {
 	return fmt.Sprintf("[GET /health/{ServiceName}/live][%d] serviceLiveOK %s", 200, payload)
 }
 
-func (o *ServiceLiveOK) GetPayload() *models2.RestHealthServiceResponse {
+func (o *ServiceLiveOK) GetPayload() *models.RestHealthServiceResponse {
 	return o.Payload
 }
 
 func (o *ServiceLiveOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestHealthServiceResponse)
+	o.Payload = new(models.RestHealthServiceResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ServiceLiveUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type ServiceLiveUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this service live unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ServiceLiveUnauthorized) String() string {
 	return fmt.Sprintf("[GET /health/{ServiceName}/live][%d] serviceLiveUnauthorized %s", 401, payload)
 }
 
-func (o *ServiceLiveUnauthorized) GetPayload() *models2.RestError {
+func (o *ServiceLiveUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ServiceLiveUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ServiceLiveForbidden describes a response with status code 403, with default hea
 User has no permission to access this particular resource
 */
 type ServiceLiveForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this service live forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ServiceLiveForbidden) String() string {
 	return fmt.Sprintf("[GET /health/{ServiceName}/live][%d] serviceLiveForbidden %s", 403, payload)
 }
 
-func (o *ServiceLiveForbidden) GetPayload() *models2.RestError {
+func (o *ServiceLiveForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ServiceLiveForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ServiceLiveNotFound describes a response with status code 404, with default head
 Resource does not exist in the system
 */
 type ServiceLiveNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this service live not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ServiceLiveNotFound) String() string {
 	return fmt.Sprintf("[GET /health/{ServiceName}/live][%d] serviceLiveNotFound %s", 404, payload)
 }
 
-func (o *ServiceLiveNotFound) GetPayload() *models2.RestError {
+func (o *ServiceLiveNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ServiceLiveNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ServiceLiveInternalServerError describes a response with status code 500, with d
 An internal error occurred in the backend
 */
 type ServiceLiveInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this service live internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ServiceLiveInternalServerError) String() string {
 	return fmt.Sprintf("[GET /health/{ServiceName}/live][%d] serviceLiveInternalServerError %s", 500, payload)
 }
 
-func (o *ServiceLiveInternalServerError) GetPayload() *models2.RestError {
+func (o *ServiceLiveInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ServiceLiveInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

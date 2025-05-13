@@ -8,11 +8,12 @@ package search_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // NodesReader is a Reader for the Nodes structure.
@@ -69,7 +70,7 @@ NodesOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type NodesOK struct {
-	Payload *models2.RestSearchResults
+	Payload *models.RestSearchResults
 }
 
 // IsSuccess returns true when this nodes o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *NodesOK) String() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesOK %s", 200, payload)
 }
 
-func (o *NodesOK) GetPayload() *models2.RestSearchResults {
+func (o *NodesOK) GetPayload() *models.RestSearchResults {
 	return o.Payload
 }
 
 func (o *NodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestSearchResults)
+	o.Payload = new(models.RestSearchResults)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ NodesUnauthorized describes a response with status code 401, with default header
 User is not authenticated
 */
 type NodesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this nodes unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *NodesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesUnauthorized %s", 401, payload)
 }
 
-func (o *NodesUnauthorized) GetPayload() *models2.RestError {
+func (o *NodesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *NodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ NodesForbidden describes a response with status code 403, with default header va
 User has no permission to access this particular resource
 */
 type NodesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this nodes forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *NodesForbidden) String() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesForbidden %s", 403, payload)
 }
 
-func (o *NodesForbidden) GetPayload() *models2.RestError {
+func (o *NodesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *NodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ NodesNotFound describes a response with status code 404, with default header val
 Resource does not exist in the system
 */
 type NodesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this nodes not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *NodesNotFound) String() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesNotFound %s", 404, payload)
 }
 
-func (o *NodesNotFound) GetPayload() *models2.RestError {
+func (o *NodesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *NodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ NodesInternalServerError describes a response with status code 500, with default
 An internal error occurred in the backend
 */
 type NodesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this nodes internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *NodesInternalServerError) String() string {
 	return fmt.Sprintf("[POST /search/nodes][%d] nodesInternalServerError %s", 500, payload)
 }
 
-func (o *NodesInternalServerError) GetPayload() *models2.RestError {
+func (o *NodesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *NodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

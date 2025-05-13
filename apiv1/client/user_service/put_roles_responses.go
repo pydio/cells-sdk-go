@@ -8,11 +8,12 @@ package user_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutRolesReader is a Reader for the PutRoles structure.
@@ -69,7 +70,7 @@ PutRolesOK describes a response with status code 200, with default header values
 A successful response.
 */
 type PutRolesOK struct {
-	Payload *models2.IdmUser
+	Payload *models.IdmUser
 }
 
 // IsSuccess returns true when this put roles o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutRolesOK) String() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesOK %s", 200, payload)
 }
 
-func (o *PutRolesOK) GetPayload() *models2.IdmUser {
+func (o *PutRolesOK) GetPayload() *models.IdmUser {
 	return o.Payload
 }
 
 func (o *PutRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmUser)
+	o.Payload = new(models.IdmUser)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutRolesUnauthorized describes a response with status code 401, with default hea
 User is not authenticated
 */
 type PutRolesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put roles unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutRolesUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesUnauthorized %s", 401, payload)
 }
 
-func (o *PutRolesUnauthorized) GetPayload() *models2.RestError {
+func (o *PutRolesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutRolesForbidden describes a response with status code 403, with default header
 User has no permission to access this particular resource
 */
 type PutRolesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put roles forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutRolesForbidden) String() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesForbidden %s", 403, payload)
 }
 
-func (o *PutRolesForbidden) GetPayload() *models2.RestError {
+func (o *PutRolesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutRolesNotFound describes a response with status code 404, with default header 
 Resource does not exist in the system
 */
 type PutRolesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put roles not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutRolesNotFound) String() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesNotFound %s", 404, payload)
 }
 
-func (o *PutRolesNotFound) GetPayload() *models2.RestError {
+func (o *PutRolesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutRolesInternalServerError describes a response with status code 500, with defa
 An internal error occurred in the backend
 */
 type PutRolesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put roles internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutRolesInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /user/roles/{Login}][%d] putRolesInternalServerError %s", 500, payload)
 }
 
-func (o *PutRolesInternalServerError) GetPayload() *models2.RestError {
+func (o *PutRolesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

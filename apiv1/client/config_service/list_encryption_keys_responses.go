@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListEncryptionKeysReader is a Reader for the ListEncryptionKeys structure.
@@ -69,7 +70,7 @@ ListEncryptionKeysOK describes a response with status code 200, with default hea
 A successful response.
 */
 type ListEncryptionKeysOK struct {
-	Payload *models2.EncryptionAdminListKeysResponse
+	Payload *models.EncryptionAdminListKeysResponse
 }
 
 // IsSuccess returns true when this list encryption keys o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListEncryptionKeysOK) String() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysOK %s", 200, payload)
 }
 
-func (o *ListEncryptionKeysOK) GetPayload() *models2.EncryptionAdminListKeysResponse {
+func (o *ListEncryptionKeysOK) GetPayload() *models.EncryptionAdminListKeysResponse {
 	return o.Payload
 }
 
 func (o *ListEncryptionKeysOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.EncryptionAdminListKeysResponse)
+	o.Payload = new(models.EncryptionAdminListKeysResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListEncryptionKeysUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ListEncryptionKeysUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list encryption keys unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListEncryptionKeysUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysUnauthorized %s", 401, payload)
 }
 
-func (o *ListEncryptionKeysUnauthorized) GetPayload() *models2.RestError {
+func (o *ListEncryptionKeysUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListEncryptionKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListEncryptionKeysForbidden describes a response with status code 403, with defa
 User has no permission to access this particular resource
 */
 type ListEncryptionKeysForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list encryption keys forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListEncryptionKeysForbidden) String() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysForbidden %s", 403, payload)
 }
 
-func (o *ListEncryptionKeysForbidden) GetPayload() *models2.RestError {
+func (o *ListEncryptionKeysForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListEncryptionKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListEncryptionKeysNotFound describes a response with status code 404, with defau
 Resource does not exist in the system
 */
 type ListEncryptionKeysNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list encryption keys not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListEncryptionKeysNotFound) String() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysNotFound %s", 404, payload)
 }
 
-func (o *ListEncryptionKeysNotFound) GetPayload() *models2.RestError {
+func (o *ListEncryptionKeysNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListEncryptionKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListEncryptionKeysInternalServerError describes a response with status code 500,
 An internal error occurred in the backend
 */
 type ListEncryptionKeysInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list encryption keys internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListEncryptionKeysInternalServerError) String() string {
 	return fmt.Sprintf("[POST /config/encryption/list][%d] listEncryptionKeysInternalServerError %s", 500, payload)
 }
 
-func (o *ListEncryptionKeysInternalServerError) GetPayload() *models2.RestError {
+func (o *ListEncryptionKeysInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListEncryptionKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

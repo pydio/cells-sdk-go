@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteCellReader is a Reader for the DeleteCell structure.
@@ -69,7 +70,7 @@ DeleteCellOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type DeleteCellOK struct {
-	Payload *models2.RestDeleteCellResponse
+	Payload *models.RestDeleteCellResponse
 }
 
 // IsSuccess returns true when this delete cell o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteCellOK) String() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellOK %s", 200, payload)
 }
 
-func (o *DeleteCellOK) GetPayload() *models2.RestDeleteCellResponse {
+func (o *DeleteCellOK) GetPayload() *models.RestDeleteCellResponse {
 	return o.Payload
 }
 
 func (o *DeleteCellOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteCellResponse)
+	o.Payload = new(models.RestDeleteCellResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteCellUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteCellUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete cell unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteCellUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteCellUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteCellUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteCellForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type DeleteCellForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete cell forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteCellForbidden) String() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellForbidden %s", 403, payload)
 }
 
-func (o *DeleteCellForbidden) GetPayload() *models2.RestError {
+func (o *DeleteCellForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteCellForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteCellNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type DeleteCellNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete cell not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteCellNotFound) String() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellNotFound %s", 404, payload)
 }
 
-func (o *DeleteCellNotFound) GetPayload() *models2.RestError {
+func (o *DeleteCellNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteCellNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteCellInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type DeleteCellInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete cell internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteCellInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /share/cell/{Uuid}][%d] deleteCellInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteCellInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteCellInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteCellInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

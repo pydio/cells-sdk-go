@@ -8,11 +8,12 @@ package jobs_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // UserListJobsReader is a Reader for the UserListJobs structure.
@@ -69,7 +70,7 @@ UserListJobsOK describes a response with status code 200, with default header va
 A successful response.
 */
 type UserListJobsOK struct {
-	Payload *models2.RestUserJobsCollection
+	Payload *models.RestUserJobsCollection
 }
 
 // IsSuccess returns true when this user list jobs o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UserListJobsOK) String() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsOK %s", 200, payload)
 }
 
-func (o *UserListJobsOK) GetPayload() *models2.RestUserJobsCollection {
+func (o *UserListJobsOK) GetPayload() *models.RestUserJobsCollection {
 	return o.Payload
 }
 
 func (o *UserListJobsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestUserJobsCollection)
+	o.Payload = new(models.RestUserJobsCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UserListJobsUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type UserListJobsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user list jobs unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UserListJobsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsUnauthorized %s", 401, payload)
 }
 
-func (o *UserListJobsUnauthorized) GetPayload() *models2.RestError {
+func (o *UserListJobsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserListJobsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UserListJobsForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type UserListJobsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user list jobs forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UserListJobsForbidden) String() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsForbidden %s", 403, payload)
 }
 
-func (o *UserListJobsForbidden) GetPayload() *models2.RestError {
+func (o *UserListJobsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserListJobsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UserListJobsNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type UserListJobsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user list jobs not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UserListJobsNotFound) String() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsNotFound %s", 404, payload)
 }
 
-func (o *UserListJobsNotFound) GetPayload() *models2.RestError {
+func (o *UserListJobsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserListJobsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UserListJobsInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type UserListJobsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user list jobs internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UserListJobsInternalServerError) String() string {
 	return fmt.Sprintf("[POST /jobs/user][%d] userListJobsInternalServerError %s", 500, payload)
 }
 
-func (o *UserListJobsInternalServerError) GetPayload() *models2.RestError {
+func (o *UserListJobsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserListJobsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

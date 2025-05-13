@@ -8,11 +8,12 @@ package token_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ResetPasswordTokenReader is a Reader for the ResetPasswordToken structure.
@@ -69,7 +70,7 @@ ResetPasswordTokenOK describes a response with status code 200, with default hea
 A successful response.
 */
 type ResetPasswordTokenOK struct {
-	Payload *models2.RestResetPasswordTokenResponse
+	Payload *models.RestResetPasswordTokenResponse
 }
 
 // IsSuccess returns true when this reset password token o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ResetPasswordTokenOK) String() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenOK %s", 200, payload)
 }
 
-func (o *ResetPasswordTokenOK) GetPayload() *models2.RestResetPasswordTokenResponse {
+func (o *ResetPasswordTokenOK) GetPayload() *models.RestResetPasswordTokenResponse {
 	return o.Payload
 }
 
 func (o *ResetPasswordTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestResetPasswordTokenResponse)
+	o.Payload = new(models.RestResetPasswordTokenResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ResetPasswordTokenUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ResetPasswordTokenUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this reset password token unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ResetPasswordTokenUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenUnauthorized %s", 401, payload)
 }
 
-func (o *ResetPasswordTokenUnauthorized) GetPayload() *models2.RestError {
+func (o *ResetPasswordTokenUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ResetPasswordTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ResetPasswordTokenForbidden describes a response with status code 403, with defa
 User has no permission to access this particular resource
 */
 type ResetPasswordTokenForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this reset password token forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ResetPasswordTokenForbidden) String() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenForbidden %s", 403, payload)
 }
 
-func (o *ResetPasswordTokenForbidden) GetPayload() *models2.RestError {
+func (o *ResetPasswordTokenForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ResetPasswordTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ResetPasswordTokenNotFound describes a response with status code 404, with defau
 Resource does not exist in the system
 */
 type ResetPasswordTokenNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this reset password token not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ResetPasswordTokenNotFound) String() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenNotFound %s", 404, payload)
 }
 
-func (o *ResetPasswordTokenNotFound) GetPayload() *models2.RestError {
+func (o *ResetPasswordTokenNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ResetPasswordTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ResetPasswordTokenInternalServerError describes a response with status code 500,
 An internal error occurred in the backend
 */
 type ResetPasswordTokenInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this reset password token internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ResetPasswordTokenInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /auth/reset-password-token/{UserLogin}][%d] resetPasswordTokenInternalServerError %s", 500, payload)
 }
 
-func (o *ResetPasswordTokenInternalServerError) GetPayload() *models2.RestError {
+func (o *ResetPasswordTokenInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ResetPasswordTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

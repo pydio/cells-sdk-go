@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteDataSourceReader is a Reader for the DeleteDataSource structure.
@@ -69,7 +70,7 @@ DeleteDataSourceOK describes a response with status code 200, with default heade
 A successful response.
 */
 type DeleteDataSourceOK struct {
-	Payload *models2.RestDeleteDataSourceResponse
+	Payload *models.RestDeleteDataSourceResponse
 }
 
 // IsSuccess returns true when this delete data source o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteDataSourceOK) String() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceOK %s", 200, payload)
 }
 
-func (o *DeleteDataSourceOK) GetPayload() *models2.RestDeleteDataSourceResponse {
+func (o *DeleteDataSourceOK) GetPayload() *models.RestDeleteDataSourceResponse {
 	return o.Payload
 }
 
 func (o *DeleteDataSourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteDataSourceResponse)
+	o.Payload = new(models.RestDeleteDataSourceResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteDataSourceUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type DeleteDataSourceUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete data source unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteDataSourceUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteDataSourceUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteDataSourceUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteDataSourceForbidden describes a response with status code 403, with defaul
 User has no permission to access this particular resource
 */
 type DeleteDataSourceForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete data source forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteDataSourceForbidden) String() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceForbidden %s", 403, payload)
 }
 
-func (o *DeleteDataSourceForbidden) GetPayload() *models2.RestError {
+func (o *DeleteDataSourceForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteDataSourceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteDataSourceNotFound describes a response with status code 404, with default
 Resource does not exist in the system
 */
 type DeleteDataSourceNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete data source not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteDataSourceNotFound) String() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceNotFound %s", 404, payload)
 }
 
-func (o *DeleteDataSourceNotFound) GetPayload() *models2.RestError {
+func (o *DeleteDataSourceNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteDataSourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteDataSourceInternalServerError describes a response with status code 500, w
 An internal error occurred in the backend
 */
 type DeleteDataSourceInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete data source internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteDataSourceInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /config/datasource/{Name}][%d] deleteDataSourceInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteDataSourceInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteDataSourceInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteDataSourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

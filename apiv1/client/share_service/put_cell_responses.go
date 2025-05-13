@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutCellReader is a Reader for the PutCell structure.
@@ -69,7 +70,7 @@ PutCellOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type PutCellOK struct {
-	Payload *models2.RestCell
+	Payload *models.RestCell
 }
 
 // IsSuccess returns true when this put cell o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutCellOK) String() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellOK %s", 200, payload)
 }
 
-func (o *PutCellOK) GetPayload() *models2.RestCell {
+func (o *PutCellOK) GetPayload() *models.RestCell {
 	return o.Payload
 }
 
 func (o *PutCellOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestCell)
+	o.Payload = new(models.RestCell)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutCellUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type PutCellUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put cell unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutCellUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellUnauthorized %s", 401, payload)
 }
 
-func (o *PutCellUnauthorized) GetPayload() *models2.RestError {
+func (o *PutCellUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutCellForbidden describes a response with status code 403, with default header 
 User has no permission to access this particular resource
 */
 type PutCellForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put cell forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutCellForbidden) String() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellForbidden %s", 403, payload)
 }
 
-func (o *PutCellForbidden) GetPayload() *models2.RestError {
+func (o *PutCellForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutCellForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutCellNotFound describes a response with status code 404, with default header v
 Resource does not exist in the system
 */
 type PutCellNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put cell not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutCellNotFound) String() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellNotFound %s", 404, payload)
 }
 
-func (o *PutCellNotFound) GetPayload() *models2.RestError {
+func (o *PutCellNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutCellNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutCellInternalServerError describes a response with status code 500, with defau
 An internal error occurred in the backend
 */
 type PutCellInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put cell internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutCellInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /share/cell][%d] putCellInternalServerError %s", 500, payload)
 }
 
-func (o *PutCellInternalServerError) GetPayload() *models2.RestError {
+func (o *PutCellInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutCellInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package jobs_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListTasksLogsReader is a Reader for the ListTasksLogs structure.
@@ -69,7 +70,7 @@ ListTasksLogsOK describes a response with status code 200, with default header v
 A successful response.
 */
 type ListTasksLogsOK struct {
-	Payload *models2.RestLogMessageCollection
+	Payload *models.RestLogMessageCollection
 }
 
 // IsSuccess returns true when this list tasks logs o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListTasksLogsOK) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsOK %s", 200, payload)
 }
 
-func (o *ListTasksLogsOK) GetPayload() *models2.RestLogMessageCollection {
+func (o *ListTasksLogsOK) GetPayload() *models.RestLogMessageCollection {
 	return o.Payload
 }
 
 func (o *ListTasksLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestLogMessageCollection)
+	o.Payload = new(models.RestLogMessageCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListTasksLogsUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListTasksLogsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list tasks logs unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListTasksLogsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsUnauthorized %s", 401, payload)
 }
 
-func (o *ListTasksLogsUnauthorized) GetPayload() *models2.RestError {
+func (o *ListTasksLogsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListTasksLogsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListTasksLogsForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type ListTasksLogsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list tasks logs forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListTasksLogsForbidden) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsForbidden %s", 403, payload)
 }
 
-func (o *ListTasksLogsForbidden) GetPayload() *models2.RestError {
+func (o *ListTasksLogsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListTasksLogsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListTasksLogsNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type ListTasksLogsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list tasks logs not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListTasksLogsNotFound) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsNotFound %s", 404, payload)
 }
 
-func (o *ListTasksLogsNotFound) GetPayload() *models2.RestError {
+func (o *ListTasksLogsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListTasksLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListTasksLogsInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type ListTasksLogsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list tasks logs internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListTasksLogsInternalServerError) String() string {
 	return fmt.Sprintf("[POST /jobs/tasks/logs][%d] listTasksLogsInternalServerError %s", 500, payload)
 }
 
-func (o *ListTasksLogsInternalServerError) GetPayload() *models2.RestError {
+func (o *ListTasksLogsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListTasksLogsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

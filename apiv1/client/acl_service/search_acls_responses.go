@@ -8,11 +8,12 @@ package acl_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SearchAclsReader is a Reader for the SearchAcls structure.
@@ -69,7 +70,7 @@ SearchAclsOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type SearchAclsOK struct {
-	Payload *models2.RestACLCollection
+	Payload *models.RestACLCollection
 }
 
 // IsSuccess returns true when this search acls o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SearchAclsOK) String() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsOK %s", 200, payload)
 }
 
-func (o *SearchAclsOK) GetPayload() *models2.RestACLCollection {
+func (o *SearchAclsOK) GetPayload() *models.RestACLCollection {
 	return o.Payload
 }
 
 func (o *SearchAclsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestACLCollection)
+	o.Payload = new(models.RestACLCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SearchAclsUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type SearchAclsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search acls unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SearchAclsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsUnauthorized %s", 401, payload)
 }
 
-func (o *SearchAclsUnauthorized) GetPayload() *models2.RestError {
+func (o *SearchAclsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchAclsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SearchAclsForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type SearchAclsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search acls forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SearchAclsForbidden) String() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsForbidden %s", 403, payload)
 }
 
-func (o *SearchAclsForbidden) GetPayload() *models2.RestError {
+func (o *SearchAclsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchAclsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SearchAclsNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type SearchAclsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search acls not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SearchAclsNotFound) String() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsNotFound %s", 404, payload)
 }
 
-func (o *SearchAclsNotFound) GetPayload() *models2.RestError {
+func (o *SearchAclsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchAclsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SearchAclsInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type SearchAclsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search acls internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SearchAclsInternalServerError) String() string {
 	return fmt.Sprintf("[POST /acl][%d] searchAclsInternalServerError %s", 500, payload)
 }
 
-func (o *SearchAclsInternalServerError) GetPayload() *models2.RestError {
+func (o *SearchAclsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchAclsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // FrontSessionReader is a Reader for the FrontSession structure.
@@ -69,7 +70,7 @@ FrontSessionOK describes a response with status code 200, with default header va
 A successful response.
 */
 type FrontSessionOK struct {
-	Payload *models2.RestFrontSessionResponse
+	Payload *models.RestFrontSessionResponse
 }
 
 // IsSuccess returns true when this front session o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *FrontSessionOK) String() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionOK %s", 200, payload)
 }
 
-func (o *FrontSessionOK) GetPayload() *models2.RestFrontSessionResponse {
+func (o *FrontSessionOK) GetPayload() *models.RestFrontSessionResponse {
 	return o.Payload
 }
 
 func (o *FrontSessionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestFrontSessionResponse)
+	o.Payload = new(models.RestFrontSessionResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ FrontSessionUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type FrontSessionUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front session unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *FrontSessionUnauthorized) String() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionUnauthorized %s", 401, payload)
 }
 
-func (o *FrontSessionUnauthorized) GetPayload() *models2.RestError {
+func (o *FrontSessionUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontSessionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ FrontSessionForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type FrontSessionForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front session forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *FrontSessionForbidden) String() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionForbidden %s", 403, payload)
 }
 
-func (o *FrontSessionForbidden) GetPayload() *models2.RestError {
+func (o *FrontSessionForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontSessionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ FrontSessionNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type FrontSessionNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front session not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *FrontSessionNotFound) String() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionNotFound %s", 404, payload)
 }
 
-func (o *FrontSessionNotFound) GetPayload() *models2.RestError {
+func (o *FrontSessionNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontSessionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ FrontSessionInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type FrontSessionInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front session internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *FrontSessionInternalServerError) String() string {
 	return fmt.Sprintf("[POST /frontend/session][%d] frontSessionInternalServerError %s", 500, payload)
 }
 
-func (o *FrontSessionInternalServerError) GetPayload() *models2.RestError {
+func (o *FrontSessionInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontSessionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

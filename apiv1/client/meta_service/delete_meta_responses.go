@@ -8,11 +8,12 @@ package meta_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteMetaReader is a Reader for the DeleteMeta structure.
@@ -69,7 +70,7 @@ DeleteMetaOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type DeleteMetaOK struct {
-	Payload *models2.TreeNode
+	Payload *models.TreeNode
 }
 
 // IsSuccess returns true when this delete meta o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteMetaOK) String() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaOK %s", 200, payload)
 }
 
-func (o *DeleteMetaOK) GetPayload() *models2.TreeNode {
+func (o *DeleteMetaOK) GetPayload() *models.TreeNode {
 	return o.Payload
 }
 
 func (o *DeleteMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.TreeNode)
+	o.Payload = new(models.TreeNode)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteMetaUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteMetaUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete meta unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteMetaUnauthorized) String() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteMetaUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteMetaUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteMetaForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type DeleteMetaForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete meta forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteMetaForbidden) String() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaForbidden %s", 403, payload)
 }
 
-func (o *DeleteMetaForbidden) GetPayload() *models2.RestError {
+func (o *DeleteMetaForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteMetaNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type DeleteMetaNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete meta not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteMetaNotFound) String() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaNotFound %s", 404, payload)
 }
 
-func (o *DeleteMetaNotFound) GetPayload() *models2.RestError {
+func (o *DeleteMetaNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteMetaInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type DeleteMetaInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete meta internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteMetaInternalServerError) String() string {
 	return fmt.Sprintf("[POST /meta/delete/{NodePath}][%d] deleteMetaInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteMetaInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteMetaInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

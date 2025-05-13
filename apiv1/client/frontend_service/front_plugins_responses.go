@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // FrontPluginsReader is a Reader for the FrontPlugins structure.
@@ -69,7 +70,7 @@ FrontPluginsOK describes a response with status code 200, with default header va
 A successful response.
 */
 type FrontPluginsOK struct {
-	Payload *models2.RestFrontPluginsResponse
+	Payload *models.RestFrontPluginsResponse
 }
 
 // IsSuccess returns true when this front plugins o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *FrontPluginsOK) String() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsOK %s", 200, payload)
 }
 
-func (o *FrontPluginsOK) GetPayload() *models2.RestFrontPluginsResponse {
+func (o *FrontPluginsOK) GetPayload() *models.RestFrontPluginsResponse {
 	return o.Payload
 }
 
 func (o *FrontPluginsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestFrontPluginsResponse)
+	o.Payload = new(models.RestFrontPluginsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ FrontPluginsUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type FrontPluginsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front plugins unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *FrontPluginsUnauthorized) String() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsUnauthorized %s", 401, payload)
 }
 
-func (o *FrontPluginsUnauthorized) GetPayload() *models2.RestError {
+func (o *FrontPluginsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontPluginsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ FrontPluginsForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type FrontPluginsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front plugins forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *FrontPluginsForbidden) String() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsForbidden %s", 403, payload)
 }
 
-func (o *FrontPluginsForbidden) GetPayload() *models2.RestError {
+func (o *FrontPluginsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontPluginsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ FrontPluginsNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type FrontPluginsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front plugins not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *FrontPluginsNotFound) String() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsNotFound %s", 404, payload)
 }
 
-func (o *FrontPluginsNotFound) GetPayload() *models2.RestError {
+func (o *FrontPluginsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontPluginsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ FrontPluginsInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type FrontPluginsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front plugins internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *FrontPluginsInternalServerError) String() string {
 	return fmt.Sprintf("[GET /frontend/plugins/{Lang}][%d] frontPluginsInternalServerError %s", 500, payload)
 }
 
-func (o *FrontPluginsInternalServerError) GetPayload() *models2.RestError {
+func (o *FrontPluginsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontPluginsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

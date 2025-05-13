@@ -8,11 +8,12 @@ package install_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetAgreementReader is a Reader for the GetAgreement structure.
@@ -69,7 +70,7 @@ GetAgreementOK describes a response with status code 200, with default header va
 A successful response.
 */
 type GetAgreementOK struct {
-	Payload *models2.InstallGetAgreementResponse
+	Payload *models.InstallGetAgreementResponse
 }
 
 // IsSuccess returns true when this get agreement o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetAgreementOK) String() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementOK %s", 200, payload)
 }
 
-func (o *GetAgreementOK) GetPayload() *models2.InstallGetAgreementResponse {
+func (o *GetAgreementOK) GetPayload() *models.InstallGetAgreementResponse {
 	return o.Payload
 }
 
 func (o *GetAgreementOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.InstallGetAgreementResponse)
+	o.Payload = new(models.InstallGetAgreementResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetAgreementUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type GetAgreementUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get agreement unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetAgreementUnauthorized) String() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementUnauthorized %s", 401, payload)
 }
 
-func (o *GetAgreementUnauthorized) GetPayload() *models2.RestError {
+func (o *GetAgreementUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetAgreementUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetAgreementForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type GetAgreementForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get agreement forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetAgreementForbidden) String() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementForbidden %s", 403, payload)
 }
 
-func (o *GetAgreementForbidden) GetPayload() *models2.RestError {
+func (o *GetAgreementForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetAgreementForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetAgreementNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type GetAgreementNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get agreement not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetAgreementNotFound) String() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementNotFound %s", 404, payload)
 }
 
-func (o *GetAgreementNotFound) GetPayload() *models2.RestError {
+func (o *GetAgreementNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetAgreementNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetAgreementInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type GetAgreementInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get agreement internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetAgreementInternalServerError) String() string {
 	return fmt.Sprintf("[GET /install/agreement][%d] getAgreementInternalServerError %s", 500, payload)
 }
 
-func (o *GetAgreementInternalServerError) GetPayload() *models2.RestError {
+func (o *GetAgreementInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetAgreementInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

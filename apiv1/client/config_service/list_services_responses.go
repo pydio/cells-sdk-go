@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListServicesReader is a Reader for the ListServices structure.
@@ -69,7 +70,7 @@ ListServicesOK describes a response with status code 200, with default header va
 A successful response.
 */
 type ListServicesOK struct {
-	Payload *models2.RestServiceCollection
+	Payload *models.RestServiceCollection
 }
 
 // IsSuccess returns true when this list services o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListServicesOK) String() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesOK %s", 200, payload)
 }
 
-func (o *ListServicesOK) GetPayload() *models2.RestServiceCollection {
+func (o *ListServicesOK) GetPayload() *models.RestServiceCollection {
 	return o.Payload
 }
 
 func (o *ListServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestServiceCollection)
+	o.Payload = new(models.RestServiceCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListServicesUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type ListServicesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list services unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListServicesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesUnauthorized %s", 401, payload)
 }
 
-func (o *ListServicesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListServicesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListServicesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListServicesForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type ListServicesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list services forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListServicesForbidden) String() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesForbidden %s", 403, payload)
 }
 
-func (o *ListServicesForbidden) GetPayload() *models2.RestError {
+func (o *ListServicesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListServicesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListServicesNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type ListServicesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list services not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListServicesNotFound) String() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesNotFound %s", 404, payload)
 }
 
-func (o *ListServicesNotFound) GetPayload() *models2.RestError {
+func (o *ListServicesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListServicesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListServicesInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type ListServicesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list services internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListServicesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/ctl][%d] listServicesInternalServerError %s", 500, payload)
 }
 
-func (o *ListServicesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListServicesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListServicesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

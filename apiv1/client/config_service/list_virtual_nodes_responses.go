@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListVirtualNodesReader is a Reader for the ListVirtualNodes structure.
@@ -69,7 +70,7 @@ ListVirtualNodesOK describes a response with status code 200, with default heade
 A successful response.
 */
 type ListVirtualNodesOK struct {
-	Payload *models2.RestNodesCollection
+	Payload *models.RestNodesCollection
 }
 
 // IsSuccess returns true when this list virtual nodes o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListVirtualNodesOK) String() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesOK %s", 200, payload)
 }
 
-func (o *ListVirtualNodesOK) GetPayload() *models2.RestNodesCollection {
+func (o *ListVirtualNodesOK) GetPayload() *models.RestNodesCollection {
 	return o.Payload
 }
 
 func (o *ListVirtualNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestNodesCollection)
+	o.Payload = new(models.RestNodesCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListVirtualNodesUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type ListVirtualNodesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list virtual nodes unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListVirtualNodesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesUnauthorized %s", 401, payload)
 }
 
-func (o *ListVirtualNodesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListVirtualNodesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVirtualNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListVirtualNodesForbidden describes a response with status code 403, with defaul
 User has no permission to access this particular resource
 */
 type ListVirtualNodesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list virtual nodes forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListVirtualNodesForbidden) String() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesForbidden %s", 403, payload)
 }
 
-func (o *ListVirtualNodesForbidden) GetPayload() *models2.RestError {
+func (o *ListVirtualNodesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVirtualNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListVirtualNodesNotFound describes a response with status code 404, with default
 Resource does not exist in the system
 */
 type ListVirtualNodesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list virtual nodes not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListVirtualNodesNotFound) String() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesNotFound %s", 404, payload)
 }
 
-func (o *ListVirtualNodesNotFound) GetPayload() *models2.RestError {
+func (o *ListVirtualNodesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVirtualNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListVirtualNodesInternalServerError describes a response with status code 500, w
 An internal error occurred in the backend
 */
 type ListVirtualNodesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list virtual nodes internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListVirtualNodesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/virtualnodes][%d] listVirtualNodesInternalServerError %s", 500, payload)
 }
 
-func (o *ListVirtualNodesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListVirtualNodesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListVirtualNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

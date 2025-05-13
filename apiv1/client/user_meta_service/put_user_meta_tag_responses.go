@@ -8,11 +8,12 @@ package user_meta_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutUserMetaTagReader is a Reader for the PutUserMetaTag structure.
@@ -69,7 +70,7 @@ PutUserMetaTagOK describes a response with status code 200, with default header 
 A successful response.
 */
 type PutUserMetaTagOK struct {
-	Payload *models2.RestPutUserMetaTagResponse
+	Payload *models.RestPutUserMetaTagResponse
 }
 
 // IsSuccess returns true when this put user meta tag o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutUserMetaTagOK) String() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagOK %s", 200, payload)
 }
 
-func (o *PutUserMetaTagOK) GetPayload() *models2.RestPutUserMetaTagResponse {
+func (o *PutUserMetaTagOK) GetPayload() *models.RestPutUserMetaTagResponse {
 	return o.Payload
 }
 
 func (o *PutUserMetaTagOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestPutUserMetaTagResponse)
+	o.Payload = new(models.RestPutUserMetaTagResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutUserMetaTagUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type PutUserMetaTagUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put user meta tag unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutUserMetaTagUnauthorized) String() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagUnauthorized %s", 401, payload)
 }
 
-func (o *PutUserMetaTagUnauthorized) GetPayload() *models2.RestError {
+func (o *PutUserMetaTagUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutUserMetaTagUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutUserMetaTagForbidden describes a response with status code 403, with default 
 User has no permission to access this particular resource
 */
 type PutUserMetaTagForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put user meta tag forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutUserMetaTagForbidden) String() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagForbidden %s", 403, payload)
 }
 
-func (o *PutUserMetaTagForbidden) GetPayload() *models2.RestError {
+func (o *PutUserMetaTagForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutUserMetaTagForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutUserMetaTagNotFound describes a response with status code 404, with default h
 Resource does not exist in the system
 */
 type PutUserMetaTagNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put user meta tag not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutUserMetaTagNotFound) String() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagNotFound %s", 404, payload)
 }
 
-func (o *PutUserMetaTagNotFound) GetPayload() *models2.RestError {
+func (o *PutUserMetaTagNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutUserMetaTagNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutUserMetaTagInternalServerError describes a response with status code 500, wit
 An internal error occurred in the backend
 */
 type PutUserMetaTagInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put user meta tag internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutUserMetaTagInternalServerError) String() string {
 	return fmt.Sprintf("[POST /user-meta/tags/{Namespace}][%d] putUserMetaTagInternalServerError %s", 500, payload)
 }
 
-func (o *PutUserMetaTagInternalServerError) GetPayload() *models2.RestError {
+func (o *PutUserMetaTagInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutUserMetaTagInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

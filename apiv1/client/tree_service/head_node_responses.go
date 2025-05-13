@@ -8,11 +8,12 @@ package tree_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // HeadNodeReader is a Reader for the HeadNode structure.
@@ -69,7 +70,7 @@ HeadNodeOK describes a response with status code 200, with default header values
 A successful response.
 */
 type HeadNodeOK struct {
-	Payload *models2.RestHeadNodeResponse
+	Payload *models.RestHeadNodeResponse
 }
 
 // IsSuccess returns true when this head node o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *HeadNodeOK) String() string {
 	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeOK %s", 200, payload)
 }
 
-func (o *HeadNodeOK) GetPayload() *models2.RestHeadNodeResponse {
+func (o *HeadNodeOK) GetPayload() *models.RestHeadNodeResponse {
 	return o.Payload
 }
 
 func (o *HeadNodeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestHeadNodeResponse)
+	o.Payload = new(models.RestHeadNodeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ HeadNodeUnauthorized describes a response with status code 401, with default hea
 User is not authenticated
 */
 type HeadNodeUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this head node unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *HeadNodeUnauthorized) String() string {
 	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeUnauthorized %s", 401, payload)
 }
 
-func (o *HeadNodeUnauthorized) GetPayload() *models2.RestError {
+func (o *HeadNodeUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *HeadNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ HeadNodeForbidden describes a response with status code 403, with default header
 User has no permission to access this particular resource
 */
 type HeadNodeForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this head node forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *HeadNodeForbidden) String() string {
 	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeForbidden %s", 403, payload)
 }
 
-func (o *HeadNodeForbidden) GetPayload() *models2.RestError {
+func (o *HeadNodeForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *HeadNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ HeadNodeNotFound describes a response with status code 404, with default header 
 Resource does not exist in the system
 */
 type HeadNodeNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this head node not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *HeadNodeNotFound) String() string {
 	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeNotFound %s", 404, payload)
 }
 
-func (o *HeadNodeNotFound) GetPayload() *models2.RestError {
+func (o *HeadNodeNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *HeadNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ HeadNodeInternalServerError describes a response with status code 500, with defa
 An internal error occurred in the backend
 */
 type HeadNodeInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this head node internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *HeadNodeInternalServerError) String() string {
 	return fmt.Sprintf("[GET /tree/stat/{Node}][%d] headNodeInternalServerError %s", 500, payload)
 }
 
-func (o *HeadNodeInternalServerError) GetPayload() *models2.RestError {
+func (o *HeadNodeInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *HeadNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

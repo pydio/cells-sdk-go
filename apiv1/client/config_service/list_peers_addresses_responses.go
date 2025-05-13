@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListPeersAddressesReader is a Reader for the ListPeersAddresses structure.
@@ -69,7 +70,7 @@ ListPeersAddressesOK describes a response with status code 200, with default hea
 A successful response.
 */
 type ListPeersAddressesOK struct {
-	Payload *models2.RestListPeersAddressesResponse
+	Payload *models.RestListPeersAddressesResponse
 }
 
 // IsSuccess returns true when this list peers addresses o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListPeersAddressesOK) String() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesOK %s", 200, payload)
 }
 
-func (o *ListPeersAddressesOK) GetPayload() *models2.RestListPeersAddressesResponse {
+func (o *ListPeersAddressesOK) GetPayload() *models.RestListPeersAddressesResponse {
 	return o.Payload
 }
 
 func (o *ListPeersAddressesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestListPeersAddressesResponse)
+	o.Payload = new(models.RestListPeersAddressesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListPeersAddressesUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type ListPeersAddressesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peers addresses unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListPeersAddressesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesUnauthorized %s", 401, payload)
 }
 
-func (o *ListPeersAddressesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListPeersAddressesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListPeersAddressesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListPeersAddressesForbidden describes a response with status code 403, with defa
 User has no permission to access this particular resource
 */
 type ListPeersAddressesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peers addresses forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListPeersAddressesForbidden) String() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesForbidden %s", 403, payload)
 }
 
-func (o *ListPeersAddressesForbidden) GetPayload() *models2.RestError {
+func (o *ListPeersAddressesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListPeersAddressesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListPeersAddressesNotFound describes a response with status code 404, with defau
 Resource does not exist in the system
 */
 type ListPeersAddressesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peers addresses not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListPeersAddressesNotFound) String() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesNotFound %s", 404, payload)
 }
 
-func (o *ListPeersAddressesNotFound) GetPayload() *models2.RestError {
+func (o *ListPeersAddressesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListPeersAddressesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListPeersAddressesInternalServerError describes a response with status code 500,
 An internal error occurred in the backend
 */
 type ListPeersAddressesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list peers addresses internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListPeersAddressesInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/peers][%d] listPeersAddressesInternalServerError %s", 500, payload)
 }
 
-func (o *ListPeersAddressesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListPeersAddressesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListPeersAddressesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

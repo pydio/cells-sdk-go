@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetDataSourceReader is a Reader for the GetDataSource structure.
@@ -69,7 +70,7 @@ GetDataSourceOK describes a response with status code 200, with default header v
 A successful response.
 */
 type GetDataSourceOK struct {
-	Payload *models2.ObjectDataSource
+	Payload *models.ObjectDataSource
 }
 
 // IsSuccess returns true when this get data source o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetDataSourceOK) String() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceOK %s", 200, payload)
 }
 
-func (o *GetDataSourceOK) GetPayload() *models2.ObjectDataSource {
+func (o *GetDataSourceOK) GetPayload() *models.ObjectDataSource {
 	return o.Payload
 }
 
 func (o *GetDataSourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.ObjectDataSource)
+	o.Payload = new(models.ObjectDataSource)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetDataSourceUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type GetDataSourceUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get data source unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetDataSourceUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceUnauthorized %s", 401, payload)
 }
 
-func (o *GetDataSourceUnauthorized) GetPayload() *models2.RestError {
+func (o *GetDataSourceUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetDataSourceForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type GetDataSourceForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get data source forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetDataSourceForbidden) String() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceForbidden %s", 403, payload)
 }
 
-func (o *GetDataSourceForbidden) GetPayload() *models2.RestError {
+func (o *GetDataSourceForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetDataSourceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetDataSourceNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type GetDataSourceNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get data source not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetDataSourceNotFound) String() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceNotFound %s", 404, payload)
 }
 
-func (o *GetDataSourceNotFound) GetPayload() *models2.RestError {
+func (o *GetDataSourceNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetDataSourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetDataSourceInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type GetDataSourceInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get data source internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetDataSourceInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/datasource/{Name}][%d] getDataSourceInternalServerError %s", 500, payload)
 }
 
-func (o *GetDataSourceInternalServerError) GetPayload() *models2.RestError {
+func (o *GetDataSourceInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetDataSourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

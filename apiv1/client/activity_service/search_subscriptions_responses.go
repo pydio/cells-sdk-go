@@ -8,11 +8,12 @@ package activity_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SearchSubscriptionsReader is a Reader for the SearchSubscriptions structure.
@@ -69,7 +70,7 @@ SearchSubscriptionsOK describes a response with status code 200, with default he
 A successful response.
 */
 type SearchSubscriptionsOK struct {
-	Payload *models2.RestSubscriptionsCollection
+	Payload *models.RestSubscriptionsCollection
 }
 
 // IsSuccess returns true when this search subscriptions o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SearchSubscriptionsOK) String() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsOK %s", 200, payload)
 }
 
-func (o *SearchSubscriptionsOK) GetPayload() *models2.RestSubscriptionsCollection {
+func (o *SearchSubscriptionsOK) GetPayload() *models.RestSubscriptionsCollection {
 	return o.Payload
 }
 
 func (o *SearchSubscriptionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestSubscriptionsCollection)
+	o.Payload = new(models.RestSubscriptionsCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SearchSubscriptionsUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type SearchSubscriptionsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search subscriptions unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SearchSubscriptionsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsUnauthorized %s", 401, payload)
 }
 
-func (o *SearchSubscriptionsUnauthorized) GetPayload() *models2.RestError {
+func (o *SearchSubscriptionsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchSubscriptionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SearchSubscriptionsForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type SearchSubscriptionsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search subscriptions forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SearchSubscriptionsForbidden) String() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsForbidden %s", 403, payload)
 }
 
-func (o *SearchSubscriptionsForbidden) GetPayload() *models2.RestError {
+func (o *SearchSubscriptionsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchSubscriptionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SearchSubscriptionsNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type SearchSubscriptionsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search subscriptions not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SearchSubscriptionsNotFound) String() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsNotFound %s", 404, payload)
 }
 
-func (o *SearchSubscriptionsNotFound) GetPayload() *models2.RestError {
+func (o *SearchSubscriptionsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchSubscriptionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SearchSubscriptionsInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type SearchSubscriptionsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search subscriptions internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SearchSubscriptionsInternalServerError) String() string {
 	return fmt.Sprintf("[POST /activity/subscriptions][%d] searchSubscriptionsInternalServerError %s", 500, payload)
 }
 
-func (o *SearchSubscriptionsInternalServerError) GetPayload() *models2.RestError {
+func (o *SearchSubscriptionsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchSubscriptionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

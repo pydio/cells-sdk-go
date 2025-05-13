@@ -8,11 +8,12 @@ package user_meta_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // UpdateUserMetaReader is a Reader for the UpdateUserMeta structure.
@@ -69,7 +70,7 @@ UpdateUserMetaOK describes a response with status code 200, with default header 
 A successful response.
 */
 type UpdateUserMetaOK struct {
-	Payload *models2.IdmUpdateUserMetaResponse
+	Payload *models.IdmUpdateUserMetaResponse
 }
 
 // IsSuccess returns true when this update user meta o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UpdateUserMetaOK) String() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaOK %s", 200, payload)
 }
 
-func (o *UpdateUserMetaOK) GetPayload() *models2.IdmUpdateUserMetaResponse {
+func (o *UpdateUserMetaOK) GetPayload() *models.IdmUpdateUserMetaResponse {
 	return o.Payload
 }
 
 func (o *UpdateUserMetaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmUpdateUserMetaResponse)
+	o.Payload = new(models.IdmUpdateUserMetaResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UpdateUserMetaUnauthorized describes a response with status code 401, with defau
 User is not authenticated
 */
 type UpdateUserMetaUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update user meta unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UpdateUserMetaUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaUnauthorized %s", 401, payload)
 }
 
-func (o *UpdateUserMetaUnauthorized) GetPayload() *models2.RestError {
+func (o *UpdateUserMetaUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateUserMetaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UpdateUserMetaForbidden describes a response with status code 403, with default 
 User has no permission to access this particular resource
 */
 type UpdateUserMetaForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update user meta forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UpdateUserMetaForbidden) String() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaForbidden %s", 403, payload)
 }
 
-func (o *UpdateUserMetaForbidden) GetPayload() *models2.RestError {
+func (o *UpdateUserMetaForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateUserMetaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UpdateUserMetaNotFound describes a response with status code 404, with default h
 Resource does not exist in the system
 */
 type UpdateUserMetaNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update user meta not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UpdateUserMetaNotFound) String() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaNotFound %s", 404, payload)
 }
 
-func (o *UpdateUserMetaNotFound) GetPayload() *models2.RestError {
+func (o *UpdateUserMetaNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateUserMetaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UpdateUserMetaInternalServerError describes a response with status code 500, wit
 An internal error occurred in the backend
 */
 type UpdateUserMetaInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this update user meta internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UpdateUserMetaInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /user-meta/update][%d] updateUserMetaInternalServerError %s", 500, payload)
 }
 
-func (o *UpdateUserMetaInternalServerError) GetPayload() *models2.RestError {
+func (o *UpdateUserMetaInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UpdateUserMetaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

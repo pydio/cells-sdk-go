@@ -8,11 +8,12 @@ package role_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetRoleReader is a Reader for the GetRole structure.
@@ -69,7 +70,7 @@ GetRoleOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type GetRoleOK struct {
-	Payload *models2.IdmRole
+	Payload *models.IdmRole
 }
 
 // IsSuccess returns true when this get role o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetRoleOK) String() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleOK %s", 200, payload)
 }
 
-func (o *GetRoleOK) GetPayload() *models2.IdmRole {
+func (o *GetRoleOK) GetPayload() *models.IdmRole {
 	return o.Payload
 }
 
 func (o *GetRoleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmRole)
+	o.Payload = new(models.IdmRole)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetRoleUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetRoleUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get role unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetRoleUnauthorized) String() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleUnauthorized %s", 401, payload)
 }
 
-func (o *GetRoleUnauthorized) GetPayload() *models2.RestError {
+func (o *GetRoleUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetRoleForbidden describes a response with status code 403, with default header 
 User has no permission to access this particular resource
 */
 type GetRoleForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get role forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetRoleForbidden) String() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleForbidden %s", 403, payload)
 }
 
-func (o *GetRoleForbidden) GetPayload() *models2.RestError {
+func (o *GetRoleForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetRoleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetRoleNotFound describes a response with status code 404, with default header v
 Resource does not exist in the system
 */
 type GetRoleNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get role not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetRoleNotFound) String() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleNotFound %s", 404, payload)
 }
 
-func (o *GetRoleNotFound) GetPayload() *models2.RestError {
+func (o *GetRoleNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetRoleInternalServerError describes a response with status code 500, with defau
 An internal error occurred in the backend
 */
 type GetRoleInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get role internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetRoleInternalServerError) String() string {
 	return fmt.Sprintf("[GET /role/{Uuid}][%d] getRoleInternalServerError %s", 500, payload)
 }
 
-func (o *GetRoleInternalServerError) GetPayload() *models2.RestError {
+func (o *GetRoleInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetRoleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // OpenAPIDiscoveryReader is a Reader for the OpenAPIDiscovery structure.
@@ -69,7 +70,7 @@ OpenAPIDiscoveryOK describes a response with status code 200, with default heade
 A successful response.
 */
 type OpenAPIDiscoveryOK struct {
-	Payload *models2.RestOpenAPIResponse
+	Payload *models.RestOpenAPIResponse
 }
 
 // IsSuccess returns true when this open Api discovery o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *OpenAPIDiscoveryOK) String() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryOK %s", 200, payload)
 }
 
-func (o *OpenAPIDiscoveryOK) GetPayload() *models2.RestOpenAPIResponse {
+func (o *OpenAPIDiscoveryOK) GetPayload() *models.RestOpenAPIResponse {
 	return o.Payload
 }
 
 func (o *OpenAPIDiscoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestOpenAPIResponse)
+	o.Payload = new(models.RestOpenAPIResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ OpenAPIDiscoveryUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type OpenAPIDiscoveryUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this open Api discovery unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *OpenAPIDiscoveryUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryUnauthorized %s", 401, payload)
 }
 
-func (o *OpenAPIDiscoveryUnauthorized) GetPayload() *models2.RestError {
+func (o *OpenAPIDiscoveryUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *OpenAPIDiscoveryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ OpenAPIDiscoveryForbidden describes a response with status code 403, with defaul
 User has no permission to access this particular resource
 */
 type OpenAPIDiscoveryForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this open Api discovery forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *OpenAPIDiscoveryForbidden) String() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryForbidden %s", 403, payload)
 }
 
-func (o *OpenAPIDiscoveryForbidden) GetPayload() *models2.RestError {
+func (o *OpenAPIDiscoveryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *OpenAPIDiscoveryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ OpenAPIDiscoveryNotFound describes a response with status code 404, with default
 Resource does not exist in the system
 */
 type OpenAPIDiscoveryNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this open Api discovery not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *OpenAPIDiscoveryNotFound) String() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryNotFound %s", 404, payload)
 }
 
-func (o *OpenAPIDiscoveryNotFound) GetPayload() *models2.RestError {
+func (o *OpenAPIDiscoveryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *OpenAPIDiscoveryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ OpenAPIDiscoveryInternalServerError describes a response with status code 500, w
 An internal error occurred in the backend
 */
 type OpenAPIDiscoveryInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this open Api discovery internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *OpenAPIDiscoveryInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/discovery/openapi][%d] openApiDiscoveryInternalServerError %s", 500, payload)
 }
 
-func (o *OpenAPIDiscoveryInternalServerError) GetPayload() *models2.RestError {
+func (o *OpenAPIDiscoveryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *OpenAPIDiscoveryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

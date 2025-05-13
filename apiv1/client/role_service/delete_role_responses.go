@@ -8,11 +8,12 @@ package role_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteRoleReader is a Reader for the DeleteRole structure.
@@ -69,7 +70,7 @@ DeleteRoleOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type DeleteRoleOK struct {
-	Payload *models2.IdmRole
+	Payload *models.IdmRole
 }
 
 // IsSuccess returns true when this delete role o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteRoleOK) String() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleOK %s", 200, payload)
 }
 
-func (o *DeleteRoleOK) GetPayload() *models2.IdmRole {
+func (o *DeleteRoleOK) GetPayload() *models.IdmRole {
 	return o.Payload
 }
 
 func (o *DeleteRoleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmRole)
+	o.Payload = new(models.IdmRole)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteRoleUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteRoleUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete role unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteRoleUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteRoleUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteRoleUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteRoleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteRoleForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type DeleteRoleForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete role forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteRoleForbidden) String() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleForbidden %s", 403, payload)
 }
 
-func (o *DeleteRoleForbidden) GetPayload() *models2.RestError {
+func (o *DeleteRoleForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteRoleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteRoleNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type DeleteRoleNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete role not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteRoleNotFound) String() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleNotFound %s", 404, payload)
 }
 
-func (o *DeleteRoleNotFound) GetPayload() *models2.RestError {
+func (o *DeleteRoleNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteRoleInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type DeleteRoleInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete role internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteRoleInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /role/{Uuid}][%d] deleteRoleInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteRoleInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteRoleInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteRoleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package user_meta_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListUserMetaTagsReader is a Reader for the ListUserMetaTags structure.
@@ -69,7 +70,7 @@ ListUserMetaTagsOK describes a response with status code 200, with default heade
 A successful response.
 */
 type ListUserMetaTagsOK struct {
-	Payload *models2.RestListUserMetaTagsResponse
+	Payload *models.RestListUserMetaTagsResponse
 }
 
 // IsSuccess returns true when this list user meta tags o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListUserMetaTagsOK) String() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsOK %s", 200, payload)
 }
 
-func (o *ListUserMetaTagsOK) GetPayload() *models2.RestListUserMetaTagsResponse {
+func (o *ListUserMetaTagsOK) GetPayload() *models.RestListUserMetaTagsResponse {
 	return o.Payload
 }
 
 func (o *ListUserMetaTagsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestListUserMetaTagsResponse)
+	o.Payload = new(models.RestListUserMetaTagsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListUserMetaTagsUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type ListUserMetaTagsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta tags unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListUserMetaTagsUnauthorized) String() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsUnauthorized %s", 401, payload)
 }
 
-func (o *ListUserMetaTagsUnauthorized) GetPayload() *models2.RestError {
+func (o *ListUserMetaTagsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListUserMetaTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListUserMetaTagsForbidden describes a response with status code 403, with defaul
 User has no permission to access this particular resource
 */
 type ListUserMetaTagsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta tags forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListUserMetaTagsForbidden) String() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsForbidden %s", 403, payload)
 }
 
-func (o *ListUserMetaTagsForbidden) GetPayload() *models2.RestError {
+func (o *ListUserMetaTagsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListUserMetaTagsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListUserMetaTagsNotFound describes a response with status code 404, with default
 Resource does not exist in the system
 */
 type ListUserMetaTagsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta tags not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListUserMetaTagsNotFound) String() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsNotFound %s", 404, payload)
 }
 
-func (o *ListUserMetaTagsNotFound) GetPayload() *models2.RestError {
+func (o *ListUserMetaTagsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListUserMetaTagsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListUserMetaTagsInternalServerError describes a response with status code 500, w
 An internal error occurred in the backend
 */
 type ListUserMetaTagsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list user meta tags internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListUserMetaTagsInternalServerError) String() string {
 	return fmt.Sprintf("[GET /user-meta/tags/{Namespace}][%d] listUserMetaTagsInternalServerError %s", 500, payload)
 }
 
-func (o *ListUserMetaTagsInternalServerError) GetPayload() *models2.RestError {
+func (o *ListUserMetaTagsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListUserMetaTagsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

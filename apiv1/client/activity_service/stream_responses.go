@@ -8,11 +8,12 @@ package activity_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // StreamReader is a Reader for the Stream structure.
@@ -69,7 +70,7 @@ StreamOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type StreamOK struct {
-	Payload *models2.ActivityObject
+	Payload *models.ActivityObject
 }
 
 // IsSuccess returns true when this stream o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *StreamOK) String() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamOK %s", 200, payload)
 }
 
-func (o *StreamOK) GetPayload() *models2.ActivityObject {
+func (o *StreamOK) GetPayload() *models.ActivityObject {
 	return o.Payload
 }
 
 func (o *StreamOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.ActivityObject)
+	o.Payload = new(models.ActivityObject)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ StreamUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type StreamUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stream unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *StreamUnauthorized) String() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamUnauthorized %s", 401, payload)
 }
 
-func (o *StreamUnauthorized) GetPayload() *models2.RestError {
+func (o *StreamUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ StreamForbidden describes a response with status code 403, with default header v
 User has no permission to access this particular resource
 */
 type StreamForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stream forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *StreamForbidden) String() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamForbidden %s", 403, payload)
 }
 
-func (o *StreamForbidden) GetPayload() *models2.RestError {
+func (o *StreamForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StreamForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ StreamNotFound describes a response with status code 404, with default header va
 Resource does not exist in the system
 */
 type StreamNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stream not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *StreamNotFound) String() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamNotFound %s", 404, payload)
 }
 
-func (o *StreamNotFound) GetPayload() *models2.RestError {
+func (o *StreamNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StreamNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ StreamInternalServerError describes a response with status code 500, with defaul
 An internal error occurred in the backend
 */
 type StreamInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this stream internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *StreamInternalServerError) String() string {
 	return fmt.Sprintf("[POST /activity/stream][%d] streamInternalServerError %s", 500, payload)
 }
 
-func (o *StreamInternalServerError) GetPayload() *models2.RestError {
+func (o *StreamInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *StreamInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

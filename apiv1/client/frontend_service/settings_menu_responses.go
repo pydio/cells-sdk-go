@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SettingsMenuReader is a Reader for the SettingsMenu structure.
@@ -69,7 +70,7 @@ SettingsMenuOK describes a response with status code 200, with default header va
 A successful response.
 */
 type SettingsMenuOK struct {
-	Payload *models2.RestSettingsMenuResponse
+	Payload *models.RestSettingsMenuResponse
 }
 
 // IsSuccess returns true when this settings menu o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SettingsMenuOK) String() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuOK %s", 200, payload)
 }
 
-func (o *SettingsMenuOK) GetPayload() *models2.RestSettingsMenuResponse {
+func (o *SettingsMenuOK) GetPayload() *models.RestSettingsMenuResponse {
 	return o.Payload
 }
 
 func (o *SettingsMenuOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestSettingsMenuResponse)
+	o.Payload = new(models.RestSettingsMenuResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SettingsMenuUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type SettingsMenuUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this settings menu unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SettingsMenuUnauthorized) String() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuUnauthorized %s", 401, payload)
 }
 
-func (o *SettingsMenuUnauthorized) GetPayload() *models2.RestError {
+func (o *SettingsMenuUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SettingsMenuUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SettingsMenuForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type SettingsMenuForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this settings menu forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SettingsMenuForbidden) String() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuForbidden %s", 403, payload)
 }
 
-func (o *SettingsMenuForbidden) GetPayload() *models2.RestError {
+func (o *SettingsMenuForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SettingsMenuForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SettingsMenuNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type SettingsMenuNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this settings menu not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SettingsMenuNotFound) String() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuNotFound %s", 404, payload)
 }
 
-func (o *SettingsMenuNotFound) GetPayload() *models2.RestError {
+func (o *SettingsMenuNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SettingsMenuNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SettingsMenuInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type SettingsMenuInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this settings menu internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SettingsMenuInternalServerError) String() string {
 	return fmt.Sprintf("[GET /frontend/settings-menu][%d] settingsMenuInternalServerError %s", 500, payload)
 }
 
-func (o *SettingsMenuInternalServerError) GetPayload() *models2.RestError {
+func (o *SettingsMenuInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SettingsMenuInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

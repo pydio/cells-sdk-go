@@ -8,11 +8,12 @@ package role_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SearchRolesReader is a Reader for the SearchRoles structure.
@@ -69,7 +70,7 @@ SearchRolesOK describes a response with status code 200, with default header val
 A successful response.
 */
 type SearchRolesOK struct {
-	Payload *models2.RestRolesCollection
+	Payload *models.RestRolesCollection
 }
 
 // IsSuccess returns true when this search roles o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SearchRolesOK) String() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesOK %s", 200, payload)
 }
 
-func (o *SearchRolesOK) GetPayload() *models2.RestRolesCollection {
+func (o *SearchRolesOK) GetPayload() *models.RestRolesCollection {
 	return o.Payload
 }
 
 func (o *SearchRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestRolesCollection)
+	o.Payload = new(models.RestRolesCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SearchRolesUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type SearchRolesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search roles unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SearchRolesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesUnauthorized %s", 401, payload)
 }
 
-func (o *SearchRolesUnauthorized) GetPayload() *models2.RestError {
+func (o *SearchRolesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SearchRolesForbidden describes a response with status code 403, with default hea
 User has no permission to access this particular resource
 */
 type SearchRolesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search roles forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SearchRolesForbidden) String() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesForbidden %s", 403, payload)
 }
 
-func (o *SearchRolesForbidden) GetPayload() *models2.RestError {
+func (o *SearchRolesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SearchRolesNotFound describes a response with status code 404, with default head
 Resource does not exist in the system
 */
 type SearchRolesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search roles not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SearchRolesNotFound) String() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesNotFound %s", 404, payload)
 }
 
-func (o *SearchRolesNotFound) GetPayload() *models2.RestError {
+func (o *SearchRolesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SearchRolesInternalServerError describes a response with status code 500, with d
 An internal error occurred in the backend
 */
 type SearchRolesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this search roles internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SearchRolesInternalServerError) String() string {
 	return fmt.Sprintf("[POST /role][%d] searchRolesInternalServerError %s", 500, payload)
 }
 
-func (o *SearchRolesInternalServerError) GetPayload() *models2.RestError {
+func (o *SearchRolesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SearchRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

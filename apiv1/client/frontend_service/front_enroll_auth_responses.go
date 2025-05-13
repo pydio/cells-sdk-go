@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // FrontEnrollAuthReader is a Reader for the FrontEnrollAuth structure.
@@ -69,7 +70,7 @@ FrontEnrollAuthOK describes a response with status code 200, with default header
 A successful response.
 */
 type FrontEnrollAuthOK struct {
-	Payload *models2.RestFrontEnrollAuthResponse
+	Payload *models.RestFrontEnrollAuthResponse
 }
 
 // IsSuccess returns true when this front enroll auth o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *FrontEnrollAuthOK) String() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthOK %s", 200, payload)
 }
 
-func (o *FrontEnrollAuthOK) GetPayload() *models2.RestFrontEnrollAuthResponse {
+func (o *FrontEnrollAuthOK) GetPayload() *models.RestFrontEnrollAuthResponse {
 	return o.Payload
 }
 
 func (o *FrontEnrollAuthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestFrontEnrollAuthResponse)
+	o.Payload = new(models.RestFrontEnrollAuthResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ FrontEnrollAuthUnauthorized describes a response with status code 401, with defa
 User is not authenticated
 */
 type FrontEnrollAuthUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front enroll auth unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *FrontEnrollAuthUnauthorized) String() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthUnauthorized %s", 401, payload)
 }
 
-func (o *FrontEnrollAuthUnauthorized) GetPayload() *models2.RestError {
+func (o *FrontEnrollAuthUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontEnrollAuthUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ FrontEnrollAuthForbidden describes a response with status code 403, with default
 User has no permission to access this particular resource
 */
 type FrontEnrollAuthForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front enroll auth forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *FrontEnrollAuthForbidden) String() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthForbidden %s", 403, payload)
 }
 
-func (o *FrontEnrollAuthForbidden) GetPayload() *models2.RestError {
+func (o *FrontEnrollAuthForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontEnrollAuthForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ FrontEnrollAuthNotFound describes a response with status code 404, with default 
 Resource does not exist in the system
 */
 type FrontEnrollAuthNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front enroll auth not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *FrontEnrollAuthNotFound) String() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthNotFound %s", 404, payload)
 }
 
-func (o *FrontEnrollAuthNotFound) GetPayload() *models2.RestError {
+func (o *FrontEnrollAuthNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontEnrollAuthNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ FrontEnrollAuthInternalServerError describes a response with status code 500, wi
 An internal error occurred in the backend
 */
 type FrontEnrollAuthInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front enroll auth internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *FrontEnrollAuthInternalServerError) String() string {
 	return fmt.Sprintf("[POST /frontend/enroll][%d] frontEnrollAuthInternalServerError %s", 500, payload)
 }
 
-func (o *FrontEnrollAuthInternalServerError) GetPayload() *models2.RestError {
+func (o *FrontEnrollAuthInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontEnrollAuthInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

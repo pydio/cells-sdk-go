@@ -8,11 +8,12 @@ package graph_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // RecommendReader is a Reader for the Recommend structure.
@@ -69,7 +70,7 @@ RecommendOK describes a response with status code 200, with default header value
 A successful response.
 */
 type RecommendOK struct {
-	Payload *models2.RestRecommendResponse
+	Payload *models.RestRecommendResponse
 }
 
 // IsSuccess returns true when this recommend o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *RecommendOK) String() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendOK %s", 200, payload)
 }
 
-func (o *RecommendOK) GetPayload() *models2.RestRecommendResponse {
+func (o *RecommendOK) GetPayload() *models.RestRecommendResponse {
 	return o.Payload
 }
 
 func (o *RecommendOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestRecommendResponse)
+	o.Payload = new(models.RestRecommendResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ RecommendUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type RecommendUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this recommend unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *RecommendUnauthorized) String() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendUnauthorized %s", 401, payload)
 }
 
-func (o *RecommendUnauthorized) GetPayload() *models2.RestError {
+func (o *RecommendUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RecommendUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ RecommendForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type RecommendForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this recommend forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *RecommendForbidden) String() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendForbidden %s", 403, payload)
 }
 
-func (o *RecommendForbidden) GetPayload() *models2.RestError {
+func (o *RecommendForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RecommendForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ RecommendNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type RecommendNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this recommend not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *RecommendNotFound) String() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendNotFound %s", 404, payload)
 }
 
-func (o *RecommendNotFound) GetPayload() *models2.RestError {
+func (o *RecommendNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RecommendNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ RecommendInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type RecommendInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this recommend internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *RecommendInternalServerError) String() string {
 	return fmt.Sprintf("[POST /graph/recommend][%d] recommendInternalServerError %s", 500, payload)
 }
 
-func (o *RecommendInternalServerError) GetPayload() *models2.RestError {
+func (o *RecommendInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *RecommendInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

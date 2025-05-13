@@ -8,11 +8,12 @@ package token_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GenerateDocumentAccessTokenReader is a Reader for the GenerateDocumentAccessToken structure.
@@ -69,7 +70,7 @@ GenerateDocumentAccessTokenOK describes a response with status code 200, with de
 A successful response.
 */
 type GenerateDocumentAccessTokenOK struct {
-	Payload *models2.RestDocumentAccessTokenResponse
+	Payload *models.RestDocumentAccessTokenResponse
 }
 
 // IsSuccess returns true when this generate document access token o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GenerateDocumentAccessTokenOK) String() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenOK %s", 200, payload)
 }
 
-func (o *GenerateDocumentAccessTokenOK) GetPayload() *models2.RestDocumentAccessTokenResponse {
+func (o *GenerateDocumentAccessTokenOK) GetPayload() *models.RestDocumentAccessTokenResponse {
 	return o.Payload
 }
 
 func (o *GenerateDocumentAccessTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDocumentAccessTokenResponse)
+	o.Payload = new(models.RestDocumentAccessTokenResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GenerateDocumentAccessTokenUnauthorized describes a response with status code 40
 User is not authenticated
 */
 type GenerateDocumentAccessTokenUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this generate document access token unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GenerateDocumentAccessTokenUnauthorized) String() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenUnauthorized %s", 401, payload)
 }
 
-func (o *GenerateDocumentAccessTokenUnauthorized) GetPayload() *models2.RestError {
+func (o *GenerateDocumentAccessTokenUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GenerateDocumentAccessTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GenerateDocumentAccessTokenForbidden describes a response with status code 403, 
 User has no permission to access this particular resource
 */
 type GenerateDocumentAccessTokenForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this generate document access token forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GenerateDocumentAccessTokenForbidden) String() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenForbidden %s", 403, payload)
 }
 
-func (o *GenerateDocumentAccessTokenForbidden) GetPayload() *models2.RestError {
+func (o *GenerateDocumentAccessTokenForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GenerateDocumentAccessTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GenerateDocumentAccessTokenNotFound describes a response with status code 404, w
 Resource does not exist in the system
 */
 type GenerateDocumentAccessTokenNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this generate document access token not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GenerateDocumentAccessTokenNotFound) String() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenNotFound %s", 404, payload)
 }
 
-func (o *GenerateDocumentAccessTokenNotFound) GetPayload() *models2.RestError {
+func (o *GenerateDocumentAccessTokenNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GenerateDocumentAccessTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GenerateDocumentAccessTokenInternalServerError describes a response with status 
 An internal error occurred in the backend
 */
 type GenerateDocumentAccessTokenInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this generate document access token internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GenerateDocumentAccessTokenInternalServerError) String() string {
 	return fmt.Sprintf("[POST /auth/token/document][%d] generateDocumentAccessTokenInternalServerError %s", 500, payload)
 }
 
-func (o *GenerateDocumentAccessTokenInternalServerError) GetPayload() *models2.RestError {
+func (o *GenerateDocumentAccessTokenInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GenerateDocumentAccessTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

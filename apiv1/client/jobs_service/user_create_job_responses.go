@@ -8,11 +8,12 @@ package jobs_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // UserCreateJobReader is a Reader for the UserCreateJob structure.
@@ -69,7 +70,7 @@ UserCreateJobOK describes a response with status code 200, with default header v
 A successful response.
 */
 type UserCreateJobOK struct {
-	Payload *models2.RestUserJobResponse
+	Payload *models.RestUserJobResponse
 }
 
 // IsSuccess returns true when this user create job o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *UserCreateJobOK) String() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobOK %s", 200, payload)
 }
 
-func (o *UserCreateJobOK) GetPayload() *models2.RestUserJobResponse {
+func (o *UserCreateJobOK) GetPayload() *models.RestUserJobResponse {
 	return o.Payload
 }
 
 func (o *UserCreateJobOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestUserJobResponse)
+	o.Payload = new(models.RestUserJobResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ UserCreateJobUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type UserCreateJobUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user create job unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *UserCreateJobUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobUnauthorized %s", 401, payload)
 }
 
-func (o *UserCreateJobUnauthorized) GetPayload() *models2.RestError {
+func (o *UserCreateJobUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserCreateJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ UserCreateJobForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type UserCreateJobForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user create job forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *UserCreateJobForbidden) String() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobForbidden %s", 403, payload)
 }
 
-func (o *UserCreateJobForbidden) GetPayload() *models2.RestError {
+func (o *UserCreateJobForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserCreateJobForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ UserCreateJobNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type UserCreateJobNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user create job not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *UserCreateJobNotFound) String() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobNotFound %s", 404, payload)
 }
 
-func (o *UserCreateJobNotFound) GetPayload() *models2.RestError {
+func (o *UserCreateJobNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserCreateJobNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ UserCreateJobInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type UserCreateJobInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this user create job internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *UserCreateJobInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /jobs/user/{JobName}][%d] userCreateJobInternalServerError %s", 500, payload)
 }
 
-func (o *UserCreateJobInternalServerError) GetPayload() *models2.RestError {
+func (o *UserCreateJobInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *UserCreateJobInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

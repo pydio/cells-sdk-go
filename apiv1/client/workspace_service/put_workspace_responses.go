@@ -8,11 +8,12 @@ package workspace_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutWorkspaceReader is a Reader for the PutWorkspace structure.
@@ -69,7 +70,7 @@ PutWorkspaceOK describes a response with status code 200, with default header va
 A successful response.
 */
 type PutWorkspaceOK struct {
-	Payload *models2.IdmWorkspace
+	Payload *models.IdmWorkspace
 }
 
 // IsSuccess returns true when this put workspace o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutWorkspaceOK) String() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceOK %s", 200, payload)
 }
 
-func (o *PutWorkspaceOK) GetPayload() *models2.IdmWorkspace {
+func (o *PutWorkspaceOK) GetPayload() *models.IdmWorkspace {
 	return o.Payload
 }
 
 func (o *PutWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.IdmWorkspace)
+	o.Payload = new(models.IdmWorkspace)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutWorkspaceUnauthorized describes a response with status code 401, with default
 User is not authenticated
 */
 type PutWorkspaceUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put workspace unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutWorkspaceUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceUnauthorized %s", 401, payload)
 }
 
-func (o *PutWorkspaceUnauthorized) GetPayload() *models2.RestError {
+func (o *PutWorkspaceUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutWorkspaceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutWorkspaceForbidden describes a response with status code 403, with default he
 User has no permission to access this particular resource
 */
 type PutWorkspaceForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put workspace forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutWorkspaceForbidden) String() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceForbidden %s", 403, payload)
 }
 
-func (o *PutWorkspaceForbidden) GetPayload() *models2.RestError {
+func (o *PutWorkspaceForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutWorkspaceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutWorkspaceNotFound describes a response with status code 404, with default hea
 Resource does not exist in the system
 */
 type PutWorkspaceNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put workspace not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutWorkspaceNotFound) String() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceNotFound %s", 404, payload)
 }
 
-func (o *PutWorkspaceNotFound) GetPayload() *models2.RestError {
+func (o *PutWorkspaceNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutWorkspaceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutWorkspaceInternalServerError describes a response with status code 500, with 
 An internal error occurred in the backend
 */
 type PutWorkspaceInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put workspace internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutWorkspaceInternalServerError) String() string {
 	return fmt.Sprintf("[PUT /workspace/{Slug}][%d] putWorkspaceInternalServerError %s", 500, payload)
 }
 
-func (o *PutWorkspaceInternalServerError) GetPayload() *models2.RestError {
+func (o *PutWorkspaceInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutWorkspaceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

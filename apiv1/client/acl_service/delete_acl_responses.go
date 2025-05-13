@@ -8,11 +8,12 @@ package acl_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteACLReader is a Reader for the DeleteACL structure.
@@ -69,7 +70,7 @@ DeleteACLOK describes a response with status code 200, with default header value
 A successful response.
 */
 type DeleteACLOK struct {
-	Payload *models2.RestDeleteResponse
+	Payload *models.RestDeleteResponse
 }
 
 // IsSuccess returns true when this delete Acl o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteACLOK) String() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclOK %s", 200, payload)
 }
 
-func (o *DeleteACLOK) GetPayload() *models2.RestDeleteResponse {
+func (o *DeleteACLOK) GetPayload() *models.RestDeleteResponse {
 	return o.Payload
 }
 
 func (o *DeleteACLOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteResponse)
+	o.Payload = new(models.RestDeleteResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteACLUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type DeleteACLUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete Acl unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteACLUnauthorized) String() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteACLUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteACLUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteACLUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteACLForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type DeleteACLForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete Acl forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteACLForbidden) String() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclForbidden %s", 403, payload)
 }
 
-func (o *DeleteACLForbidden) GetPayload() *models2.RestError {
+func (o *DeleteACLForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteACLForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteACLNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type DeleteACLNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete Acl not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteACLNotFound) String() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclNotFound %s", 404, payload)
 }
 
-func (o *DeleteACLNotFound) GetPayload() *models2.RestError {
+func (o *DeleteACLNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteACLNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteACLInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type DeleteACLInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete Acl internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteACLInternalServerError) String() string {
 	return fmt.Sprintf("[POST /acl/bulk/delete][%d] deleteAclInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteACLInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteACLInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteACLInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

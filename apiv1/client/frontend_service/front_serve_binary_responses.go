@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // FrontServeBinaryReader is a Reader for the FrontServeBinary structure.
@@ -69,7 +70,7 @@ FrontServeBinaryOK describes a response with status code 200, with default heade
 A successful response.
 */
 type FrontServeBinaryOK struct {
-	Payload *models2.RestFrontBinaryResponse
+	Payload *models.RestFrontBinaryResponse
 }
 
 // IsSuccess returns true when this front serve binary o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *FrontServeBinaryOK) String() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryOK %s", 200, payload)
 }
 
-func (o *FrontServeBinaryOK) GetPayload() *models2.RestFrontBinaryResponse {
+func (o *FrontServeBinaryOK) GetPayload() *models.RestFrontBinaryResponse {
 	return o.Payload
 }
 
 func (o *FrontServeBinaryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestFrontBinaryResponse)
+	o.Payload = new(models.RestFrontBinaryResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ FrontServeBinaryUnauthorized describes a response with status code 401, with def
 User is not authenticated
 */
 type FrontServeBinaryUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front serve binary unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *FrontServeBinaryUnauthorized) String() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryUnauthorized %s", 401, payload)
 }
 
-func (o *FrontServeBinaryUnauthorized) GetPayload() *models2.RestError {
+func (o *FrontServeBinaryUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontServeBinaryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ FrontServeBinaryForbidden describes a response with status code 403, with defaul
 User has no permission to access this particular resource
 */
 type FrontServeBinaryForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front serve binary forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *FrontServeBinaryForbidden) String() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryForbidden %s", 403, payload)
 }
 
-func (o *FrontServeBinaryForbidden) GetPayload() *models2.RestError {
+func (o *FrontServeBinaryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontServeBinaryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ FrontServeBinaryNotFound describes a response with status code 404, with default
 Resource does not exist in the system
 */
 type FrontServeBinaryNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front serve binary not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *FrontServeBinaryNotFound) String() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryNotFound %s", 404, payload)
 }
 
-func (o *FrontServeBinaryNotFound) GetPayload() *models2.RestError {
+func (o *FrontServeBinaryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontServeBinaryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ FrontServeBinaryInternalServerError describes a response with status code 500, w
 An internal error occurred in the backend
 */
 type FrontServeBinaryInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front serve binary internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *FrontServeBinaryInternalServerError) String() string {
 	return fmt.Sprintf("[GET /frontend/binaries/{BinaryType}/{Uuid}][%d] frontServeBinaryInternalServerError %s", 500, payload)
 }
 
-func (o *FrontServeBinaryInternalServerError) GetPayload() *models2.RestError {
+func (o *FrontServeBinaryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontServeBinaryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package tree_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteNodesReader is a Reader for the DeleteNodes structure.
@@ -69,7 +70,7 @@ DeleteNodesOK describes a response with status code 200, with default header val
 A successful response.
 */
 type DeleteNodesOK struct {
-	Payload *models2.RestDeleteNodesResponse
+	Payload *models.RestDeleteNodesResponse
 }
 
 // IsSuccess returns true when this delete nodes o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteNodesOK) String() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesOK %s", 200, payload)
 }
 
-func (o *DeleteNodesOK) GetPayload() *models2.RestDeleteNodesResponse {
+func (o *DeleteNodesOK) GetPayload() *models.RestDeleteNodesResponse {
 	return o.Payload
 }
 
 func (o *DeleteNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteNodesResponse)
+	o.Payload = new(models.RestDeleteNodesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteNodesUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type DeleteNodesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete nodes unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteNodesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteNodesUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteNodesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteNodesForbidden describes a response with status code 403, with default hea
 User has no permission to access this particular resource
 */
 type DeleteNodesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete nodes forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteNodesForbidden) String() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesForbidden %s", 403, payload)
 }
 
-func (o *DeleteNodesForbidden) GetPayload() *models2.RestError {
+func (o *DeleteNodesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteNodesNotFound describes a response with status code 404, with default head
 Resource does not exist in the system
 */
 type DeleteNodesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete nodes not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteNodesNotFound) String() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesNotFound %s", 404, payload)
 }
 
-func (o *DeleteNodesNotFound) GetPayload() *models2.RestError {
+func (o *DeleteNodesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteNodesInternalServerError describes a response with status code 500, with d
 An internal error occurred in the backend
 */
 type DeleteNodesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete nodes internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteNodesInternalServerError) String() string {
 	return fmt.Sprintf("[POST /tree/delete][%d] deleteNodesInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteNodesInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteNodesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

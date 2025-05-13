@@ -8,11 +8,12 @@ package activity_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SubscribeReader is a Reader for the Subscribe structure.
@@ -69,7 +70,7 @@ SubscribeOK describes a response with status code 200, with default header value
 A successful response.
 */
 type SubscribeOK struct {
-	Payload *models2.ActivitySubscription
+	Payload *models.ActivitySubscription
 }
 
 // IsSuccess returns true when this subscribe o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SubscribeOK) String() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeOK %s", 200, payload)
 }
 
-func (o *SubscribeOK) GetPayload() *models2.ActivitySubscription {
+func (o *SubscribeOK) GetPayload() *models.ActivitySubscription {
 	return o.Payload
 }
 
 func (o *SubscribeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.ActivitySubscription)
+	o.Payload = new(models.ActivitySubscription)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SubscribeUnauthorized describes a response with status code 401, with default he
 User is not authenticated
 */
 type SubscribeUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this subscribe unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SubscribeUnauthorized) String() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeUnauthorized %s", 401, payload)
 }
 
-func (o *SubscribeUnauthorized) GetPayload() *models2.RestError {
+func (o *SubscribeUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SubscribeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SubscribeForbidden describes a response with status code 403, with default heade
 User has no permission to access this particular resource
 */
 type SubscribeForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this subscribe forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SubscribeForbidden) String() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeForbidden %s", 403, payload)
 }
 
-func (o *SubscribeForbidden) GetPayload() *models2.RestError {
+func (o *SubscribeForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SubscribeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SubscribeNotFound describes a response with status code 404, with default header
 Resource does not exist in the system
 */
 type SubscribeNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this subscribe not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SubscribeNotFound) String() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeNotFound %s", 404, payload)
 }
 
-func (o *SubscribeNotFound) GetPayload() *models2.RestError {
+func (o *SubscribeNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SubscribeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SubscribeInternalServerError describes a response with status code 500, with def
 An internal error occurred in the backend
 */
 type SubscribeInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this subscribe internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SubscribeInternalServerError) String() string {
 	return fmt.Sprintf("[POST /activity/subscribe][%d] subscribeInternalServerError %s", 500, payload)
 }
 
-func (o *SubscribeInternalServerError) GetPayload() *models2.RestError {
+func (o *SubscribeInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SubscribeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetVersioningPolicyReader is a Reader for the GetVersioningPolicy structure.
@@ -69,7 +70,7 @@ GetVersioningPolicyOK describes a response with status code 200, with default he
 A successful response.
 */
 type GetVersioningPolicyOK struct {
-	Payload *models2.TreeVersioningPolicy
+	Payload *models.TreeVersioningPolicy
 }
 
 // IsSuccess returns true when this get versioning policy o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetVersioningPolicyOK) String() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyOK %s", 200, payload)
 }
 
-func (o *GetVersioningPolicyOK) GetPayload() *models2.TreeVersioningPolicy {
+func (o *GetVersioningPolicyOK) GetPayload() *models.TreeVersioningPolicy {
 	return o.Payload
 }
 
 func (o *GetVersioningPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.TreeVersioningPolicy)
+	o.Payload = new(models.TreeVersioningPolicy)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetVersioningPolicyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type GetVersioningPolicyUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get versioning policy unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetVersioningPolicyUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyUnauthorized %s", 401, payload)
 }
 
-func (o *GetVersioningPolicyUnauthorized) GetPayload() *models2.RestError {
+func (o *GetVersioningPolicyUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetVersioningPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetVersioningPolicyForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type GetVersioningPolicyForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get versioning policy forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetVersioningPolicyForbidden) String() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyForbidden %s", 403, payload)
 }
 
-func (o *GetVersioningPolicyForbidden) GetPayload() *models2.RestError {
+func (o *GetVersioningPolicyForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetVersioningPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetVersioningPolicyNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type GetVersioningPolicyNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get versioning policy not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetVersioningPolicyNotFound) String() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyNotFound %s", 404, payload)
 }
 
-func (o *GetVersioningPolicyNotFound) GetPayload() *models2.RestError {
+func (o *GetVersioningPolicyNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetVersioningPolicyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetVersioningPolicyInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type GetVersioningPolicyInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get versioning policy internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetVersioningPolicyInternalServerError) String() string {
 	return fmt.Sprintf("[GET /config/versioning/{Uuid}][%d] getVersioningPolicyInternalServerError %s", 500, payload)
 }
 
-func (o *GetVersioningPolicyInternalServerError) GetPayload() *models2.RestError {
+func (o *GetVersioningPolicyInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetVersioningPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

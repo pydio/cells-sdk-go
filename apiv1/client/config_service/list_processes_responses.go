@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListProcessesReader is a Reader for the ListProcesses structure.
@@ -69,7 +70,7 @@ ListProcessesOK describes a response with status code 200, with default header v
 A successful response.
 */
 type ListProcessesOK struct {
-	Payload *models2.RestListProcessesResponse
+	Payload *models.RestListProcessesResponse
 }
 
 // IsSuccess returns true when this list processes o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListProcessesOK) String() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesOK %s", 200, payload)
 }
 
-func (o *ListProcessesOK) GetPayload() *models2.RestListProcessesResponse {
+func (o *ListProcessesOK) GetPayload() *models.RestListProcessesResponse {
 	return o.Payload
 }
 
 func (o *ListProcessesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestListProcessesResponse)
+	o.Payload = new(models.RestListProcessesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListProcessesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type ListProcessesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list processes unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListProcessesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesUnauthorized %s", 401, payload)
 }
 
-func (o *ListProcessesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListProcessesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListProcessesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListProcessesForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type ListProcessesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list processes forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListProcessesForbidden) String() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesForbidden %s", 403, payload)
 }
 
-func (o *ListProcessesForbidden) GetPayload() *models2.RestError {
+func (o *ListProcessesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListProcessesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListProcessesNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type ListProcessesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list processes not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListProcessesNotFound) String() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesNotFound %s", 404, payload)
 }
 
-func (o *ListProcessesNotFound) GetPayload() *models2.RestError {
+func (o *ListProcessesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListProcessesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListProcessesInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type ListProcessesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list processes internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListProcessesInternalServerError) String() string {
 	return fmt.Sprintf("[POST /config/processes][%d] listProcessesInternalServerError %s", 500, payload)
 }
 
-func (o *ListProcessesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListProcessesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListProcessesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

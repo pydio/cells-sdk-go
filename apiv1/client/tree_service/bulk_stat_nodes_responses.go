@@ -8,11 +8,12 @@ package tree_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // BulkStatNodesReader is a Reader for the BulkStatNodes structure.
@@ -69,7 +70,7 @@ BulkStatNodesOK describes a response with status code 200, with default header v
 A successful response.
 */
 type BulkStatNodesOK struct {
-	Payload *models2.RestBulkMetaResponse
+	Payload *models.RestBulkMetaResponse
 }
 
 // IsSuccess returns true when this bulk stat nodes o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *BulkStatNodesOK) String() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesOK %s", 200, payload)
 }
 
-func (o *BulkStatNodesOK) GetPayload() *models2.RestBulkMetaResponse {
+func (o *BulkStatNodesOK) GetPayload() *models.RestBulkMetaResponse {
 	return o.Payload
 }
 
 func (o *BulkStatNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestBulkMetaResponse)
+	o.Payload = new(models.RestBulkMetaResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ BulkStatNodesUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type BulkStatNodesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this bulk stat nodes unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *BulkStatNodesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesUnauthorized %s", 401, payload)
 }
 
-func (o *BulkStatNodesUnauthorized) GetPayload() *models2.RestError {
+func (o *BulkStatNodesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *BulkStatNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ BulkStatNodesForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type BulkStatNodesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this bulk stat nodes forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *BulkStatNodesForbidden) String() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesForbidden %s", 403, payload)
 }
 
-func (o *BulkStatNodesForbidden) GetPayload() *models2.RestError {
+func (o *BulkStatNodesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *BulkStatNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ BulkStatNodesNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type BulkStatNodesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this bulk stat nodes not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *BulkStatNodesNotFound) String() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesNotFound %s", 404, payload)
 }
 
-func (o *BulkStatNodesNotFound) GetPayload() *models2.RestError {
+func (o *BulkStatNodesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *BulkStatNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ BulkStatNodesInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type BulkStatNodesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this bulk stat nodes internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *BulkStatNodesInternalServerError) String() string {
 	return fmt.Sprintf("[POST /tree/stats][%d] bulkStatNodesInternalServerError %s", 500, payload)
 }
 
-func (o *BulkStatNodesInternalServerError) GetPayload() *models2.RestError {
+func (o *BulkStatNodesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *BulkStatNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

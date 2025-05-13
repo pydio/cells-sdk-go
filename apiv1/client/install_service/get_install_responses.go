@@ -8,11 +8,12 @@ package install_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetInstallReader is a Reader for the GetInstall structure.
@@ -69,7 +70,7 @@ GetInstallOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type GetInstallOK struct {
-	Payload *models2.InstallGetDefaultsResponse
+	Payload *models.InstallGetDefaultsResponse
 }
 
 // IsSuccess returns true when this get install o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetInstallOK) String() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallOK %s", 200, payload)
 }
 
-func (o *GetInstallOK) GetPayload() *models2.InstallGetDefaultsResponse {
+func (o *GetInstallOK) GetPayload() *models.InstallGetDefaultsResponse {
 	return o.Payload
 }
 
 func (o *GetInstallOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.InstallGetDefaultsResponse)
+	o.Payload = new(models.InstallGetDefaultsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetInstallUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type GetInstallUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get install unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetInstallUnauthorized) String() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallUnauthorized %s", 401, payload)
 }
 
-func (o *GetInstallUnauthorized) GetPayload() *models2.RestError {
+func (o *GetInstallUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetInstallUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetInstallForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type GetInstallForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get install forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetInstallForbidden) String() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallForbidden %s", 403, payload)
 }
 
-func (o *GetInstallForbidden) GetPayload() *models2.RestError {
+func (o *GetInstallForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetInstallForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetInstallNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type GetInstallNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get install not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetInstallNotFound) String() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallNotFound %s", 404, payload)
 }
 
-func (o *GetInstallNotFound) GetPayload() *models2.RestError {
+func (o *GetInstallNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetInstallNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetInstallInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type GetInstallInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get install internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetInstallInternalServerError) String() string {
 	return fmt.Sprintf("[GET /install][%d] getInstallInternalServerError %s", 500, payload)
 }
 
-func (o *GetInstallInternalServerError) GetPayload() *models2.RestError {
+func (o *GetInstallInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetInstallInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

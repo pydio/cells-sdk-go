@@ -8,11 +8,12 @@ package health_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // APIReadyReader is a Reader for the APIReady structure.
@@ -69,7 +70,7 @@ APIReadyOK describes a response with status code 200, with default header values
 A successful response.
 */
 type APIReadyOK struct {
-	Payload *models2.RestHealthServiceResponse
+	Payload *models.RestHealthServiceResponse
 }
 
 // IsSuccess returns true when this api ready o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *APIReadyOK) String() string {
 	return fmt.Sprintf("[GET /health/ready][%d] apiReadyOK %s", 200, payload)
 }
 
-func (o *APIReadyOK) GetPayload() *models2.RestHealthServiceResponse {
+func (o *APIReadyOK) GetPayload() *models.RestHealthServiceResponse {
 	return o.Payload
 }
 
 func (o *APIReadyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestHealthServiceResponse)
+	o.Payload = new(models.RestHealthServiceResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ APIReadyUnauthorized describes a response with status code 401, with default hea
 User is not authenticated
 */
 type APIReadyUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this api ready unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *APIReadyUnauthorized) String() string {
 	return fmt.Sprintf("[GET /health/ready][%d] apiReadyUnauthorized %s", 401, payload)
 }
 
-func (o *APIReadyUnauthorized) GetPayload() *models2.RestError {
+func (o *APIReadyUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *APIReadyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ APIReadyForbidden describes a response with status code 403, with default header
 User has no permission to access this particular resource
 */
 type APIReadyForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this api ready forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *APIReadyForbidden) String() string {
 	return fmt.Sprintf("[GET /health/ready][%d] apiReadyForbidden %s", 403, payload)
 }
 
-func (o *APIReadyForbidden) GetPayload() *models2.RestError {
+func (o *APIReadyForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *APIReadyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ APIReadyNotFound describes a response with status code 404, with default header 
 Resource does not exist in the system
 */
 type APIReadyNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this api ready not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *APIReadyNotFound) String() string {
 	return fmt.Sprintf("[GET /health/ready][%d] apiReadyNotFound %s", 404, payload)
 }
 
-func (o *APIReadyNotFound) GetPayload() *models2.RestError {
+func (o *APIReadyNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *APIReadyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ APIReadyInternalServerError describes a response with status code 500, with defa
 An internal error occurred in the backend
 */
 type APIReadyInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this api ready internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *APIReadyInternalServerError) String() string {
 	return fmt.Sprintf("[GET /health/ready][%d] apiReadyInternalServerError %s", 500, payload)
 }
 
-func (o *APIReadyInternalServerError) GetPayload() *models2.RestError {
+func (o *APIReadyInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *APIReadyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

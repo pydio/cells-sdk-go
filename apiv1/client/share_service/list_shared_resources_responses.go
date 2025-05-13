@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ListSharedResourcesReader is a Reader for the ListSharedResources structure.
@@ -69,7 +70,7 @@ ListSharedResourcesOK describes a response with status code 200, with default he
 A successful response.
 */
 type ListSharedResourcesOK struct {
-	Payload *models2.RestListSharedResourcesResponse
+	Payload *models.RestListSharedResourcesResponse
 }
 
 // IsSuccess returns true when this list shared resources o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ListSharedResourcesOK) String() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesOK %s", 200, payload)
 }
 
-func (o *ListSharedResourcesOK) GetPayload() *models2.RestListSharedResourcesResponse {
+func (o *ListSharedResourcesOK) GetPayload() *models.RestListSharedResourcesResponse {
 	return o.Payload
 }
 
 func (o *ListSharedResourcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestListSharedResourcesResponse)
+	o.Payload = new(models.RestListSharedResourcesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ListSharedResourcesUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type ListSharedResourcesUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list shared resources unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ListSharedResourcesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesUnauthorized %s", 401, payload)
 }
 
-func (o *ListSharedResourcesUnauthorized) GetPayload() *models2.RestError {
+func (o *ListSharedResourcesUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListSharedResourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ListSharedResourcesForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type ListSharedResourcesForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list shared resources forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ListSharedResourcesForbidden) String() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesForbidden %s", 403, payload)
 }
 
-func (o *ListSharedResourcesForbidden) GetPayload() *models2.RestError {
+func (o *ListSharedResourcesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListSharedResourcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ListSharedResourcesNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type ListSharedResourcesNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list shared resources not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ListSharedResourcesNotFound) String() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesNotFound %s", 404, payload)
 }
 
-func (o *ListSharedResourcesNotFound) GetPayload() *models2.RestError {
+func (o *ListSharedResourcesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListSharedResourcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ListSharedResourcesInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type ListSharedResourcesInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this list shared resources internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ListSharedResourcesInternalServerError) String() string {
 	return fmt.Sprintf("[POST /share/resources][%d] listSharedResourcesInternalServerError %s", 500, payload)
 }
 
-func (o *ListSharedResourcesInternalServerError) GetPayload() *models2.RestError {
+func (o *ListSharedResourcesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ListSharedResourcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

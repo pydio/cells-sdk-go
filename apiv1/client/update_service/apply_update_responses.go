@@ -8,11 +8,12 @@ package update_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // ApplyUpdateReader is a Reader for the ApplyUpdate structure.
@@ -69,7 +70,7 @@ ApplyUpdateOK describes a response with status code 200, with default header val
 A successful response.
 */
 type ApplyUpdateOK struct {
-	Payload *models2.UpdateApplyUpdateResponse
+	Payload *models.UpdateApplyUpdateResponse
 }
 
 // IsSuccess returns true when this apply update o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *ApplyUpdateOK) String() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateOK %s", 200, payload)
 }
 
-func (o *ApplyUpdateOK) GetPayload() *models2.UpdateApplyUpdateResponse {
+func (o *ApplyUpdateOK) GetPayload() *models.UpdateApplyUpdateResponse {
 	return o.Payload
 }
 
 func (o *ApplyUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.UpdateApplyUpdateResponse)
+	o.Payload = new(models.UpdateApplyUpdateResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ ApplyUpdateUnauthorized describes a response with status code 401, with default 
 User is not authenticated
 */
 type ApplyUpdateUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *ApplyUpdateUnauthorized) String() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateUnauthorized %s", 401, payload)
 }
 
-func (o *ApplyUpdateUnauthorized) GetPayload() *models2.RestError {
+func (o *ApplyUpdateUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ApplyUpdateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ ApplyUpdateForbidden describes a response with status code 403, with default hea
 User has no permission to access this particular resource
 */
 type ApplyUpdateForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *ApplyUpdateForbidden) String() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateForbidden %s", 403, payload)
 }
 
-func (o *ApplyUpdateForbidden) GetPayload() *models2.RestError {
+func (o *ApplyUpdateForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ApplyUpdateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ ApplyUpdateNotFound describes a response with status code 404, with default head
 Resource does not exist in the system
 */
 type ApplyUpdateNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *ApplyUpdateNotFound) String() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateNotFound %s", 404, payload)
 }
 
-func (o *ApplyUpdateNotFound) GetPayload() *models2.RestError {
+func (o *ApplyUpdateNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ApplyUpdateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ ApplyUpdateInternalServerError describes a response with status code 500, with d
 An internal error occurred in the backend
 */
 type ApplyUpdateInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this apply update internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *ApplyUpdateInternalServerError) String() string {
 	return fmt.Sprintf("[PATCH /update/{TargetVersion}][%d] applyUpdateInternalServerError %s", 500, payload)
 }
 
-func (o *ApplyUpdateInternalServerError) GetPayload() *models2.RestError {
+func (o *ApplyUpdateInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *ApplyUpdateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

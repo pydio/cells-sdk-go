@@ -8,11 +8,12 @@ package frontend_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // FrontBootConfReader is a Reader for the FrontBootConf structure.
@@ -69,7 +70,7 @@ FrontBootConfOK describes a response with status code 200, with default header v
 A successful response.
 */
 type FrontBootConfOK struct {
-	Payload *models2.RestFrontBootConfResponse
+	Payload *models.RestFrontBootConfResponse
 }
 
 // IsSuccess returns true when this front boot conf o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *FrontBootConfOK) String() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfOK %s", 200, payload)
 }
 
-func (o *FrontBootConfOK) GetPayload() *models2.RestFrontBootConfResponse {
+func (o *FrontBootConfOK) GetPayload() *models.RestFrontBootConfResponse {
 	return o.Payload
 }
 
 func (o *FrontBootConfOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestFrontBootConfResponse)
+	o.Payload = new(models.RestFrontBootConfResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ FrontBootConfUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type FrontBootConfUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front boot conf unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *FrontBootConfUnauthorized) String() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfUnauthorized %s", 401, payload)
 }
 
-func (o *FrontBootConfUnauthorized) GetPayload() *models2.RestError {
+func (o *FrontBootConfUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontBootConfUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ FrontBootConfForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type FrontBootConfForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front boot conf forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *FrontBootConfForbidden) String() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfForbidden %s", 403, payload)
 }
 
-func (o *FrontBootConfForbidden) GetPayload() *models2.RestError {
+func (o *FrontBootConfForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontBootConfForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ FrontBootConfNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type FrontBootConfNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front boot conf not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *FrontBootConfNotFound) String() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfNotFound %s", 404, payload)
 }
 
-func (o *FrontBootConfNotFound) GetPayload() *models2.RestError {
+func (o *FrontBootConfNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontBootConfNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ FrontBootConfInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type FrontBootConfInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this front boot conf internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *FrontBootConfInternalServerError) String() string {
 	return fmt.Sprintf("[GET /frontend/bootconf][%d] frontBootConfInternalServerError %s", 500, payload)
 }
 
-func (o *FrontBootConfInternalServerError) GetPayload() *models2.RestError {
+func (o *FrontBootConfInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *FrontBootConfInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

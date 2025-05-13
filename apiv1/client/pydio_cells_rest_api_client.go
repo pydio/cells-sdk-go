@@ -9,6 +9,7 @@ import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
 	"github.com/pydio/cells-sdk-go/v5/apiv1/client/acl_service"
 	"github.com/pydio/cells-sdk-go/v5/apiv1/client/activity_service"
 	"github.com/pydio/cells-sdk-go/v5/apiv1/client/admin_tree_service"

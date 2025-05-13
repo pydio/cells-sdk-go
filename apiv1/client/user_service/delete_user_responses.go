@@ -8,11 +8,12 @@ package user_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteUserReader is a Reader for the DeleteUser structure.
@@ -69,7 +70,7 @@ DeleteUserOK describes a response with status code 200, with default header valu
 A successful response.
 */
 type DeleteUserOK struct {
-	Payload *models2.RestDeleteResponse
+	Payload *models.RestDeleteResponse
 }
 
 // IsSuccess returns true when this delete user o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteUserOK) String() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserOK %s", 200, payload)
 }
 
-func (o *DeleteUserOK) GetPayload() *models2.RestDeleteResponse {
+func (o *DeleteUserOK) GetPayload() *models.RestDeleteResponse {
 	return o.Payload
 }
 
 func (o *DeleteUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteResponse)
+	o.Payload = new(models.RestDeleteResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteUserUnauthorized describes a response with status code 401, with default h
 User is not authenticated
 */
 type DeleteUserUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteUserUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteUserUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteUserUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteUserForbidden describes a response with status code 403, with default head
 User has no permission to access this particular resource
 */
 type DeleteUserForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteUserForbidden) String() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserForbidden %s", 403, payload)
 }
 
-func (o *DeleteUserForbidden) GetPayload() *models2.RestError {
+func (o *DeleteUserForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteUserNotFound describes a response with status code 404, with default heade
 Resource does not exist in the system
 */
 type DeleteUserNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteUserNotFound) String() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserNotFound %s", 404, payload)
 }
 
-func (o *DeleteUserNotFound) GetPayload() *models2.RestError {
+func (o *DeleteUserNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteUserInternalServerError describes a response with status code 500, with de
 An internal error occurred in the backend
 */
 type DeleteUserInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteUserInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /user/{Login}][%d] deleteUserInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteUserInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteUserInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

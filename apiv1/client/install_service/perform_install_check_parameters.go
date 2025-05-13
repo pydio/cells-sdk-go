@@ -7,7 +7,6 @@ package install_service
 
 import (
 	"context"
-	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"net/http"
 	"time"
 
@@ -15,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // NewPerformInstallCheckParams creates a new PerformInstallCheckParams object,

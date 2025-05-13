@@ -8,11 +8,12 @@ package mailer_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SendReader is a Reader for the Send structure.
@@ -69,7 +70,7 @@ SendOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type SendOK struct {
-	Payload *models2.MailerSendMailResponse
+	Payload *models.MailerSendMailResponse
 }
 
 // IsSuccess returns true when this send o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SendOK) String() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendOK %s", 200, payload)
 }
 
-func (o *SendOK) GetPayload() *models2.MailerSendMailResponse {
+func (o *SendOK) GetPayload() *models.MailerSendMailResponse {
 	return o.Payload
 }
 
 func (o *SendOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.MailerSendMailResponse)
+	o.Payload = new(models.MailerSendMailResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SendUnauthorized describes a response with status code 401, with default header 
 User is not authenticated
 */
 type SendUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this send unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SendUnauthorized) String() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendUnauthorized %s", 401, payload)
 }
 
-func (o *SendUnauthorized) GetPayload() *models2.RestError {
+func (o *SendUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SendUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SendForbidden describes a response with status code 403, with default header val
 User has no permission to access this particular resource
 */
 type SendForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this send forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SendForbidden) String() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendForbidden %s", 403, payload)
 }
 
-func (o *SendForbidden) GetPayload() *models2.RestError {
+func (o *SendForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SendForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SendNotFound describes a response with status code 404, with default header valu
 Resource does not exist in the system
 */
 type SendNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this send not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SendNotFound) String() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendNotFound %s", 404, payload)
 }
 
-func (o *SendNotFound) GetPayload() *models2.RestError {
+func (o *SendNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SendNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SendInternalServerError describes a response with status code 500, with default 
 An internal error occurred in the backend
 */
 type SendInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this send internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SendInternalServerError) String() string {
 	return fmt.Sprintf("[POST /mailer/send][%d] sendInternalServerError %s", 500, payload)
 }
 
-func (o *SendInternalServerError) GetPayload() *models2.RestError {
+func (o *SendInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SendInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

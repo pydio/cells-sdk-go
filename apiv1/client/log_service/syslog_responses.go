@@ -8,11 +8,12 @@ package log_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // SyslogReader is a Reader for the Syslog structure.
@@ -69,7 +70,7 @@ SyslogOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type SyslogOK struct {
-	Payload *models2.RestLogMessageCollection
+	Payload *models.RestLogMessageCollection
 }
 
 // IsSuccess returns true when this syslog o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *SyslogOK) String() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogOK %s", 200, payload)
 }
 
-func (o *SyslogOK) GetPayload() *models2.RestLogMessageCollection {
+func (o *SyslogOK) GetPayload() *models.RestLogMessageCollection {
 	return o.Payload
 }
 
 func (o *SyslogOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestLogMessageCollection)
+	o.Payload = new(models.RestLogMessageCollection)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ SyslogUnauthorized describes a response with status code 401, with default heade
 User is not authenticated
 */
 type SyslogUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this syslog unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *SyslogUnauthorized) String() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogUnauthorized %s", 401, payload)
 }
 
-func (o *SyslogUnauthorized) GetPayload() *models2.RestError {
+func (o *SyslogUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SyslogUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ SyslogForbidden describes a response with status code 403, with default header v
 User has no permission to access this particular resource
 */
 type SyslogForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this syslog forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *SyslogForbidden) String() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogForbidden %s", 403, payload)
 }
 
-func (o *SyslogForbidden) GetPayload() *models2.RestError {
+func (o *SyslogForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SyslogForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ SyslogNotFound describes a response with status code 404, with default header va
 Resource does not exist in the system
 */
 type SyslogNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this syslog not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *SyslogNotFound) String() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogNotFound %s", 404, payload)
 }
 
-func (o *SyslogNotFound) GetPayload() *models2.RestError {
+func (o *SyslogNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SyslogNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ SyslogInternalServerError describes a response with status code 500, with defaul
 An internal error occurred in the backend
 */
 type SyslogInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this syslog internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *SyslogInternalServerError) String() string {
 	return fmt.Sprintf("[POST /log/sys][%d] syslogInternalServerError %s", 500, payload)
 }
 
-func (o *SyslogInternalServerError) GetPayload() *models2.RestError {
+func (o *SyslogInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *SyslogInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

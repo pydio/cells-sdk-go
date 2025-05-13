@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // PutDataSourceReader is a Reader for the PutDataSource structure.
@@ -69,7 +70,7 @@ PutDataSourceOK describes a response with status code 200, with default header v
 A successful response.
 */
 type PutDataSourceOK struct {
-	Payload *models2.ObjectDataSource
+	Payload *models.ObjectDataSource
 }
 
 // IsSuccess returns true when this put data source o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *PutDataSourceOK) String() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceOK %s", 200, payload)
 }
 
-func (o *PutDataSourceOK) GetPayload() *models2.ObjectDataSource {
+func (o *PutDataSourceOK) GetPayload() *models.ObjectDataSource {
 	return o.Payload
 }
 
 func (o *PutDataSourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.ObjectDataSource)
+	o.Payload = new(models.ObjectDataSource)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ PutDataSourceUnauthorized describes a response with status code 401, with defaul
 User is not authenticated
 */
 type PutDataSourceUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put data source unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *PutDataSourceUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceUnauthorized %s", 401, payload)
 }
 
-func (o *PutDataSourceUnauthorized) GetPayload() *models2.RestError {
+func (o *PutDataSourceUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutDataSourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ PutDataSourceForbidden describes a response with status code 403, with default h
 User has no permission to access this particular resource
 */
 type PutDataSourceForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put data source forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *PutDataSourceForbidden) String() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceForbidden %s", 403, payload)
 }
 
-func (o *PutDataSourceForbidden) GetPayload() *models2.RestError {
+func (o *PutDataSourceForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutDataSourceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ PutDataSourceNotFound describes a response with status code 404, with default he
 Resource does not exist in the system
 */
 type PutDataSourceNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put data source not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *PutDataSourceNotFound) String() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceNotFound %s", 404, payload)
 }
 
-func (o *PutDataSourceNotFound) GetPayload() *models2.RestError {
+func (o *PutDataSourceNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutDataSourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ PutDataSourceInternalServerError describes a response with status code 500, with
 An internal error occurred in the backend
 */
 type PutDataSourceInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this put data source internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *PutDataSourceInternalServerError) String() string {
 	return fmt.Sprintf("[POST /config/datasource/{Name}][%d] putDataSourceInternalServerError %s", 500, payload)
 }
 
-func (o *PutDataSourceInternalServerError) GetPayload() *models2.RestError {
+func (o *PutDataSourceInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *PutDataSourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

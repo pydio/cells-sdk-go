@@ -8,11 +8,12 @@ package config_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteEncryptionKeyReader is a Reader for the DeleteEncryptionKey structure.
@@ -69,7 +70,7 @@ DeleteEncryptionKeyOK describes a response with status code 200, with default he
 A successful response.
 */
 type DeleteEncryptionKeyOK struct {
-	Payload *models2.EncryptionAdminDeleteKeyResponse
+	Payload *models.EncryptionAdminDeleteKeyResponse
 }
 
 // IsSuccess returns true when this delete encryption key o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteEncryptionKeyOK) String() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyOK %s", 200, payload)
 }
 
-func (o *DeleteEncryptionKeyOK) GetPayload() *models2.EncryptionAdminDeleteKeyResponse {
+func (o *DeleteEncryptionKeyOK) GetPayload() *models.EncryptionAdminDeleteKeyResponse {
 	return o.Payload
 }
 
 func (o *DeleteEncryptionKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.EncryptionAdminDeleteKeyResponse)
+	o.Payload = new(models.EncryptionAdminDeleteKeyResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteEncryptionKeyUnauthorized describes a response with status code 401, with 
 User is not authenticated
 */
 type DeleteEncryptionKeyUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete encryption key unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteEncryptionKeyUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteEncryptionKeyUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteEncryptionKeyUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteEncryptionKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteEncryptionKeyForbidden describes a response with status code 403, with def
 User has no permission to access this particular resource
 */
 type DeleteEncryptionKeyForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete encryption key forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteEncryptionKeyForbidden) String() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyForbidden %s", 403, payload)
 }
 
-func (o *DeleteEncryptionKeyForbidden) GetPayload() *models2.RestError {
+func (o *DeleteEncryptionKeyForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteEncryptionKeyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteEncryptionKeyNotFound describes a response with status code 404, with defa
 Resource does not exist in the system
 */
 type DeleteEncryptionKeyNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete encryption key not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteEncryptionKeyNotFound) String() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyNotFound %s", 404, payload)
 }
 
-func (o *DeleteEncryptionKeyNotFound) GetPayload() *models2.RestError {
+func (o *DeleteEncryptionKeyNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteEncryptionKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteEncryptionKeyInternalServerError describes a response with status code 500
 An internal error occurred in the backend
 */
 type DeleteEncryptionKeyInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete encryption key internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteEncryptionKeyInternalServerError) String() string {
 	return fmt.Sprintf("[POST /config/encryption/delete][%d] deleteEncryptionKeyInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteEncryptionKeyInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteEncryptionKeyInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteEncryptionKeyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

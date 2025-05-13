@@ -8,11 +8,12 @@ package user_meta_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // DeleteUserMetaTagsReader is a Reader for the DeleteUserMetaTags structure.
@@ -69,7 +70,7 @@ DeleteUserMetaTagsOK describes a response with status code 200, with default hea
 A successful response.
 */
 type DeleteUserMetaTagsOK struct {
-	Payload *models2.RestDeleteUserMetaTagsResponse
+	Payload *models.RestDeleteUserMetaTagsResponse
 }
 
 // IsSuccess returns true when this delete user meta tags o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *DeleteUserMetaTagsOK) String() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsOK %s", 200, payload)
 }
 
-func (o *DeleteUserMetaTagsOK) GetPayload() *models2.RestDeleteUserMetaTagsResponse {
+func (o *DeleteUserMetaTagsOK) GetPayload() *models.RestDeleteUserMetaTagsResponse {
 	return o.Payload
 }
 
 func (o *DeleteUserMetaTagsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestDeleteUserMetaTagsResponse)
+	o.Payload = new(models.RestDeleteUserMetaTagsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ DeleteUserMetaTagsUnauthorized describes a response with status code 401, with d
 User is not authenticated
 */
 type DeleteUserMetaTagsUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user meta tags unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *DeleteUserMetaTagsUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteUserMetaTagsUnauthorized) GetPayload() *models2.RestError {
+func (o *DeleteUserMetaTagsUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserMetaTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ DeleteUserMetaTagsForbidden describes a response with status code 403, with defa
 User has no permission to access this particular resource
 */
 type DeleteUserMetaTagsForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user meta tags forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *DeleteUserMetaTagsForbidden) String() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsForbidden %s", 403, payload)
 }
 
-func (o *DeleteUserMetaTagsForbidden) GetPayload() *models2.RestError {
+func (o *DeleteUserMetaTagsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserMetaTagsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ DeleteUserMetaTagsNotFound describes a response with status code 404, with defau
 Resource does not exist in the system
 */
 type DeleteUserMetaTagsNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user meta tags not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *DeleteUserMetaTagsNotFound) String() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsNotFound %s", 404, payload)
 }
 
-func (o *DeleteUserMetaTagsNotFound) GetPayload() *models2.RestError {
+func (o *DeleteUserMetaTagsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserMetaTagsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ DeleteUserMetaTagsInternalServerError describes a response with status code 500,
 An internal error occurred in the backend
 */
 type DeleteUserMetaTagsInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this delete user meta tags internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *DeleteUserMetaTagsInternalServerError) String() string {
 	return fmt.Sprintf("[DELETE /user-meta/tags/{Namespace}/{Tags}][%d] deleteUserMetaTagsInternalServerError %s", 500, payload)
 }
 
-func (o *DeleteUserMetaTagsInternalServerError) GetPayload() *models2.RestError {
+func (o *DeleteUserMetaTagsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *DeleteUserMetaTagsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

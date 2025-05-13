@@ -8,11 +8,12 @@ package share_service
 import (
 	"encoding/json"
 	"fmt"
-	models2 "github.com/pydio/cells-sdk-go/v5/apiv1/models"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1/models"
 )
 
 // GetCellReader is a Reader for the GetCell structure.
@@ -69,7 +70,7 @@ GetCellOK describes a response with status code 200, with default header values.
 A successful response.
 */
 type GetCellOK struct {
-	Payload *models2.RestCell
+	Payload *models.RestCell
 }
 
 // IsSuccess returns true when this get cell o k response has a 2xx status code
@@ -112,13 +113,13 @@ func (o *GetCellOK) String() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellOK %s", 200, payload)
 }
 
-func (o *GetCellOK) GetPayload() *models2.RestCell {
+func (o *GetCellOK) GetPayload() *models.RestCell {
 	return o.Payload
 }
 
 func (o *GetCellOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestCell)
+	o.Payload = new(models.RestCell)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -139,7 +140,7 @@ GetCellUnauthorized describes a response with status code 401, with default head
 User is not authenticated
 */
 type GetCellUnauthorized struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get cell unauthorized response has a 2xx status code
@@ -182,13 +183,13 @@ func (o *GetCellUnauthorized) String() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellUnauthorized %s", 401, payload)
 }
 
-func (o *GetCellUnauthorized) GetPayload() *models2.RestError {
+func (o *GetCellUnauthorized) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetCellUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -209,7 +210,7 @@ GetCellForbidden describes a response with status code 403, with default header 
 User has no permission to access this particular resource
 */
 type GetCellForbidden struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get cell forbidden response has a 2xx status code
@@ -252,13 +253,13 @@ func (o *GetCellForbidden) String() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellForbidden %s", 403, payload)
 }
 
-func (o *GetCellForbidden) GetPayload() *models2.RestError {
+func (o *GetCellForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetCellForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -279,7 +280,7 @@ GetCellNotFound describes a response with status code 404, with default header v
 Resource does not exist in the system
 */
 type GetCellNotFound struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get cell not found response has a 2xx status code
@@ -322,13 +323,13 @@ func (o *GetCellNotFound) String() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellNotFound %s", 404, payload)
 }
 
-func (o *GetCellNotFound) GetPayload() *models2.RestError {
+func (o *GetCellNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetCellNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -349,7 +350,7 @@ GetCellInternalServerError describes a response with status code 500, with defau
 An internal error occurred in the backend
 */
 type GetCellInternalServerError struct {
-	Payload *models2.RestError
+	Payload *models.RestError
 }
 
 // IsSuccess returns true when this get cell internal server error response has a 2xx status code
@@ -392,13 +393,13 @@ func (o *GetCellInternalServerError) String() string {
 	return fmt.Sprintf("[GET /share/cell/{Uuid}][%d] getCellInternalServerError %s", 500, payload)
 }
 
-func (o *GetCellInternalServerError) GetPayload() *models2.RestError {
+func (o *GetCellInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
 
 func (o *GetCellInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models2.RestError)
+	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
