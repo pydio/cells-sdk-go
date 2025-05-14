@@ -74,7 +74,7 @@ var addUserCmd = &cobra.Command{
 		}
 
 		// Create User
-		newUser := &models.UserServicePutUserBody{
+		newUser := user_service.PutUserBody{
 			GroupPath:  "/",
 			Password:   newUserPassword,
 			Policies:   policies,
