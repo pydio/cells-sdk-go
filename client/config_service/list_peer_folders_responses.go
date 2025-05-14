@@ -6,12 +6,14 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +408,43 @@ func (o *ListPeerFoldersInternalServerError) readResponse(response runtime.Clien
 		return err
 	}
 
+	return nil
+}
+
+/*
+ListPeerFoldersBody RestListPeerFoldersRequest
+swagger:model ListPeerFoldersBody
+*/
+type ListPeerFoldersBody struct {
+
+	// Path to the parent folder for listing
+	Path string `json:"Path,omitempty"`
+}
+
+// Validate validates this list peer folders body
+func (o *ListPeerFoldersBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this list peer folders body based on context it is used
+func (o *ListPeerFoldersBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *ListPeerFoldersBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *ListPeerFoldersBody) UnmarshalBinary(b []byte) error {
+	var res ListPeerFoldersBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

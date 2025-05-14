@@ -6,12 +6,14 @@ package user_meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +408,43 @@ func (o *PutUserMetaTagInternalServerError) readResponse(response runtime.Client
 		return err
 	}
 
+	return nil
+}
+
+/*
+PutUserMetaTagBody RestPutUserMetaTagRequest
+swagger:model PutUserMetaTagBody
+*/
+type PutUserMetaTagBody struct {
+
+	// New tag value
+	Tag string `json:"Tag,omitempty"`
+}
+
+// Validate validates this put user meta tag body
+func (o *PutUserMetaTagBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this put user meta tag body based on context it is used
+func (o *PutUserMetaTagBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PutUserMetaTagBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PutUserMetaTagBody) UnmarshalBinary(b []byte) error {
+	var res PutUserMetaTagBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewCreatePeerFolderParams creates a new CreatePeerFolderParams object,
@@ -70,7 +68,7 @@ type CreatePeerFolderParams struct {
 	PeerAddress string
 
 	// Body.
-	Body *models.RestCreatePeerFolderRequest
+	Body CreatePeerFolderBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *CreatePeerFolderParams) SetPeerAddress(peerAddress string) {
 }
 
 // WithBody adds the body to the create peer folder params
-func (o *CreatePeerFolderParams) WithBody(body *models.RestCreatePeerFolderRequest) *CreatePeerFolderParams {
+func (o *CreatePeerFolderParams) WithBody(body CreatePeerFolderBody) *CreatePeerFolderParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the create peer folder params
-func (o *CreatePeerFolderParams) SetBody(body *models.RestCreatePeerFolderRequest) {
+func (o *CreatePeerFolderParams) SetBody(body CreatePeerFolderBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *CreatePeerFolderParams) WriteToRequest(r runtime.ClientRequest, reg str
 	if err := r.SetPathParam("PeerAddress", o.PeerAddress); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

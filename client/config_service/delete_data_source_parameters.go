@@ -172,14 +172,6 @@ type DeleteDataSourceParams struct {
 	*/
 	SkipSyncOnRestart *bool
 
-	/* StorageConfiguration.
-
-	     List of key values describing storage configuration
-
-	This is a request variable of the map type. The query format is "map_name[key]=value", e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age["bob"]=18
-	*/
-	StorageConfiguration *string
-
 	/* StorageType.
 
 	   Type of underlying storage (LOCAL, S3, AZURE, GCS)
@@ -452,17 +444,6 @@ func (o *DeleteDataSourceParams) WithSkipSyncOnRestart(skipSyncOnRestart *bool) 
 // SetSkipSyncOnRestart adds the skipSyncOnRestart to the delete data source params
 func (o *DeleteDataSourceParams) SetSkipSyncOnRestart(skipSyncOnRestart *bool) {
 	o.SkipSyncOnRestart = skipSyncOnRestart
-}
-
-// WithStorageConfiguration adds the storageConfiguration to the delete data source params
-func (o *DeleteDataSourceParams) WithStorageConfiguration(storageConfiguration *string) *DeleteDataSourceParams {
-	o.SetStorageConfiguration(storageConfiguration)
-	return o
-}
-
-// SetStorageConfiguration adds the storageConfiguration to the delete data source params
-func (o *DeleteDataSourceParams) SetStorageConfiguration(storageConfiguration *string) {
-	o.StorageConfiguration = storageConfiguration
 }
 
 // WithStorageType adds the storageType to the delete data source params
@@ -778,23 +759,6 @@ func (o *DeleteDataSourceParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qSkipSyncOnRestart != "" {
 
 			if err := r.SetQueryParam("SkipSyncOnRestart", qSkipSyncOnRestart); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.StorageConfiguration != nil {
-
-		// query param StorageConfiguration
-		var qrStorageConfiguration string
-
-		if o.StorageConfiguration != nil {
-			qrStorageConfiguration = *o.StorageConfiguration
-		}
-		qStorageConfiguration := qrStorageConfiguration
-		if qStorageConfiguration != "" {
-
-			if err := r.SetQueryParam("StorageConfiguration", qStorageConfiguration); err != nil {
 				return err
 			}
 		}

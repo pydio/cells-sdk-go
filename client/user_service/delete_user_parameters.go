@@ -62,14 +62,6 @@ DeleteUserParams contains all the parameters to send to the API endpoint
 */
 type DeleteUserParams struct {
 
-	/* Attributes.
-
-	     A free list of attributes
-
-	This is a request variable of the map type. The query format is "map_name[key]=value", e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age["bob"]=18
-	*/
-	Attributes *string
-
 	/* GroupLabel.
 
 	   Label of the group, field is empty for users
@@ -179,17 +171,6 @@ func (o *DeleteUserParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAttributes adds the attributes to the delete user params
-func (o *DeleteUserParams) WithAttributes(attributes *string) *DeleteUserParams {
-	o.SetAttributes(attributes)
-	return o
-}
-
-// SetAttributes adds the attributes to the delete user params
-func (o *DeleteUserParams) SetAttributes(attributes *string) {
-	o.Attributes = attributes
-}
-
 // WithGroupLabel adds the groupLabel to the delete user params
 func (o *DeleteUserParams) WithGroupLabel(groupLabel *string) *DeleteUserParams {
 	o.SetGroupLabel(groupLabel)
@@ -296,23 +277,6 @@ func (o *DeleteUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
-	if o.Attributes != nil {
-
-		// query param Attributes
-		var qrAttributes string
-
-		if o.Attributes != nil {
-			qrAttributes = *o.Attributes
-		}
-		qAttributes := qrAttributes
-		if qAttributes != "" {
-
-			if err := r.SetQueryParam("Attributes", qAttributes); err != nil {
-				return err
-			}
-		}
-	}
 
 	if o.GroupLabel != nil {
 
