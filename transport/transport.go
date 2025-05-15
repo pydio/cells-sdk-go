@@ -7,7 +7,7 @@ import (
 )
 
 // New creates a new default http transport with the passed transport and round-trip options.
-func New(options ...interface{}) http.RoundTripper {
+func New(options ...any) http.RoundTripper {
 
 	// Creates a new default http transport and applies relevant transport options
 	newTransport := &http.Transport{}

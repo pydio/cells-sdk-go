@@ -16,7 +16,7 @@ import (
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.
 // It returns an error if the passed option are not one of the supported type that are:
 // cellsSdk.HttpClientOption, cellsSdk.TransportOption, cellsSdk.RoundTripOption, cellsSdk.AwsConfigOption, cellsSdk.CredentialProviderOption
-func LoadConfig(ctx context.Context, sdc *cellsSdk.SdkConfig, options ...interface{}) (aws.Config, error) {
+func LoadConfig(ctx context.Context, sdc *cellsSdk.SdkConfig, options ...any) (aws.Config, error) {
 
 	for _, o := range options {
 		switch o.(type) {
