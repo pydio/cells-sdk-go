@@ -10,7 +10,7 @@ import (
 // NewHttpClient creates a custom HTTP client that has correct TLS skip verify flag and
 // defined custom headers.
 // Caller can provide additional options, typically to set a custom timeout.
-func NewHttpClient(sdkConfig *cellssdk.SdkConfig, options ...interface{}) *http.Client {
+func NewHttpClient(sdkConfig *cellssdk.SdkConfig, options ...any) *http.Client {
 	client := &http.Client{
 		Transport: New(
 			http2.WithSkipVerify(sdkConfig.SkipVerify),

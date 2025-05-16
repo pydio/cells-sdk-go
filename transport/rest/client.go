@@ -21,22 +21,31 @@ func GetApiClient(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*sdkclient.Pyd
 }
 
 func GetApiTransport(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*client.Runtime, error) {
+	return GetApiTransportWithOptions(sdkConfig, anonymous)
+}
+
+func GetApiTransportWithOptions(sdkConfig *cellssdk.SdkConfig, anonymous bool, options ...any) (*client.Runtime, error) {
 	u, e := url.Parse(sdkConfig.Url)
 	if e != nil {
 		return nil, e
 	}
 	tp := client.New(u.Host, cellssdk.CellsApiResourcePath, []string{u.Scheme})
-	transportOptions := []interface{}{
+	if len(options) == 0 {
+		options = []interface{}{}
+	}
+	options = append(
+		options,
 		http.WithSkipVerify(sdkConfig.SkipVerify),
 		http.WithCustomHeaders(sdkConfig.CustomHeaders),
-	}
+	)
+
 	if !anonymous {
 		tp, e := transport.TokenProviderFromConfig(sdkConfig)
 		if e != nil {
 			return nil, e
 		}
-		transportOptions = append(transportOptions, http.WithBearer(tp))
+		options = append(options, http.WithBearer(tp))
 	}
-	tp.Transport = transport.New(transportOptions...)
+	tp.Transport = transport.New(options...)
 	return tp, nil
 }
