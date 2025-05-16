@@ -13,31 +13,24 @@ import (
 )
 
 func GetApiClient(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*sdkclient.PydioCellsRestAPI, error) {
-	apiClient, err := GetApiTransport(sdkConfig, anonymous)
+	apiClient, err := GetApiRuntime(sdkConfig, anonymous)
 	if err != nil {
 		return nil, err
 	}
 	return sdkclient.New(apiClient, strfmt.Default), nil
 }
 
-func GetApiTransport(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*client.Runtime, error) {
-	return GetApiTransportWithOptions(sdkConfig, anonymous)
-}
-
-func GetApiTransportWithOptions(sdkConfig *cellssdk.SdkConfig, anonymous bool, options ...any) (*client.Runtime, error) {
+func GetApiRuntime(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*client.Runtime, error) {
 	u, e := url.Parse(sdkConfig.Url)
 	if e != nil {
 		return nil, e
 	}
 	tp := client.New(u.Host, cellssdk.CellsApiResourcePath, []string{u.Scheme})
-	if len(options) == 0 {
-		options = []interface{}{}
-	}
-	options = append(
-		options,
+
+	options := []any{
 		http.WithSkipVerify(sdkConfig.SkipVerify),
 		http.WithCustomHeaders(sdkConfig.CustomHeaders),
-	)
+	}
 
 	if !anonymous {
 		tp, e := transport.TokenProviderFromConfig(sdkConfig)
