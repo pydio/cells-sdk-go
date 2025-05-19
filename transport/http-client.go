@@ -17,7 +17,7 @@ func NewHttpClient(sdkConfig *cellssdk.SdkConfig, options ...any) *http.Client {
 			http2.WithCustomHeaders(sdkConfig.CustomHeaders),
 		),
 	}
-	// browse generic options to find the relevant ones, e.G to define a custom timeout.
+	// Apply relevant options, e.G to define a custom timeout.
 	for _, o := range options {
 		switch typed := o.(type) {
 		case cellssdk.HttpClientOption:

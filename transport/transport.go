@@ -7,7 +7,7 @@ import (
 	cellssdk "github.com/pydio/cells-sdk-go/v4"
 )
 
-// New creates a new http transport with the passed round trip options and reasonable defaults.
+// New creates a new http transport with the passed round-trip options and reasonable defaults.
 func New(options ...any) http.RoundTripper {
 
 	newTransport := &http.Transport{
@@ -18,12 +18,6 @@ func New(options ...any) http.RoundTripper {
 		TLSHandshakeTimeout:   10 * time.Second,
 		ExpectContinueTimeout: 1 * time.Second,
 	}
-	//	for _, o := range options {
-	//		switch typed := o.(type) {
-	//		case cellssdk.TransportOption:
-	//			newTransport = typed(newTransport)
-	//		}
-	//	}
 
 	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
 	var roundTrip http.RoundTripper
