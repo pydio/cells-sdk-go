@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TreeChangeLog Deprecated - Use ContentRevision instead
+// TreeChangeLog tree change log
 //
 // swagger:model treeChangeLog
 type TreeChangeLog struct {

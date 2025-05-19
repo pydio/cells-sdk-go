@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewPutRolesParams creates a new PutRolesParams object,
@@ -70,7 +68,7 @@ type PutRolesParams struct {
 	Login string
 
 	// Body.
-	Body *models.UserServicePutRolesBody
+	Body PutRolesBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *PutRolesParams) SetLogin(login string) {
 }
 
 // WithBody adds the body to the put roles params
-func (o *PutRolesParams) WithBody(body *models.UserServicePutRolesBody) *PutRolesParams {
+func (o *PutRolesParams) WithBody(body PutRolesBody) *PutRolesParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put roles params
-func (o *PutRolesParams) SetBody(body *models.UserServicePutRolesBody) {
+func (o *PutRolesParams) SetBody(body PutRolesBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *PutRolesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	if err := r.SetPathParam("Login", o.Login); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

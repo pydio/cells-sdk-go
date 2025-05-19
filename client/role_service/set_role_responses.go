@@ -6,12 +6,16 @@ package role_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +410,136 @@ func (o *SetRoleInternalServerError) readResponse(response runtime.ClientRespons
 		return err
 	}
 
+	return nil
+}
+
+/*
+SetRoleBody Role represents a generic set of permissions that can be applied to any users or groups.
+swagger:model SetRoleBody
+*/
+type SetRoleBody struct {
+
+	// List of profiles (standard, shared, admin) on which the role will be automatically applied
+	AutoApplies []string `json:"AutoApplies"`
+
+	// Is used in a stack of roles, this one will always be applied last.
+	ForceOverride bool `json:"ForceOverride,omitempty"`
+
+	// Whether this role is attached to a Group object
+	GroupRole bool `json:"GroupRole,omitempty"`
+
+	// Whether this role represents a user team or not
+	IsTeam bool `json:"IsTeam,omitempty"`
+
+	// Label of this role
+	Label string `json:"Label,omitempty"`
+
+	// Last modification date of the role
+	LastUpdated int32 `json:"LastUpdated,omitempty"`
+
+	// List of policies for securing this role access
+	Policies []*models.ServiceResourcePolicy `json:"Policies"`
+
+	// Whether the policies resolve into an editable state
+	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
+
+	// Whether this role is attached to a User object
+	UserRole bool `json:"UserRole,omitempty"`
+}
+
+// Validate validates this set role body
+func (o *SetRoleBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validatePolicies(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *SetRoleBody) validatePolicies(formats strfmt.Registry) error {
+	if swag.IsZero(o.Policies) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.Policies); i++ {
+		if swag.IsZero(o.Policies[i]) { // not required
+			continue
+		}
+
+		if o.Policies[i] != nil {
+			if err := o.Policies[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this set role body based on the context it is used
+func (o *SetRoleBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidatePolicies(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *SetRoleBody) contextValidatePolicies(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Policies); i++ {
+
+		if o.Policies[i] != nil {
+
+			if swag.IsZero(o.Policies[i]) { // not required
+				return nil
+			}
+
+			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *SetRoleBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *SetRoleBody) UnmarshalBinary(b []byte) error {
+	var res SetRoleBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

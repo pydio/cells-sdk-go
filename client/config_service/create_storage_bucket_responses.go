@@ -6,12 +6,15 @@ package config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +409,101 @@ func (o *CreateStorageBucketInternalServerError) readResponse(response runtime.C
 		return err
 	}
 
+	return nil
+}
+
+/*
+CreateStorageBucketBody RestCreateStorageBucketRequest
+swagger:model CreateStorageBucketBody
+*/
+type CreateStorageBucketBody struct {
+
+	// data source
+	DataSource *models.ObjectDataSource `json:"DataSource,omitempty"`
+}
+
+// Validate validates this create storage bucket body
+func (o *CreateStorageBucketBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDataSource(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *CreateStorageBucketBody) validateDataSource(formats strfmt.Registry) error {
+	if swag.IsZero(o.DataSource) { // not required
+		return nil
+	}
+
+	if o.DataSource != nil {
+		if err := o.DataSource.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "DataSource")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "DataSource")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create storage bucket body based on the context it is used
+func (o *CreateStorageBucketBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateDataSource(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *CreateStorageBucketBody) contextValidateDataSource(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.DataSource != nil {
+
+		if swag.IsZero(o.DataSource) { // not required
+			return nil
+		}
+
+		if err := o.DataSource.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "DataSource")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "DataSource")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *CreateStorageBucketBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *CreateStorageBucketBody) UnmarshalBinary(b []byte) error {
+	var res CreateStorageBucketBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

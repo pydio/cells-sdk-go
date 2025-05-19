@@ -6,12 +6,14 @@ package update_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +408,43 @@ func (o *ApplyUpdateInternalServerError) readResponse(response runtime.ClientRes
 		return err
 	}
 
+	return nil
+}
+
+/*
+ApplyUpdateBody UpdateApplyUpdateRequest
+swagger:model ApplyUpdateBody
+*/
+type ApplyUpdateBody struct {
+
+	// Name of the package if it's not the same as the current binary
+	PackageName string `json:"PackageName,omitempty"`
+}
+
+// Validate validates this apply update body
+func (o *ApplyUpdateBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this apply update body based on context it is used
+func (o *ApplyUpdateBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *ApplyUpdateBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *ApplyUpdateBody) UnmarshalBinary(b []byte) error {
+	var res ApplyUpdateBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

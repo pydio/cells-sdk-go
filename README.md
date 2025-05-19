@@ -1,6 +1,7 @@
 # Cells SDK Go (v4)
 
-> **WARNING**: the cells-sdk-go specific API (mainly package v4/transport) has been refined between v4 and v4.1. A migration is needed when you switch to v4.1 from an older version (see below).   
+> **WARNING**: due to a breaking change in the AWS SDK we use to manage large upload with unsigned streaming, we had to adapt the server. As a consequence, the latest version of the SDK v4.4 requires at least a server that has version 4.4.**12**, or large uploads will fail. If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.
+> Note also that the cells-sdk-go specific API (mainly package v4/transport) is still being refined and some methods will need migration between v4 and v4.1  
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 

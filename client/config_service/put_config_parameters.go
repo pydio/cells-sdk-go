@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewPutConfigParams creates a new PutConfigParams object,
@@ -70,7 +68,7 @@ type PutConfigParams struct {
 	FullPath string
 
 	// Body.
-	Body *models.ConfigServicePutConfigBody
+	Body PutConfigBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *PutConfigParams) SetFullPath(fullPath string) {
 }
 
 // WithBody adds the body to the put config params
-func (o *PutConfigParams) WithBody(body *models.ConfigServicePutConfigBody) *PutConfigParams {
+func (o *PutConfigParams) WithBody(body PutConfigBody) *PutConfigParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put config params
-func (o *PutConfigParams) SetBody(body *models.ConfigServicePutConfigBody) {
+func (o *PutConfigParams) SetBody(body PutConfigBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *PutConfigParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	if err := r.SetPathParam("FullPath", o.FullPath); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

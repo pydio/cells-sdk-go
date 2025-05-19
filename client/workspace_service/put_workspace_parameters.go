@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewPutWorkspaceParams creates a new PutWorkspaceParams object,
@@ -70,7 +68,7 @@ type PutWorkspaceParams struct {
 	Slug string
 
 	// Body.
-	Body *models.WorkspaceServicePutWorkspaceBody
+	Body PutWorkspaceBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *PutWorkspaceParams) SetSlug(slug string) {
 }
 
 // WithBody adds the body to the put workspace params
-func (o *PutWorkspaceParams) WithBody(body *models.WorkspaceServicePutWorkspaceBody) *PutWorkspaceParams {
+func (o *PutWorkspaceParams) WithBody(body PutWorkspaceBody) *PutWorkspaceParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put workspace params
-func (o *PutWorkspaceParams) SetBody(body *models.WorkspaceServicePutWorkspaceBody) {
+func (o *PutWorkspaceParams) SetBody(body PutWorkspaceBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *PutWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	if err := r.SetPathParam("Slug", o.Slug); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

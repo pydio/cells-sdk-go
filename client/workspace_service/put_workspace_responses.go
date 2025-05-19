@@ -6,12 +6,17 @@ package workspace_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +411,236 @@ func (o *PutWorkspaceInternalServerError) readResponse(response runtime.ClientRe
 		return err
 	}
 
+	return nil
+}
+
+/*
+PutWorkspaceBody A Workspace is composed of a set of nodes UUIDs and is used to provide accesses to the tree via ACLs.
+swagger:model PutWorkspaceBody
+*/
+type PutWorkspaceBody struct {
+
+	// JSON-encoded list of attributes
+	Attributes string `json:"Attributes,omitempty"`
+
+	// Description of the workspace (max length 1000)
+	Description string `json:"Description,omitempty"`
+
+	// Label of the workspace (max length 500)
+	Label string `json:"Label,omitempty"`
+
+	// Last modification time
+	LastUpdated int32 `json:"LastUpdated,omitempty"`
+
+	// Policies for securing access
+	Policies []*models.ServiceResourcePolicy `json:"Policies"`
+
+	// Context-resolved to quickly check if workspace is editable or not
+	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
+
+	// List of the Root Nodes in the tree that compose this workspace
+	RootNodes map[string]models.TreeNode `json:"RootNodes,omitempty"`
+
+	// Quick list of the RootNodes uuids
+	RootUUIDs []string `json:"RootUUIDs"`
+
+	// Scope can be ADMIN, ROOM (=CELL) or LINK
+	Scope *models.IdmWorkspaceScope `json:"Scope,omitempty"`
+
+	// Unique identifier of the workspace
+	UUID string `json:"UUID,omitempty"`
+}
+
+// Validate validates this put workspace body
+func (o *PutWorkspaceBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validatePolicies(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateRootNodes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateScope(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutWorkspaceBody) validatePolicies(formats strfmt.Registry) error {
+	if swag.IsZero(o.Policies) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.Policies); i++ {
+		if swag.IsZero(o.Policies[i]) { // not required
+			continue
+		}
+
+		if o.Policies[i] != nil {
+			if err := o.Policies[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutWorkspaceBody) validateRootNodes(formats strfmt.Registry) error {
+	if swag.IsZero(o.RootNodes) { // not required
+		return nil
+	}
+
+	for k := range o.RootNodes {
+
+		if err := validate.Required("body"+"."+"RootNodes"+"."+k, "body", o.RootNodes[k]); err != nil {
+			return err
+		}
+		if val, ok := o.RootNodes[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "RootNodes" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "RootNodes" + "." + k)
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutWorkspaceBody) validateScope(formats strfmt.Registry) error {
+	if swag.IsZero(o.Scope) { // not required
+		return nil
+	}
+
+	if o.Scope != nil {
+		if err := o.Scope.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "Scope")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "Scope")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this put workspace body based on the context it is used
+func (o *PutWorkspaceBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidatePolicies(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateRootNodes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateScope(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutWorkspaceBody) contextValidatePolicies(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Policies); i++ {
+
+		if o.Policies[i] != nil {
+
+			if swag.IsZero(o.Policies[i]) { // not required
+				return nil
+			}
+
+			if err := o.Policies[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "Policies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutWorkspaceBody) contextValidateRootNodes(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range o.RootNodes {
+
+		if val, ok := o.RootNodes[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutWorkspaceBody) contextValidateScope(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Scope != nil {
+
+		if swag.IsZero(o.Scope) { // not required
+			return nil
+		}
+
+		if err := o.Scope.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "Scope")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "Scope")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PutWorkspaceBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PutWorkspaceBody) UnmarshalBinary(b []byte) error {
+	var res PutWorkspaceBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

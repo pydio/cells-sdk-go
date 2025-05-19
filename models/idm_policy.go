@@ -7,7 +7,6 @@ package models
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,15 +18,6 @@ import (
 //
 // swagger:model idmPolicy
 type IdmPolicy struct {
-
-	// orm actions
-	OrmActions []*IdmPolicyAction `json:"OrmActions"`
-
-	// orm resources
-	OrmResources []*IdmPolicyResource `json:"OrmResources"`
-
-	// orm subjects
-	OrmSubjects []*IdmPolicySubject `json:"OrmSubjects"`
 
 	// actions
 	Actions []string `json:"actions"`
@@ -55,18 +45,6 @@ type IdmPolicy struct {
 func (m *IdmPolicy) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateOrmActions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOrmResources(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOrmSubjects(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateConditions(formats); err != nil {
 		res = append(res, err)
 	}
@@ -78,84 +56,6 @@ func (m *IdmPolicy) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *IdmPolicy) validateOrmActions(formats strfmt.Registry) error {
-	if swag.IsZero(m.OrmActions) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.OrmActions); i++ {
-		if swag.IsZero(m.OrmActions[i]) { // not required
-			continue
-		}
-
-		if m.OrmActions[i] != nil {
-			if err := m.OrmActions[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("OrmActions" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("OrmActions" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *IdmPolicy) validateOrmResources(formats strfmt.Registry) error {
-	if swag.IsZero(m.OrmResources) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.OrmResources); i++ {
-		if swag.IsZero(m.OrmResources[i]) { // not required
-			continue
-		}
-
-		if m.OrmResources[i] != nil {
-			if err := m.OrmResources[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("OrmResources" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("OrmResources" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *IdmPolicy) validateOrmSubjects(formats strfmt.Registry) error {
-	if swag.IsZero(m.OrmSubjects) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.OrmSubjects); i++ {
-		if swag.IsZero(m.OrmSubjects[i]) { // not required
-			continue
-		}
-
-		if m.OrmSubjects[i] != nil {
-			if err := m.OrmSubjects[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("OrmSubjects" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("OrmSubjects" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 
@@ -208,18 +108,6 @@ func (m *IdmPolicy) validateEffect(formats strfmt.Registry) error {
 func (m *IdmPolicy) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateOrmActions(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOrmResources(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOrmSubjects(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateConditions(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -231,81 +119,6 @@ func (m *IdmPolicy) ContextValidate(ctx context.Context, formats strfmt.Registry
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *IdmPolicy) contextValidateOrmActions(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.OrmActions); i++ {
-
-		if m.OrmActions[i] != nil {
-
-			if swag.IsZero(m.OrmActions[i]) { // not required
-				return nil
-			}
-
-			if err := m.OrmActions[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("OrmActions" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("OrmActions" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *IdmPolicy) contextValidateOrmResources(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.OrmResources); i++ {
-
-		if m.OrmResources[i] != nil {
-
-			if swag.IsZero(m.OrmResources[i]) { // not required
-				return nil
-			}
-
-			if err := m.OrmResources[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("OrmResources" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("OrmResources" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *IdmPolicy) contextValidateOrmSubjects(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.OrmSubjects); i++ {
-
-		if m.OrmSubjects[i] != nil {
-
-			if swag.IsZero(m.OrmSubjects[i]) { // not required
-				return nil
-			}
-
-			if err := m.OrmSubjects[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("OrmSubjects" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("OrmSubjects" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 
