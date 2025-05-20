@@ -1,9 +1,7 @@
 # Cells SDK Go (v5)
 
-
 > **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients.
 > Note also that the cells-sdk-go specific API (mainly package v5/transport) is still being refined and some methods will need migration between v4 and v5.
-
 
 > **WARNING**: due to a breaking change in the AWS SDK we use to manage large upload with unsigned streaming, we had to adapt the server. As a consequence, the latest version of the SDK v4.4 requires at least a server that has version 4.4.**12**, or large uploads will fail. If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.
 > Note also that the cells-sdk-go specific API (mainly package v4/transport) is still being refined and some methods will need migration between v4 and v4.1  
@@ -41,7 +39,7 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
 
-If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you will have to update your code.
+If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you have to update your code.  
 You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
 
 ### From SDK v3
@@ -67,8 +65,6 @@ Here is a short list of the modification you might have to do in your old code:
 ## Versioning policy
 
 Between version 2.2 and 3.99 of the Cells server, as the API was still moving and even if we tried to stay backward compatible, we released a minor version of the SDK for each minor version of the Pydio Cells Server: if you are stuck with some servers in v2 or v3, you might still want to use a SDK that has same major.minor version to communicate with your server.
-
-Since the v4, you can use the latest version of the SDK to communicate with any Cells V4+ server.
 
 ## License
 

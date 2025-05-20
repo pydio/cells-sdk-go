@@ -2,16 +2,17 @@ package transport
 
 import (
 	"context"
-	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv2"
-	sdkClient "github.com/pydio/cells-sdk-go/v5/apiv2/client"
 	"net/url"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2"
+	sdkClient "github.com/pydio/cells-sdk-go/v5/apiv2/client"
 )
 
-func GetRuntimeTransport(context context.Context, currConfig *cellsSdk.SdkConfig) (runtime.ClientTransport, error) {
+func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (runtime.ClientTransport, error) {
 	u, e := url.Parse(currConfig.Url)
 	if e != nil {
 		return nil, e
@@ -26,7 +27,7 @@ func GetRuntimeTransport(context context.Context, currConfig *cellsSdk.SdkConfig
 	return tp, nil
 }
 
-func GetRestClient(currConfig *cellsSdk.SdkConfig, anon bool) (*sdkClient.PydioCellsRestAPI, error) {
+func GetRestClient(currConfig *apiv2.SdkConfig, anon bool) (*sdkClient.PydioCellsRestAPI, error) {
 	t, e := GetClientTransport(currConfig, anon)
 	if e != nil {
 		return nil, e
@@ -34,14 +35,13 @@ func GetRestClient(currConfig *cellsSdk.SdkConfig, anon bool) (*sdkClient.PydioC
 	return sdkClient.New(t, strfmt.Default), nil
 }
 
-func GetClientTransport(currConfig *cellsSdk.SdkConfig, anonymous bool) (runtime.ClientTransport, error) {
-
+func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.ClientTransport, error) {
 	u, e := url.Parse(currConfig.Url)
 	if e != nil {
 		return nil, e
 	}
 	tp := client.New(u.Host, CellsApiPrefix, []string{u.Scheme})
-	transportOptions := []interface{}{
+	options := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
 	}
@@ -50,10 +50,10 @@ func GetClientTransport(currConfig *cellsSdk.SdkConfig, anonymous bool) (runtime
 		if e != nil {
 			return nil, e
 		}
-		transportOptions = append(transportOptions, WithBearer(tp))
+		options = append(options, WithBearer(tp))
 	}
 	tp.Context = context.Background()
-	tp.Transport = New(transportOptions...)
+	tp.Transport = New(options...)
 
 	return tp, nil
 }

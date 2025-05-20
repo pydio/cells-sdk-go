@@ -1,8 +1,8 @@
 package rest
 
 import (
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
-	sdkclient "github.com/pydio/cells-sdk-go/v5/apiv1/client"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	v1client "github.com/pydio/cells-sdk-go/v5/apiv1/client"
 	"github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
 	"net/url"
@@ -11,21 +11,21 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-func GetApiClient(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*sdkclient.PydioCellsRestAPI, error) {
-	apiClient, err := GetApiTransport(sdkConfig, anonymous)
+func GetApiClient(sdkConfig *apiv1.SdkConfig, anonymous bool) (*v1client.PydioCellsRestAPI, error) {
+	apiClient, err := GetApiRuntime(sdkConfig, anonymous)
 	if err != nil {
 		return nil, err
 	}
-	return sdkclient.New(apiClient, strfmt.Default), nil
+	return v1client.New(apiClient, strfmt.Default), nil
 }
 
-func GetApiTransport(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*client.Runtime, error) {
+func GetApiRuntime(sdkConfig *apiv1.SdkConfig, anonymous bool) (*client.Runtime, error) {
 	u, e := url.Parse(sdkConfig.Url)
 	if e != nil {
 		return nil, e
 	}
-	tp := client.New(u.Host, cellssdk.CellsApiResourcePath, []string{u.Scheme})
-	transportOptions := []interface{}{
+	tp := client.New(u.Host, apiv1.CellsApiResourcePath, []string{u.Scheme})
+	options := []any{
 		http2.WithSkipVerify(sdkConfig.SkipVerify),
 		http2.WithCustomHeaders(sdkConfig.CustomHeaders),
 	}
@@ -34,8 +34,8 @@ func GetApiTransport(sdkConfig *cellssdk.SdkConfig, anonymous bool) (*client.Run
 		if e != nil {
 			return nil, e
 		}
-		transportOptions = append(transportOptions, http2.WithBearer(tp))
+		options = append(options, http2.WithBearer(tp))
 	}
-	tp.Transport = transport.New(transportOptions...)
+	tp.Transport = transport.New(options...)
 	return tp, nil
 }

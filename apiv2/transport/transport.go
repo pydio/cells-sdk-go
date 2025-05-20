@@ -3,12 +3,14 @@ package transport
 import (
 	"context"
 	"fmt"
-	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv2"
 	"net/http"
 	"runtime"
+	"time"
 
 	openapiRuntime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2"
 )
 
 const (
@@ -18,7 +20,7 @@ const (
 	KeyUserAgent = "User-Agent"
 )
 
-func BasicAuthWriter(ctx context.Context, currConfig *cellsSdk.SdkConfig) openapiRuntime.ClientAuthInfoWriter {
+func BasicAuthWriter(ctx context.Context, currConfig *apiv2.SdkConfig) openapiRuntime.ClientAuthInfoWriter {
 
 	return openapiRuntime.ClientAuthInfoWriterFunc(func(r openapiRuntime.ClientRequest, _ strfmt.Registry) error {
 		return fmt.Errorf("unsupported authentication mode for Cells API v2")
@@ -56,20 +58,21 @@ type TokenProvider interface {
 	Expired() bool
 }
 
+// New creates a new http transport with the passed round-trip options and reasonable defaults.
 func New(options ...interface{}) http.RoundTripper {
 	// First go through Transport options
-	baseT := &http.Transport{}
-	for _, o := range options {
-		switch o.(type) {
-		case Option:
-			to := o.(Option)
-			baseT = to(baseT)
-		}
+	newTransport := &http.Transport{
+		Proxy:                 http.ProxyFromEnvironment,
+		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
 	}
 
-	// Now use transport as a RoundTripper and go through RoundTripOptions
+	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
 	var roundTrip http.RoundTripper
-	roundTrip = baseT
+	roundTrip = newTransport
 	for _, o := range options {
 		switch o.(type) {
 		case RoundTripOption:
@@ -81,7 +84,7 @@ func New(options ...interface{}) http.RoundTripper {
 	return roundTrip
 }
 
-func TokenProviderFromConfig(c *cellsSdk.SdkConfig) (TokenProvider, error) {
+func TokenProviderFromConfig(c *apiv2.SdkConfig) (TokenProvider, error) {
 	// TODO we only support PAT for the time being
 	return c, nil // SdkConfig implements TokenProvider interface
 	//if c.IdToken != "" {

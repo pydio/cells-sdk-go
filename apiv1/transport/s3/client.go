@@ -3,19 +3,20 @@ package s3
 import (
 	"context"
 	"fmt"
-	"github.com/pydio/cells-sdk-go/v5/apiv1"
-	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	apiv1Transport "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 )
 
 // LoadConfig prepares a valid S3 configuration to create a new S3 client.
 // It returns an error if the passed option are not one of the supported type that are:
 // cellsSdk.HttpClientOption, cellsSdk.TransportOption, cellsSdk.RoundTripOption, cellsSdk.AwsConfigOption, cellsSdk.CredentialProviderOption
-func LoadConfig(ctx context.Context, sdc *apiv1.SdkConfig, options ...interface{}) (aws.Config, error) {
+func LoadConfig(ctx context.Context, sdc *apiv1.SdkConfig, options ...any) (aws.Config, error) {
 
 	for _, o := range options {
 		switch o.(type) {
@@ -38,7 +39,7 @@ func LoadConfig(ctx context.Context, sdc *apiv1.SdkConfig, options ...interface{
 		})
 	}
 
-	httpClient := http2.NewHttpClient(sdc, options...)
+	httpClient := apiv1Transport.NewHttpClient(sdc, options...)
 
 	cfg, err := config.LoadDefaultConfig(
 		ctx,

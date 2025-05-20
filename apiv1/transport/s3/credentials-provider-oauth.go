@@ -30,7 +30,7 @@ func (ocp *OAuthCredentialsProvider) Retrieve(ctx context.Context) (aws.Credenti
 	// We generally refresh the token 60 seconds before its expiration
 	// ==> underlying problem: call via AWS SDK fail when the token is refreshed in another thread
 	//     because the current idToken then becomes invalid.
-	//  This is not very resiliant and must be improved. TODO
+	//  This is not very resilient and must be improved. TODO
 	expiration := time.Unix(int64(ocp.config.TokenExpiresAt), 0).Add(-65 * time.Second)
 	currCredentials := aws.Credentials{
 		AccessKeyID:     ocp.config.IdToken,
