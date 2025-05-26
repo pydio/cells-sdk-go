@@ -19,6 +19,14 @@ func New(options ...any) http.RoundTripper {
 		ExpectContinueTimeout: 1 * time.Second,
 	}
 
+	// Apply transport specific options
+	for _, o := range options {
+		switch typed := o.(type) {
+		case cellssdk.TransportOption:
+			newTransport = typed(newTransport)
+		}
+	}
+
 	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
 	var roundTrip http.RoundTripper
 	roundTrip = newTransport
