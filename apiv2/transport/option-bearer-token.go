@@ -2,9 +2,11 @@ package transport
 
 import (
 	"net/http"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv2"
 )
 
-func WithBearer(provider TokenProvider) RoundTripOption {
+func WithBearer(provider TokenProvider) apiv2.RoundTripOption {
 	return func(t http.RoundTripper) http.RoundTripper {
 		return &bearerRoundTripper{rt: t, tp: provider}
 	}
