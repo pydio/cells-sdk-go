@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 var (
@@ -48,8 +48,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 				msg += "- your host URL\n"
 			}
 			if personalToken != "" {
-				DefaultConfig = &cellssdk.SdkConfig{
-					AuthType:   cellssdk.AuthTypePat,
+				DefaultConfig = &apiv1.SdkConfig{
+					AuthType:   apiv1.AuthTypePat,
 					Url:        host,
 					SkipVerify: skipVerify,
 					IdToken:    personalToken,
@@ -69,8 +69,8 @@ the powerful Cobra framework to easily implement small CLI client applications.
 				os.Exit(1)
 			}
 
-			DefaultConfig = &cellssdk.SdkConfig{
-				AuthType:   cellssdk.AuthTypeClientAuth,
+			DefaultConfig = &apiv1.SdkConfig{
+				AuthType:   apiv1.AuthTypeClientAuth,
 				Url:        host,
 				SkipVerify: skipVerify,
 				User:       user,
@@ -84,7 +84,7 @@ the powerful Cobra framework to easily implement small CLI client applications.
 			log.Fatal("cannot read config file:", e)
 		}
 
-		var c cellssdk.SdkConfig
+		var c apiv1.SdkConfig
 		if e = json.Unmarshal(data, &c); e != nil {
 			log.Fatalf("Cannot decode config content for file at %s, cause: %s\n", configFile, e.Error())
 		} else {

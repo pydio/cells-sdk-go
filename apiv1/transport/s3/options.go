@@ -1,21 +1,22 @@
 package s3
 
 import (
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
 	"io"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
 	"github.com/aws/smithy-go/logging"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 // WithCellsConfigStore is the entry point to provide an external store that exposes
 // a method to refresh and store credentials and become then the unique source of truth
 // to retrieve current credentials.
-func WithCellsConfigStore(store cellssdk.ConfigRefresher) cellssdk.CredentialProviderOption {
+func WithCellsConfigStore(store apiv1.ConfigRefresher) apiv1.CredentialProviderOption {
 	return func(provider aws.CredentialsProvider) aws.CredentialsProvider {
-		if cs, ok := provider.(cellssdk.ConfigRefresherConsumer); ok {
+		if cs, ok := provider.(apiv1.ConfigRefresherConsumer); ok {
 			cs.SetConfigRefresher(store)
 		}
 		return provider
@@ -25,7 +26,7 @@ func WithCellsConfigStore(store cellssdk.ConfigRefresher) cellssdk.CredentialPro
 // WithLogger is a helper function to construct a valid AwsConfigOption
 // to define and configure the logging strategy that will be used by the AWS SDK
 // when performing file transfers.
-func WithLogger(writer io.Writer, logMode aws.ClientLogMode) cellssdk.AwsConfigOption {
+func WithLogger(writer io.Writer, logMode aws.ClientLogMode) apiv1.AwsConfigOption {
 	return func(config aws.Config) aws.Config {
 		config.Logger = logging.NewStandardLogger(writer)
 		config.ClientLogMode = logMode
@@ -35,7 +36,7 @@ func WithLogger(writer io.Writer, logMode aws.ClientLogMode) cellssdk.AwsConfigO
 
 // WithRegion is a helper function to define a specific Region when talking
 // with S3 remote server. This is usually useless when remote server is Cells.
-func WithRegion(region string) cellssdk.AwsConfigOption {
+func WithRegion(region string) apiv1.AwsConfigOption {
 	return func(config aws.Config) aws.Config {
 		config.Region = region
 		return config
@@ -57,7 +58,7 @@ func WithRegion(region string) cellssdk.AwsConfigOption {
 // extraErrorCodes is a variadic parameter that allows specifying additional
 // error codes that should trigger a retry. These are in addition to any error
 // codes that the AWS SDK already considers retryable.
-func WithCustomRetry(maxAttempts int, maxBackoffDelay time.Duration, extraErrorCodes ...string) cellssdk.AwsConfigOption {
+func WithCustomRetry(maxAttempts int, maxBackoffDelay time.Duration, extraErrorCodes ...string) apiv1.AwsConfigOption {
 	return func(config aws.Config) aws.Config {
 		config.Retryer = func() aws.Retryer {
 			tmpR := retry.AddWithMaxAttempts(retry.NewStandard(), maxAttempts)

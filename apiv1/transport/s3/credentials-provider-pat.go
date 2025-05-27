@@ -3,12 +3,14 @@ package s3
 import (
 	"context"
 	"fmt"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 type PatCredentialsProvider struct {
-	config *cellssdk.SdkConfig
+	config *apiv1.SdkConfig
 }
 
 func (pcp *PatCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials, error) {
@@ -19,7 +21,7 @@ func (pcp *PatCredentialsProvider) Retrieve(_ context.Context) (aws.Credentials,
 
 	return aws.Credentials{
 		AccessKeyID:     pcp.config.IdToken,
-		SecretAccessKey: cellssdk.DefaultS3ApiSecret,
+		SecretAccessKey: apiv1.DefaultS3ApiSecret,
 		SessionToken:    "",
 		Source:          pcp.config.Url,
 		CanExpire:       false,

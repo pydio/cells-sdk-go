@@ -5,11 +5,11 @@ import (
 	"os"
 	"strconv"
 
-	cellsSdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 var (
-	DefaultConfig *cellsSdk.SdkConfig
+	DefaultConfig *apiv1.SdkConfig
 
 	// Keys to retrieve configuration via environment variables
 	KeyURL, KeyUser, KeyPassword, KeySkipVerify = "TARGET_URL", "TARGET_USER", "TARGET_PASSWORD", "TARGET_SKIP_VERIFY"
@@ -56,9 +56,9 @@ func SetUpEnvironment(configFilePath string) error {
 	return nil
 }
 
-func getSdkConfigFromEnv() (*cellsSdk.SdkConfig, error) {
+func getSdkConfigFromEnv() (*apiv1.SdkConfig, error) {
 
-	var c *cellsSdk.SdkConfig
+	var c *apiv1.SdkConfig
 
 	// check presence of Env variable
 	url := os.Getenv(KeyURL)

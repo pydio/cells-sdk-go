@@ -3,13 +3,14 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
-	cellshttp "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	apiv1transport "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 )
 
 const (
@@ -50,7 +51,7 @@ func OAuthPrepareUrl(clientId, state, serverUrl, callbackUrl string) (preparedUr
 
 // OAuthExchangeCode retrieves an AccessToken/RefreshToken pair using the passed OAuth exchange code.
 // It then updates the passed configuration.
-func OAuthExchangeCode(c *cellssdk.SdkConfig, clientId, code, callbackUrl string) error {
+func OAuthExchangeCode(c *apiv1.SdkConfig, clientId, code, callbackUrl string) error {
 
 	values := url.Values{}
 	values.Add("grant_type", "authorization_code")
@@ -64,7 +65,7 @@ func OAuthExchangeCode(c *cellssdk.SdkConfig, clientId, code, callbackUrl string
 	}
 	tokenU.Path = "/oidc/oauth2/token"
 
-	httpClient := cellshttp.NewHttpClient(c)
+	httpClient := apiv1transport.NewHttpClient(c)
 	resp, err := httpClient.Post(tokenU.String(), "application/x-www-form-urlencoded", strings.NewReader(values.Encode()))
 	if err != nil {
 		return err
@@ -91,7 +92,7 @@ func OAuthExchangeCode(c *cellssdk.SdkConfig, clientId, code, callbackUrl string
 	return nil
 }
 
-func RefreshJwtToken(clientId string, sdkConfig *cellssdk.SdkConfig) (bool, error) {
+func RefreshJwtToken(clientId string, sdkConfig *apiv1.SdkConfig) (bool, error) {
 
 	// Not yet expired, ignore
 	if time.Unix(int64(sdkConfig.TokenExpiresAt), 0).After(time.Now().Add(60 * time.Second)) {
@@ -110,7 +111,7 @@ func RefreshJwtToken(clientId string, sdkConfig *cellssdk.SdkConfig) (bool, erro
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("Cache-Control", "no-cache")
 
-	client := cellshttp.NewHttpClient(sdkConfig)
+	client := apiv1transport.NewHttpClient(sdkConfig)
 	res, err := client.Do(httpReq)
 	if err != nil {
 		return false, err
