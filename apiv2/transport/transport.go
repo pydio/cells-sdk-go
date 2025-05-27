@@ -27,7 +27,7 @@ type TokenProvider interface {
 
 // New creates a new http transport with the passed round-trip options and reasonable defaults.
 func New(options ...any) http.RoundTripper {
-	// First go through Transport options
+
 	newTransport := &http.Transport{
 		Proxy:                 http.ProxyFromEnvironment,
 		ForceAttemptHTTP2:     true,
@@ -37,17 +37,32 @@ func New(options ...any) http.RoundTripper {
 		ExpectContinueTimeout: 1 * time.Second,
 	}
 
+	for _, o := range options {
+		switch typed := o.(type) {
+		case apiv2.TransportOption:
+			newTransport = typed(newTransport)
+		}
+	}
+
 	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
 	var roundTrip http.RoundTripper
 	roundTrip = newTransport
 	for _, o := range options {
-		switch curr := o.(type) {
+		switch typed := o.(type) {
 		case apiv2.RoundTripOption:
-			roundTrip = curr(roundTrip)
+			roundTrip = typed(roundTrip)
 		}
 	}
 
 	return roundTrip
+}
+
+func UserAgent() string {
+	osVersion := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
+	goVersion := runtime.Version()
+	//	appVersion := fmt.Sprintf("pydio/cells-sdk-go@v%s", "5-dev")
+	appVersion := "pydio/cells-sdk-go/v5/apiv2"
+	return fmt.Sprintf("%s %s %s", osVersion, goVersion, appVersion)
 }
 
 func BasicAuthWriter(ctx context.Context, currConfig *apiv2.SdkConfig) openapiRuntime.ClientAuthInfoWriter {
@@ -72,14 +87,6 @@ func BasicAuthWriter(ctx context.Context, currConfig *apiv2.SdkConfig) openapiRu
 	//		"type":     "credentials",
 	//	},
 	//}).WithContext(ctx)
-}
-
-func UserAgent() string {
-	osVersion := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
-	goVersion := runtime.Version()
-	//	appVersion := fmt.Sprintf("pydio/cells-sdk-go@v%s", "5-dev")
-	appVersion := "pydio/cells-sdk-go/v5/apiv2"
-	return fmt.Sprintf("%s %s %s", osVersion, goVersion, appVersion)
 }
 
 func TokenProviderFromConfig(c *apiv2.SdkConfig) (TokenProvider, error) {
