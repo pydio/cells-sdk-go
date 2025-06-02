@@ -2,11 +2,12 @@ package http
 
 import (
 	"crypto/tls"
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
 	"net/http"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
-func WithSkipVerify(skip bool) cellssdk.TransportOption {
+func WithSkipVerify(skip bool) apiv1.TransportOption {
 	return func(t *http.Transport) *http.Transport {
 		if !skip {
 			return t

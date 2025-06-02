@@ -20,47 +20,14 @@ const (
 	KeyUserAgent = "User-Agent"
 )
 
-func BasicAuthWriter(ctx context.Context, currConfig *apiv2.SdkConfig) openapiRuntime.ClientAuthInfoWriter {
-
-	return openapiRuntime.ClientAuthInfoWriterFunc(func(r openapiRuntime.ClientRequest, _ strfmt.Registry) error {
-		return fmt.Errorf("unsupported authentication mode for Cells API v2")
-	})
-
-	//currTransport, err := GetRuntimeTransport(ctx, currConfig)
-	//if err != nil {
-	//	log.Fatal("cannot get runtime transport", err)
-	//}
-
-	// TODO we do not have this in the API v2 yet
-	// 	frontendService := sdkClient.New(currTransport, strfmt.Default).FrontendService
-	//
-	//frontend_service.NewFrontSessionParams().WithBody(&models.RestFrontSessionRequest{
-	//	AuthInfo: map[string]string{
-	//		"login":    f.user,
-	//		"password": f.password,
-	//		"type":     "credentials",
-	//	},
-	//}).WithContext(ctx)
-}
-
-func UserAgent() string {
-	osVersion := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
-	goVersion := fmt.Sprintf("%s", runtime.Version())
-	appVersion := fmt.Sprintf("pydio/cells-sdk-go@v%s", "5-dev")
-	return fmt.Sprintf("%s %s %s", osVersion, goVersion, appVersion)
-}
-
-type Option func(t *http.Transport) *http.Transport
-type RoundTripOption func(t http.RoundTripper) http.RoundTripper
-
 type TokenProvider interface {
 	Retrieve() (string, error)
 	Expired() bool
 }
 
 // New creates a new http transport with the passed round-trip options and reasonable defaults.
-func New(options ...interface{}) http.RoundTripper {
-	// First go through Transport options
+func New(options ...any) http.RoundTripper {
+
 	newTransport := &http.Transport{
 		Proxy:                 http.ProxyFromEnvironment,
 		ForceAttemptHTTP2:     true,
@@ -70,18 +37,56 @@ func New(options ...interface{}) http.RoundTripper {
 		ExpectContinueTimeout: 1 * time.Second,
 	}
 
+	for _, o := range options {
+		switch typed := o.(type) {
+		case apiv2.TransportOption:
+			newTransport = typed(newTransport)
+		}
+	}
+
 	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
 	var roundTrip http.RoundTripper
 	roundTrip = newTransport
 	for _, o := range options {
-		switch o.(type) {
-		case RoundTripOption:
-			to := o.(RoundTripOption)
-			roundTrip = to(roundTrip)
+		switch typed := o.(type) {
+		case apiv2.RoundTripOption:
+			roundTrip = typed(roundTrip)
 		}
 	}
 
 	return roundTrip
+}
+
+func UserAgent() string {
+	osVersion := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
+	goVersion := runtime.Version()
+	//	appVersion := fmt.Sprintf("pydio/cells-sdk-go@v%s", "5-dev")
+	appVersion := "pydio/cells-sdk-go/v5/apiv2"
+	return fmt.Sprintf("%s %s %s", osVersion, goVersion, appVersion)
+}
+
+func BasicAuthWriter(ctx context.Context, currConfig *apiv2.SdkConfig) openapiRuntime.ClientAuthInfoWriter {
+	return openapiRuntime.ClientAuthInfoWriterFunc(
+		func(r openapiRuntime.ClientRequest, _ strfmt.Registry) error {
+			return fmt.Errorf("unsupported authentication mode for Cells API v2")
+		},
+	)
+
+	// TODO we do not have this in the API v2 yet
+	//currTransport, err := GetRuntimeTransport(ctx, currConfig)
+	//if err != nil {
+	//	log.Fatal("cannot get runtime transport", err)
+	//}
+
+	// 	frontendService := sdkClient.New(currTransport, strfmt.Default).FrontendService
+	//
+	//frontend_service.NewFrontSessionParams().WithBody(&models.RestFrontSessionRequest{
+	//	AuthInfo: map[string]string{
+	//		"login":    f.user,
+	//		"password": f.password,
+	//		"type":     "credentials",
+	//	},
+	//}).WithContext(ctx)
 }
 
 func TokenProviderFromConfig(c *apiv2.SdkConfig) (TokenProvider, error) {

@@ -12,7 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/spf13/cobra"
 
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 	ts3 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/s3"
 )
 
@@ -36,7 +36,7 @@ var getFile = &cobra.Command{
 		client := ts3.NewClientFromConfig(cfg, DefaultConfig.Url)
 
 		output, e := client.GetObject(cmd.Context(), &s3.GetObjectInput{
-			Bucket: aws.String(cellssdk.DefaultS3Bucket),
+			Bucket: aws.String(apiv1.DefaultS3Bucket),
 			Key:    aws.String(getPath),
 		})
 		if e != nil {

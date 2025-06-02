@@ -2,7 +2,9 @@ package s3
 
 import (
 	"fmt"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
+
 	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 

@@ -3,10 +3,11 @@ package s3
 import (
 	"context"
 	"fmt"
-	"github.com/pydio/cells-sdk-go/v5/apiv1"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
 )
 
 type OAuthCredentialsProvider struct {

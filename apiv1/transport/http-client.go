@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/pydio/cells-sdk-go/v5/apiv1"
-	http3 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
+	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
 )
 
 // NewHttpClient creates a custom HTTP client that has correct TLS skip verify flag and
@@ -13,8 +13,8 @@ import (
 func NewHttpClient(sdkConfig *apiv1.SdkConfig, options ...any) *http.Client {
 	client := &http.Client{
 		Transport: New(
-			http3.WithSkipVerify(sdkConfig.SkipVerify),
-			http3.WithCustomHeaders(sdkConfig.CustomHeaders),
+			http2.WithSkipVerify(sdkConfig.SkipVerify),
+			http2.WithCustomHeaders(sdkConfig.CustomHeaders),
 		),
 	}
 	// Apply relevant options, e.G to define a custom timeout.

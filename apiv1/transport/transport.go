@@ -20,7 +20,14 @@ func New(options ...any) http.RoundTripper {
 		ExpectContinueTimeout: 1 * time.Second,
 	}
 
-	// Cast as more generic RoundTRipper and apply corresponding RoundTripOptions
+	for _, o := range options {
+		switch typed := o.(type) {
+		case apiv1.TransportOption:
+			newTransport = typed(newTransport)
+		}
+	}
+
+	// Cast as more generic RoundTripper and apply corresponding RoundTripOptions
 	var roundTrip http.RoundTripper
 	roundTrip = newTransport
 	for _, o := range options {

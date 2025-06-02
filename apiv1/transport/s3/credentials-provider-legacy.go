@@ -3,14 +3,15 @@ package s3
 import (
 	"context"
 	"fmt"
-	cellssdk "github.com/pydio/cells-sdk-go/v5/apiv1"
-	"github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	"github.com/pydio/cells-sdk-go/v5/apiv1/transport"
 )
 
 type LegacyCredentialsProvider struct {
-	config *cellssdk.SdkConfig
+	config *apiv1.SdkConfig
 }
 
 func (lcp *LegacyCredentialsProvider) Retrieve(ctx context.Context) (aws.Credentials, error) {
@@ -29,7 +30,7 @@ func (lcp *LegacyCredentialsProvider) Retrieve(ctx context.Context) (aws.Credent
 	}
 	cred := aws.Credentials{
 		AccessKeyID:     token,
-		SecretAccessKey: cellssdk.DefaultS3ApiSecret,
+		SecretAccessKey: apiv1.DefaultS3ApiSecret,
 		SessionToken:    "", // TODO
 		Source:          lcp.config.Url,
 		CanExpire:       true,

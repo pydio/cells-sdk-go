@@ -9,7 +9,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/pydio/cells-sdk-go/v5/apiv2"
-	sdkClient "github.com/pydio/cells-sdk-go/v5/apiv2/client"
+	v2Client "github.com/pydio/cells-sdk-go/v5/apiv2/client"
 )
 
 func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (runtime.ClientTransport, error) {
@@ -18,7 +18,7 @@ func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (
 		return nil, e
 	}
 	tp := client.New(u.Host, CellsApiPrefix, []string{u.Scheme})
-	transportOptions := []interface{}{
+	transportOptions := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
 	}
@@ -27,12 +27,12 @@ func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (
 	return tp, nil
 }
 
-func GetRestClient(currConfig *apiv2.SdkConfig, anon bool) (*sdkClient.PydioCellsRestAPI, error) {
+func GetRestClient(currConfig *apiv2.SdkConfig, anon bool) (*v2Client.PydioCellsRestAPI, error) {
 	t, e := GetClientTransport(currConfig, anon)
 	if e != nil {
 		return nil, e
 	}
-	return sdkClient.New(t, strfmt.Default), nil
+	return v2Client.New(t, strfmt.Default), nil
 }
 
 func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.ClientTransport, error) {

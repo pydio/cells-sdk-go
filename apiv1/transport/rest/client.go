@@ -1,14 +1,15 @@
 package rest
 
 import (
-	"github.com/pydio/cells-sdk-go/v5/apiv1"
-	v1client "github.com/pydio/cells-sdk-go/v5/apiv1/client"
-	"github.com/pydio/cells-sdk-go/v5/apiv1/transport"
-	http2 "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
 	"net/url"
 
 	"github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/pydio/cells-sdk-go/v5/apiv1"
+	v1client "github.com/pydio/cells-sdk-go/v5/apiv1/client"
+	v1transport "github.com/pydio/cells-sdk-go/v5/apiv1/transport"
+	v1http "github.com/pydio/cells-sdk-go/v5/apiv1/transport/http"
 )
 
 func GetApiClient(sdkConfig *apiv1.SdkConfig, anonymous bool) (*v1client.PydioCellsRestAPI, error) {
@@ -26,16 +27,16 @@ func GetApiRuntime(sdkConfig *apiv1.SdkConfig, anonymous bool) (*client.Runtime,
 	}
 	tp := client.New(u.Host, apiv1.CellsApiResourcePath, []string{u.Scheme})
 	options := []any{
-		http2.WithSkipVerify(sdkConfig.SkipVerify),
-		http2.WithCustomHeaders(sdkConfig.CustomHeaders),
+		v1http.WithSkipVerify(sdkConfig.SkipVerify),
+		v1http.WithCustomHeaders(sdkConfig.CustomHeaders),
 	}
 	if !anonymous {
-		tp, e := transport.TokenProviderFromConfig(sdkConfig)
+		tp, e := v1transport.TokenProviderFromConfig(sdkConfig)
 		if e != nil {
 			return nil, e
 		}
-		options = append(options, http2.WithBearer(tp))
+		options = append(options, v1http.WithBearer(tp))
 	}
-	tp.Transport = transport.New(options...)
+	tp.Transport = v1transport.New(options...)
 	return tp, nil
 }
