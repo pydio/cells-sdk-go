@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewListNamespaceValuesParams creates a new ListNamespaceValuesParams object,
@@ -68,14 +67,6 @@ type ListNamespaceValuesParams struct {
 	*/
 	Namespace string
 
-	// OperationOperation.
-	//
-	// Default: "PUT"
-	OperationOperation string
-
-	// OperationValues.
-	OperationValues []string
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -93,18 +84,7 @@ func (o *ListNamespaceValuesParams) WithDefaults() *ListNamespaceValuesParams {
 //
 // All values with no default are reset to their zero value.
 func (o *ListNamespaceValuesParams) SetDefaults() {
-	var (
-		operationOperationDefault = string("PUT")
-	)
-
-	val := ListNamespaceValuesParams{
-		OperationOperation: operationOperationDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list namespace values params
@@ -151,28 +131,6 @@ func (o *ListNamespaceValuesParams) SetNamespace(namespace string) {
 	o.Namespace = namespace
 }
 
-// WithOperationOperation adds the operationOperation to the list namespace values params
-func (o *ListNamespaceValuesParams) WithOperationOperation(operationOperation string) *ListNamespaceValuesParams {
-	o.SetOperationOperation(operationOperation)
-	return o
-}
-
-// SetOperationOperation adds the operationOperation to the list namespace values params
-func (o *ListNamespaceValuesParams) SetOperationOperation(operationOperation string) {
-	o.OperationOperation = operationOperation
-}
-
-// WithOperationValues adds the operationValues to the list namespace values params
-func (o *ListNamespaceValuesParams) WithOperationValues(operationValues []string) *ListNamespaceValuesParams {
-	o.SetOperationValues(operationValues)
-	return o
-}
-
-// SetOperationValues adds the operationValues to the list namespace values params
-func (o *ListNamespaceValuesParams) SetOperationValues(operationValues []string) {
-	o.OperationValues = operationValues
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *ListNamespaceValuesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -186,46 +144,8 @@ func (o *ListNamespaceValuesParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 
-	// query param Operation.Operation
-	qrOperationOperation := o.OperationOperation
-	qOperationOperation := qrOperationOperation
-	if qOperationOperation != "" {
-
-		if err := r.SetQueryParam("Operation.Operation", qOperationOperation); err != nil {
-			return err
-		}
-	}
-
-	if o.OperationValues != nil {
-
-		// binding items for Operation.Values
-		joinedOperationValues := o.bindParamOperationValues(reg)
-
-		// query array param Operation.Values
-		if err := r.SetQueryParam("Operation.Values", joinedOperationValues...); err != nil {
-			return err
-		}
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamListNamespaceValues binds the parameter Operation.Values
-func (o *ListNamespaceValuesParams) bindParamOperationValues(formats strfmt.Registry) []string {
-	operationValuesIR := o.OperationValues
-
-	var operationValuesIC []string
-	for _, operationValuesIIR := range operationValuesIR { // explode []string
-
-		operationValuesIIV := operationValuesIIR // string as string
-		operationValuesIC = append(operationValuesIC, operationValuesIIV)
-	}
-
-	// items.CollectionFormat: "multi"
-	operationValuesIS := swag.JoinByFormat(operationValuesIC, "multi")
-
-	return operationValuesIS
 }
