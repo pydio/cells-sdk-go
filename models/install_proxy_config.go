@@ -7,7 +7,6 @@ package models
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -15,8 +14,6 @@ import (
 )
 
 // InstallProxyConfig ProxyConfig gives necessary URL and TLS configurations to start proxy
-//
-// option (setter.all_fields) = true;
 //
 // swagger:model installProxyConfig
 type InstallProxyConfig struct {
@@ -26,12 +23,6 @@ type InstallProxyConfig struct {
 
 	// certificate
 	Certificate *InstallTLSCertificate `json:"Certificate,omitempty"`
-
-	// Hash dynamically computed from Binds and ReverseProxyURL
-	ComputedHash string `json:"ComputedHash,omitempty"`
-
-	// Optional headers modifications
-	HeaderMods []*InstallHeaderMod `json:"HeaderMods"`
 
 	// lets encrypt
 	LetsEncrypt *InstallTLSLetsEncrypt `json:"LetsEncrypt,omitempty"`
@@ -44,10 +35,6 @@ type InstallProxyConfig struct {
 
 	// Optional URL of reverse proxy exposing this site
 	ReverseProxyURL string `json:"ReverseProxyURL,omitempty"`
-
-	// Optional matching rules for main routes - special empty case means Match All, but if any routes are defined
-	// they are evaluated with a Deny-by-default and ExplicitDeny-wins approach
-	Routing []*InstallRule `json:"Routing"`
 
 	// If TLS is set, whether to automatically redirect each http://host:port to https://host:port
 	SSLRedirect bool `json:"SSLRedirect,omitempty"`
@@ -64,15 +51,7 @@ func (m *InstallProxyConfig) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateHeaderMods(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateLetsEncrypt(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRouting(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,32 +84,6 @@ func (m *InstallProxyConfig) validateCertificate(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *InstallProxyConfig) validateHeaderMods(formats strfmt.Registry) error {
-	if swag.IsZero(m.HeaderMods) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.HeaderMods); i++ {
-		if swag.IsZero(m.HeaderMods[i]) { // not required
-			continue
-		}
-
-		if m.HeaderMods[i] != nil {
-			if err := m.HeaderMods[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("HeaderMods" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("HeaderMods" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
 func (m *InstallProxyConfig) validateLetsEncrypt(formats strfmt.Registry) error {
 	if swag.IsZero(m.LetsEncrypt) { // not required
 		return nil
@@ -145,32 +98,6 @@ func (m *InstallProxyConfig) validateLetsEncrypt(formats strfmt.Registry) error 
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *InstallProxyConfig) validateRouting(formats strfmt.Registry) error {
-	if swag.IsZero(m.Routing) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Routing); i++ {
-		if swag.IsZero(m.Routing[i]) { // not required
-			continue
-		}
-
-		if m.Routing[i] != nil {
-			if err := m.Routing[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Routing" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("Routing" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
@@ -203,15 +130,7 @@ func (m *InstallProxyConfig) ContextValidate(ctx context.Context, formats strfmt
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateHeaderMods(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateLetsEncrypt(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateRouting(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -246,31 +165,6 @@ func (m *InstallProxyConfig) contextValidateCertificate(ctx context.Context, for
 	return nil
 }
 
-func (m *InstallProxyConfig) contextValidateHeaderMods(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.HeaderMods); i++ {
-
-		if m.HeaderMods[i] != nil {
-
-			if swag.IsZero(m.HeaderMods[i]) { // not required
-				return nil
-			}
-
-			if err := m.HeaderMods[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("HeaderMods" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("HeaderMods" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
 func (m *InstallProxyConfig) contextValidateLetsEncrypt(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.LetsEncrypt != nil {
@@ -287,31 +181,6 @@ func (m *InstallProxyConfig) contextValidateLetsEncrypt(ctx context.Context, for
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *InstallProxyConfig) contextValidateRouting(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Routing); i++ {
-
-		if m.Routing[i] != nil {
-
-			if swag.IsZero(m.Routing[i]) { // not required
-				return nil
-			}
-
-			if err := m.Routing[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Routing" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("Routing" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil

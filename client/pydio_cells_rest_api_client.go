@@ -16,7 +16,6 @@ import (
 	"github.com/pydio/cells-sdk-go/v4/client/config_service"
 	"github.com/pydio/cells-sdk-go/v4/client/frontend_service"
 	"github.com/pydio/cells-sdk-go/v4/client/graph_service"
-	"github.com/pydio/cells-sdk-go/v4/client/health_service"
 	"github.com/pydio/cells-sdk-go/v4/client/install_service"
 	"github.com/pydio/cells-sdk-go/v4/client/jobs_service"
 	"github.com/pydio/cells-sdk-go/v4/client/log_service"
@@ -83,7 +82,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.ConfigService = config_service.New(transport, formats)
 	cli.FrontendService = frontend_service.New(transport, formats)
 	cli.GraphService = graph_service.New(transport, formats)
-	cli.HealthService = health_service.New(transport, formats)
 	cli.InstallService = install_service.New(transport, formats)
 	cli.JobsService = jobs_service.New(transport, formats)
 	cli.LogService = log_service.New(transport, formats)
@@ -156,8 +154,6 @@ type PydioCellsRestAPI struct {
 
 	GraphService graph_service.ClientService
 
-	HealthService health_service.ClientService
-
 	InstallService install_service.ClientService
 
 	JobsService jobs_service.ClientService
@@ -202,7 +198,6 @@ func (c *PydioCellsRestAPI) SetTransport(transport runtime.ClientTransport) {
 	c.ConfigService.SetTransport(transport)
 	c.FrontendService.SetTransport(transport)
 	c.GraphService.SetTransport(transport)
-	c.HealthService.SetTransport(transport)
 	c.InstallService.SetTransport(transport)
 	c.JobsService.SetTransport(transport)
 	c.LogService.SetTransport(transport)

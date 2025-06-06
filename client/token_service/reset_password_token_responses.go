@@ -6,12 +6,14 @@ package token_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +408,43 @@ func (o *ResetPasswordTokenInternalServerError) readResponse(response runtime.Cl
 		return err
 	}
 
+	return nil
+}
+
+/*
+ResetPasswordTokenBody reset password token body
+swagger:model ResetPasswordTokenBody
+*/
+type ResetPasswordTokenBody struct {
+
+	// create
+	Create bool `json:"Create,omitempty"`
+}
+
+// Validate validates this reset password token body
+func (o *ResetPasswordTokenBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this reset password token body based on context it is used
+func (o *ResetPasswordTokenBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *ResetPasswordTokenBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *ResetPasswordTokenBody) UnmarshalBinary(b []byte) error {
+	var res ResetPasswordTokenBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

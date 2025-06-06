@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewApplyUpdateParams creates a new ApplyUpdateParams object,
@@ -70,7 +68,7 @@ type ApplyUpdateParams struct {
 	TargetVersion string
 
 	// Body.
-	Body *models.UpdateApplyUpdateRequest
+	Body ApplyUpdateBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *ApplyUpdateParams) SetTargetVersion(targetVersion string) {
 }
 
 // WithBody adds the body to the apply update params
-func (o *ApplyUpdateParams) WithBody(body *models.UpdateApplyUpdateRequest) *ApplyUpdateParams {
+func (o *ApplyUpdateParams) WithBody(body ApplyUpdateBody) *ApplyUpdateParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the apply update params
-func (o *ApplyUpdateParams) SetBody(body *models.UpdateApplyUpdateRequest) {
+func (o *ApplyUpdateParams) SetBody(body ApplyUpdateBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *ApplyUpdateParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	if err := r.SetPathParam("TargetVersion", o.TargetVersion); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

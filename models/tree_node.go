@@ -22,7 +22,7 @@ type TreeNode struct {
 	// Can be used for output when node is appearing in multiple workspaces
 	AppearsIn []*TreeWorkspaceRelativePath `json:"AppearsIn"`
 
-	// Deprecated - List of successive commits
+	// List of successive commits
 	Commits []*TreeChangeLog `json:"Commits"`
 
 	// Hash of the content if node is a LEAF, Uuid or
@@ -36,11 +36,8 @@ type TreeNode struct {
 	// ------------------------------------
 	MetaStore map[string]string `json:"MetaStore,omitempty"`
 
-	// Permission mode, like 0777. Stored as string using custom ModeString field.
+	// Permission mode, like 0777
 	Mode int32 `json:"Mode,omitempty"`
-
-	// String representation of Mode
-	ModeString string `json:"ModeString,omitempty"`
 
 	// path
 	Path string `json:"Path,omitempty"`

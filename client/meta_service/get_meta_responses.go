@@ -6,12 +6,14 @@ package meta_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-sdk-go/v4/models"
 )
@@ -406,5 +408,43 @@ func (o *GetMetaInternalServerError) readResponse(response runtime.ClientRespons
 		return err
 	}
 
+	return nil
+}
+
+/*
+GetMetaBody RestMetaNamespaceRequest
+swagger:model GetMetaBody
+*/
+type GetMetaBody struct {
+
+	// List of namespaces to load
+	Namespace []string `json:"Namespace"`
+}
+
+// Validate validates this get meta body
+func (o *GetMetaBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get meta body based on context it is used
+func (o *GetMetaBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetMetaBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetMetaBody) UnmarshalBinary(b []byte) error {
+	var res GetMetaBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

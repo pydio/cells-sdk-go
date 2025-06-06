@@ -14,7 +14,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// JobsTaskStatus Known statuses
+// JobsTaskStatus /////////////////
+// TASK SERVICE  //
+// /////////////////
 //
 // swagger:model jobsTaskStatus
 type JobsTaskStatus string

@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewSetRoleParams creates a new SetRoleParams object,
@@ -70,7 +68,7 @@ type SetRoleParams struct {
 	UUID string
 
 	// Body.
-	Body *models.RoleServiceSetRoleBody
+	Body SetRoleBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *SetRoleParams) SetUUID(uuid string) {
 }
 
 // WithBody adds the body to the set role params
-func (o *SetRoleParams) WithBody(body *models.RoleServiceSetRoleBody) *SetRoleParams {
+func (o *SetRoleParams) WithBody(body SetRoleBody) *SetRoleParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the set role params
-func (o *SetRoleParams) SetBody(body *models.RoleServiceSetRoleBody) {
+func (o *SetRoleParams) SetBody(body SetRoleBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *SetRoleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

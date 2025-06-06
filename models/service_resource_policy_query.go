@@ -8,7 +8,6 @@ package models
 import (
 	"context"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -18,17 +17,11 @@ import (
 // swagger:model serviceResourcePolicyQuery
 type ServiceResourcePolicyQuery struct {
 
-	// action
-	Action *ServiceResourcePolicyAction `json:"Action,omitempty"`
-
 	// any
 	Any bool `json:"Any,omitempty"`
 
 	// empty
 	Empty bool `json:"Empty,omitempty"`
-
-	// left identifier
-	LeftIdentifier string `json:"LeftIdentifier,omitempty"`
 
 	// subjects
 	Subjects []string `json:"Subjects"`
@@ -36,69 +29,11 @@ type ServiceResourcePolicyQuery struct {
 
 // Validate validates this service resource policy query
 func (m *ServiceResourcePolicyQuery) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateAction(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
 	return nil
 }
 
-func (m *ServiceResourcePolicyQuery) validateAction(formats strfmt.Registry) error {
-	if swag.IsZero(m.Action) { // not required
-		return nil
-	}
-
-	if m.Action != nil {
-		if err := m.Action.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("Action")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("Action")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this service resource policy query based on the context it is used
+// ContextValidate validates this service resource policy query based on context it is used
 func (m *ServiceResourcePolicyQuery) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAction(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ServiceResourcePolicyQuery) contextValidateAction(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Action != nil {
-
-		if swag.IsZero(m.Action) { // not required
-			return nil
-		}
-
-		if err := m.Action.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("Action")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("Action")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-sdk-go/v4/models"
 )
 
 // NewUserCreateJobParams creates a new UserCreateJobParams object,
@@ -70,7 +68,7 @@ type UserCreateJobParams struct {
 	JobName string
 
 	// Body.
-	Body *models.RestUserJobRequest
+	Body UserCreateJobBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,13 +135,13 @@ func (o *UserCreateJobParams) SetJobName(jobName string) {
 }
 
 // WithBody adds the body to the user create job params
-func (o *UserCreateJobParams) WithBody(body *models.RestUserJobRequest) *UserCreateJobParams {
+func (o *UserCreateJobParams) WithBody(body UserCreateJobBody) *UserCreateJobParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the user create job params
-func (o *UserCreateJobParams) SetBody(body *models.RestUserJobRequest) {
+func (o *UserCreateJobParams) SetBody(body UserCreateJobBody) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *UserCreateJobParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	if err := r.SetPathParam("JobName", o.JobName); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {
