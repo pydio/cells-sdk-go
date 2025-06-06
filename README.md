@@ -12,7 +12,8 @@ It provides:
 - a transport layer that handles authentication and wraps AWS SDK for file transfers
 - a bunch of basic examples that use this SDK to perform simple actions on a running Cells server instance
 
-To use this SDK, your server should be running Pydio Cells 4.x or later.
+To use this SDK, your server should be running Pydio Cells 4.x or later.   
+Yet if your server runs on version **v4.4.12** or later, you should rather use the v4.4 branch of the SDk.  
 For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide).
 
 ## Usage
@@ -37,6 +38,10 @@ For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the 
 
 If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you have to update your code.
 You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
+
+Note that we stayed on version 1.32 of the AWS SDK v2: later version have introduced a change in management of the signature while uploading files that is only supported by Cells server **v4.4.12+**. If you are stuck with an older Cells Server v4, do not switch to the v4.4 version of the Cells SDK Go.  
+
+We have also updated the [go-swagger](https://github.com/go-swagger/go-swagger) version that we use, to [v0.31.0](https://github.com/go-swagger/go-swagger/releases/tag/v0.31.0) that brings some fixes and improvment. Some of the models have moved from the models generic package to their respective service package, so you might have to update some of your requets, especially when you prepare the body parameter.
 
 ### From SDK v3
 
