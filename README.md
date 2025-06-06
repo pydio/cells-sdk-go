@@ -33,12 +33,19 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 ## Migrate from older versions
 
+### From SDK v4.1
+
+Nothing changes: you should only ensure that you are targeting a Cells Server that runs at least v4.4.12 or large file transfer might fail.
+
 ### From SDK v4
 
 For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
 
 If you are relying upon some of the class defined in the `pydio/cells-sdk-go/v4/transport` package, you have to update your code.
 You can have a look at the `wget` and `list-bucket` commands of the `pydio/cells-sdk-go/v4/example` package to see sample code and refer to the official [AWS documentation](https://aws.github.io/aws-sdk-go-v2/docs/migrating/) to get more help.
+
+We have also updated [go-swagger](https://github.com/go-swagger/go-swagger) to [v0.31.0](https://github.com/go-swagger/go-swagger/releases/tag/v0.31.0): this brings some fixes and improvements.   
+Yet, some of the models have moved from the `models` generic package to their respective service package: you might have to update some of your requests, especially when you prepare the `Body` parameter.
 
 ### From SDK v3
 
