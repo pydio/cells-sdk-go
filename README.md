@@ -1,10 +1,9 @@
 # Cells SDK Go (v5)
 
 > **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients.
-> Note also that the cells-sdk-go specific API (mainly package v5/transport) is still being refined and some methods will need migration between v4 and v5.
 
 > **WARNING**: due to a breaking change in the AWS SDK we use to manage large upload with unsigned streaming, we had to adapt the server. As a consequence, the latest version of the SDK v4.4 requires at least a server that has version 4.4.**12**, or large uploads will fail. If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.
-> Note also that the cells-sdk-go specific API (mainly package v4/transport) is still being refined and some methods will need migration between v4 and v4.1  
+> Note also that the cells-sdk-go specific API (mainly package v4/transport) has been refined on v4 and some methods need migration between v4 and v4.1. Please refer to the instructions below for further details.  
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 
@@ -16,7 +15,7 @@ It provides:
 - a transport layer that handles authentication and wraps AWS SDK for file transfers
 - a bunch of basic examples that use this SDK to perform simple actions on a running Cells server instance
 
-To use this SDK, your server should be running Pydio Cells 4.x or later.
+To use this SDK, your server should be running Pydio Cells 4.4.12 or later.
 For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide).
 
 ## Usage
@@ -24,7 +23,7 @@ For more information, please visit our [developer guide](https://pydio.com/en/do
 The library is publicly available, simply:
 
 ```sh
-go get github.com/pydio/cells-sdk-go/v4 
+go get github.com/pydio/cells-sdk-go/v5
 ```
 
 and import necessary sub-packages in your code.
@@ -35,7 +34,20 @@ You can also have a look at the [Cells client repository](https://github.com/pyd
 
 ## Migrate from older versions
 
-### From SDK v4
+### From SDK v4.4
+
+For Cells v5, we started implementing a v2 version of the Cells API. We decided to yet include both version API v1 and API v2 in the SDK.
+
+Thus, we introduced a new level in the packages, you will then find at:
+
+- `pydio/cells-sdk-go/v5/apiv1`: The v1 of the API, mostly stable since the latest releases of the v4, you should only replace your imports from `pydio/cells-sdk-go/v4` in your client code
+- `pydio/cells-sdk-go/v5/apiv2`: A first limited version of the new REST API that is exposed by the server. **WARNING** this API is still work in progress and both the API and the SDK **will** change in the near future. Please use with care. 
+
+### From SDK v4.1
+
+Nothing changes for the clients, only the dependencies (mainly AWS SDK v2) have been updated: you should only ensure that you are targeting a Cells Server that runs at least v4.4.12 or large file upload will fail.
+
+### From SDK v4.0
 
 For the v4.1, we switched to the v2 of the AWS SDK for Go that we use under the hood to transfer files.
 
