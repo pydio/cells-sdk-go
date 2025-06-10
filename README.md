@@ -1,9 +1,9 @@
 # Cells SDK Go (v5)
 
-> **WARNING**: the v5 branch of the SDK is **not yet stable** and ready: API will still change before the GA release. We yet start to publish some snapshot versions to prepare adaptation of the various clients.
+> **WARNING**: the v5 branch of the SDK is **not yet stable**: the API _**will**_ change before the GA release. We yet start to publish some snapshot versions to prepare the adaptation of the various clients.
 
-> **WARNING**: due to a breaking change in the AWS SDK we use to manage large upload with unsigned streaming, we had to adapt the server. As a consequence, the latest version of the SDK v4.4 requires at least a server that has version 4.4.**12**, or large uploads will fail. If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.
-> Note also that the cells-sdk-go specific API (mainly package v4/transport) has been refined on v4 and some methods need migration between v4 and v4.1. Please refer to the instructions below for further details.  
+> **WARNING**: due to a breaking change in the AWS SDK we use under the hood to manage transfers, we had to adapt the server. As a consequence, the latest version of the SDKs (4.4+) requires at least a server that has version 4.4.**12**, or large uploads will fail.   
+> If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.  
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 
@@ -16,6 +16,9 @@ It provides:
 - a bunch of basic examples that use this SDK to perform simple actions on a running Cells server instance
 
 To use this SDK, your server should be running Pydio Cells 4.4.12 or later.
+
+For further details about migrating from older version of the SDK please refer to the detailed instructions below.
+
 For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide).
 
 ## Usage
