@@ -23,6 +23,7 @@ type FrontSessionTokenProvider struct {
 	customHeaders map[string]string
 	token         string
 	expiryDate    time.Time
+	apiPath       string
 }
 
 func NewFrontSessionTokenProvider(c *apiv1.SdkConfig) (apiv1.TokenProvider, error) {
@@ -30,12 +31,17 @@ func NewFrontSessionTokenProvider(c *apiv1.SdkConfig) (apiv1.TokenProvider, erro
 	if e != nil {
 		return nil, e
 	}
+	apiPath := c.ApiResourcePath
+	if apiPath == "" {
+		apiPath = apiv1.CellsApiResourcePath
+	}
 	return &FrontSessionTokenProvider{
 		url:           u,
 		user:          c.User,
 		password:      c.Password,
 		skipVerify:    c.SkipVerify,
 		customHeaders: c.CustomHeaders,
+		apiPath:       apiPath,
 	}, nil
 }
 
@@ -43,7 +49,7 @@ func (f *FrontSessionTokenProvider) Retrieve(ctx context.Context) (string, error
 	if !f.Expired() {
 		return f.token, nil
 	}
-	runtime := openapi.New(f.url.Host, apiv1.CellsApiResourcePath, []string{f.url.Scheme})
+	runtime := openapi.New(f.url.Host, f.apiPath, []string{f.url.Scheme})
 	runtime.Context = ctx
 	runtime.Transport = New(
 		http2.WithSkipVerify(f.skipVerify),
