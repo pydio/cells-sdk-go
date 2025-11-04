@@ -25,7 +25,7 @@ func GetApiRuntime(sdkConfig *apiv1.SdkConfig, anonymous bool) (*client.Runtime,
 	if e != nil {
 		return nil, e
 	}
-	basePath := sdkConfig.ApiResourcePath
+	basePath := sdkConfig.ApiResourcePrefix
 	if basePath == "" {
 		basePath = apiv1.CellsApiResourcePath
 	}

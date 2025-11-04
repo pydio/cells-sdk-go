@@ -31,7 +31,7 @@ func NewFrontSessionTokenProvider(c *apiv1.SdkConfig) (apiv1.TokenProvider, erro
 	if e != nil {
 		return nil, e
 	}
-	apiPath := c.ApiResourcePath
+	apiPath := c.ApiResourcePrefix
 	if apiPath == "" {
 		apiPath = apiv1.CellsApiResourcePath
 	}
