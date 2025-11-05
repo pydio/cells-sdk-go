@@ -65,6 +65,9 @@ type SdkConfig struct {
 
 	// CustomHeaders holds an optional list of headers to be overridden in requests, e.g. the User-Agent.
 	CustomHeaders map[string]string
+	// ApiResourcePrefix overrides the default API prefix (CellsApiResourcePath).
+	// If empty, the SDK will fall back to the built-in constant ("/a").
+	ApiResourcePrefix string `json:"apiResourcePrefix,omitempty"`
 }
 
 // Make SdkConfig implement the TokenProvider interface

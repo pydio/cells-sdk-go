@@ -25,7 +25,11 @@ func GetApiRuntime(sdkConfig *apiv1.SdkConfig, anonymous bool) (*client.Runtime,
 	if e != nil {
 		return nil, e
 	}
-	tp := client.New(u.Host, apiv1.CellsApiResourcePath, []string{u.Scheme})
+	basePath := sdkConfig.ApiResourcePrefix
+	if basePath == "" {
+		basePath = apiv1.CellsApiResourcePath
+	}
+	tp := client.New(u.Host, basePath, []string{u.Scheme})
 	options := []any{
 		v1http.WithSkipVerify(sdkConfig.SkipVerify),
 		v1http.WithCustomHeaders(sdkConfig.CustomHeaders),
