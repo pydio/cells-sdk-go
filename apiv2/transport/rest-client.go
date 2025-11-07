@@ -18,12 +18,8 @@ func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (
 		return nil, e
 	}
 
-	basePath := currConfig.ApiResourcePrefix
-	if basePath == "" {
-		basePath = CellsApiPrefix
-	}
-
-	tp := client.New(u.Host, basePath, []string{u.Scheme})
+	// Always use the canonical CellsApiPrefix for runtime transports
+	tp := client.New(u.Host, CellsApiPrefix, []string{u.Scheme})
 	transportOptions := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
@@ -46,6 +42,7 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 	if e != nil {
 		return nil, e
 	}
+	// Use ApiResourcePrefix when provided for client transports, otherwise default
 	basePath := currConfig.ApiResourcePrefix
 	if basePath == "" {
 		basePath = CellsApiPrefix
