@@ -17,7 +17,13 @@ func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (
 	if e != nil {
 		return nil, e
 	}
-	tp := client.New(u.Host, CellsApiPrefix, []string{u.Scheme})
+
+	basePath := currConfig.ApiResourcePrefix
+	if basePath == "" {
+		basePath = CellsApiPrefix
+	}
+
+	tp := client.New(u.Host, basePath, []string{u.Scheme})
 	transportOptions := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
@@ -40,12 +46,10 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 	if e != nil {
 		return nil, e
 	}
-
 	basePath := currConfig.ApiResourcePrefix
 	if basePath == "" {
 		basePath = CellsApiPrefix
 	}
-
 	tp := client.New(u.Host, basePath, []string{u.Scheme})
 	options := []any{
 		WithSkipVerify(currConfig.SkipVerify),
