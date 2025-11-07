@@ -67,7 +67,7 @@ func TestGetClientTransport(t *testing.T) {
 	})
 
 	t.Run("Custom BasePath", func(t *testing.T) {
-		custom := "/pub/a"
+		custom := "/myapi/a"
 		cfg := &apiv2.SdkConfig{Url: "http://localhost:1234", ApiResourcePrefix: custom}
 		rt, err := GetClientTransport(cfg, true)
 		if err != nil {

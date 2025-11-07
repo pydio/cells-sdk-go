@@ -12,14 +12,21 @@ import (
 	v2Client "github.com/pydio/cells-sdk-go/v5/apiv2/client"
 )
 
+// getApiPrefix Always use the default CellsApiPrefix for runtime transports
+func getApiPrefix(currConfig *apiv2.SdkConfig) string {
+	if currConfig.ApiResourcePrefix != "" {
+		return currConfig.ApiResourcePrefix
+	}
+	return CellsApiPrefix
+}
+
 func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (runtime.ClientTransport, error) {
 	u, e := url.Parse(currConfig.Url)
 	if e != nil {
 		return nil, e
 	}
 
-	// Always use the canonical CellsApiPrefix for runtime transports
-	tp := client.New(u.Host, CellsApiPrefix, []string{u.Scheme})
+	tp := client.New(u.Host, getApiPrefix(currConfig), []string{u.Scheme})
 	transportOptions := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
@@ -42,12 +49,8 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 	if e != nil {
 		return nil, e
 	}
-	// Use ApiResourcePrefix when provided for client transports, otherwise default
-	basePath := currConfig.ApiResourcePrefix
-	if basePath == "" {
-		basePath = CellsApiPrefix
-	}
-	tp := client.New(u.Host, basePath, []string{u.Scheme})
+
+	tp := client.New(u.Host, getApiPrefix(currConfig), []string{u.Scheme})
 	options := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
