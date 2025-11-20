@@ -37,10 +37,10 @@ type InstallInstallConfig struct {
 	// db connection type
 	DbConnectionType string `json:"dbConnectionType,omitempty"`
 
-	// db manual d s n
+	// Fully qualified DSN instead
 	DbManualDSN string `json:"dbManualDSN,omitempty"`
 
-	// db socket file
+	// Unix Socket Connection or SQlite File Path
 	DbSocketFile string `json:"dbSocketFile,omitempty"`
 
 	// db socket name
@@ -52,7 +52,7 @@ type InstallInstallConfig struct {
 	// db socket user
 	DbSocketUser string `json:"dbSocketUser,omitempty"`
 
-	// db TCP hostname
+	// TCP Connection
 	DbTCPHostname string `json:"dbTCPHostname,omitempty"`
 
 	// db TCP name
