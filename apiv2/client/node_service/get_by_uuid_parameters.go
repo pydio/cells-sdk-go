@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewGetByUUIDParams creates a new GetByUUIDParams object,
@@ -61,8 +62,8 @@ GetByUUIDParams contains all the parameters to send to the API endpoint
 */
 type GetByUUIDParams struct {
 
-	// Path.
-	Path *string
+	// Flags.
+	Flags []string
 
 	// UUID.
 	UUID string
@@ -120,15 +121,15 @@ func (o *GetByUUIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithPath adds the path to the get by Uuid params
-func (o *GetByUUIDParams) WithPath(path *string) *GetByUUIDParams {
-	o.SetPath(path)
+// WithFlags adds the flags to the get by Uuid params
+func (o *GetByUUIDParams) WithFlags(flags []string) *GetByUUIDParams {
+	o.SetFlags(flags)
 	return o
 }
 
-// SetPath adds the path to the get by Uuid params
-func (o *GetByUUIDParams) SetPath(path *string) {
-	o.Path = path
+// SetFlags adds the flags to the get by Uuid params
+func (o *GetByUUIDParams) SetFlags(flags []string) {
+	o.Flags = flags
 }
 
 // WithUUID adds the uuid to the get by Uuid params
@@ -150,20 +151,14 @@ func (o *GetByUUIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 	var res []error
 
-	if o.Path != nil {
+	if o.Flags != nil {
 
-		// query param Path
-		var qrPath string
+		// binding items for Flags
+		joinedFlags := o.bindParamFlags(reg)
 
-		if o.Path != nil {
-			qrPath = *o.Path
-		}
-		qPath := qrPath
-		if qPath != "" {
-
-			if err := r.SetQueryParam("Path", qPath); err != nil {
-				return err
-			}
+		// query array param Flags
+		if err := r.SetQueryParam("Flags", joinedFlags...); err != nil {
+			return err
 		}
 	}
 
@@ -176,4 +171,21 @@ func (o *GetByUUIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetByUUID binds the parameter Flags
+func (o *GetByUUIDParams) bindParamFlags(formats strfmt.Registry) []string {
+	flagsIR := o.Flags
+
+	var flagsIC []string
+	for _, flagsIIR := range flagsIR { // explode []string
+
+		flagsIIV := flagsIIR // string as string
+		flagsIC = append(flagsIC, flagsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	flagsIS := swag.JoinByFormat(flagsIC, "multi")
+
+	return flagsIS
 }

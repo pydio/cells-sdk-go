@@ -40,6 +40,9 @@ type RestNode struct {
 	// Additional features set at the datasource level
 	DataSourceFeatures *RestDataSourceFeatures `json:"DataSourceFeatures,omitempty"`
 
+	// CoolURL - if applicable, ready to use collabora src w/ expiration
+	EditorURLs map[string]RestPreSignedURL `json:"EditorURLs,omitempty"`
+
 	// Open map of integers metadata published on folders
 	FolderMeta []*RestCountMeta `json:"FolderMeta"`
 
@@ -128,6 +131,10 @@ func (m *RestNode) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDataSourceFeatures(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEditorURLs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -271,6 +278,32 @@ func (m *RestNode) validateDataSourceFeatures(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestNode) validateEditorURLs(formats strfmt.Registry) error {
+	if swag.IsZero(m.EditorURLs) { // not required
+		return nil
+	}
+
+	for k := range m.EditorURLs {
+
+		if err := validate.Required("EditorURLs"+"."+k, "body", m.EditorURLs[k]); err != nil {
+			return err
+		}
+		if val, ok := m.EditorURLs[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("EditorURLs" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("EditorURLs" + "." + k)
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -591,6 +624,10 @@ func (m *RestNode) ContextValidate(ctx context.Context, formats strfmt.Registry)
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateEditorURLs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateFolderMeta(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -728,6 +765,21 @@ func (m *RestNode) contextValidateDataSourceFeatures(ctx context.Context, format
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestNode) contextValidateEditorURLs(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.EditorURLs {
+
+		if val, ok := m.EditorURLs[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

@@ -21,13 +21,16 @@ type LookupFilterStatusFilter struct {
 	// deleted
 	Deleted *StatusFilterDeletedStatus `json:"Deleted,omitempty"`
 
+	// draft
+	Draft *StatusFilterDraftStatus `json:"Draft,omitempty"`
+
 	// has public link
 	HasPublicLink bool `json:"HasPublicLink,omitempty"`
 
 	// is bookmarked
 	IsBookmarked bool `json:"IsBookmarked,omitempty"`
 
-	// is draft
+	// IsDraft - to be deprecated in favor of DraftOnly status
 	IsDraft bool `json:"IsDraft,omitempty"`
 }
 
@@ -36,6 +39,10 @@ func (m *LookupFilterStatusFilter) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDeleted(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDraft(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,11 +71,34 @@ func (m *LookupFilterStatusFilter) validateDeleted(formats strfmt.Registry) erro
 	return nil
 }
 
+func (m *LookupFilterStatusFilter) validateDraft(formats strfmt.Registry) error {
+	if swag.IsZero(m.Draft) { // not required
+		return nil
+	}
+
+	if m.Draft != nil {
+		if err := m.Draft.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Draft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Draft")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this lookup filter status filter based on the context it is used
 func (m *LookupFilterStatusFilter) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateDeleted(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDraft(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -91,6 +121,27 @@ func (m *LookupFilterStatusFilter) contextValidateDeleted(ctx context.Context, f
 				return ve.ValidateName("Deleted")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Deleted")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LookupFilterStatusFilter) contextValidateDraft(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Draft != nil {
+
+		if swag.IsZero(m.Draft) { // not required
+			return nil
+		}
+
+		if err := m.Draft.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Draft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Draft")
 			}
 			return err
 		}
