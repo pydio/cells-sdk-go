@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -20,6 +21,9 @@ type RestNodeVersionsFilter struct {
 
 	// filter by
 	FilterBy *RestVersionsTypes `json:"FilterBy,omitempty"`
+
+	// flags
+	Flags []*RestFlag `json:"Flags"`
 
 	// limit
 	Limit string `json:"Limit,omitempty"`
@@ -39,6 +43,10 @@ func (m *RestNodeVersionsFilter) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateFilterBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFlags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -67,11 +75,41 @@ func (m *RestNodeVersionsFilter) validateFilterBy(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *RestNodeVersionsFilter) validateFlags(formats strfmt.Registry) error {
+	if swag.IsZero(m.Flags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Flags); i++ {
+		if swag.IsZero(m.Flags[i]) { // not required
+			continue
+		}
+
+		if m.Flags[i] != nil {
+			if err := m.Flags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Flags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Flags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this rest node versions filter based on the context it is used
 func (m *RestNodeVersionsFilter) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateFilterBy(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFlags(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,6 +135,31 @@ func (m *RestNodeVersionsFilter) contextValidateFilterBy(ctx context.Context, fo
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *RestNodeVersionsFilter) contextValidateFlags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Flags); i++ {
+
+		if m.Flags[i] != nil {
+
+			if swag.IsZero(m.Flags[i]) { // not required
+				return nil
+			}
+
+			if err := m.Flags[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Flags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Flags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
