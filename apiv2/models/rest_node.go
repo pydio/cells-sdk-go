@@ -43,6 +43,9 @@ type RestNode struct {
 	// CoolURL - if applicable, ready to use collabora src w/ expiration
 	EditorURLs map[string]RestPreSignedURL `json:"EditorURLs,omitempty"`
 
+	// List of available editor keys (for now always empty)
+	EditorURLsKeys []string `json:"EditorURLsKeys"`
+
 	// Open map of integers metadata published on folders
 	FolderMeta []*RestCountMeta `json:"FolderMeta"`
 
