@@ -35,6 +35,9 @@ type RestVersion struct {
 	// CoolURL - if applicable, ready to use collabora src w/ expiration
 	EditorURLs map[string]RestPreSignedURL `json:"EditorURLs,omitempty"`
 
+	// List of available editor keys (for now always empty)
+	EditorURLsKeys []string `json:"EditorURLsKeys"`
+
 	// If applicable, previews kept for this version
 	FilePreviews []*RestFilePreview `json:"FilePreviews"`
 
