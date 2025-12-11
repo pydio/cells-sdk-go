@@ -12,14 +12,6 @@ import (
 	v2Client "github.com/pydio/cells-sdk-go/v5/apiv2/client"
 )
 
-// getApiPrefix Always use the default CellsApiPrefix for runtime transports
-func getApiPrefix(currConfig *apiv2.SdkConfig) string {
-	if currConfig.ApiResourcePrefix != "" {
-		return currConfig.ApiResourcePrefix
-	}
-	return CellsApiPrefix
-}
-
 func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (runtime.ClientTransport, error) {
 	u, e := url.Parse(currConfig.Url)
 	if e != nil {
@@ -67,3 +59,12 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 
 	return tp, nil
 }
+
+// getApiPrefix always use the default CellsApiPrefix for runtime transports.
+func getApiPrefix(currConfig *apiv2.SdkConfig) string {
+	if currConfig.ApiResourcePrefix != "" {
+		return currConfig.ApiResourcePrefix
+	}
+	return CellsApiPrefix
+}
+
