@@ -60,7 +60,7 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 	return tp, nil
 }
 
-// getApiPrefix always use the default CellsApiPrefix for runtime transports.
+// getApiPrefix always uses the default CellsApiPrefix for runtime transports.
 func getApiPrefix(currConfig *apiv2.SdkConfig) string {
 	if currConfig.ApiResourcePrefix != "" {
 		return currConfig.ApiResourcePrefix
