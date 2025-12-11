@@ -50,6 +50,9 @@ const (
 
 	// RestFlagWithPreSignedURLs captures enum value "WithPreSignedURLs"
 	RestFlagWithPreSignedURLs RestFlag = "WithPreSignedURLs"
+
+	// RestFlagWithEditorURLs captures enum value "WithEditorURLs"
+	RestFlagWithEditorURLs RestFlag = "WithEditorURLs"
 )
 
 // for schema
@@ -57,7 +60,7 @@ var restFlagEnum []interface{}
 
 func init() {
 	var res []RestFlag
-	if err := json.Unmarshal([]byte(`["WithMetaDefaults","WithMetaCoreOnly","WithMetaNone","WithVersionsAll","WithVersionsDraft","WithVersionsPublished","WithPreSignedURLs"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["WithMetaDefaults","WithMetaCoreOnly","WithMetaNone","WithVersionsAll","WithVersionsDraft","WithVersionsPublished","WithPreSignedURLs","WithEditorURLs"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

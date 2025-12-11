@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -31,6 +32,15 @@ type RestVersion struct {
 	// Storage ETag
 	ETag string `json:"ETag,omitempty"`
 
+	// CoolURL - if applicable, ready to use collabora src w/ expiration
+	EditorURLs map[string]RestPreSignedURL `json:"EditorURLs,omitempty"`
+
+	// List of available editor keys (for now always empty)
+	EditorURLsKeys []string `json:"EditorURLsKeys"`
+
+	// If applicable, previews kept for this version
+	FilePreviews []*RestFilePreview `json:"FilePreviews"`
+
 	// This revision is actually the current HEAD
 	IsHead bool `json:"IsHead,omitempty"`
 
@@ -42,6 +52,9 @@ type RestVersion struct {
 
 	// Who performed this action - uuid
 	OwnerUUID string `json:"OwnerUuid,omitempty"`
+
+	// pre signed g e t
+	PreSignedGET *RestPreSignedURL `json:"PreSignedGET,omitempty"`
 
 	// Content Size at that moment
 	Size string `json:"Size,omitempty"`
@@ -55,6 +68,18 @@ type RestVersion struct {
 func (m *RestVersion) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateEditorURLs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilePreviews(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreSignedGET(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateVersionID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -62,6 +87,77 @@ func (m *RestVersion) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RestVersion) validateEditorURLs(formats strfmt.Registry) error {
+	if swag.IsZero(m.EditorURLs) { // not required
+		return nil
+	}
+
+	for k := range m.EditorURLs {
+
+		if err := validate.Required("EditorURLs"+"."+k, "body", m.EditorURLs[k]); err != nil {
+			return err
+		}
+		if val, ok := m.EditorURLs[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("EditorURLs" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("EditorURLs" + "." + k)
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RestVersion) validateFilePreviews(formats strfmt.Registry) error {
+	if swag.IsZero(m.FilePreviews) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.FilePreviews); i++ {
+		if swag.IsZero(m.FilePreviews[i]) { // not required
+			continue
+		}
+
+		if m.FilePreviews[i] != nil {
+			if err := m.FilePreviews[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("FilePreviews" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("FilePreviews" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RestVersion) validatePreSignedGET(formats strfmt.Registry) error {
+	if swag.IsZero(m.PreSignedGET) { // not required
+		return nil
+	}
+
+	if m.PreSignedGET != nil {
+		if err := m.PreSignedGET.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PreSignedGET")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PreSignedGET")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -74,8 +170,86 @@ func (m *RestVersion) validateVersionID(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this rest version based on context it is used
+// ContextValidate validate this rest version based on the context it is used
 func (m *RestVersion) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateEditorURLs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFilePreviews(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePreSignedGET(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestVersion) contextValidateEditorURLs(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.EditorURLs {
+
+		if val, ok := m.EditorURLs[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RestVersion) contextValidateFilePreviews(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.FilePreviews); i++ {
+
+		if m.FilePreviews[i] != nil {
+
+			if swag.IsZero(m.FilePreviews[i]) { // not required
+				return nil
+			}
+
+			if err := m.FilePreviews[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("FilePreviews" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("FilePreviews" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RestVersion) contextValidatePreSignedGET(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PreSignedGET != nil {
+
+		if swag.IsZero(m.PreSignedGET) { // not required
+			return nil
+		}
+
+		if err := m.PreSignedGET.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PreSignedGET")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PreSignedGET")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
