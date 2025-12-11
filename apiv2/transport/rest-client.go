@@ -17,7 +17,8 @@ func GetRuntimeTransport(context context.Context, currConfig *apiv2.SdkConfig) (
 	if e != nil {
 		return nil, e
 	}
-	tp := client.New(u.Host, CellsApiPrefix, []string{u.Scheme})
+
+	tp := client.New(u.Host, getApiPrefix(currConfig), []string{u.Scheme})
 	transportOptions := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
@@ -41,12 +42,7 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 		return nil, e
 	}
 
-	basePath := currConfig.ApiResourcePrefix
-	if basePath == "" {
-		basePath = CellsApiPrefix
-	}
-
-	tp := client.New(u.Host, basePath, []string{u.Scheme})
+	tp := client.New(u.Host, getApiPrefix(currConfig), []string{u.Scheme})
 	options := []any{
 		WithSkipVerify(currConfig.SkipVerify),
 		WithCustomHeaders(currConfig.CustomHeaders),
@@ -63,3 +59,12 @@ func GetClientTransport(currConfig *apiv2.SdkConfig, anonymous bool) (runtime.Cl
 
 	return tp, nil
 }
+
+// getApiPrefix always uses the default CellsApiPrefix for runtime transports.
+func getApiPrefix(currConfig *apiv2.SdkConfig) string {
+	if currConfig.ApiResourcePrefix != "" {
+		return currConfig.ApiResourcePrefix
+	}
+	return CellsApiPrefix
+}
+
