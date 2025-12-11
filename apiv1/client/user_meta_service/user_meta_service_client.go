@@ -58,6 +58,10 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	DeleteUserMetaTags(params *DeleteUserMetaTagsParams, opts ...ClientOption) (*DeleteUserMetaTagsOK, error)
 
+	GetFieldSchema(params *GetFieldSchemaParams, opts ...ClientOption) (*GetFieldSchemaOK, error)
+
+	GetNamespaceSchema(params *GetNamespaceSchemaParams, opts ...ClientOption) (*GetNamespaceSchemaOK, error)
+
 	ListUserMetaNamespace(params *ListUserMetaNamespaceParams, opts ...ClientOption) (*ListUserMetaNamespaceOK, error)
 
 	ListUserMetaTags(params *ListUserMetaTagsParams, opts ...ClientOption) (*ListUserMetaTagsOK, error)
@@ -110,6 +114,82 @@ func (a *Client) DeleteUserMetaTags(params *DeleteUserMetaTagsParams, opts ...Cl
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteUserMetaTags: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetFieldSchema gets Json schema for a given field type
+*/
+func (a *Client) GetFieldSchema(params *GetFieldSchemaParams, opts ...ClientOption) (*GetFieldSchemaOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFieldSchemaParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "GetFieldSchema",
+		Method:             "GET",
+		PathPattern:        "/user-meta/namespace/discovery/field/{FieldType}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &GetFieldSchemaReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetFieldSchemaOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetFieldSchema: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetNamespaceSchema gets Json schema for user meta namespace
+*/
+func (a *Client) GetNamespaceSchema(params *GetNamespaceSchemaParams, opts ...ClientOption) (*GetNamespaceSchemaOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetNamespaceSchemaParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "GetNamespaceSchema",
+		Method:             "GET",
+		PathPattern:        "/user-meta/namespace/jsonschema",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &GetNamespaceSchemaReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetNamespaceSchemaOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetNamespaceSchema: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
