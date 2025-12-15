@@ -60,6 +60,13 @@ GetNamespaceSchemaParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetNamespaceSchemaParams struct {
+
+	// FieldType.
+	FieldType *string
+
+	// Namespace.
+	Namespace *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -113,6 +120,28 @@ func (o *GetNamespaceSchemaParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFieldType adds the fieldType to the get namespace schema params
+func (o *GetNamespaceSchemaParams) WithFieldType(fieldType *string) *GetNamespaceSchemaParams {
+	o.SetFieldType(fieldType)
+	return o
+}
+
+// SetFieldType adds the fieldType to the get namespace schema params
+func (o *GetNamespaceSchemaParams) SetFieldType(fieldType *string) {
+	o.FieldType = fieldType
+}
+
+// WithNamespace adds the namespace to the get namespace schema params
+func (o *GetNamespaceSchemaParams) WithNamespace(namespace *string) *GetNamespaceSchemaParams {
+	o.SetNamespace(namespace)
+	return o
+}
+
+// SetNamespace adds the namespace to the get namespace schema params
+func (o *GetNamespaceSchemaParams) SetNamespace(namespace *string) {
+	o.Namespace = namespace
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetNamespaceSchemaParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -120,6 +149,40 @@ func (o *GetNamespaceSchemaParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
+
+	if o.FieldType != nil {
+
+		// query param FieldType
+		var qrFieldType string
+
+		if o.FieldType != nil {
+			qrFieldType = *o.FieldType
+		}
+		qFieldType := qrFieldType
+		if qFieldType != "" {
+
+			if err := r.SetQueryParam("FieldType", qFieldType); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Namespace != nil {
+
+		// query param Namespace
+		var qrNamespace string
+
+		if o.Namespace != nil {
+			qrNamespace = *o.Namespace
+		}
+		qNamespace := qrNamespace
+		if qNamespace != "" {
+
+			if err := r.SetQueryParam("Namespace", qNamespace); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
