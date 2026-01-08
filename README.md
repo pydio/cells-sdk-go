@@ -1,13 +1,12 @@
 # Cells SDK Go (v5)
 
 > **WARNING**: the v5 branch of the SDK is **not yet stable**: the API _**will**_ change before the GA release. We yet start to publish some snapshot versions to prepare the adaptation of the various clients.
-
-> **WARNING**: due to a breaking change in the AWS SDK we use under the hood to manage transfers, we had to adapt the server. As a consequence, the latest version of the SDKs (4.4+) requires at least a server that has version 4.4.**12**, or large uploads will fail.   
+> **WARNING**: due to a breaking change in the AWS SDK we use under the hood to manage transfers, we had to adapt the server. As a consequence, the latest version of the SDKs (4.4+) requires at least a server that has version 4.4.**12**, or large uploads will fail.  
 > If you are stuck with a target server that has an older version, please rather use the latest SDK of the 4.1 branch.  
 
 [Go](https://golang.org/) SDK for communicating with a Pydio Cells Server.
 
-This library allows fast implementation of clients using the Go language. 
+This library allows fast implementation of clients using the Go language.
 
 It provides:
 
@@ -44,7 +43,7 @@ For Cells v5, we started implementing a v2 version of the Cells API. We decided 
 Thus, we introduced a new level in the packages, you will then find at:
 
 - `pydio/cells-sdk-go/v5/apiv1`: The v1 of the API, mostly stable since the latest releases of the v4, you should only replace your imports from `pydio/cells-sdk-go/v4` in your client code
-- `pydio/cells-sdk-go/v5/apiv2`: A first limited version of the new REST API that is exposed by the server. **WARNING** this API is still work in progress and both the API and the SDK **will** change in the near future. Please use with care. 
+- `pydio/cells-sdk-go/v5/apiv2`: A first limited version of the new REST API that is exposed by the server. **WARNING** this API is still work in progress and both the API and the SDK **will** change in the near future. Please use with care.
 
 ### From SDK v4.1
 
