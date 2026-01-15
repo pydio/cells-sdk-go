@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -19,15 +20,76 @@ type IdmListPolicyGroupsRequest struct {
 
 	// filter
 	Filter string `json:"Filter,omitempty"`
+
+	// repeated string Filters = 2;
+	Query *ServiceQuery `json:"Query,omitempty"`
 }
 
 // Validate validates this idm list policy groups request
 func (m *IdmListPolicyGroupsRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateQuery(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this idm list policy groups request based on context it is used
+func (m *IdmListPolicyGroupsRequest) validateQuery(formats strfmt.Registry) error {
+	if swag.IsZero(m.Query) { // not required
+		return nil
+	}
+
+	if m.Query != nil {
+		if err := m.Query.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this idm list policy groups request based on the context it is used
 func (m *IdmListPolicyGroupsRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateQuery(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *IdmListPolicyGroupsRequest) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Query != nil {
+
+		if swag.IsZero(m.Query) { // not required
+			return nil
+		}
+
+		if err := m.Query.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

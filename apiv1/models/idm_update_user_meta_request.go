@@ -23,7 +23,7 @@ type IdmUpdateUserMetaRequest struct {
 	MetaDatas []*IdmUserMeta `json:"MetaDatas"`
 
 	// Type of operation to apply (PUT / DELETE)
-	Operation *UpdateUserMetaRequestUserMetaOp `json:"Operation,omitempty"`
+	Operation *IdmUpdateUserMetaRequestUserMetaOp `json:"Operation,omitempty"`
 }
 
 // Validate validates this idm update user meta request

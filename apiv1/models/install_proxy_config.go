@@ -30,6 +30,9 @@ type InstallProxyConfig struct {
 	// Hash dynamically computed from Binds and ReverseProxyURL
 	ComputedHash string `json:"ComputedHash,omitempty"`
 
+	// CorsOptions - Optional CorsOptions to be applied for this site - will override global ENV
+	CorsOptions *InstallCorsOptions `json:"CorsOptions,omitempty"`
+
 	// Optional headers modifications
 	HeaderMods []*InstallHeaderMod `json:"HeaderMods"`
 
@@ -61,6 +64,10 @@ func (m *InstallProxyConfig) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCertificate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCorsOptions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,6 +104,25 @@ func (m *InstallProxyConfig) validateCertificate(formats strfmt.Registry) error 
 				return ve.ValidateName("Certificate")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Certificate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *InstallProxyConfig) validateCorsOptions(formats strfmt.Registry) error {
+	if swag.IsZero(m.CorsOptions) { // not required
+		return nil
+	}
+
+	if m.CorsOptions != nil {
+		if err := m.CorsOptions.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CorsOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CorsOptions")
 			}
 			return err
 		}
@@ -203,6 +229,10 @@ func (m *InstallProxyConfig) ContextValidate(ctx context.Context, formats strfmt
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateCorsOptions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateHeaderMods(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -238,6 +268,27 @@ func (m *InstallProxyConfig) contextValidateCertificate(ctx context.Context, for
 				return ve.ValidateName("Certificate")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("Certificate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *InstallProxyConfig) contextValidateCorsOptions(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CorsOptions != nil {
+
+		if swag.IsZero(m.CorsOptions) { // not required
+			return nil
+		}
+
+		if err := m.CorsOptions.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CorsOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CorsOptions")
 			}
 			return err
 		}

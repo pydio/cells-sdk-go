@@ -21,6 +21,9 @@ type InstallRule struct {
 	// Action can be Rewrite, Redirect, etc...
 	Action string `json:"Action,omitempty"`
 
+	// CorsOptions - Optional CorsOptions to be applied for this site - will override site or global options
+	CorsOptions *InstallCorsOptions `json:"CorsOptions,omitempty"`
+
 	// Effect accepts or denies
 	Effect *InstallRuleEffect `json:"Effect,omitempty"`
 
@@ -36,6 +39,10 @@ type InstallRule struct {
 func (m *InstallRule) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCorsOptions(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateEffect(formats); err != nil {
 		res = append(res, err)
 	}
@@ -43,6 +50,25 @@ func (m *InstallRule) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *InstallRule) validateCorsOptions(formats strfmt.Registry) error {
+	if swag.IsZero(m.CorsOptions) { // not required
+		return nil
+	}
+
+	if m.CorsOptions != nil {
+		if err := m.CorsOptions.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CorsOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CorsOptions")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -69,6 +95,10 @@ func (m *InstallRule) validateEffect(formats strfmt.Registry) error {
 func (m *InstallRule) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateCorsOptions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateEffect(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -76,6 +106,27 @@ func (m *InstallRule) ContextValidate(ctx context.Context, formats strfmt.Regist
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *InstallRule) contextValidateCorsOptions(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CorsOptions != nil {
+
+		if swag.IsZero(m.CorsOptions) { // not required
+			return nil
+		}
+
+		if err := m.CorsOptions.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CorsOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CorsOptions")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
