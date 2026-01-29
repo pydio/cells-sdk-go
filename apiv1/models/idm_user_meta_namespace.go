@@ -19,8 +19,14 @@ import (
 // swagger:model idmUserMetaNamespace
 type IdmUserMetaNamespace struct {
 
+	// Human-readable Description
+	Description string `json:"Description,omitempty"`
+
 	// Use default value from JsonSchema to enforce defaults
 	EnforceDefault bool `json:"EnforceDefault,omitempty"`
+
+	// Namespace Type  "boolean", "choice", "css_label", "date", "integer", "json", "multi_value", "stars_rate", "string", "tag_cloud", "tags", "textarea", "url"
+	FieldType string `json:"FieldType,omitempty"`
 
 	// Whether a modification of a metadata value for this namespace should trigger an indexation by the search engine
 	Indexable bool `json:"Indexable,omitempty"`
