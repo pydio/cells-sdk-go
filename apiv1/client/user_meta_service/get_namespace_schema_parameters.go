@@ -64,6 +64,9 @@ type GetNamespaceSchemaParams struct {
 	// FieldType.
 	FieldType *string
 
+	// Format.
+	Format *string
+
 	// Namespace.
 	Namespace *string
 
@@ -131,6 +134,17 @@ func (o *GetNamespaceSchemaParams) SetFieldType(fieldType *string) {
 	o.FieldType = fieldType
 }
 
+// WithFormat adds the format to the get namespace schema params
+func (o *GetNamespaceSchemaParams) WithFormat(format *string) *GetNamespaceSchemaParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the get namespace schema params
+func (o *GetNamespaceSchemaParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithNamespace adds the namespace to the get namespace schema params
 func (o *GetNamespaceSchemaParams) WithNamespace(namespace *string) *GetNamespaceSchemaParams {
 	o.SetNamespace(namespace)
@@ -162,6 +176,23 @@ func (o *GetNamespaceSchemaParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qFieldType != "" {
 
 			if err := r.SetQueryParam("FieldType", qFieldType); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Format != nil {
+
+		// query param Format
+		var qrFormat string
+
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+
+			if err := r.SetQueryParam("Format", qFormat); err != nil {
 				return err
 			}
 		}
