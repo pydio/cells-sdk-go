@@ -19,11 +19,23 @@ import (
 // swagger:model idmUserMetaNamespace
 type IdmUserMetaNamespace struct {
 
+	// Human-readable Description
+	Description string `json:"Description,omitempty"`
+
+	// Use default value from JsonSchema to enforce defaults
+	EnforceDefault bool `json:"EnforceDefault,omitempty"`
+
+	// Namespace Type  "boolean", "choice", "css_label", "date", "integer", "json", "multi_value", "stars_rate", "string", "tag_cloud", "tags", "textarea", "url"
+	FieldType string `json:"FieldType,omitempty"`
+
 	// Whether a modification of a metadata value for this namespace should trigger an indexation by the search engine
 	Indexable bool `json:"Indexable,omitempty"`
 
 	// Json-encoded type to provide accurate interface for edition
 	JSONDefinition string `json:"JsonDefinition,omitempty"`
+
+	// JSON Schema for validating metadata values
+	JSONSchema interface{} `json:"JsonSchema,omitempty"`
 
 	// Human-readable Label
 	Label string `json:"Label,omitempty"`
@@ -39,6 +51,9 @@ type IdmUserMetaNamespace struct {
 
 	// Context-resolved to quickly check if this meta is editable or not
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
+
+	// Prompt options for this namespace
+	PromptOnUpload bool `json:"PromptOnUpload,omitempty"`
 }
 
 // Validate validates this idm user meta namespace
