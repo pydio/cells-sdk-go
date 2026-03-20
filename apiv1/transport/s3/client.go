@@ -41,23 +41,21 @@ func LoadConfig(ctx context.Context, sdc *apiv1.SdkConfig, options ...any) (aws.
 
 	httpClient := apiv1Transport.NewHttpClient(sdc, options...)
 
+	// Always default to Cells' S3 region so that local AWS profiles (e.g. ~/.aws/config)
+	// do not pollute signing. An AwsConfigOption passed by the caller can still override it.
 	cfg, err := config.LoadDefaultConfig(
 		ctx,
 		config.WithHTTPClient(httpClient),
 		config.WithCredentialsProvider(s3CredProv),
+		config.WithRegion(apiv1.DefaultS3Region),
 	)
 
-	// Apply defined AWS config options, e.G. to set a custom region.
+	// Apply defined AWS config options, e.g. to set a custom region.
 	for _, o := range options {
 		switch typed := o.(type) {
 		case apiv1.AwsConfigOption:
 			cfg = typed(cfg)
 		}
-	}
-
-	// This can be overwritten by an AwsConfigOption that are applied just above
-	if cfg.Region == "" {
-		cfg.Region = apiv1.DefaultS3Region
 	}
 
 	return cfg, err
