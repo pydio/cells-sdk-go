@@ -60,10 +60,6 @@ ListEntitiesParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type ListEntitiesParams struct {
-
-	// EntityID.
-	EntityID *string
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -117,17 +113,6 @@ func (o *ListEntitiesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithEntityID adds the entityID to the list entities params
-func (o *ListEntitiesParams) WithEntityID(entityID *string) *ListEntitiesParams {
-	o.SetEntityID(entityID)
-	return o
-}
-
-// SetEntityID adds the entityId to the list entities params
-func (o *ListEntitiesParams) SetEntityID(entityID *string) {
-	o.EntityID = entityID
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *ListEntitiesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -135,23 +120,6 @@ func (o *ListEntitiesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-
-	if o.EntityID != nil {
-
-		// query param EntityId
-		var qrEntityID string
-
-		if o.EntityID != nil {
-			qrEntityID = *o.EntityID
-		}
-		qEntityID := qrEntityID
-		if qEntityID != "" {
-
-			if err := r.SetQueryParam("EntityId", qEntityID); err != nil {
-				return err
-			}
-		}
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
