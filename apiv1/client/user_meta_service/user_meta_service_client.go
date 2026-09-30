@@ -56,15 +56,25 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateEntityValues(params *CreateEntityValuesParams, opts ...ClientOption) (*CreateEntityValuesOK, error)
+
+	DeleteEntity(params *DeleteEntityParams, opts ...ClientOption) (*DeleteEntityOK, error)
+
+	DeleteEntityValue(params *DeleteEntityValueParams, opts ...ClientOption) (*DeleteEntityValueOK, error)
+
 	DeleteUserMetaTags(params *DeleteUserMetaTagsParams, opts ...ClientOption) (*DeleteUserMetaTagsOK, error)
 
 	GetFieldSchema(params *GetFieldSchemaParams, opts ...ClientOption) (*GetFieldSchemaOK, error)
 
 	GetNamespaceSchema(params *GetNamespaceSchemaParams, opts ...ClientOption) (*GetNamespaceSchemaOK, error)
 
+	ListEntities(params *ListEntitiesParams, opts ...ClientOption) (*ListEntitiesOK, error)
+
 	ListUserMetaNamespace(params *ListUserMetaNamespaceParams, opts ...ClientOption) (*ListUserMetaNamespaceOK, error)
 
 	ListUserMetaTags(params *ListUserMetaTagsParams, opts ...ClientOption) (*ListUserMetaTagsOK, error)
+
+	PutEntity(params *PutEntityParams, opts ...ClientOption) (*PutEntityOK, error)
 
 	PutUserMetaTag(params *PutUserMetaTagParams, opts ...ClientOption) (*PutUserMetaTagOK, error)
 
@@ -77,6 +87,120 @@ type ClientService interface {
 	UserBookmarks(params *UserBookmarksParams, opts ...ClientOption) (*UserBookmarksOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateEntityValues create entity values API
+*/
+func (a *Client) CreateEntityValues(params *CreateEntityValuesParams, opts ...ClientOption) (*CreateEntityValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateEntityValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "CreateEntityValues",
+		Method:             "PUT",
+		PathPattern:        "/user-meta/entity/values",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &CreateEntityValuesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateEntityValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for CreateEntityValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteEntity delete entity API
+*/
+func (a *Client) DeleteEntity(params *DeleteEntityParams, opts ...ClientOption) (*DeleteEntityOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteEntityParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "DeleteEntity",
+		Method:             "DELETE",
+		PathPattern:        "/user-meta/entity/{EntityId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &DeleteEntityReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteEntityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteEntity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteEntityValue delete entity value API
+*/
+func (a *Client) DeleteEntityValue(params *DeleteEntityValueParams, opts ...ClientOption) (*DeleteEntityValueOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteEntityValueParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "DeleteEntityValue",
+		Method:             "DELETE",
+		PathPattern:        "/user-meta/entity/values/{EntityValueUuid}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &DeleteEntityValueReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteEntityValueOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteEntityValue: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -194,6 +318,44 @@ func (a *Client) GetNamespaceSchema(params *GetNamespaceSchemaParams, opts ...Cl
 }
 
 /*
+ListEntities list entities API
+*/
+func (a *Client) ListEntities(params *ListEntitiesParams, opts ...ClientOption) (*ListEntitiesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListEntitiesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ListEntities",
+		Method:             "GET",
+		PathPattern:        "/user-meta/entity",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListEntitiesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListEntitiesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ListEntities: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 ListUserMetaNamespace lists defined meta namespaces
 */
 func (a *Client) ListUserMetaNamespace(params *ListUserMetaNamespaceParams, opts ...ClientOption) (*ListUserMetaNamespaceOK, error) {
@@ -266,6 +428,44 @@ func (a *Client) ListUserMetaTags(params *ListUserMetaTagsParams, opts ...Client
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for ListUserMetaTags: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+PutEntity put entity API
+*/
+func (a *Client) PutEntity(params *PutEntityParams, opts ...ClientOption) (*PutEntityOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutEntityParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "PutEntity",
+		Method:             "PUT",
+		PathPattern:        "/user-meta/entity",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &PutEntityReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutEntityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutEntity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
