@@ -14,53 +14,29 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// IdmUserMetaNamespace Globally declared Namespace with associated policies
+// IdmMetaEntity MetaEntity represents a metadata entity (e.g., "Department", "Project")
 //
-// swagger:model idmUserMetaNamespace
-type IdmUserMetaNamespace struct {
+// swagger:model idmMetaEntity
+type IdmMetaEntity struct {
 
-	// Human-readable Description
+	// description
 	Description string `json:"Description,omitempty"`
 
-	// Use default value from JsonSchema to enforce defaults
-	EnforceDefault bool `json:"EnforceDefault,omitempty"`
-
-	// Associated Entity UUID
-	EntityUUID string `json:"EntityUUID,omitempty"`
-
-	// Namespace Type  "boolean", "choice", "css_label", "date", "integer", "json", "multi_value", "stars_rate", "string", "tag_cloud", "tags", "textarea", "url"
-	FieldType string `json:"FieldType,omitempty"`
-
-	// Whether a modification of a metadata value for this namespace should trigger an indexation by the search engine
-	Indexable bool `json:"Indexable,omitempty"`
-
-	// Json-encoded type to provide accurate interface for edition
-	JSONDefinition string `json:"JsonDefinition,omitempty"`
-
-	// JSON Schema for validating metadata values
-	JSONSchema interface{} `json:"JsonSchema,omitempty"`
-
-	// Human-readable Label
+	// label
 	Label string `json:"Label,omitempty"`
 
-	// Namespace identifier, must be unique
-	Namespace string `json:"Namespace,omitempty"`
-
-	// Order is used for sorting lists of namesapces
-	Order int32 `json:"Order,omitempty"`
-
-	// Policies securing this namespace
+	// policies
 	Policies []*ServiceResourcePolicy `json:"Policies"`
 
-	// Context-resolved to quickly check if this meta is editable or not
+	// policies context editable
 	PoliciesContextEditable bool `json:"PoliciesContextEditable,omitempty"`
 
-	// Prompt options for this namespace
-	PromptOnUpload bool `json:"PromptOnUpload,omitempty"`
+	// Uuid
+	UUID string `json:"Uuid,omitempty"`
 }
 
-// Validate validates this idm user meta namespace
-func (m *IdmUserMetaNamespace) Validate(formats strfmt.Registry) error {
+// Validate validates this idm meta entity
+func (m *IdmMetaEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePolicies(formats); err != nil {
@@ -73,7 +49,7 @@ func (m *IdmUserMetaNamespace) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *IdmUserMetaNamespace) validatePolicies(formats strfmt.Registry) error {
+func (m *IdmMetaEntity) validatePolicies(formats strfmt.Registry) error {
 	if swag.IsZero(m.Policies) { // not required
 		return nil
 	}
@@ -99,8 +75,8 @@ func (m *IdmUserMetaNamespace) validatePolicies(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this idm user meta namespace based on the context it is used
-func (m *IdmUserMetaNamespace) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this idm meta entity based on the context it is used
+func (m *IdmMetaEntity) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidatePolicies(ctx, formats); err != nil {
@@ -113,7 +89,7 @@ func (m *IdmUserMetaNamespace) ContextValidate(ctx context.Context, formats strf
 	return nil
 }
 
-func (m *IdmUserMetaNamespace) contextValidatePolicies(ctx context.Context, formats strfmt.Registry) error {
+func (m *IdmMetaEntity) contextValidatePolicies(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Policies); i++ {
 
@@ -139,7 +115,7 @@ func (m *IdmUserMetaNamespace) contextValidatePolicies(ctx context.Context, form
 }
 
 // MarshalBinary interface implementation
-func (m *IdmUserMetaNamespace) MarshalBinary() ([]byte, error) {
+func (m *IdmMetaEntity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -147,8 +123,8 @@ func (m *IdmUserMetaNamespace) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *IdmUserMetaNamespace) UnmarshalBinary(b []byte) error {
-	var res IdmUserMetaNamespace
+func (m *IdmMetaEntity) UnmarshalBinary(b []byte) error {
+	var res IdmMetaEntity
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
